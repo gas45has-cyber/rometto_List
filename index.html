@@ -29,14 +29,33 @@
         h1 { text-align: center; font-size: 34px; margin: 20px 0; color: #fff; text-transform: uppercase; }
         h2 { width: 100%; max-width: 900px; margin-top: 45px; border-bottom: 2px solid #444; padding-bottom: 6px; color: #e67e22; text-transform: uppercase; }
         
-        /* Стиль для мини-заголовка внешности */
-        .appearance-header {
+        /* Стиль для мини-заголовков (внешность и контакты) */
+        .sub-header {
             color: #e67e22;
             font-weight: bold;
             text-transform: uppercase;
             font-size: 14px;
             margin-bottom: 5px;
             margin-top: 0;
+        }
+
+        /* Стиль для блока контактов */
+        .contacts-block {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        .contact-link {
+            color: #d2b48c;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            border-bottom: 1px solid transparent;
+        }
+        .contact-link:hover {
+            color: #e67e22;
+            border-bottom-color: #e67e22;
         }
 
         table { width: 100%; max-width: 900px; border-collapse: collapse; margin-top: 20px; color: #d2b48c; background: #111; }
@@ -83,7 +102,7 @@
         img { max-width: 900px; width: 100%; display: block; border-radius: 4px; -webkit-user-drag: none; margin: 0 auto; }
 
         @media print { body { display: none !important; } }
-        @media (max-width: 600px) { body { padding: 10px; } table { font-size: 11px; } .nav-btn { padding: 10px 20px; font-size: 12px; } }
+        @media (max-width: 600px) { body { padding: 10px; } table { font-size: 11px; } .nav-btn { padding: 10px 20px; font-size: 12px; } .contacts-block { flex-direction: column; gap: 5px; } }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -92,23 +111,32 @@
         <div class="age-gate-content">
             <h2 style="border:none; margin:0 0 20px 0; color:#fff;">ВНИМАНИЕ: 18+</h2>
             <p>Этот лист содержит детализированные биологические данные и изображения NSFW. Вам есть 18 лет?</p>
-            <button class="age-btn" onclick="document.getElementById('age-gate').style.display='none'">ДА, МНЕ ЕСТЬ 18</button>
+            <button class="age-btn" onclick="confirmAge()">ДА, МНЕ ЕСТЬ 18</button>
         </div>
     </div>
 
     <h1>Биологический лист Рометто</h1>
 
-    <a href=" NotFoud.html" class="nav-btn">Биография и Лор</a>
+    <a href="NotFoud.html" class="nav-btn">Биография и Лор</a>
 
     <div style="text-align:center; margin-bottom:15px; width: 100%;">
         <img src="assets/rometto_ru_nsfw.png" alt="Rometto">
     </div>
 
-    <div style="text-align: left; width: 100%; max-width: 900px; margin-bottom: 20px; font-family: 'Segoe UI', sans-serif;">
-        <p class="appearance-header">Внешность и вид:</p>
+    <div style="text-align: left; width: 100%; max-width: 900px; margin-bottom: 15px; font-family: 'Segoe UI', sans-serif;">
+        <p class="sub-header">Внешность и вид:</p>
         <p style="margin: 0; font-size: 15px;">
             <em>[добавится позже, у меня всё же лапки]</em>
         </p>
+    </div>
+
+    <div style="text-align: left; width: 100%; max-width: 900px; margin-bottom: 20px;">
+        <p class="sub-header">Каналы связи:</p>
+        <div class="contacts-block">
+            <a href="#" class="contact-link" target="_blank">[ТГ Иконка] Мой ТГ</a>
+            <a href="#" class="contact-link" target="_blank">[FA Иконка] Мой FA</a>
+            <a href="#" class="contact-link" target="_blank">[ВК Иконка] Мой ВК</a>
+        </div>
     </div>
 
     <div style="text-align: center; margin-bottom: 30px;">
@@ -202,6 +230,20 @@
 
     <script>
         const body = document.body;
+        const ageGate = document.getElementById('age-gate');
+
+        // УМНАЯ ПРОВЕРКА ВОЗРАСТА
+        // Если в localStorage уже есть отметка "ageConfirmed", скрываем окно сразу
+        if (localStorage.getItem('ageConfirmed') === 'true') {
+            ageGate.style.display = 'none';
+        }
+
+        // Функция подтверждения возраста (запускается при клике на "Да")
+        function confirmAge() {
+            localStorage.setItem('ageConfirmed', 'true'); // Запоминаем выбор
+            ageGate.style.display = 'none'; // Скрываем окно
+        }
+
         function setBlur(on) {
             if (on) body.classList.add('protected-blur');
             else body.classList.remove('protected-blur');
@@ -224,7 +266,7 @@
             }
         });
         window.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && [80, 83, 85].includes(e.keyCode) || e.keyCode == 123) {
+            if (e.ctrlKey && [80, 83, 117].includes(e.keyCode) || e.keyCode == 123) {
                 e.preventDefault();
                 setBlur(true);
                 setTimeout(() => setBlur(false), 2000);
