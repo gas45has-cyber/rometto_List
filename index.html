@@ -13,14 +13,43 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Защита от выделения */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            transition: filter 0.3s, opacity 0.3s;
         }
 
-        /* Возрастной фильтр (Age Gate) */
+        /* Защитный экран от скриншотов */
+        #screen-shield {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            display: none;
+            z-index: 30000;
+            justify-content: center;
+            align-items: center;
+            color: #e67e22;
+            font-weight: bold;
+            font-size: 24px;
+            text-transform: uppercase;
+        }
+
+        /* Блокировщик для мобильных */
+        #mobile-block {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #000;
+            color: #fff;
+            z-index: 20000;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Возрастной фильтр */
         #age-gate {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -46,13 +75,11 @@
             text-shadow: 0 0 20px rgba(230, 126, 34, 0.3);
         }
 
-        /* Кнопки навигации */
         .nav-button {
             display: inline-block; padding: 12px 30px; margin: 20px 0;
             background: transparent; color: #e67e22; border: 2px solid #e67e22;
             border-radius: 5px; text-decoration: none; font-weight: bold;
-            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
-            cursor: pointer;
+            text-transform: uppercase; transition: 0.3s; cursor: pointer;
         }
         .nav-button:hover { background: #e67e22; color: #fff; box-shadow: 0 0 15px rgba(230, 126, 34, 0.4); }
 
@@ -86,17 +113,25 @@
         }
 
         .artist-link { color: #e67e22; text-decoration: none; font-weight: bold; transition: 0.3s; }
-        .artist-link:hover { color: #ff9f43; }
 
         @media print { body { display: none !important; } }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
+    <div id="screen-shield">ЗАХВАТ ЭКРАНА ЗАПРЕЩЕН</div>
+
+    <div id="mobile-block">
+        <div>
+            <h1 style="color: #e67e22;">ДОСТУП ОГРАНИЧЕН</h1>
+            <p>Просмотр данного материала разрешен только с персональных компьютеров.</p>
+        </div>
+    </div>
+
     <div id="age-gate">
         <div class="age-gate-content">
             <h2 style="border:none; margin:0 0 20px 0;">ВНИМАНИЕ: 18+</h2>
-            <p>Этот ресурс содержит материалы для взрослых (NSFW). Нажимая кнопку ниже, вы подтверждаете, что вам исполнилось 18 лет и вы осознаете свои действия.</p>
+            <p>Этот ресурс содержит материалы для взрослых (NSFW). Нажимая «ОК», вы подтверждаете, что вам исполнилось 18 лет и вы осознаете свои действия.</p>
             <button class="age-btn" onclick="document.getElementById('age-gate').style.display='none'">МНЕ ЕСТЬ 18 ЛЕТ — ОК</button>
         </div>
     </div>
@@ -122,7 +157,7 @@
         <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
         <tr><td>Тип</td><td>Феральный лев</td><td>-</td><td>Гигантский феральный лев-полудемон</td></tr>
         <tr><td>Рост в холке</td><td>≈1.2 м</td><td>-</td><td>≈4.17 м</td></tr>
-        <tr><td>Полная длина</td><td>≈3 м</td><td>L × k</td><td>≈10 м</td></tr>
+        <tr><td>Длина тела</td><td>≈2.5 м</td><td>L × k</td><td>≈6 м</td></tr>
         <tr><td>Масса</td><td>≈220 кг</td><td>M × k³</td><td>≈9.2 т</td></tr>
         <tr><td>Размер мозга</td><td>≈240 г</td><td>M^0.75</td><td>≈1.6–1.8 кг</td></tr>
         <tr><td>Длина клыков</td><td>≈7–8 см</td><td>L × k</td><td>≈24–28 см</td></tr>
@@ -171,10 +206,10 @@
 
     <h2>7. Охота</h2>
     <div class="section-text">
-        <p>Рометто использует массу. Удар лапой создает давление до 30 тонн, мгновенно разрушая скелет жертвы. Основной метод — раздавливание черепа или грудной клетки весом тела.</p>
+        <p>Основным оружием является масса тела и огромные лапы. Удар лапой создает давление до 30 тонн, мгновенно разрушая скелет жертвы. Финальный способ убийства — раздавливание черепа весом тела.</p>
     </div>
 
-    <h2>8. Формулы масштабирования</h2>
+    <h2>Формулы масштабирования</h2>
     <div class="formula-box">
         <b>Линейный коэффициент (k = 3.47):</b> Для длин и органов.<br>
         <b>Кубический закон (k³ ≈ 41.8):</b> Для массы и объёмов.
@@ -183,23 +218,36 @@
     <a href="#" class="nav-button">Биография и лор</a>
 
     <script>
-        // Защита: Контекстное меню
-        document.oncontextmenu = function() { return false; };
-
-        // Защита: Размытие при скриншотах/потере фокуса
-        window.addEventListener('keydown', function() {
-            document.body.style.filter = 'blur(100px)';
-            setTimeout(() => { document.body.style.filter = 'none'; }, 1500);
-        });
-        window.addEventListener('blur', function() { document.body.style.filter = 'blur(100px)'; });
-        window.addEventListener('focus', function() { document.body.style.filter = 'none'; });
-
-        // Защита: Клавиши (F12, Ctrl+U, S, P)
-        document.onkeydown = function(e) {
-            if (e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83 || e.keyCode == 80))) {
-                return false;
+        // Проверка устройства
+        function checkDevice() {
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024) {
+                document.getElementById('mobile-block').style.display = 'flex';
+                document.body.style.display = 'none';
             }
-        };
+        }
+        checkDevice();
+
+        const shield = document.getElementById('screen-shield');
+        function activateShield() {
+            shield.style.display = 'flex';
+            document.body.style.filter = 'blur(100px)';
+            setTimeout(() => { shield.style.display = 'none'; document.body.style.filter = 'none'; }, 3000);
+        }
+
+        // Защита от PrintScreen и горячих клавиш
+        window.addEventListener('keyup', (e) => { if (e.key === "PrintScreen" || e.keyCode === 44) activateShield(); });
+        window.addEventListener('keydown', (e) => {
+            if (e.keyCode == 123 || (e.ctrlKey && [85, 83, 80].includes(e.keyCode))) {
+                e.preventDefault();
+                activateShield();
+            }
+        });
+
+        // Скрытие при потере фокуса (Win+Shift+S)
+        window.addEventListener('blur', () => { document.body.style.opacity = '0'; shield.style.display = 'flex'; });
+        window.addEventListener('focus', () => { document.body.style.opacity = '1'; shield.style.display = 'none'; });
+
+        document.oncontextmenu = () => false;
     </script>
 </body>
 </html>
