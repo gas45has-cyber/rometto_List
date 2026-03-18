@@ -10,34 +10,16 @@
             background: #0a0a0a;
             color: #e8e8e8;
             margin: 0;
-            padding: 40px;
+            padding: 20px;
             line-height: 1.6;
             display: flex;
             flex-direction: column;
             align-items: center;
             -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
             user-select: none;
-            transition: filter 0.3s, opacity 0.3s;
         }
 
-        /* Окно блокировки мобильных — теперь гарантированно черное */
-        #mobile-block {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; 
-            width: 100vw; height: 100vh;
-            background: #000 !important;
-            color: #fff;
-            z-index: 99999; /* Самый высокий приоритет */
-            justify-content: center; 
-            align-items: center; 
-            text-align: center;
-            flex-direction: column;
-        }
-
-        /* Защитный экран от скриншотов и печати */
+        /* Защитный слой (черный экран) */
         #screen-shield {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -47,17 +29,8 @@
             justify-content: center;
             align-items: center;
             color: #e67e22;
-            font-weight: bold;
-            font-size: 20px;
-            text-transform: uppercase;
             text-align: center;
-            padding: 20px;
-        }
-
-        /* Скрытие контента при печати */
-        @media print {
-            body { display: none !important; }
-            #screen-shield { display: flex !important; }
+            font-weight: bold;
         }
 
         /* Возрастной фильтр */
@@ -69,9 +42,8 @@
             z-index: 10000; backdrop-filter: blur(20px);
         }
         .age-gate-content {
-            background: #151515; padding: 40px; border: 2px solid #e67e22;
-            border-radius: 10px; text-align: center; max-width: 80%;
-            box-shadow: 0 0 40px rgba(230, 126, 34, 0.4);
+            background: #151515; padding: 30px; border: 2px solid #e67e22;
+            border-radius: 10px; text-align: center; max-width: 90%;
         }
         .age-btn {
             padding: 15px 40px; background: #e67e22; color: #fff; border: none;
@@ -79,35 +51,30 @@
             text-transform: uppercase; margin-top: 20px;
         }
 
-        h1 { text-align: center; font-size: 32px; text-transform: uppercase; color: #fff; }
-        h2 { width: 100%; max-width: 1000px; margin-top: 40px; border-bottom: 2px solid #e67e22; color: #e67e22; padding-bottom: 5px; }
+        h1 { font-size: 28px; text-transform: uppercase; color: #fff; text-align: center; }
+        h2 { width: 100%; max-width: 900px; margin-top: 40px; border-bottom: 2px solid #e67e22; color: #e67e22; padding-bottom: 5px; text-transform: uppercase; font-size: 18px; }
         
-        table { width: 100%; max-width: 1000px; border-collapse: collapse; margin-top: 20px; background: #111; font-size: 14px; }
-        th, td { border: 1px solid #333; padding: 10px; text-align: center; }
+        table { width: 100%; max-width: 900px; border-collapse: collapse; margin-top: 15px; background: #111; font-size: 13px; }
+        th, td { border: 1px solid #333; padding: 8px; text-align: center; }
         th { background: #1a1a1a; color: #e67e22; }
+        tr:nth-child(even) { background: #151515; }
 
-        .image-container { position: relative; margin-bottom: 20px; box-shadow: 0 10px 30px #000; }
-        img { max-width: 900px; width: 100%; display: block; -webkit-user-drag: none; }
+        .image-container { position: relative; margin-top: 20px; width: 100%; max-width: 800px; box-shadow: 0 10px 30px #000; }
+        img { width: 100%; display: block; -webkit-user-drag: none; }
 
-        .nav-button {
-            display: inline-block; padding: 10px 25px; margin: 20px 0;
-            border: 2px solid #e67e22; color: #e67e22; text-decoration: none;
-            font-weight: bold; text-transform: uppercase; border-radius: 5px;
-        }
+        .section-text { width: 100%; max-width: 900px; background: #111; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #e67e22; }
+        .nav-button { display: inline-block; padding: 10px 20px; margin: 20px 0; border: 2px solid #e67e22; color: #e67e22; text-decoration: none; font-weight: bold; border-radius: 5px; }
+
+        @media print { body { display: none !important; } }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div id="mobile-block">
-        <h1 style="color: #e67e22; font-size: 24px;">ДОСТУП ОГРАНИЧЕН</h1>
-        <p style="padding: 0 20px;">Биологический лист Рометто содержит сложные таблицы и защищенные данные.<br><br><b>Пожалуйста, используйте ПК для просмотра.</b></p>
-    </div>
-
-    <div id="screen-shield">ЗАХВАТ ЭКРАНА И ПЕЧАТЬ ЗАПРЕЩЕНЫ</div>
+    <div id="screen-shield">КОНТЕНТ ЗАЩИЩЕН ОТ ЗАХВАТА</div>
 
     <div id="age-gate">
         <div class="age-gate-content">
-            <h2 style="border:none; margin:0 0 20px 0;">ВНИМАНИЕ: 18+</h2>
+            <h2>ВНИМАНИЕ: 18+</h2>
             <p>Этот ресурс содержит NSFW-материалы. Вам есть 18 лет?</p>
             <button class="age-btn" onclick="document.getElementById('age-gate').style.display='none'">ДА, МНЕ ЕСТЬ 18</button>
         </div>
@@ -115,92 +82,116 @@
 
     <div id="main-content">
         <h1>Биологический лист Рометто</h1>
-        <a href="#" class="nav-button">Биография и лор</a>
-
+        
         <div class="image-container">
             <img src="assets/rometto_ru_nsfw.png" alt="Rometto">
+        </div>
+
+        <div style="text-align: center; margin-top: 10px;">
+            <p style="color: #d2b48c; font-size: 14px;">Художница: <a href="https://t.me/ricky0plush" target="_blank" style="color: #e67e22; text-decoration: none; font-weight: bold;">Telegram</a></p>
         </div>
 
         <h2>1. Общая биология</h2>
         <table>
             <tr><th>Параметр</th><th>Лев</th><th>Формула</th><th>Рометто</th></tr>
+            <tr><td>Тип</td><td>Феральный</td><td>-</td><td>Гигантский лев-полудемон</td></tr>
+            <tr><td>Рост в холке</td><td>≈1.2 м</td><td>-</td><td>≈4.17 м</td></tr>
             <tr><td>Масса</td><td>≈220 кг</td><td>M &times; k³</td><td>≈9.2 т</td></tr>
-            <tr><td>Длина</td><td>≈3 м</td><td>L &times; k</td><td>≈10 м</td></tr>
+            <tr><td>Клыки</td><td>≈7–8 см</td><td>L &times; k</td><td>≈24–28 см</td></tr>
+        </table>
+
+        <h2>2. Сердечно-сосудистая и дыхательная</h2>
+        <table>
+            <tr><th>Параметр</th><th>Лев</th><th>Формула</th><th>Рометто</th></tr>
+            <tr><td>Сердце</td><td>≈1 кг</td><td>M &times; k³</td><td>≈40 кг</td></tr>
+            <tr><td>Кровь</td><td>≈15 л</td><td>M &times; k³</td><td>≈600 л (демоническая)</td></tr>
+            <tr><td>Чих (скорость)</td><td>≈10 м/с</td><td>-</td><td>≈80–100 м/с (ударная волна)</td></tr>
+            <tr><td>Температура</td><td>≈38 °C</td><td>-</td><td>39–40 °C (пик 45 °C)</td></tr>
+        </table>
+
+        <h2>3. Репродуктивная система</h2>
+        <table>
+            <tr><th>Параметр</th><th>Лев</th><th>Формула</th><th>Рометто</th></tr>
+            <tr><td>Яички (пара)</td><td>≈500 г</td><td>M &times; k³</td><td>≈18–20 кг</td></tr>
+            <tr><td>Пенис (эрекция)</td><td>≈25 см</td><td>L &times; k</td><td>≈65–75 см</td></tr>
+            <tr><td>Эякулят</td><td>≈60 мл</td><td>M &times; k³</td><td>≈1–2 л (180 км/ч)</td></tr>
+        </table>
+
+        <h2>4. Выделительная система</h2>
+        <table>
+            <tr><th>Параметр</th><th>Лев</th><th>Формула</th><th>Рометто</th></tr>
+            <tr><td>Моча (сутки)</td><td>≈1.5 л</td><td>M &times; k³</td><td>≈57 л</td></tr>
+            <tr><td>Кал (сутки)</td><td>≈2 кг</td><td>M &times; k³</td><td>≈76 кг</td></tr>
+            <tr><td>Размер кала</td><td>15 см</td><td>L &times; k</td><td>≈50 см</td></tr>
         </table>
 
         <h2>5. Звук и коммуникация</h2>
         <table>
             <tr><th>Параметр</th><th>Лев</th><th>Формула</th><th>Рометто</th></tr>
-            <tr><td>Громкость</td><td>114 dB</td><td>лёгкие</td><td>160 dB</td></tr>
+            <tr><td>Громкость</td><td>114 dB</td><td>лёгкие</td><td>150–160 dB</td></tr>
             <tr><td>Дальность</td><td>≈8 км</td><td>мощность</td><td>20–30 км</td></tr>
+            <tr><td>Тип</td><td>Рёв</td><td>резонатор</td><td>Инфразвуковой доминирующий рёв</td></tr>
         </table>
 
-        <h2>6. Выделительная система</h2>
-        <table>
-            <tr><th>Параметр</th><th>Лев</th><th>Формула</th><th>Рометто</th></tr>
-            <tr><td>Моча (сутки)</td><td>≈1.5 л</td><td>M &times; k³</td><td>≈57 л</td></tr>
-            <tr><td>Кал (сутки)</td><td>≈2 кг</td><td>M &times; k³</td><td>≈76 кг</td></tr>
-        </table>
+        <h2>6. Охота</h2>
+        <div class="section-text">
+            <p>Основное оружие — <b>масса тела</b>. Удар лапой шириной 70 см создает давление до 30 тонн. Рометто не просто кусает, он раздавливает скелет жертвы одним движением конечности.</p>
+        </div>
 
-        <a href="#" class="nav-button">Биография и лор</a>
+        <div style="text-align:center;">
+            <a href="#" class="nav-button">Биография и лор</a>
+        </div>
     </div>
 
     <script>
-        // Проверка устройства: если мобила — прячем контент, показываем черный блок
-        function checkDevice() {
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 1024;
-            if (isMobile) {
-                document.getElementById('mobile-block').style.display = 'flex';
-                document.getElementById('main-content').style.display = 'none';
-                document.getElementById('age-gate').style.display = 'none';
-                document.body.style.background = '#000';
-            }
-        }
-        checkDevice();
-        window.addEventListener('resize', checkDevice);
-
         const shield = document.getElementById('screen-shield');
+        const content = document.getElementById('main-content');
 
-        // Вспышка защиты
-        function activateShield() {
+        // Включение защиты
+        function showShield() {
             shield.style.display = 'flex';
-            document.body.style.filter = 'blur(100px)';
-            setTimeout(() => { 
-                if(!window.isPrinting) {
-                    shield.style.display = 'none'; 
-                    document.body.style.filter = 'none'; 
-                }
-            }, 3000);
+            content.style.opacity = '0';
         }
 
-        // Защита от горячих клавиш (Печать, Сохранение, Исходный код)
-        window.addEventListener('keydown', (e) => {
+        // Выключение защиты
+        function hideShield() {
+            shield.style.display = 'none';
+            content.style.opacity = '1';
+        }
+
+        // 1. Защита на телефоне: если страница скрыта (скриншот, сворачивание)
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden) showShield();
+            else hideShield();
+        });
+
+        // 2. Защита при потере фокуса (панель уведомлений, кнопки системы)
+        window.addEventListener('blur', showShield);
+        window.addEventListener('focus', hideShield);
+
+        // 3. Защита от PrintScreen (ПК)
+        window.addEventListener('keyup', function(e) {
+            if (e.key === "PrintScreen" || e.keyCode === 44) {
+                showShield();
+                setTimeout(hideShield, 2000);
+            }
+        });
+
+        // 4. Защита от горячих клавиш (Ctrl+P, Ctrl+U, Ctrl+S, F12)
+        window.addEventListener('keydown', function(e) {
             if (e.ctrlKey && [80, 83, 85].includes(e.keyCode) || e.keyCode == 123) {
                 e.preventDefault();
-                activateShield();
+                showShield();
+                setTimeout(hideShield, 2000);
             }
         });
 
-        // Детектор PrintScreen
-        window.addEventListener('keyup', (e) => {
-            if (e.key === "PrintScreen" || e.keyCode === 44) activateShield();
-        });
-
-        // События печати
-        window.onbeforeprint = () => { window.isPrinting = true; activateShield(); };
-        window.onafterprint = () => { window.isPrinting = false; shield.style.display = 'none'; document.body.style.filter = 'none'; };
-
-        // Скрытие при переключении окон (защита от Win+Shift+S)
-        window.addEventListener('blur', () => { 
-            document.getElementById('main-content').style.opacity = '0'; 
-            shield.style.display = 'flex'; 
-        });
-        window.addEventListener('focus', () => { 
-            document.getElementById('main-content').style.opacity = '1'; 
-            shield.style.display = 'none'; 
-        });
-
+        // 5. Запрет контекстного меню
         document.oncontextmenu = () => false;
+
+        // 6. Блокировка печати
+        window.onbeforeprint = showShield;
+        window.onafterprint = hideShield;
     </script>
 </body>
 </html>
