@@ -116,33 +116,11 @@
             transition: 0.3s;
         }
         .artist-link:hover { color: #ff9f43; }
-        <script>
-    // 1. Запрет правой кнопки мыши
-    document.oncontextmenu = function() { return false; };
 
-    // 2. Размытие при попытке сделать скриншот (нажатие любой клавиши)
-    // Или если пользователь переключился на "Ножницы" (blur)
-    window.addEventListener('keydown', function() {
-        document.body.style.filter = 'blur(100px)';
-        setTimeout(() => { document.body.style.filter = 'none'; }, 1500);
-    });
-
-    window.addEventListener('blur', function() {
-        document.body.style.filter = 'blur(100px)';
-    });
-
-    window.addEventListener('focus', function() {
-        document.body.style.filter = 'none';
-    });
-
-    // 3. Блокировка горячих клавиш (F12, Ctrl+U, Ctrl+S)
-    document.onkeydown = function(e) {
-        if (e.keyCode == 123 || 
-            (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 'P'.charCodeAt(0)))) {
-            return false;
+        /* Защита от печати (Черный экран) */
+        @media print {
+            body { display: none !important; }
         }
-    };
-</script>
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -192,20 +170,19 @@
     <table>
         <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
         <tr><td>Масса сердца</td><td>≈1 кг</td><td>M &times; k³</td><td>≈40 кг</td></tr>
-        <tr><td>Объём крови</td><td>≈15 л</td><td>M &times; k³</td><td>≈600 л (с высоким содержанием белка и демонической крови)</td></tr>
+        <tr><td>Объём крови</td><td>≈15 л</td><td>M &times; k³</td><td>≈600 л</td></tr>
         <tr><td>Объём лёгких</td><td>≈13 л</td><td>M &times; k³</td><td>≈500 л</td></tr>
-        <tr><td>Сила вдоха / выдоха (чих)</td><td>~6–10 м/с</td><td>&times;38</td><td>≈80–100 м/с, поток воздуха и ударная волна</td></tr>
-        <tr><td>Температура тела</td><td>≈37,5–38,5 °C</td><td>-</td><td>≈39–40 °C (при нагрузке до 45 °C)</td></tr>
+        <tr><td>Сила вдоха / выдоха</td><td>~6–10 м/с</td><td>&times;38</td><td>≈80–100 м/с, поток воздуха и ударная волна</td></tr>
+        <tr><td>Температура тела</td><td>≈38 °C</td><td>-</td><td>≈39–40 °C (до 45 °C)</td></tr>
     </table>
 
     <h2>4. Репродуктивная система</h2>
     <table>
         <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
         <tr><td>Диаметр яичка</td><td>≈5–6 см</td><td>L &times; k</td><td>≈17–20 см</td></tr>
-        <tr><td>Вес одного яичка</td><td>≈250 г</td><td>M &times; k³</td><td>≈9–10 кг</td></tr>
-        <tr><td>Длина пениса (спокойное)</td><td>≈15–18 см</td><td>L &times; k</td><td>≈25–30 см</td></tr>
-        <tr><td>Длина пениса (эрекция)</td><td>≈20–25 см</td><td>L &times; k</td><td>≈65–75 см</td></tr>
-        <tr><td>Диаметр пениса</td><td>≈3–4 см</td><td>L &times; k</td><td>≈12–15 см</td></tr>
+        <tr><td>Вес яичка</td><td>≈250 г</td><td>M &times; k³</td><td>≈9–10 кг</td></tr>
+        <tr><td>Пенис (эрекция)</td><td>≈25 см</td><td>L &times; k</td><td>≈65–75 см</td></tr>
+        <tr><td>Диаметр пениса</td><td>≈4 см</td><td>L &times; k</td><td>≈12–15 см</td></tr>
         <tr><td>Объём эякулята</td><td>≈60 мл</td><td>M &times; k³</td><td>≈1–2 л, выброс до ≈180 км/ч</td></tr>
     </table>
 
@@ -223,13 +200,12 @@
         <tr><td>Объём мочи в сутки</td><td>≈1–1.5 л</td><td>M &times; k³</td><td>≈38–57 л</td></tr>
         <tr><td>Мочеиспускание за раз</td><td>≈300–500 мл</td><td>M &times; k³</td><td>≈10–15 л</td></tr>
         <tr><td>Масса кала в сутки</td><td>≈1.5–2 кг</td><td>M &times; k³</td><td>≈57–76 кг</td></tr>
-        <tr><td>Масса одного акта</td><td>≈0.7–1 кг</td><td>M &times; k³</td><td>≈30–40 кг</td></tr>
         <tr><td>Диаметр/Длина сегмента</td><td>4 / 15 см</td><td>L &times; k</td><td>16 / 50 см</td></tr>
     </table>
 
     <h2>7. Охота</h2>
     <div class="section-text">
-        <p>Рометто использует не только клыки и когти. Основным оружием является масса тела и огромные лапы шириной 60–70 см. Во время атаки он может просто накрыть жертву лапой. Масса почти 9 тонн, переданная через конечность, создаёт давление до 20–30 тонн. Это приводит к мгновенному разрушению позвоночника, грудной клетки или внутренних органов. Финальный способ убийства часто — не укус, а раздавливание черепа лапой.</p>
+        <p>Рометто использует не только клыки и когти. Основным оружием является масса тела и огромные лапы шириной 60–70 см. Во время атаки он может просто накрыть жертву лапой. Масса почти 9 тонн, переданная через конечность, создаёт давление до 20–30 тонн. Это приводит к мгновенному разрушению позвоночника, грудной клетки или внутренних органов.</p>
     </div>
 
     <h2>8. Формулы масштабирования</h2>
@@ -239,8 +215,29 @@
     </div>
 
     <script>
+        // 1. Запрет правой кнопки мыши
+        document.oncontextmenu = function() { return false; };
+
+        // 2. Размытие при попытке сделать скриншот или смене окна
+        window.addEventListener('keydown', function() {
+            document.body.style.filter = 'blur(100px)';
+            setTimeout(() => { document.body.style.filter = 'none'; }, 1500);
+        });
+
+        window.addEventListener('blur', function() {
+            document.body.style.filter = 'blur(100px)';
+        });
+
+        window.addEventListener('focus', function() {
+            document.body.style.filter = 'none';
+        });
+
+        // 3. Блокировка горячих клавиш
         document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) return false;
+            if (e.keyCode == 123 || 
+                (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 'P'.charCodeAt(0)))) {
+                return false;
+            }
         };
     </script>
 </body>
