@@ -4,17 +4,15 @@
     <meta charset="UTF-8">
     <title>Биологический лист Рометто</title>
     <style>
-        /* Общие настройки */
         body {
             font-family: 'Segoe UI', Arial, sans-serif;
-            background: #0a0a0a; /* Еще чуть темнее для глубины */
+            background: #0a0a0a;
             color: #e8e8e8;
             margin: 40px;
             line-height: 1.6;
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* Запрет выделения текста для всей страницы */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -28,21 +26,20 @@
             text-transform: uppercase;
             letter-spacing: 4px;
             color: #fff;
-            text-shadow: 0 0 20px rgba(230, 126, 34, 0.2);
+            text-shadow: 0 0 20px rgba(230, 126, 34, 0.3);
         }
 
         h2 {
             width: 100%;
             max-width: 1000px;
             margin-top: 50px;
-            border-bottom: 2px solid #e67e22; /* Оранжевая линия под цвет ссылки */
+            border-bottom: 2px solid #e67e22;
             padding-bottom: 8px;
             color: #e67e22;
             text-transform: uppercase;
-            font-size: 20px;
+            font-size: 22px;
         }
 
-        /* Защита изображения */
         .image-container {
             position: relative;
             display: inline-block;
@@ -56,12 +53,10 @@
             max-width: 900px;
             width: 100%;
             display: block;
-            /* Запрет перетаскивания самой картинки */
             -webkit-user-drag: none;
             user-drag: none;
         }
 
-        /* Невидимый щит поверх картинки */
         .shield {
             position: absolute;
             top: 0;
@@ -69,10 +64,8 @@
             width: 100%;
             height: 100%;
             z-index: 10;
-            cursor: default;
         }
 
-        /* Таблицы */
         table {
             width: 100%;
             max-width: 1000px;
@@ -89,60 +82,55 @@
 
         th {
             background: #1a1a1a;
-            font-weight: bold;
             color: #e67e22;
             text-transform: uppercase;
             font-size: 13px;
         }
 
-        tr:nth-child(even) {
-            background: #151515;
-        }
+        tr:nth-child(even) { background: #151515; }
+        tr:hover { background: #1e1e1e; transition: 0.2s; }
 
-        tr:hover {
-            background: #1e1e1e; /* Подсветка строки при наведении */
-            transition: 0.2s;
-        }
-
-        .formula {
+        .section-text {
             width: 100%;
-            max-width: 960px;
+            max-width: 1000px;
+            margin-top: 20px;
+            background: #111;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #222;
+        }
+
+        .formula-box {
+            width: 100%;
+            max-width: 1000px;
             background: #181818;
             padding: 20px;
             border-left: 4px solid #e67e22;
             margin-top: 15px;
-            border-radius: 0 8px 8px 0;
         }
 
         .artist-link {
             color: #e67e22;
             text-decoration: none;
             font-weight: bold;
-            border-bottom: 1px solid rgba(230, 126, 34, 0.3);
             transition: 0.3s;
         }
-
-        .artist-link:hover {
-            color: #ff9f43;
-            border-bottom: 1px solid #ff9f43;
-        }
+        .artist-link:hover { color: #ff9f43; }
     </style>
 </head>
-
 <body oncontextmenu="return false;">
 
     <h1>Биологический лист Рометто</h1>
 
     <div class="image-container">
         <img src="assets/rometto_ru_nsfw.png" alt="Rometto">
-        <div class="shield"></div> </div>
-
-    <div style="text-align: center; margin-bottom: 40px;">
-        <p style="color: #d2b48c; font-size: 16px; letter-spacing: 1px;">
-            Художница референса с прекрасными лапками обитает тут: 
-            <a href="https://t.me/ricky0plush" target="_blank" class="artist-link">Telegram</a>
-        </p>
+        <div class="shield"></div>
     </div>
+
+    <p style="color: #d2b48c; margin-bottom: 40px;">
+        Художница референса с прекрасными лапками обитает тут: 
+        <a href="https://t.me/ricky0plush" target="_blank" class="artist-link">Telegram</a>
+    </p>
 
     <h2>1. Общая биология</h2>
     <table>
@@ -168,44 +156,65 @@
         <tr><td>Длина когтей</td><td>≈3–4 см</td><td>L &times; k</td><td>≈12–14 см</td></tr>
         <tr><td>Толщина когтей</td><td>≈0.8–1 см</td><td>L &times; k</td><td>≈3–3.5 см</td></tr>
         <tr><td>Нагрузка на лапу</td><td>≈55 кг</td><td>M / 4</td><td>≈2.3 т</td></tr>
-        <tr><td>Сила укуса</td><td>≈650 PSI</td><td>M &times; k³</td><td>≈24 000 PSI</td></tr>
+        <tr><td>Сила укуса</td><td>≈650 PSI</td><td>M &times; k³</td><td>≈24 000 PSI – способен прокусить камень и дерево</td></tr>
         <tr><td>Глубина следа</td><td>1–2 см</td><td>давление</td><td>5–15 см</td></tr>
-        <tr><td>Давление удара</td><td>≈0.1–0.2 т</td><td>импульс</td><td>≈20–30 т</td></tr>
+        <tr><td>Давление при наступании</td><td>≈0.1–0.2 т</td><td>масса + импульс</td><td>≈20–30 т</td></tr>
     </table>
 
-    <h2>3. Сердечно-сосудистая система</h2>
+    <h2>3. Сердечно-сосудистая и дыхательная система</h2>
     <table>
         <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
         <tr><td>Масса сердца</td><td>≈1 кг</td><td>M &times; k³</td><td>≈40 кг</td></tr>
-        <tr><td>Объём крови</td><td>≈15 л</td><td>M &times; k³</td><td>≈600 л</td></tr>
+        <tr><td>Объём крови</td><td>≈15 л</td><td>M &times; k³</td><td>≈600 л (с высоким содержанием белка и демонической крови)</td></tr>
         <tr><td>Объём лёгких</td><td>≈13 л</td><td>M &times; k³</td><td>≈500 л</td></tr>
-        <tr><td>Температура</td><td>≈38 °C</td><td>-</td><td>≈40 °C (до 45 °C)</td></tr>
+        <tr><td>Сила вдоха / выдоха (чих)</td><td>~6–10 м/с</td><td>&times;38</td><td>≈80–100 м/с, поток воздуха и ударная волна</td></tr>
+        <tr><td>Температура тела</td><td>≈37,5–38,5 °C</td><td>-</td><td>≈39–40 °C (при нагрузке до 45 °C)</td></tr>
     </table>
 
     <h2>4. Репродуктивная система</h2>
     <table>
         <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Вес яичка</td><td>≈250 г</td><td>M &times; k³</td><td>≈9–10 кг</td></tr>
-        <tr><td>Пенис (эрекция)</td><td>≈25 см</td><td>L &times; k</td><td>≈65–75 см</td></tr>
-        <tr><td>Диаметр</td><td>≈4 см</td><td>L &times; k</td><td>≈12–15 см</td></tr>
-        <tr><td>Объём эякулята</td><td>≈60 мл</td><td>M &times; k³</td><td>≈1–2 л</td></tr>
+        <tr><td>Диаметр яичка</td><td>≈5–6 см</td><td>L &times; k</td><td>≈17–20 см</td></tr>
+        <tr><td>Вес одного яичка</td><td>≈250 г</td><td>M &times; k³</td><td>≈9–10 кг</td></tr>
+        <tr><td>Длина пениса (спокойное)</td><td>≈15–18 см</td><td>L &times; k</td><td>≈25–30 см</td></tr>
+        <tr><td>Длина пениса (эрекция)</td><td>≈20–25 см</td><td>L &times; k</td><td>≈65–75 см</td></tr>
+        <tr><td>Диаметр пениса</td><td>≈3–4 см</td><td>L &times; k</td><td>≈12–15 см</td></tr>
+        <tr><td>Объём эякулята</td><td>≈60 мл</td><td>M &times; k³</td><td>≈1–2 л, выброс до ≈180 км/ч</td></tr>
     </table>
 
-    <h2>5. Формулы масштабирования</h2>
-    <div class="formula">
-        <b>Линейный коэффициент (k):</b> 3.47 (для всех длин и размеров)<br>
-        <b>Кубический закон (k³):</b> ≈41.8 (для массы и объемов)
+    <h2>5. Звук и коммуникация</h2>
+    <table>
+        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+        <tr><td>Громкость рёва</td><td>110–114 dB</td><td>объём лёгких</td><td>150–160 dB</td></tr>
+        <tr><td>Дальность слышимости</td><td>≈8 км</td><td>мощность</td><td>20–30 км</td></tr>
+        <tr><td>Тип звука</td><td>низкочастотный рёв</td><td>резонатор</td><td>очень глубокий доминирующий рёв</td></tr>
+    </table>
+
+    <h2>6. Выделительная система</h2>
+    <table>
+        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+        <tr><td>Объём мочи в сутки</td><td>≈1–1.5 л</td><td>M &times; k³</td><td>≈38–57 л</td></tr>
+        <tr><td>Мочеиспускание за раз</td><td>≈300–500 мл</td><td>M &times; k³</td><td>≈10–15 л</td></tr>
+        <tr><td>Масса кала в сутки</td><td>≈1.5–2 кг</td><td>M &times; k³</td><td>≈57–76 кг</td></tr>
+        <tr><td>Масса одного акта</td><td>≈0.7–1 кг</td><td>M &times; k³</td><td>≈30–40 кг</td></tr>
+        <tr><td>Диаметр/Длина сегмента</td><td>4 / 15 см</td><td>L &times; k</td><td>16 / 50 см</td></tr>
+    </table>
+
+    <h2>7. Охота</h2>
+    <div class="section-text">
+        <p>Рометто использует не только клыки и когти. Основным оружием является масса тела и огромные лапы шириной 60–70 см. Во время атаки он может просто накрыть жертву лапой. Масса почти 9 тонн, переданная через конечность, создаёт давление до 20–30 тонн. Это приводит к мгновенному разрушению позвоночника, грудной клетки или внутренних органов. Финальный способ убийства часто — не укус, а раздавливание черепа лапой.</p>
+    </div>
+
+    <h2>8. Формулы масштабирования</h2>
+    <div class="formula-box">
+        <b>Линейный коэффициент (k = 3.47):</b> Используется для длин, клыков, лап и органов.<br>
+        <b>Кубический закон (k³ ≈ 41.8):</b> Используется для массы, объёма жидкостей и эякулята.
     </div>
 
     <script>
         document.onkeydown = function(e) {
-            if(e.keyCode == 123) return false; // F12
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false;
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false;
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false;
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Ctrl+U
+            if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || (e.ctrlKey && e.keyCode == 85)) return false;
         };
     </script>
-
 </body>
 </html>
