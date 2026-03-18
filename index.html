@@ -6,27 +6,37 @@
     <title>Биологический лист Рометто</title>
     <style>
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: Arial, sans-serif;
             background: #0f0f0f;
             color: #e8e8e8;
             margin: 0;
-            padding: 20px;
+            padding: 40px;
             line-height: 1.6;
             display: flex;
             flex-direction: column;
             align-items: center;
             -webkit-user-select: none;
             user-select: none;
-            /* Плавное появление размытия */
             transition: filter 0.2s ease, opacity 0.2s ease;
         }
 
-        /* КЛАСС ЗАЩИТНОГО РАЗМЫТИЯ */
+        /* Класс для защиты (размытие) */
         .protected-blur {
             filter: blur(100px) !important;
-            opacity: 0.2 !important;
+            opacity: 0.3 !important;
             pointer-events: none;
         }
+
+        h1 { text-align: center; font-size: 34px; margin-bottom: 40px; }
+        h2 { width: 100%; max-width: 900px; margin-top: 45px; border-bottom: 2px solid #444; padding-bottom: 6px; }
+        
+        table { width: 100%; max-width: 900px; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #444; padding: 10px; text-align: center; }
+        th { background: #1f1f1f; font-weight: bold; }
+        tr:nth-child(even) { background: #181818; }
+
+        .section { width: 100%; max-width: 900px; margin-top: 35px; }
+        .formula { width: 100%; max-width: 870px; background: #181818; padding: 15px; border-left: 4px solid #666; margin-top: 15px; }
 
         /* Возрастной фильтр */
         #age-gate {
@@ -39,85 +49,119 @@
         .age-gate-content {
             background: #151515; padding: 30px; border: 2px solid #e67e22;
             border-radius: 10px; text-align: center; max-width: 400px;
-            box-shadow: 0 0 30px rgba(230, 126, 34, 0.3);
         }
         .age-btn {
             padding: 15px 40px; background: #e67e22; color: #fff; border: none;
             border-radius: 5px; font-weight: bold; cursor: pointer;
-            text-transform: uppercase; margin-top: 20px; transition: 0.3s;
+            text-transform: uppercase; margin-top: 20px;
         }
-        .age-btn:hover { background: #d35400; transform: scale(1.05); }
 
-        h1 { text-align: center; font-size: 34px; margin-bottom: 20px; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
-        h2 { width: 100%; max-width: 900px; margin-top: 45px; border-bottom: 2px solid #e67e22; padding-bottom: 6px; color: #e67e22; text-transform: uppercase; font-size: 20px; }
-        
-        table { width: 100%; max-width: 900px; border-collapse: collapse; margin-top: 20px; background: #181818; }
-        th, td { border: 1px solid #333; padding: 12px; text-align: center; font-size: 14px; }
-        th { background: #222; color: #e67e22; text-transform: uppercase; font-size: 12px; }
-        tr:nth-child(even) { background: #121212; }
-
-        .formula { background: #181818; padding: 15px; border-left: 4px solid #e67e22; margin-top: 15px; width: 100%; max-width: 870px; }
-        .section { margin-top: 20px; width: 100%; max-width: 900px; background: #111; padding: 20px; border-radius: 8px; border: 1px solid #222; }
-        
-        img { max-width: 900px; width: 100%; display: block; border-radius: 4px; -webkit-user-drag: none; }
-        .artist-link { color: #e67e22; text-decoration: none; font-weight: bold; border-bottom: 1px solid #e67e22; }
-
-        /* Защита от печати: контент просто пропадает */
         @media print { body { display: none !important; } }
+        @media (max-width: 600px) { body { padding: 10px; } table { font-size: 12px; } }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
     <div id="age-gate">
         <div class="age-gate-content">
-            <h2 style="border:none; margin-top:0;">ВНИМАНИЕ: 18+</h2>
+            <h2 style="border:none; margin:0 0 20px 0;">ВНИМАНИЕ: 18+</h2>
             <p>Этот лист содержит детализированные биологические данные NSFW. Вам есть 18 лет?</p>
             <button class="age-btn" onclick="document.getElementById('age-gate').style.display='none'">ДА, МНЕ ЕСТЬ 18</button>
         </div>
     </div>
 
-    <div id="main-content">
+    <div id="main-content" style="width: 100%; display: flex; flex-direction: column; align-items: center;">
         <h1>Биологический лист Рометто</h1>
 
         <div style="text-align:center; margin-bottom:30px;">
-            <img src="assets/rometto_ru_nsfw.png" alt="Rometto">
+            <img src="assets/rometto_ru_nsfw.png" alt="Rometto" style="max-width:900px; width:100%;">
         </div>
 
-        <div style="text-align: center; margin-bottom: 30px;">
-            <p style="color: #d2b48c;">Художница референса: <a href="https://t.me/ricky0plush" target="_blank" class="artist-link">Telegram</a></p>
+        <div style="text-align: center; margin-top: 20px; font-family: 'Segoe UI', sans-serif;">
+            <p style="color: #d2b48c; font-size: 16px; letter-spacing: 1px;">
+                Художница референса с прекрасными лапками обитает тут: 
+                <a href="https://t.me/ricky0plush" target="_blank" style="color: #e67e22; text-decoration: none; font-weight: bold; border-bottom: 1px solid #e67e22;">Telegram</a>
+            </p>
         </div>
 
         <h2>1. Общая биология</h2>
         <table>
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-            <tr><td>Тип</td><td>Феральный лев</td><td>-</td><td>Гигантский лев-полудемон</td></tr>
-            <tr><td>Масса</td><td>≈220 кг</td><td>M &times; k³</td><td>≈9.2 т</td></tr>
-            <tr><td>Полная длина</td><td>≈3 м</td><td>L &times; k</td><td>≈10 м</td></tr>
-            <tr><td>Длина клыков</td><td>≈8 см</td><td>L &times; k</td><td>≈24–28 см</td></tr>
+            <tr><td>Тип</td><td>Феральный лев</td><td>-</td><td>Гигантский феральный лев-полудемон</td></tr>
+            <tr><td>Рост в холке</td><td>≈1.2 м</td><td>-</td><td>≈4.17 м</td></tr>
+            <tr><td>Длина тела</td><td>≈2.5 м</td><td>L × k</td><td>≈6 м</td></tr>
+            <tr><td>Длина хвоста</td><td>≈1 м</td><td>L × k</td><td>≈4 м</td></tr>
+            <tr><td>Полная длина</td><td>≈3 м</td><td>L × k</td><td>≈10 м</td></tr>
+            <tr><td>Масса</td><td>≈220 кг</td><td>M × k³</td><td>≈9.2 т</td></tr>
+            <tr><td>Размер мозга</td><td>≈240 г</td><td>M^0.75</td><td>≈1.6–1.8 кг</td></tr>
+            <tr><td>Длина клыков</td><td>≈7–8 см</td><td>L × k</td><td>≈24–28 см</td></tr>
+            <tr><td>Длина черепа</td><td>≈38–40 см</td><td>L × k</td><td>≈130–140 см</td></tr>
+            <tr><td>Ширина черепа</td><td>≈24–26 см</td><td>L × k</td><td>≈83–90 см</td></tr>
+            <tr><td>Диаметр глаза</td><td>≈3–4 см</td><td>L × k</td><td>≈10–14 см</td></tr>
+        </table>
+
+        <h2>2. Физика и сила</h2>
+        <table>
+            <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+            <tr><td>Ширина лапы</td><td>14–16 см</td><td>L × k</td><td>60–70 см</td></tr>
+            <tr><td>Длина лапы</td><td>≈20 см</td><td>L × k</td><td>≈90–110 см</td></tr>
+            <tr><td>Длина когтей</td><td>≈3–4 см</td><td>L × k</td><td>≈12–14 см</td></tr>
+            <tr><td>Толщина когтей</td><td>≈0.8–1 см</td><td>L × k</td><td>≈3–3.5 см</td></tr>
+            <tr><td>Нагрузка на лапу</td><td>≈55 кг</td><td>M / 4</td><td>≈2.3 т</td></tr>
+            <tr><td>Сила укуса</td><td>≈650 PSI</td><td>M × k³</td><td>≈24 000 PSI – способен прокусить камень</td></tr>
+            <tr><td>Глубина следа</td><td>1–2 см</td><td>давление</td><td>5–15 см</td></tr>
+            <tr><td>Давление при наступании</td><td>≈0.1–0.2 т</td><td>импульс</td><td>≈20–30 т</td></tr>
         </table>
 
         <h2>3. Сердечно-сосудистая и дыхательная система</h2>
         <table>
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-            <tr><td>Чих (выдох)</td><td>~8 м/с</td><td>×38</td><td>≈80–100 м/с (ударная волна)</td></tr>
-            <tr><td>Температура</td><td>≈38 °C</td><td>-</td><td>39–40 °C (пик 45 °C)</td></tr>
+            <tr><td>Масса сердца</td><td>≈1 кг</td><td>M × k³</td><td>≈40 кг</td></tr>
+            <tr><td>Объём крови</td><td>≈15 л</td><td>M × k³</td><td>≈600 л (демоническая)</td></tr>
+            <tr><td>Объём лёгких</td><td>≈13 л</td><td>M × k³</td><td>≈500 л</td></tr>
+            <tr><td>Сила вдоха/выдоха (чих)</td><td>~6–10 м/с</td><td>×38</td><td>≈80–100 м/с, ударная волна</td></tr>
+            <tr><td>Температура тела</td><td>≈38 °C</td><td>-</td><td>≈39–40 °C (пик 45 °C)</td></tr>
         </table>
 
         <h2>4. Репродуктивная система</h2>
         <table>
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-            <tr><td>Пенис (эрекция)</td><td>≈25 см</td><td>L &times; k</td><td>≈65–75 см</td></tr>
-            <tr><td>Эякулят</td><td>≈60 мл</td><td>M &times; k³</td><td>≈1–2 л (180 км/ч)</td></tr>
+            <tr><td>Диаметр яичка</td><td>≈5–6 см</td><td>L × k</td><td>≈17–20 см</td></tr>
+            <tr><td>Вес одного яичка</td><td>≈250 г</td><td>M × k³</td><td>≈9–10 кг</td></tr>
+            <tr><td>Длина пениса (спокойное)</td><td>≈15–18 см</td><td>L × k</td><td>≈25–30 см</td></tr>
+            <tr><td>Длина пениса (эрекция)</td><td>≈20–25 см</td><td>L × k</td><td>≈65–75 см</td></tr>
+            <tr><td>Диаметр пениса</td><td>≈3–4 см</td><td>L × k</td><td>≈12–15 см</td></tr>
+            <tr><td>Размер простаты</td><td>≈3–4 см</td><td>усилено</td><td>≈20–25 см</td></tr>
+            <tr><td>Объём эякулята</td><td>≈60 мл</td><td>M × k³</td><td>≈1–2 л (180 км/ч)</td></tr>
         </table>
 
-        <h2>7. Охота</h2>
+        <h2>5. Звук и коммуникация</h2>
+        <table>
+            <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+            <tr><td>Громкость рёва</td><td>110–114 dB</td><td>лёгкие</td><td>150–160 dB</td></tr>
+            <tr><td>Дальность слышимости</td><td>≈8 км</td><td>мощность</td><td>20–30 км</td></tr>
+            <tr><td>Тип звука</td><td>низкочастотный</td><td>резонатор</td><td>глубокий рёв</td></tr>
+        </table>
+
+        <h2>6. Выделительная система</h2>
+        <table>
+            <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+            <tr><td>Моча (сутки)</td><td>≈1.5 л</td><td>M × k³</td><td>≈38–57 л</td></tr>
+            <tr><td>Кал (сутки)</td><td>≈2 кг</td><td>M × k³</td><td>≈57–76 кг</td></tr>
+            <tr><td>Диаметр сегмента</td><td>≈4 см</td><td>L × k</td><td>≈14–16 см</td></tr>
+            <tr><td>Длина сегмента</td><td>≈12–15 см</td><td>L × k</td><td>≈40–50 см</td></tr>
+        </table>
+
         <div class="section">
-            <p>Рометто использует массу почти 9 тонн. Удар лапой создает давление до 30 тонн, что мгновенно разрушает скелет и внутренние органы жертвы.</p>
+            <h2>7. Охота</h2>
+            <p>Рометто использует массу тела и лапы шириной 60–70 см. При атаке создает давление до 20–30 тонн. Это приводит к мгновенному разрушению скелета. Финальный способ убийства — раздавливание черепа лапой.</p>
         </div>
 
-        <h2>Формулы масштабирования</h2>
-        <div class="formula"><b>Линейный коэффициент: k = 3.47</b></div>
-        <div class="formula"><b>Кубический закон: k³ ≈ 41.8</b></div>
+        <div class="formula">
+            <b>8. Формулы масштабирования</b><br><br>
+            k = 3.47 (Линейный коэффициент для длин)<br>
+            k³ ≈ 41.8 (Кубический закон для массы и объемов)
+        </div>
     </div>
 
     <script>
@@ -128,17 +172,12 @@
             else body.classList.remove('protected-blur');
         }
 
-        // 1. Защита мобильных: скрываем при переключении вкладок или сворачивании
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) setBlur(true);
-            else setBlur(false);
-        });
-
-        // 2. Защита при потере фокуса (шторка уведомлений, системные жесты)
+        // Защита мобильных: скрываем при переключении окон/шторке
         window.addEventListener('blur', () => setBlur(true));
         window.addEventListener('focus', () => setBlur(false));
+        document.addEventListener('visibilitychange', () => document.hidden ? setBlur(true) : setBlur(false));
 
-        // 3. Защита от PrintScreen и горячих клавиш (ПК)
+        // Защита ПК (скриншот и печать)
         window.addEventListener('keyup', (e) => {
             if (e.key === "PrintScreen" || e.keyCode === 44) {
                 setBlur(true);
@@ -154,12 +193,8 @@
             }
         });
 
-        // 4. Детектор печати
         window.onbeforeprint = () => setBlur(true);
         window.onafterprint = () => setBlur(false);
-
-        // Блокировка контекстного меню (правой кнопки)
-        document.oncontextmenu = () => false;
     </script>
 </body>
 </html>
