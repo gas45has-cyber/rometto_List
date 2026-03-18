@@ -13,13 +13,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* Защита от выделения */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
-        /* Возрастной фильтр */
+        /* Возрастной фильтр (Age Gate) */
         #age-gate {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -37,30 +38,55 @@
             border-radius: 5px; font-weight: bold; cursor: pointer;
             text-transform: uppercase; transition: 0.3s; margin-top: 20px;
         }
+        .age-btn:hover { background: #d35400; transform: scale(1.05); }
 
-        h1 { text-align: center; font-size: 42px; margin-bottom: 20px; text-transform: uppercase; color: #fff; }
-        
+        h1 {
+            text-align: center; font-size: 42px; margin-bottom: 20px;
+            text-transform: uppercase; letter-spacing: 4px; color: #fff;
+            text-shadow: 0 0 20px rgba(230, 126, 34, 0.3);
+        }
+
+        /* Кнопки навигации */
         .nav-button {
             display: inline-block; padding: 12px 30px; margin: 20px 0;
             background: transparent; color: #e67e22; border: 2px solid #e67e22;
             border-radius: 5px; text-decoration: none; font-weight: bold;
-            text-transform: uppercase; transition: 0.3s;
+            text-transform: uppercase; letter-spacing: 1px; transition: 0.3s;
+            cursor: pointer;
         }
-        .nav-button:hover { background: #e67e22; color: #fff; }
+        .nav-button:hover { background: #e67e22; color: #fff; box-shadow: 0 0 15px rgba(230, 126, 34, 0.4); }
 
-        h2 { width: 100%; max-width: 1000px; margin-top: 50px; border-bottom: 2px solid #e67e22; color: #e67e22; text-transform: uppercase; }
+        h2 {
+            width: 100%; max-width: 1000px; margin-top: 50px;
+            border-bottom: 2px solid #e67e22; padding-bottom: 8px;
+            color: #e67e22; text-transform: uppercase; font-size: 22px;
+        }
 
-        .image-container { position: relative; display: inline-block; margin-bottom: 30px; box-shadow: 0 20px 50px #000; }
+        .image-container {
+            position: relative; display: inline-block; margin-bottom: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); border-radius: 4px; overflow: hidden;
+        }
         img { max-width: 900px; width: 100%; display: block; -webkit-user-drag: none; }
         .shield { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; }
 
         table { width: 100%; max-width: 1000px; border-collapse: collapse; margin-top: 20px; background: #111; }
         th, td { border: 1px solid #333; padding: 12px; text-align: center; }
-        th { background: #1a1a1a; color: #e67e22; font-size: 13px; }
+        th { background: #1a1a1a; color: #e67e22; text-transform: uppercase; font-size: 13px; }
         tr:nth-child(even) { background: #151515; }
+        tr:hover { background: #1e1e1e; transition: 0.2s; }
 
-        .section-text { width: 100%; max-width: 1000px; margin-top: 20px; background: #111; padding: 20px; border-radius: 8px; border: 1px solid #222; }
-        .formula-box { width: 100%; max-width: 1000px; background: #181818; padding: 20px; border-left: 4px solid #e67e22; margin: 20px 0; }
+        .section-text {
+            width: 100%; max-width: 1000px; margin-top: 20px;
+            background: #111; padding: 20px; border-radius: 8px; border: 1px solid #222;
+        }
+
+        .formula-box {
+            width: 100%; max-width: 1000px; background: #181818; padding: 20px;
+            border-left: 4px solid #e67e22; margin-top: 15px; margin-bottom: 20px;
+        }
+
+        .artist-link { color: #e67e22; text-decoration: none; font-weight: bold; transition: 0.3s; }
+        .artist-link:hover { color: #ff9f43; }
 
         @media print { body { display: none !important; } }
     </style>
@@ -76,6 +102,7 @@
     </div>
 
     <h1>Биологический лист Рометто</h1>
+
     <a href="#" class="nav-button">Биография и лор</a>
 
     <div class="image-container">
@@ -83,84 +110,95 @@
         <div class="shield"></div>
     </div>
 
+    <div style="text-align: center; margin-bottom: 20px;">
+        <p style="color: #d2b48c;">
+            Художница референса с прекрасными лапками обитает тут: 
+            <a href="https://t.me/ricky0plush" target="_blank" class="artist-link">Telegram</a>
+        </p>
+    </div>
+
     <h2>1. Общая биология</h2>
     <table>
         <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Тип</td><td>Феральный лев</td><td>-</td><td>Гигантский лев-полудемон</td></tr>
+        <tr><td>Тип</td><td>Феральный лев</td><td>-</td><td>Гигантский феральный лев-полудемон</td></tr>
         <tr><td>Рост в холке</td><td>≈1.2 м</td><td>-</td><td>≈4.17 м</td></tr>
-        <tr><td>Длина тела</td><td>≈2.5 м</td><td>L &times; k</td><td>≈6 м</td></tr>
-        <tr><td>Масса</td><td>≈220 кг</td><td>M &times; k³</td><td>≈9.2 т</td></tr>
-        <tr><td>Клыки</td><td>≈7–8 см</td><td>L &times; k</td><td>≈24–28 см</td></tr>
+        <tr><td>Полная длина</td><td>≈3 м</td><td>L × k</td><td>≈10 м</td></tr>
+        <tr><td>Масса</td><td>≈220 кг</td><td>M × k³</td><td>≈9.2 т</td></tr>
+        <tr><td>Размер мозга</td><td>≈240 г</td><td>M^0.75</td><td>≈1.6–1.8 кг</td></tr>
+        <tr><td>Длина клыков</td><td>≈7–8 см</td><td>L × k</td><td>≈24–28 см</td></tr>
     </table>
 
-    <h2>2. Репродуктивная система</h2>
+    <h2>2. Физика и сила</h2>
     <table>
         <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Диаметр яичка</td><td>≈5–6 см</td><td>L &times; k</td><td>≈17–20 см</td></tr>
-        <tr><td>Вес яичек (пара)</td><td>≈500 г</td><td>M &times; k³</td><td>≈18–20 кг</td></tr>
-        <tr><td>Пенис (эрекция)</td><td>≈25 см</td><td>L &times; k</td><td>≈65–75 см</td></tr>
-        <tr><td>Объём эякулята</td><td>≈60 мл</td><td>M &times; k³</td><td>≈1–2 л (180 км/ч)</td></tr>
+        <tr><td>Ширина лапы</td><td>14–16 см</td><td>L × k</td><td>60–70 см</td></tr>
+        <tr><td>Сила укуса</td><td>≈650 PSI</td><td>M × k³</td><td>≈24 000 PSI</td></tr>
+        <tr><td>Давление лапы</td><td>≈0.1–0.2 т</td><td>масса + импульс</td><td>≈20–30 т</td></tr>
     </table>
 
-    <h2>3. Выделительная система</h2>
+    <h2>3. Сердечно-сосудистая система</h2>
     <table>
         <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Моча (в сутки)</td><td>≈1–1.5 л</td><td>M &times; k³</td><td>≈38–57 л</td></tr>
-        <tr><td>Мочеиспускание (раз)</td><td>≈400 мл</td><td>M &times; k³</td><td>≈10–15 л</td></tr>
-        <tr><td>Кал (в сутки)</td><td>≈1.5–2 кг</td><td>M &times; k³</td><td>≈57–76 кг</td></tr>
-        <tr><td>Размер сегмента</td><td>15 см</td><td>L &times; k</td><td>≈50 см</td></tr>
+        <tr><td>Масса сердца</td><td>≈1 кг</td><td>M × k³</td><td>≈40 кг</td></tr>
+        <tr><td>Объём крови</td><td>≈15 л</td><td>M × k³</td><td>≈600 л (демоническая)</td></tr>
+        <tr><td>Температура</td><td>≈38 °C</td><td>-</td><td>≈39–40 °C (пик 45 °C)</td></tr>
     </table>
 
-    <h2>4. Охота</h2>
-    <div class="section-text">
-        <p>Рометто использует массу. Удар лапой (шириной 70 см) создает давление до 30 тонн, мгновенно разрушая скелет жертвы. Основной метод — раздавливание черепа или грудной клетки весом тела.</p>
-    </div>
+    <h2>4. Репродуктивная система</h2>
+    <table>
+        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+        <tr><td>Вес яичек (пара)</td><td>≈500 г</td><td>M × k³</td><td>≈18–20 кг</td></tr>
+        <tr><td>Пенис (эрекция)</td><td>≈25 см</td><td>L × k</td><td>≈65–75 см</td></tr>
+        <tr><td>Объём эякулята</td><td>≈60 мл</td><td>M × k³</td><td>≈1–2 л (180 км/ч)</td></tr>
+    </table>
 
     <h2>5. Звук и коммуникация</h2>
     <table>
-        <tr>
-            <th>Параметр</th>
-            <th>Обычный лев</th>
-            <th>Формула</th>
-            <th>Рометто</th>
-        </tr>
-        <tr>
-            <td>Громкость рёва</td>
-            <td>110–114 dB</td>
-            <td>объём лёгких</td>
-            <td>150–160 dB</td>
-        </tr>
-        <tr>
-            <td>Дальность слышимости</td>
-            <td>≈8 км</td>
-            <td>мощность звука</td>
-            <td>20–30 км</td>
-        </tr>
-        <tr>
-            <td>Тип звука</td>
-            <td>низкочастотный рёв</td>
-            <td>резонатор грудной клетки</td>
-            <td>очень глубокий доминирующий рёв</td>
-        </tr>
+        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+        <tr><td>Громкость рёва</td><td>110–114 dB</td><td>объём лёгких</td><td>150–160 dB</td></tr>
+        <tr><td>Дальность слышимости</td><td>≈8 км</td><td>мощность звука</td><td>20–30 км</td></tr>
+        <tr><td>Тип звука</td><td>низкочастотный рёв</td><td>резонатор</td><td>очень глубокий рёв</td></tr>
     </table>
 
+    <h2>6. Выделительная система</h2>
+    <table>
+        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+        <tr><td>Моча (в сутки)</td><td>≈1–1.5 л</td><td>M × k³</td><td>≈38–57 л</td></tr>
+        <tr><td>Мочеиспускание (раз)</td><td>≈400 мл</td><td>M × k³</td><td>≈10–15 л</td></tr>
+        <tr><td>Кал (в сутки)</td><td>≈1.5–2 кг</td><td>M × k³</td><td>≈57–76 кг</td></tr>
+        <tr><td>Размер сегмента</td><td>15 см</td><td>L × k</td><td>≈50 см</td></tr>
+    </table>
+
+    <h2>7. Охота</h2>
+    <div class="section-text">
+        <p>Рометто использует массу. Удар лапой создает давление до 30 тонн, мгновенно разрушая скелет жертвы. Основной метод — раздавливание черепа или грудной клетки весом тела.</p>
+    </div>
+
+    <h2>8. Формулы масштабирования</h2>
     <div class="formula-box">
         <b>Линейный коэффициент (k = 3.47):</b> Для длин и органов.<br>
-        <b>Кубический закон (k³ ≈ 41.8):</b> Для массы и биологических жидкостей.
+        <b>Кубический закон (k³ ≈ 41.8):</b> Для массы и объёмов.
     </div>
 
     <a href="#" class="nav-button">Биография и лор</a>
 
     <script>
+        // Защита: Контекстное меню
         document.oncontextmenu = function() { return false; };
+
+        // Защита: Размытие при скриншотах/потере фокуса
         window.addEventListener('keydown', function() {
             document.body.style.filter = 'blur(100px)';
             setTimeout(() => { document.body.style.filter = 'none'; }, 1500);
         });
         window.addEventListener('blur', function() { document.body.style.filter = 'blur(100px)'; });
         window.addEventListener('focus', function() { document.body.style.filter = 'none'; });
+
+        // Защита: Клавиши (F12, Ctrl+U, S, P)
         document.onkeydown = function(e) {
-            if (e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83 || e.keyCode == 80))) return false;
+            if (e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 85 || e.keyCode == 83 || e.keyCode == 80))) {
+                return false;
+            }
         };
     </script>
 </body>
