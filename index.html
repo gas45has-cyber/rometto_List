@@ -98,7 +98,7 @@
 
     <h1>Биологический лист Рометто</h1>
 
-    <a href="#" class="nav-btn">Биография и Лор</a>
+    <a href="not_found.html" class="nav-btn">Биография и Лор</a>
 
     <div style="text-align:center; margin-bottom:15px; width: 100%;">
         <img src="assets/rometto_ru_nsfw.png" alt="Rometto">
@@ -198,7 +198,7 @@
         k³ ≈ 41.8 (Кубический закон для массы и объемов)
     </div>
 
-    <a href="#" class="nav-btn">Биография и Лор</a>
+    <a href="not_found.html" class="nav-btn">Биография и Лор</a>
 
     <script>
         const body = document.body;
@@ -207,10 +207,9 @@
             else body.classList.remove('protected-blur');
         }
 
-        // Усиленная защита для мобильных (детект касаний и потери фокуса)
-        // Срабатывает при жестах (часто скриншот делается жестом свайпа)
+        // Усиленная защита для мобильных
         window.addEventListener('touchstart', (e) => {
-            if (e.touches.length > 2) setBlur(true); // Защита от жестов тремя пальцами
+            if (e.touches.length > 2) setBlur(true); 
         });
 
         window.addEventListener('blur', () => setBlur(true));
