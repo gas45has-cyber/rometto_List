@@ -116,6 +116,33 @@
             transition: 0.3s;
         }
         .artist-link:hover { color: #ff9f43; }
+        <script>
+    // 1. Запрет правой кнопки мыши
+    document.oncontextmenu = function() { return false; };
+
+    // 2. Размытие при попытке сделать скриншот (нажатие любой клавиши)
+    // Или если пользователь переключился на "Ножницы" (blur)
+    window.addEventListener('keydown', function() {
+        document.body.style.filter = 'blur(100px)';
+        setTimeout(() => { document.body.style.filter = 'none'; }, 1500);
+    });
+
+    window.addEventListener('blur', function() {
+        document.body.style.filter = 'blur(100px)';
+    });
+
+    window.addEventListener('focus', function() {
+        document.body.style.filter = 'none';
+    });
+
+    // 3. Блокировка горячих клавиш (F12, Ctrl+U, Ctrl+S)
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123 || 
+            (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 'P'.charCodeAt(0)))) {
+            return false;
+        }
+    };
+</script>
     </style>
 </head>
 <body oncontextmenu="return false;">
