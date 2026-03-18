@@ -22,11 +22,34 @@
         h1 {
             text-align: center;
             font-size: 42px;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 4px;
             color: #fff;
             text-shadow: 0 0 20px rgba(230, 126, 34, 0.3);
+        }
+
+        /* Стили для кнопок навигации */
+        .nav-button {
+            display: inline-block;
+            padding: 12px 30px;
+            margin: 20px 0;
+            background-color: transparent;
+            color: #e67e22;
+            border: 2px solid #e67e22;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-button:hover {
+            background-color: #e67e22;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(230, 126, 34, 0.4);
         }
 
         h2 {
@@ -107,6 +130,7 @@
             padding: 20px;
             border-left: 4px solid #e67e22;
             margin-top: 15px;
+            margin-bottom: 20px;
         }
 
         .artist-link {
@@ -117,7 +141,6 @@
         }
         .artist-link:hover { color: #ff9f43; }
 
-        /* Защита от печати (Черный экран) */
         @media print {
             body { display: none !important; }
         }
@@ -127,12 +150,14 @@
 
     <h1>Биологический лист Рометто</h1>
 
+    <a href="#" class="nav-button">Биография и лор</a>
+
     <div class="image-container">
         <img src="assets/rometto_ru_nsfw.png" alt="Rometto">
         <div class="shield"></div>
     </div>
 
-    <p style="color: #d2b48c; margin-bottom: 40px;">
+    <p style="color: #d2b48c; margin-bottom: 20px;">
         Художница референса с прекрасными лапками обитает тут: 
         <a href="https://t.me/ricky0plush" target="_blank" class="artist-link">Telegram</a>
     </p>
@@ -161,7 +186,7 @@
         <tr><td>Длина когтей</td><td>≈3–4 см</td><td>L &times; k</td><td>≈12–14 см</td></tr>
         <tr><td>Толщина когтей</td><td>≈0.8–1 см</td><td>L &times; k</td><td>≈3–3.5 см</td></tr>
         <tr><td>Нагрузка на лапу</td><td>≈55 кг</td><td>M / 4</td><td>≈2.3 т</td></tr>
-        <tr><td>Сила укуса</td><td>≈650 PSI</td><td>M &times; k³</td><td>≈24 000 PSI – способен прокусить камень и дерево</td></tr>
+        <tr><td>Сила укуса</td><td>≈650 PSI</td><td>M &times; k³</td><td>≈24 000 PSI</td></tr>
         <tr><td>Глубина следа</td><td>1–2 см</td><td>давление</td><td>5–15 см</td></tr>
         <tr><td>Давление при наступании</td><td>≈0.1–0.2 т</td><td>масса + импульс</td><td>≈20–30 т</td></tr>
     </table>
@@ -172,7 +197,7 @@
         <tr><td>Масса сердца</td><td>≈1 кг</td><td>M &times; k³</td><td>≈40 кг</td></tr>
         <tr><td>Объём крови</td><td>≈15 л</td><td>M &times; k³</td><td>≈600 л</td></tr>
         <tr><td>Объём лёгких</td><td>≈13 л</td><td>M &times; k³</td><td>≈500 л</td></tr>
-        <tr><td>Сила вдоха / выдоха</td><td>~6–10 м/с</td><td>&times;38</td><td>≈80–100 м/с, поток воздуха и ударная волна</td></tr>
+        <tr><td>Сила вдоха / выдоха</td><td>~6–10 м/с</td><td>&times;38</td><td>≈80–100 м/с</td></tr>
         <tr><td>Температура тела</td><td>≈38 °C</td><td>-</td><td>≈39–40 °C (до 45 °C)</td></tr>
     </table>
 
@@ -183,7 +208,7 @@
         <tr><td>Вес яичка</td><td>≈250 г</td><td>M &times; k³</td><td>≈9–10 кг</td></tr>
         <tr><td>Пенис (эрекция)</td><td>≈25 см</td><td>L &times; k</td><td>≈65–75 см</td></tr>
         <tr><td>Диаметр пениса</td><td>≈4 см</td><td>L &times; k</td><td>≈12–15 см</td></tr>
-        <tr><td>Объём эякулята</td><td>≈60 мл</td><td>M &times; k³</td><td>≈1–2 л, выброс до ≈180 км/ч</td></tr>
+        <tr><td>Объём эякулята</td><td>≈60 мл</td><td>M &times; k³</td><td>≈1–2 л</td></tr>
     </table>
 
     <h2>5. Звук и коммуникация</h2>
@@ -191,7 +216,7 @@
         <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
         <tr><td>Громкость рёва</td><td>110–114 dB</td><td>объём лёгких</td><td>150–160 dB</td></tr>
         <tr><td>Дальность слышимости</td><td>≈8 км</td><td>мощность</td><td>20–30 км</td></tr>
-        <tr><td>Тип звука</td><td>низкочастотный рёв</td><td>резонатор</td><td>очень глубокий доминирующий рёв</td></tr>
+        <tr><td>Тип звука</td><td>низкочастотный рёв</td><td>резонатор</td><td>очень глубокий рёв</td></tr>
     </table>
 
     <h2>6. Выделительная система</h2>
@@ -214,11 +239,11 @@
         <b>Кубический закон (k³ ≈ 41.8):</b> Используется для массы, объёма жидкостей и эякулята.
     </div>
 
+    <a href="#" class="nav-button">Биография и лор</a>
+
     <script>
-        // 1. Запрет правой кнопки мыши
         document.oncontextmenu = function() { return false; };
 
-        // 2. Размытие при попытке сделать скриншот или смене окна
         window.addEventListener('keydown', function() {
             document.body.style.filter = 'blur(100px)';
             setTimeout(() => { document.body.style.filter = 'none'; }, 1500);
@@ -232,7 +257,6 @@
             document.body.style.filter = 'none';
         });
 
-        // 3. Блокировка горячих клавиш
         document.onkeydown = function(e) {
             if (e.keyCode == 123 || 
                 (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 'P'.charCodeAt(0)))) {
