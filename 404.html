@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кажется тут пусто - Пока этой страницы нет или она в разработке, а может ты опечатался</title>
+    <title>Ой, кажется тут пусто...</title>
     
     <link rel="icon" type="image/png" href="/favicon.png">
     
@@ -20,8 +20,29 @@
             margin: 0;
             text-align: center;
         }
-        h1 { color: #e67e22; font-size: 50px; margin-bottom: 10px; }
-        p { font-size: 18px; max-width: 500px; margin-bottom: 30px; }
+        
+        h1 { 
+            color: #e67e22; 
+            font-size: clamp(28px, 8vw, 50px); /* Адаптивный размер шрифта */
+            margin-bottom: 10px; 
+            padding: 0 15px;
+        }
+
+        .error-description {
+            font-size: 18px; 
+            max-width: 450px; 
+            width: 90%;
+            margin: 0 auto 30px auto; 
+            line-height: 1.5;
+        }
+
+        .lapy-text {
+            display: block;
+            font-size: 14px;
+            color: #777;
+            margin-top: 10px;
+            font-style: italic;
+        }
         
         .back-btn {
             display: inline-block;
@@ -39,7 +60,8 @@
             color: #fff;
         }
         .error-img {
-            max-width: 350px;
+            max-width: 300px;
+            width: 80%;
             margin-bottom: 20px;
             border-radius: 10px;
         }
@@ -48,7 +70,7 @@
             width: 100%;
             max-width: 900px;
             margin-top: auto; 
-            padding: 25px 20px;
+            padding: 40px 20px 25px 20px;
             border-top: 1px solid #333;
             text-align: center;
             font-size: 13px;
@@ -59,6 +81,11 @@
         .site-footer strong { color: #e67e22; }
         .site-footer a { color: #d2b48c; text-decoration: none; border-bottom: 1px solid #444; transition: 0.3s; }
         .site-footer a:hover { color: #e67e22; border-bottom-color: #e67e22; }
+
+        @media (max-width: 480px) {
+            .error-description { font-size: 16px; }
+            .back-btn { width: 80%; padding: 12px 10px; }
+        }
     </style>
 </head>
 <body>
@@ -68,7 +95,13 @@
     <img src="/not.png" alt="Rometto Error" class="error-img">
     
     <h1>Ой, кажется тут пусто...</h1>
-    <p>Похоже, вы забрели на закрытую территорию или страница еще находится в разработке (у Рометто всё-таки лапки), или ты опечатался.</p>
+    
+    <div class="error-description">
+        Похоже, эта территория закрыта или ты опечатался в адресе.
+        <span class="lapy-text">
+            (у Рометто всё-таки лапки, страница еще в разработке)
+        </span>
+    </div>
 
     <a href="/" class="back-btn">Вернуться к листу</a>
 
@@ -77,18 +110,11 @@
             © 2017 — <span id="year"></span> <strong>Mr. Rometto</strong>. Все права защищены.
         </div>
         
-        <div style="margin-top: 15px; max-width: 750px; margin-left: auto; margin-right: auto;">
-            Использование персонажа, его образа или перерисовка без прямого согласия хозяина — <strong>запрещены</strong>. 
-            Случайные совпадения в концептах допускаются, ведь Земля так же круглая, как Луна и Солнце, 
-            но Рометто — единственный в своём роде.
+        <div style="margin-top: 15px;">
+            Использование образа персонажа без согласия хозяина — <strong>запрещено</strong>. 
         </div>
 
-        <div style="margin-top: 10px; color: #d2b48c; font-style: italic;">
-            Если вы хотите сделать совместный арт или подарок — мне будет очень приятно! 
-            Но такие моменты всё же лучше предварительно обсудить со мной лично.
-        </div>
-
-        <div style="margin-top: 12px;">
+        <div style="margin-top: 10px;">
             Связь с автором: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a>
         </div>
     </footer>
