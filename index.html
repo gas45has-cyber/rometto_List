@@ -121,6 +121,21 @@
 
         img { max-width: 900px; width: 100%; display: block; border-radius: 4px; -webkit-user-drag: none; margin: 0 auto; }
 
+        .site-footer {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 60px;
+            padding: 25px 0;
+            border-top: 1px solid #333;
+            text-align: center;
+            font-size: 13px;
+            color: #777;
+            line-height: 1.6;
+        }
+        .site-footer strong { color: #e67e22; }
+        .site-footer a { color: #d2b48c; text-decoration: none; border-bottom: 1px solid #444; transition: 0.3s; }
+        .site-footer a:hover { color: #e67e22; border-bottom-color: #e67e22; }
+
         @media print { body { display: none !important; } }
         @media (max-width: 600px) { 
             body { padding: 10px; } 
@@ -255,7 +270,30 @@
         <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
     </div>
 
+    <footer class="site-footer">
+        <div>
+            © <span id="year"></span> <strong>Mr. Rometto</strong>. Все права защищены.
+        </div>
+        
+        <div style="margin-top: 15px; max-width: 750px; margin-left: auto; margin-right: auto;">
+            Использование персонажа, его образа или перерисовка без прямого согласия хозяина — <strong>запрещены</strong>. 
+            Случайные совпадения в концептах допускаются, ведь Земля так же круглая, как Луна и Солнце, 
+            но Рометто — единственный в своём роде.
+        </div>
+
+        <div style="margin-top: 10px; color: #d2b48c; font-style: italic;">
+            Если вы хотите сделать совместный арт или подарок — мне будет очень приятно! 
+            Но такие моменты всё же лучше предварительно обсудить со мной лично.
+        </div>
+
+        <div style="margin-top: 12px;">
+            Связь с автором: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a>
+        </div>
+    </footer>
+
     <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
         const body = document.body;
         const ageGate = document.getElementById('age-gate');
 
