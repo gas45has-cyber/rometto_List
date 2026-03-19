@@ -29,6 +29,61 @@
             opacity: 0 !important;
         }
 
+        /* Кнопка переключения языка */
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            background: rgba(230, 126, 34, 0.1);
+            border: 1px solid #e67e22;
+            color: #e67e22;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        .lang-switch:hover {
+            background: #e67e22;
+            color: #fff;
+        }
+
+        /* Окно уведомления EN */
+        #en-notice {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10001;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        .en-notice-content {
+            background: #151515;
+            padding: 30px;
+            border: 2px solid #e67e22;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 450px;
+            margin: 20px;
+        }
+        .en-notice-content h3 { color: #e67e22; margin-top: 0; text-transform: uppercase; }
+        .en-notice-content p { color: #d2b48c; font-size: 16px; margin-bottom: 25px; }
+        .close-notice {
+            background: #e67e22;
+            border: none;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
         h1 { text-align: center; font-size: 34px; margin: 20px 0; color: #fff; text-transform: uppercase; }
         
         h2 { 
@@ -112,7 +167,7 @@
         }
         .age-gate-content {
             background: #151515; padding: 30px; border: 2px solid #e67e22;
-            border-radius: 10px; text-align: center; max-width: 400px;
+            border-radius: 10px; text-align: center; max-width: 450px;
         }
         .age-btn {
             padding: 15px 40px; background: #e67e22; color: #fff; border: none;
@@ -142,16 +197,38 @@
             table { font-size: 11px; } 
             .nav-btn { padding: 10px 20px; font-size: 12px; width: 80%; } 
             .contacts-block { flex-direction: column; gap: 10px; align-items: center; }
+            .lang-switch { top: 10px; right: 10px; padding: 5px 12px; font-size: 12px; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
+    <div class="lang-switch" onclick="showEnNotice()">EN</div>
+
+    <div id="en-notice">
+        <div class="en-notice-content">
+            <h3>English Version Notice</h3>
+            <p>I apologize that everything is currently in Russian. I am from Russia, and English is not my native language. A full translation is complex, but I will definitely translate everything for you with my own paws. Thank you for your interest! In the meantime, please use a browser translator.</p>
+            <button class="close-notice" onclick="hideEnNotice()">Understood</button>
+        </div>
+    </div>
+
     <div id="age-gate">
         <div class="age-gate-content">
-            <h2 style="border:none; margin:0 0 20px 0; color:#fff; text-align:center;">ВНИМАНИЕ: 18+</h2>
-            <p>Этот лист содержит детализированные биологические данные и изображения NSFW. Вам есть 18 лет?</p>
-            <button class="age-btn" onclick="confirmAge()">ДА, МНЕ ЕСТЬ 18</button>
+            <h2 style="border:none; margin:0 0 10px 0; color:#fff; text-align:center;">
+                ВНИМАНИЕ: 18+<br>
+                <span style="font-size: 18px; color: #e67e22;">(WARNING: 18+)</span>
+            </h2>
+            <p>
+                Этот лист содержит детализированные биологические данные и изображения NSFW. Вам есть 18 лет?<br>
+                <span style="font-size: 14px; color: #777; display: block; margin-top: 10px;">
+                    (This sheet contains detailed biological data and NSFW images. Are you 18 or older?)
+                </span>
+            </p>
+            <button class="age-btn" onclick="confirmAge()">
+                ДА, МНЕ ЕСТЬ 18<br>
+                <span style="font-size: 11px; display: block; opacity: 0.8;">(YES, I AM 18+)</span>
+            </button>
         </div>
     </div>
 
@@ -304,6 +381,14 @@
         function confirmAge() {
             localStorage.setItem('ageConfirmed', 'true');
             ageGate.style.display = 'none';
+        }
+
+        function showEnNotice() {
+            document.getElementById('en-notice').style.display = 'flex';
+        }
+
+        function hideEnNotice() {
+            document.getElementById('en-notice').style.display = 'none';
         }
 
         function setBlur(on) {
