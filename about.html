@@ -4,6 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>О проекте — Рометто</title>
+
+    <meta property="og:title" content="О проекте — Рометто">
+    <meta property="og:description" content="Интерактивный цифровой архив и био-параметры гигантского льва-полудемона.">
+    <meta property="og:image" content="/assets/rometto_ru_nsfw.png"> 
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,10 +43,16 @@
         p { margin-bottom: 15px; text-align: justify; }
         .highlight { color: #fff; font-weight: bold; }
         
+        /* КНОПКА НАЗАД ВНИЗУ */
+        .back-btn-container {
+            text-align: center;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            padding-top: 30px;
+        }
         .back-btn {
             display: inline-block;
-            margin-bottom: 20px;
-            padding: 10px 20px;
+            padding: 12px 30px;
             border: 2px solid #e67e22;
             color: #e67e22;
             text-decoration: none;
@@ -44,8 +60,14 @@
             text-transform: uppercase;
             border-radius: 5px;
             transition: 0.3s;
+            background: rgba(230, 126, 34, 0.05);
         }
-        .back-btn:hover { background: #e67e22; color: #fff; transform: scale(1.05); }
+        .back-btn:hover { 
+            background: #e67e22; 
+            color: #fff; 
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+        }
         
         ul { padding-left: 20px; list-style-type: square; }
         li { margin-bottom: 10px; }
@@ -66,16 +88,13 @@
         @media (max-width: 600px) {
             .container { padding: 20px; }
             h1 { font-size: 24px; }
+            .back-btn { width: 80%; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
     <div class="container">
-        <div style="text-align: center;">
-            <a href="index.html" class="back-btn">🐾 Вернуться в логово</a>
-        </div>
-        
         <h1>Bio-Archive Rometto: О проекте</h1>
         
         <p>Этот проект — интерактивный цифровой архив, созданный для систематизации колоссального объема данных о <span class="highlight">Рометто</span>, гигантском льве-полудемоне массой более 9 тонн.</p>
@@ -84,19 +103,23 @@
         <p>Рометто — персонаж с глубоким лором, сложной историей и детализированной физиологией. Держать все переменные в голове стало физически трудно, а количество вопросов от аудитории росло с каждым днем. Данный ресурс решает три ключевые задачи:</p>
         <ul>
             <li><span class="highlight">Внешняя память:</span> Защита данных от потери и путаницы. Здесь зафиксирован каждый сантиметр и каждый килограмм персонажа.</li>
-            <li><span class="highlight">Научный подход:</span> Все параметры рассчитаны на основе физики и биологических коэффициентов масштабирования ($k=3.47$). Это не просто фантазия, а математическая модель гиганта.</li>
+            <li><span class="highlight">Научный подход:</span> Все параметры рассчитаны на основе физики и биологических коэффициентов масштабирования. Это не просто фантазия, а математическая модель гиганта.</li>
             <li><span class="highlight">Ультимативный референс:</span> Готовый инструмент для художников и соигроков. Больше никаких «примерно», только точные, каноничные данные.</li>
         </ul>
 
         <h2>🔞 Ответ на специфические вопросы</h2>
-        <p>В ходе дискуссий в сообществе часто возникали вопросы о деталях репродуктивной системы и метаболизма (объемы спермы, продуктов жизнедеятельности и т.д.). Я подошел к этому серьезно. Вместо того чтобы игнорировать запросы, я провел расчеты, основанные на массе тела в 9.2 тонны. Теперь эти данные — официальная часть канона, исключающая любые споры.</p>
+        <p>В ходе дискуссий в сообществе часто возникали вопросы о деталях репродуктивной системы и метаболизма. Я подошел к этому серьезно. Вместо того чтобы игнорировать запросы, я провел расчеты, основанные на массе тела в 9.2 тонны. Теперь эти данные — официальная часть канона.</p>
 
         <h2>🚀 Планы на будущее</h2>
         <ul>
             <li>Создание <span class="highlight">SFW-версии</span> листа (для общей аудитории).</li>
             <li>Полная английская локализация всех таблиц и описаний.</li>
-            <li>Поддержка нескольких персонажей из вселенной Рометто (Multi-Character Support).</li>
+            <li>Поддержка нескольких Моих персонажей.</li>
         </ul>
+
+        <div class="back-btn-container">
+            <a href="index.html" class="back-btn">🐾 Вернуться в логово</a>
+        </div>
     </div>
 
     <footer class="site-footer">
