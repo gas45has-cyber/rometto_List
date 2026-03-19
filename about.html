@@ -135,11 +135,22 @@
             color: #777;
         }
 
+        /* ИСПРАВЛЕННАЯ МОБИЛЬНАЯ ВЕРСИЯ */
         @media (max-width: 600px) {
             .container { padding: 20px; }
-            .lang-wrapper { top: 10px; right: 10px; gap: 5px; }
-            .lang-hint { display: none; } /* На мобилках скрываем длинный текст */
-            .lang-switch { padding: 8px 12px; font-size: 12px; }
+            .lang-wrapper { top: 10px; right: 10px; gap: 8px; }
+            .lang-hint { 
+                display: inline-block; /* Текст теперь виден */
+                font-size: 9px; 
+                padding: 4px 6px; 
+                letter-spacing: 0px;
+            }
+            .lang-switch { padding: 6px 12px; font-size: 12px; }
+            @keyframes pulse-move {
+                0% { transform: translateX(0); opacity: 0.7; }
+                50% { transform: translateX(-4px); opacity: 1; }
+                100% { transform: translateX(0); opacity: 0.7; }
+            }
         }
     </style>
 </head>
@@ -151,12 +162,12 @@
     </div>
 
     <div class="container">
-        <h1>Архив  Рометто: О проекте</h1>
+        <h1>Архив Рометто: О проекте</h1>
         
         <p>Этот проект — интерактивный цифровой архив, созданный для систематизации колоссального объема данных о <span class="highlight">Рометто</span>, гигантском льве-полудемоне с добрым сердцем и ростом 417см.</p>
 
         <h2>🎯 Зачем это нужно?</h2>
-        <p>Рометто — персонаж с глубоким лором, сложной историей и детализированной физиологией. Держать все переменные в голове стало физически трудно, а количество вопросов от людей росло с каждым днем. Данный ресурс решает три ключевые задачи:</p>
+        <p>Рометто — персонаж с глубоким лором, сложной историей и детализированной физиологией. Данный ресурс решает три ключевые задачи:</p>
         <ul>
             <li><span class="highlight">Внешняя память:</span> Защита данных от потери и путаницы.</li>
             <li><span class="highlight">Научный подход:</span> Все параметры рассчитаны на основе физики и биологии.</li>
