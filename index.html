@@ -51,7 +51,6 @@
             color: #fff;
         }
 
-        /* Окно уведомления EN */
         #en-notice {
             display: none;
             position: fixed;
@@ -142,10 +141,11 @@
         .section { width: 100%; max-width: 900px; margin-top: 35px; }
         .formula { width: 100%; max-width: 870px; background: #181818; padding: 15px; border-left: 4px solid #666; margin-top: 15px; color: #d2b48c; }
 
+        /* ИСПРАВЛЕННЫЕ КНОПКИ */
         .nav-btn {
             display: inline-block;
-            margin: 10px;
-            padding: 12px 30px;
+            margin: 5px;
+            padding: 12px 25px;
             border: 2px solid #e67e22;
             color: #e67e22;
             text-decoration: none;
@@ -153,10 +153,15 @@
             text-transform: uppercase;
             border-radius: 5px;
             transition: 0.3s;
-            background: transparent;
+            background: rgba(230, 126, 34, 0.05);
             text-align: center;
+            font-size: 13px;
         }
-        .nav-btn:hover { background: #e67e22; color: #fff; }
+        .nav-btn:hover { 
+            background: #e67e22; 
+            color: #fff; 
+            box-shadow: 0 0 10px rgba(230, 126, 34, 0.3);
+        }
 
         #age-gate {
             position: fixed;
@@ -195,7 +200,7 @@
         @media (max-width: 600px) { 
             body { padding: 10px; } 
             table { font-size: 11px; } 
-            .nav-btn { padding: 10px 20px; font-size: 12px; width: 80%; } 
+            .nav-btn { padding: 10px 15px; font-size: 11px; width: 90%; } 
             .contacts-block { flex-direction: column; gap: 10px; align-items: center; }
             .lang-switch { top: 10px; right: 10px; padding: 5px 12px; font-size: 12px; }
         }
@@ -234,10 +239,10 @@
 
     <h1>Информационный лист о Рометто</h1>
 
-    <div style="text-align: center; width: 100%; margin-bottom: 10px;">
+    <div style="text-align: center; width: 100%; margin-bottom: 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 5px;">
+        <a href="about.html" class="nav-btn">О проекте (Wiki)</a>
         <a href="/404" class="nav-btn">Биография и Лор</a>
         <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
-        <a href="about.html" class="nav-btn" style="border-color: #555; color: #888;">О проекте (Wiki)</a>
     </div>
 
     <div style="text-align:center; margin-bottom:15px; width: 100%;">
@@ -360,10 +365,10 @@
         • F<sub>dyn</sub> = M × a ≈ 30–40 т (Динамическая сила при прыжке и инерции)
     </div>
 
-    <div style="text-align: center; width: 100%; margin: 20px 0;">
+    <div style="text-align: center; width: 100%; margin: 30px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 5px;">
+        <a href="about.html" class="nav-btn">О проекте (Wiki)</a>
         <a href="/404" class="nav-btn">Биография и Лор</a>
         <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
-        <a href="about.html" class="nav-btn" style="border-color: #555; color: #888;">О проекте (Wiki)</a>
     </div>
 
     <footer class="site-footer">
