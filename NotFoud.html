@@ -2,13 +2,16 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Страница не найдена - Рометто</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Упс... Пусто!</title>
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <style>
         body {
             font-family: Arial, sans-serif;
             background: #0f0f0f;
-            color: #d2b48c; /* Твой песочный цвет */
+            color: #d2b48c;
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -16,22 +19,19 @@
             justify-content: center;
             height: 100vh;
             text-align: center;
-            padding: 20px;
-            -webkit-user-select: none;
-            user-select: none;
-            transition: filter 0.1s ease;
+        }
+        .protected-blur { filter: blur(150px); opacity: 0; }
+        
+        img { 
+            max-width: 300px; 
+            margin-bottom: 20px; 
+            border-radius: 10px;
         }
 
-        .protected-blur { filter: blur(150px) !important; opacity: 0 !important; }
-
-        img { max-width: 500px; width: 100%; border-radius: 10px; margin-bottom: 30px; }
-
-        h1 { color: #fff; text-transform: uppercase; font-size: 24px; margin-bottom: 10px; }
-        
-        p { font-size: 18px; max-width: 600px; line-height: 1.5; }
+        h1 { color: #fff; text-transform: uppercase; margin: 10px 0; }
+        p { font-size: 18px; margin-bottom: 30px; }
 
         .back-btn {
-            margin-top: 30px;
             padding: 12px 30px;
             border: 2px solid #e67e22;
             color: #e67e22;
@@ -46,8 +46,8 @@
 </head>
 <body oncontextmenu="return false;">
 
- <img src="not.png" alt="Упс... Пусто">
-    
+    <img src="assets/not.png" alt="Упс... Пусто">
+
     <h1>Упс... Пусто!</h1>
     <p>Здесь пока ничего нет, может попробуешь потом зайти сюда?</p>
 
@@ -62,6 +62,7 @@
         window.addEventListener('blur', () => setBlur(true));
         window.addEventListener('focus', () => setBlur(false));
         document.addEventListener('visibilitychange', () => document.hidden ? setBlur(true) : setBlur(false));
+        
         window.addEventListener('keyup', (e) => {
             if (e.key === "PrintScreen" || e.keyCode === 44) {
                 setBlur(true);
