@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Биологический лист Рометто</title>
     
-    <link rel="icon" type="image/png" href="favicon .png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="favicon.png">
     
     <style>
         body {
@@ -30,7 +31,6 @@
 
         h1 { text-align: center; font-size: 34px; margin: 20px 0; color: #fff; text-transform: uppercase; }
         
-        /* Заголовки теперь по центру */
         h2 { 
             width: 100%; 
             max-width: 900px; 
@@ -51,13 +51,12 @@
             margin-top: 0;
         }
 
-        /* Стиль блока контактов — теперь с центрированием */
         .contacts-block {
             display: flex;
             gap: 20px;
             margin-top: 10px;
             font-family: 'Segoe UI', sans-serif;
-            justify-content: center; /* Центрируем иконки */
+            justify-content: center;
             flex-wrap: wrap;
         }
         .contact-link {
@@ -90,7 +89,7 @@
 
         .nav-btn {
             display: inline-block;
-            margin: 10px; /* Отступы между кнопками */
+            margin: 10px;
             padding: 12px 30px;
             border: 2px solid #e67e22;
             color: #e67e22;
@@ -144,19 +143,12 @@
     <h1>Биологический лист Рометто</h1>
 
     <div style="text-align: center; width: 100%; margin-bottom: 10px;">
-        <a href="NotFoud.html" class="nav-btn">Биография и Лор</a>
-        <a href="NotFoud.html" class="nav-btn">Фетиши и РП предпочтения</a>
+        <a href="NotFoud" class="nav-btn">Биография и Лор</a>
+        <a href="NotFoud" class="nav-btn">Фетиши и РП предпочтения</a>
     </div>
 
     <div style="text-align:center; margin-bottom:15px; width: 100%;">
         <img src="assets/rometto_ru_nsfw.png" alt="Rometto">
-    </div>
-
-    <div style="text-align: left; width: 100%; max-width: 900px; margin-bottom: 15px;">
-        <p class="sub-header">Внешность и вид:</p>
-        <p style="margin: 0; font-size: 15px;">
-            <em>[добавится позже, у меня всё же лапки]</em>
-        </p>
     </div>
 
     <div style="text-align: center; width: 100%; max-width: 900px; margin-bottom: 20px;">
@@ -171,16 +163,10 @@
             <a href="https://vk.com/mr.rometto" class="contact-link" target="_blank">
                 <img src="assets/icon_vk.png" class="contact-icon" alt="VK"> Мой ВК
             </a>
-            <a href="https://youtube.com/@rombblog?si=XvpLiJNG3fdSePrQ" class="contact-link" target="_blank">
+            <a href="https://youtube.com/@rombblog" class="contact-link" target="_blank">
                 <img src="assets/icon_youtube.png" class="contact-icon" alt="YT"> Мой YouTube
             </a>
         </div>
-    </div>
-
-    <div style="text-align: center; margin-bottom: 30px;">
-        <p>Художница референса с прекрасными лапками обитает тут: 
-            <a href="https://t.me/ricky0plush" target="_blank" style="color: #e67e22; text-decoration: none; font-weight: bold; border-bottom: 1px solid #e67e22;">Telegram</a>
-        </p>
     </div>
 
     <h2>1. Общая биология</h2>
@@ -265,8 +251,8 @@
     </div>
 
     <div style="text-align: center; width: 100%; margin: 20px 0;">
-        <a href="NotFoud.html" class="nav-btn">Биография и Лор</a>
-        <a href="NotFoud.html" class="nav-btn">Фетиши и РП предпочтения</a>
+        <a href="NotFoud" class="nav-btn">Биография и Лор</a>
+        <a href="NotFoud" class="nav-btn">Фетиши и РП предпочтения</a>
     </div>
 
     <script>
@@ -287,20 +273,10 @@
             else body.classList.remove('protected-blur');
         }
 
-        window.addEventListener('touchstart', (e) => {
-            if (e.touches.length > 2) setBlur(true); 
-        });
-
         window.addEventListener('blur', () => setBlur(true));
         window.addEventListener('focus', () => setBlur(false));
         document.addEventListener('visibilitychange', () => document.hidden ? setBlur(true) : setBlur(false));
         
-        window.addEventListener('keyup', (e) => {
-            if (e.key === "PrintScreen" || e.keyCode === 44) {
-                setBlur(true);
-                setTimeout(() => setBlur(false), 3000);
-            }
-        });
         window.addEventListener('keydown', (e) => {
             if (e.ctrlKey && [80, 83, 117].includes(e.keyCode) || e.keyCode == 123) {
                 e.preventDefault();
