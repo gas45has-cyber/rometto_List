@@ -5,15 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>О проекте — Рометто</title>
 
-    <meta property="og:title" content="О проекте — Рометто">
-    <meta property="og:description" content="Интерактивный цифровой архив и био-параметры гигантского льва-полудемона.">
-    <meta property="og:image" content="/assets/rometto_ru_nsfw.png"> 
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="apple-touch-icon" href="/favicon.png">
-
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -29,12 +20,26 @@
             user-select: none;
         }
 
-        /* КНОПКА ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА */
-        .lang-switch {
+        /* КОНТЕЙНЕР ДЛЯ КНОПКИ И ПОДСКАЗКИ */
+        .lang-wrapper {
             position: fixed;
             top: 20px;
             right: 20px;
             z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lang-hint {
+            font-size: 12px;
+            color: #e67e22;
+            opacity: 0.8;
+            font-style: italic;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+        }
+
+        .lang-switch {
             background: rgba(230, 126, 34, 0.1);
             border: 1px solid #e67e22;
             color: #e67e22;
@@ -96,30 +101,20 @@
         ul { padding-left: 20px; list-style-type: square; }
         li { margin-bottom: 10px; }
 
-        .site-footer {
-            width: 100%;
-            max-width: 900px;
-            margin-top: 60px;
-            padding: 25px 0;
-            border-top: 1px solid #333;
-            text-align: center;
-            font-size: 13px;
-            color: #777;
-        }
-        .site-footer strong { color: #e67e22; }
-        .site-footer a { color: #d2b48c; text-decoration: none; border-bottom: 1px solid #444; }
-        
         @media (max-width: 600px) {
             .container { padding: 20px; }
             h1 { font-size: 24px; }
-            .back-btn { width: 80%; }
-            .lang-switch { top: 10px; right: 10px; padding: 5px 12px; font-size: 12px; }
+            .lang-wrapper { top: 10px; right: 10px; }
+            .lang-hint { display: none; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <a href="about_en" class="lang-switch">EN</a>
+    <div class="lang-wrapper">
+        <span class="lang-hint">translation button is here →</span>
+        <a href="about_en.html" class="lang-switch">EN</a>
+    </div>
 
     <div class="container">
         <h1>Bio-Archive Rometto: О проекте</h1>
@@ -127,23 +122,11 @@
         <p>Этот проект — интерактивный цифровой архив, созданный для систематизации колоссального объема данных о <span class="highlight">Рометто</span>, гигантском льве-полудемоне с добрым сердцем и ростом 417см.</p>
 
         <h2>🎯 Зачем это нужно?</h2>
-        <p>Рометто — персонаж с глубоким лором, сложной историей и детализированной физиологией. Держать все переменные в голове стало физически трудно, а количество вопросов от людей росло с каждым днем. Данный ресурс решает три ключевые задачи:</p>
+        <p>Рометто — персонаж с глубоким лором, сложной историей и детализированной физиологией. Данный ресурс решает три ключевые задачи:</p>
         <ul>
-            <li><span class="highlight">Внешняя память:</span> Защита данных от потери и путаницы. Здесь зафиксирован каждый сантиметр и каждый килограмм персонажа.</li>
-            <li><span class="highlight">Научный подход:</span> Все параметры рассчитаны на основе физики и биологических коэффициентов масштабирования. Это не просто фантазия, а математическая модель гиганта.</li>
-            <li><span class="highlight">Ультимативный референс:</span> Готовый инструмент для художников и соигроков. Больше никаких «примерно», только точные, каноничные данные.</li>
-        </ul>
-
-        <h2>🔞 Ответ на специфические вопросы</h2>
-        <p>В ходе дискуссий в сообществе часто возникали вопросы о деталях репродуктивной системы и метаболизма и прочем. Я подошел к этому серьезно. Вместо того чтобы игнорировать запросы, я провел расчеты, основанные на массе тела в 9.2 тонны. Теперь эти данные — официальная часть канона. </p>
-
-        <h2>🚀 Планы на будущее</h2>
-        <ul>
-            <li>Создание <span class="highlight">SFW-версии</span> листа (для общей аудитории).</li>
-            <li>Полная английская локализация всех таблиц и описаний.</li>
-            <li>Поддержка нескольких персонажей из вселенной Рометто.</li>
-            <li>Долелать страницы "Лор и Биография" и "фетиши и Рп предпочтения".</li> 
-            <li>Дописать на главной странице внешнее описание и характер.</li>
+            <li><span class="highlight">Внешняя память:</span> Защита данных от потери и путаницы.</li>
+            <li><span class="highlight">Научный подход:</span> Все параметры рассчитаны на основе физики и биологических коэффициентов.</li>
+            <li><span class="highlight">Ультимативный референс:</span> Готовый инструмент для художников и соигроков.</li>
         </ul>
 
         <div class="back-btn-container">
@@ -151,20 +134,8 @@
         </div>
     </div>
 
-    <footer class="site-footer">
-        <div>
-            © 2017 — <span id="year"></span> <strong>Mr. Rometto</strong>. Все права защищены.
-        </div>
-        
-        <div style="margin-top: 15px; max-width: 750px; margin-left: auto; margin-right: auto;">
-            Использование персонажа, его образа или перерисовка без прямого согласия хозяина — <strong>запрещены</strong>. 
-            Рометто — единственный в своём роде.
-        </div>
-
-        <div style="margin-top: 12px;">
-            Связь с автором: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a> | 
-            <a href="https://github.com/gas45has-cyber/rometto_List/blob/main/README.md" target="_blank" style="opacity: 0.7;">GitHub Source</a>
-        </div>
+    <footer style="text-align: center; margin-top: 50px; color: #777; font-size: 13px;">
+        <div>© 2017 — <span id="year"></span> <strong>Mr. Rometto</strong>. Все права защищены.</div>
     </footer>
 
     <script>
