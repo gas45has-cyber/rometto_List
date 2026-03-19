@@ -163,6 +163,38 @@
             box-shadow: 0 0 10px rgba(230, 126, 34, 0.3);
         }
 
+        /* НОВЫЕ СТИЛИ ДЛЯ ПОДСКАЗКИ СЛЕВА */
+        .nav-container-main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .lang-hint-main {
+            font-size: 13px;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 0 0 8px #e67e22;
+            background: rgba(230, 126, 34, 0.2);
+            padding: 10px 15px;
+            border-radius: 4px;
+            border-left: 3px solid #e67e22;
+            animation: hint-pulse 2s infinite ease-in-out;
+            white-space: nowrap;
+        }
+
+        @keyframes hint-pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.05); opacity: 1; text-shadow: 0 0 15px #e67e22; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
         #age-gate {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -197,7 +229,9 @@
         .site-footer a:hover { color: #e67e22; border-bottom-color: #e67e22; }
 
         @media print { body { display: none !important; } }
-        @media (max-width: 600px) { 
+        @media (max-width: 850px) { 
+            .nav-container-main { flex-direction: column; gap: 10px; }
+            .lang-hint-main { border-left: none; border-bottom: 2px solid #e67e22; font-size: 11px; }
             body { padding: 10px; } 
             table { font-size: 11px; } 
             .nav-btn { padding: 10px 15px; font-size: 11px; width: 90%; } 
@@ -239,10 +273,15 @@
 
     <h1>Информационный лист о Рометто</h1>
 
-    <div style="text-align: center; width: 100%; margin-bottom: 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 5px;">
-        <a href="about" class="nav-btn">О проекте (Wiki)</a>
-        <a href="/404" class="nav-btn">Биография и Лор</a>
-        <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
+    <div class="nav-container-main">
+        <div class="lang-hint-main">
+            This page is translated ➔
+        </div>
+        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 5px;">
+            <a href="about" class="nav-btn">О проекте (Wiki)</a>
+            <a href="/404" class="nav-btn">Биография и Лор</a>
+            <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
+        </div>
     </div>
 
     <div style="text-align:center; margin-bottom:15px; width: 100%;">
