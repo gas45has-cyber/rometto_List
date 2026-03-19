@@ -141,11 +141,32 @@
         .section { width: 100%; max-width: 900px; margin-top: 35px; }
         .formula { width: 100%; max-width: 870px; background: #181818; padding: 15px; border-left: 4px solid #666; margin-top: 15px; color: #d2b48c; }
 
-        /* ИСПРАВЛЕННЫЕ КНОПКИ */
+        /* ИСПРАВЛЕННЫЕ КНОПКИ НАВИГАЦИИ */
+        .nav-container-main {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr; /* Сетка на 3 части для идеальной центровки */
+            align-items: center;
+            gap: 15px;
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 20px;
+        }
+
+        .hint-column {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .buttons-column {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            flex-wrap: nowrap;
+        }
+
         .nav-btn {
             display: inline-block;
-            margin: 5px;
-            padding: 12px 25px;
+            padding: 12px 20px;
             border: 2px solid #e67e22;
             color: #e67e22;
             text-decoration: none;
@@ -155,7 +176,8 @@
             transition: 0.3s;
             background: rgba(230, 126, 34, 0.05);
             text-align: center;
-            font-size: 13px;
+            font-size: 12px;
+            white-space: nowrap;
         }
         .nav-btn:hover { 
             background: #e67e22; 
@@ -163,26 +185,14 @@
             box-shadow: 0 0 10px rgba(230, 126, 34, 0.3);
         }
 
-        /* НОВЫЕ СТИЛИ ДЛЯ ПОДСКАЗКИ СЛЕВА */
-        .nav-container-main {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 15px;
-            width: 100%;
-            max-width: 1100px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
         .lang-hint-main {
-            font-size: 13px;
+            font-size: 12px;
             color: #ffffff;
             font-weight: bold;
             text-transform: uppercase;
             text-shadow: 0 0 8px #e67e22;
             background: rgba(230, 126, 34, 0.2);
-            padding: 10px 15px;
+            padding: 8px 12px;
             border-radius: 4px;
             border-left: 3px solid #e67e22;
             animation: hint-pulse 2s infinite ease-in-out;
@@ -191,7 +201,7 @@
 
         @keyframes hint-pulse {
             0% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.05); opacity: 1; text-shadow: 0 0 15px #e67e22; }
+            50% { transform: scale(1.03); opacity: 1; text-shadow: 0 0 15px #e67e22; }
             100% { transform: scale(1); opacity: 0.8; }
         }
 
@@ -229,14 +239,17 @@
         .site-footer a:hover { color: #e67e22; border-bottom-color: #e67e22; }
 
         @media print { body { display: none !important; } }
-        @media (max-width: 850px) { 
-            .nav-container-main { flex-direction: column; gap: 10px; }
-            .lang-hint-main { border-left: none; border-bottom: 2px solid #e67e22; font-size: 11px; }
-            body { padding: 10px; } 
-            table { font-size: 11px; } 
-            .nav-btn { padding: 10px 15px; font-size: 11px; width: 90%; } 
-            .contacts-block { flex-direction: column; gap: 10px; align-items: center; }
-            .lang-switch { top: 10px; right: 10px; padding: 5px 12px; font-size: 12px; }
+        
+        @media (max-width: 900px) {
+            .nav-container-main {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .hint-column { justify-content: center; width: 100%; }
+            .buttons-column { flex-wrap: wrap; justify-content: center; width: 100%; }
+            .nav-btn { width: 80%; margin: 2px 0; }
+            .lang-hint-main { margin-bottom: 10px; font-size: 11px; }
         }
     </style>
 </head>
@@ -274,76 +287,78 @@
     <h1>Информационный лист о Рометто</h1>
 
     <div class="nav-container-main">
-        <div class="lang-hint-main">
-            This page is translated ➔
+        <div class="hint-column">
+            <div class="lang-hint-main">
+                This page is translated ➔
+            </div>
         </div>
-        <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 5px;">
+        <div class="buttons-column">
             <a href="about" class="nav-btn">О проекте (Wiki)</a>
             <a href="/404" class="nav-btn">Биография и Лор</a>
             <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
         </div>
-    </div>
+        <div class="empty-column"></div> </div>
 
     <div style="text-align:center; margin-bottom:15px; width: 100%;">
         <img src="/assets/rometto_ru_nsfw.png" alt="Rometto">
     </div>
 
-<div style="text-align: center; width: 100%; max-width: 900px; margin-top: 30px;">
-    <p class="sub-header">Каналы связи со мной:</p>
-    <div class="contacts-block">
-        <a href="https://t.me/mr_Rometto" class="contact-link" target="_blank">
-            <img src="/assets/icon_tg.png" class="contact-icon" alt="TG"> Мой ТГ
-        </a>
-        <a href="https://www.furaffinity.net/user/romb" class="contact-link" target="_blank">
-            <img src="/assets/fa_logo.webp" class="contact-icon" alt="FA"> Мой FA
-        </a>
-        <a href="https://vk.com/mr.rometto" class="contact-link" target="_blank">
-            <img src="/assets/icon_vk.png" class="contact-icon" alt="VK"> Мой ВК
-        </a>
-        <a href="https://youtube.com/@rombblog" class="contact-link" target="_blank">
-            <img src="/assets/icon_youtube.png" class="contact-icon" alt="YT"> Мой YouTube
-        </a>
+    <div style="text-align: center; width: 100%; max-width: 900px; margin-top: 30px;">
+        <p class="sub-header">Каналы связи со мной:</p>
+        <div class="contacts-block">
+            <a href="https://t.me/mr_Rometto" class="contact-link" target="_blank">
+                <img src="/assets/icon_tg.png" class="contact-icon" alt="TG"> Мой ТГ
+            </a>
+            <a href="https://www.furaffinity.net/user/romb" class="contact-link" target="_blank">
+                <img src="/assets/fa_logo.webp" class="contact-icon" alt="FA"> Мой FA
+            </a>
+            <a href="https://vk.com/mr.rometto" class="contact-link" target="_blank">
+                <img src="/assets/icon_vk.png" class="contact-icon" alt="VK"> Мой ВК
+            </a>
+            <a href="https://youtube.com/@rombblog" class="contact-link" target="_blank">
+                <img src="/assets/icon_youtube.png" class="contact-icon" alt="YT"> Мой YouTube
+            </a>
+        </div>
+        
+        <div style="margin-top: 25px; font-size: 14px; color: #d2b48c; text-align: center;">
+            <style>
+                .artist-credit {
+                    display: inline-block;
+                    position: relative;
+                }
+                .artist-link {
+                    color: #e67e22;
+                    text-decoration: none;
+                    font-weight: bold;
+                    position: relative;
+                    transition: 0.3s;
+                    border-bottom: 1px dashed #e67e22;
+                    padding: 0 4px;
+                }
+                .artist-link:hover {
+                    color: #fff;
+                    border-bottom-color: #fff;
+                }
+                .artist-link::after {
+                    content: "🐾";
+                    position: absolute;
+                    right: -25px;
+                    opacity: 0;
+                    transition: 0.3s ease-out;
+                    transform: scale(0.5) rotate(20deg);
+                }
+                .artist-link:hover::after {
+                    opacity: 1;
+                    right: -30px;
+                    transform: scale(1.1) rotate(0deg);
+                }
+            </style>
+            <span class="artist-credit">
+                Референс персонажа сделан лапками художницы: 
+                <a href="https://t.me/ricky0plush" target="_blank" class="artist-link">@ricky0plush</a>
+            </span>
+        </div>
     </div>
-    
-    <div style="margin-top: 25px; font-size: 14px; color: #d2b48c; text-align: center;">
-    <style>
-        .artist-credit {
-            display: inline-block;
-            position: relative;
-        }
-        .artist-link {
-            color: #e67e22;
-            text-decoration: none;
-            font-weight: bold;
-            position: relative;
-            transition: 0.3s;
-            border-bottom: 1px dashed #e67e22;
-            padding: 0 4px;
-        }
-        .artist-link:hover {
-            color: #fff;
-            border-bottom-color: #fff;
-        }
-        /* ЛАПКА СПРАВА */
-        .artist-link::after {
-            content: "🐾";
-            position: absolute;
-            right: -25px; /* Сдвиг вправо в обычном состоянии */
-            opacity: 0;
-            transition: 0.3s ease-out;
-            transform: scale(0.5) rotate(20deg); /* Поворот для динамики */
-        }
-        .artist-link:hover::after {
-            opacity: 1;
-            right: -30px; /* Позиция при наведении */
-            transform: scale(1.1) rotate(0deg); /* Плавное выравнивание */
-        }
-    </style>
-    <span class="artist-credit">
-        Референс персонажа сделан лапками художницы: 
-        <a href="https://t.me/ricky0plush" target="_blank" class="artist-link">@ricky0plush</a>
-    </span>
-</div>
 
     <h2>1. Общая биология</h2>
     <table>
@@ -415,27 +430,28 @@
         <tr><td>Длина сегмента</td><td>≈15 см</td><td>L × k</td><td>≈40–50 см</td></tr>
     </table>
 
-   <div class="section">
-    <h2 style="text-align: center;">7. Механика  охоты</h2>
-    <div style="background: #181818; padding: 20px; border-radius: 8px; border-left: 4px solid #e67e22; text-align: left;">
-        <p><strong>1. Фаза сближения (Психологическое давление):</strong><br>
-        Рометто не использует скрытность — для 9-тонного гиганта это бесполезно. Напротив, он может издавать низкочастотный рокот (почти инфразвук почему см.выше пункт дыхание), который парализует волю жертвы. Он просто идет в сторону цели: его уверенность и размеры заставляют добычу либо замереть в оцепенении, либо совершить фатальную ошибку при попытке к бегству Даже если жертва будет бежать, то от этого гиганта не сбежать не получится.</p>
+    <div class="section">
+        <h2 style="text-align: center;">7. Механика охоты</h2>
+        <div style="background: #181818; padding: 20px; border-radius: 8px; border-left: 4px solid #e67e22; text-align: left;">
+            <p><strong>1. Фаза сближения (Психологическое давление):</strong><br>
+            Рометто не использует скрытность — для 9-тонного гиганта это бесполезно. Напротив, он может издавать низкочастотный рокот (почти инфразвук), который парализует волю жертвы. Он просто идет в сторону цели: его уверенность и размеры заставляют добычу либо замереть в оцепенении, либо совершить фатальную ошибку при попытке к бегству.</p>
 
-        <p><strong>2. Фаза инерционного рывка:</strong><br>
-        Когда до цели остается 20–30 метров, Рометто совершает взрывной рывок. Несмотря на массу, его мускулатура позволяет развить скорость до 40–50 км/ч. Остановить такую тушу на ходу физически невозможно — в дело вступает закон сохранения импульса.</p>
+            <p><strong>2. Фаза инерционного рывка:</strong><br>
+            Когда до цели остается 20–30 метров, Рометто совершает взрывной рывок. Несмотря на массу, его мускулатура позволяет развить скорость до 40–50 км/ч. Остановить такую тушу на ходу физически невозможно — в дело вступает закон сохранения импульса.</p>
 
-        <p><strong>3. Фаза сокрушительного контакта:</strong><br>
-        Вместо обычных для кошачьих укусов, он использует прыжок или навал:
-        <ul style="margin-top: 5px; padding-left: 20px;">
-            <li><b>Удар лапой:</b> Подушечка шириной 70 см распределяет энергию так, что удар не просто ломает кости, а буквально «впечатывает» жертву в грунт.</li>
-            <li><b>Инерционное давление:</b> Приземляясь, он генерирует мгновенное усилие в <b>30-40 тонн</b>. Это вызывает компрессионный шок — внутренние органы и скелет разрушаются мгновенно.</li>
-        </ul>
-        </p>
+            <p><strong>3. Фаза сокрушительного контакта:</strong><br>
+            Вместо обычных для кошачьих укусов, он использует прыжок или навал:
+            <ul style="margin-top: 5px; padding-left: 20px;">
+                <li><b>Удар лапой:</b> Подушечка шириной 70 см распределяет энергию так, что удар не просто ломает кости, а буквально «впечатывает» жертву в грунт.</li>
+                <li><b>Инерционное давление:</b> Приземляясь, он генерирует мгновенное усилие в <b>30-40 тонн</b>. Это вызывает компрессионный шок — внутренние органы и скелет разрушаются мгновенно.</li>
+            </ul>
+            </p>
 
-        <p><strong>4. Завершение:</strong><br>
-        Если жертва еще подает признаки жизни, Рометто просто наступает на неё всем весом. Финальный <i>кусь</i> — это скорее ритуал или способ начать трапезу. При таких габаритах ему гораздо проще раздавить череп весом собственного тела, чем тратить силы на лишние наклоны для смертельного укуса. Не проверяйте это на себе — это будет очень неприятно.</p>
+            <p><strong>4. Завершение:</strong><br>
+            Если жертва еще подает признаки жизни, Рометто просто наступает на неё всем весом. Финальный кусь — это скорее ритуал. При таких габаритах ему проще раздавить череп весом тела.</p>
+        </div>
     </div>
-</div>
+
     <div class="formula">
         <b>Формулы масштабирования и физики</b><br><br>
         • k = 3.47 (Линейный коэффициент для длин)<br>
@@ -443,31 +459,19 @@
         • F<sub>dyn</sub> = M × a ≈ 30–40 т (Динамическая сила при прыжке и инерции)
     </div>
 
-    <div style="text-align: center; width: 100%; margin: 30px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 5px;">
+    <div style="margin: 30px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 5px; width: 100%;">
         <a href="about" class="nav-btn">О проекте (Wiki)</a>
         <a href="/404" class="nav-btn">Биография и Лор</a>
         <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
     </div>
 
     <footer class="site-footer">
-        <div>
-            © 2017 — <span id="year"></span> <strong>Mr. Rometto</strong>. Все права защищены.
-        </div>
-        
+        <div>© 2017 — <span id="year"></span> <strong>Mr. Rometto</strong>. Все права защищены.</div>
         <div style="margin-top: 15px; max-width: 750px; margin-left: auto; margin-right: auto;">
-            Использование персонажа, его образа или перерисовка без прямого согласия хозяина — <strong>запрещены</strong>. 
-            Случайные совпадения в концептах допускаются, ведь Земля так же круглая, как Луна и Солнце, 
-            но Рометто — единственный в своём роде.
+            Использование персонажа, его образа или перерисовка без прямого согласия хозяина — <strong>запрещены</strong>.
         </div>
-
-        <div style="margin-top: 10px; color: #d2b48c; font-style: italic;">
-            Если вы хотите сделать совместный арт или подарок — мне будет очень приятно! 
-            Но такие моменты всё же лучше предварительно обсудить со мной лично.
-        </div>
-
         <div style="margin-top: 12px;">
-            Связь с автором: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a> | 
-            <a href="about" style="opacity: 0.7;">Информация о проекте</a>
+            Связь с автором: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a>
         </div>
     </footer>
 
