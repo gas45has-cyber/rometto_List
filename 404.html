@@ -18,20 +18,23 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
+            padding: 0 20px;
             text-align: center;
+            -webkit-user-select: none;
+            user-select: none;
         }
         
         h1 { 
             color: #e67e22; 
-            font-size: clamp(28px, 8vw, 50px); /* Адаптивный размер шрифта */
+            font-size: clamp(28px, 8vw, 50px); 
             margin-bottom: 10px; 
             padding: 0 15px;
         }
 
         .error-description {
             font-size: 18px; 
-            max-width: 450px; 
-            width: 90%;
+            max-width: 500px; 
+            width: 100%;
             margin: 0 auto 30px auto; 
             line-height: 1.5;
         }
@@ -39,8 +42,10 @@
         .lapy-text {
             display: block;
             font-size: 14px;
-            color: #777;
-            margin-top: 10px;
+            /* Изменено на бежевый, как основной текст, но чуть прозрачнее для стиля */
+            color: #d2b48c; 
+            opacity: 0.9;
+            margin-top: 15px;
             font-style: italic;
         }
         
@@ -54,10 +59,12 @@
             text-transform: uppercase;
             border-radius: 5px;
             transition: 0.3s;
+            background: rgba(230, 126, 34, 0.05);
         }
         .back-btn:hover {
             background: #e67e22;
             color: #fff;
+            box-shadow: 0 0 15px rgba(230, 126, 34, 0.4);
         }
         .error-img {
             max-width: 300px;
@@ -84,11 +91,11 @@
 
         @media (max-width: 480px) {
             .error-description { font-size: 16px; }
-            .back-btn { width: 80%; padding: 12px 10px; }
+            .back-btn { width: 90%; padding: 12px 10px; font-size: 14px; }
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
     <div style="margin-top: auto;"></div>
 
@@ -97,13 +104,13 @@
     <h1>Ой, кажется тут ничего нет...</h1>
     
     <div class="error-description">
-        Похоже, эта территория закрыта или эта территоряи еще не пренадлежит Рометто.
+        Похоже, эта территория закрыта или она еще не принадлежит Рометто.
         <span class="lapy-text">
-            (у Рометто всё-таки лапки, страница еще в разработке или ты опечтался)
+            (у Рометто всё-таки лапки — страница еще в разработке или ты опечатался)
         </span>
     </div>
 
-    <a href="/" class="back-btn">Вернуться на известную территорию сайта</a>
+    <a href="/" class="back-btn">🐾 Вернуться на известную территорию</a>
 
     <footer class="site-footer">
         <div>
