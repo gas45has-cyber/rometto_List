@@ -142,7 +142,7 @@
             touch-action: none; cursor: grab;
         }
         #lightbox img {
-            max-width: none; max-height: none;
+            max-width: 95vw; max-height: 95vh; object-fit: contain;
             transition: transform 0.1s ease-out;
             transform-origin: center;
             user-select: none; -webkit-user-drag: none;
@@ -298,6 +298,7 @@
         const lightbox = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
         let scale = 1, x = 0, y = 0, isDragging = false, startX, startY;
+        let initialDistance = 0, initialScale = 1;
 
         function openLightbox() { lightbox.style.display = 'flex'; scale = 1; x = 0; y = 0; updateTransform(); }
         function closeLightbox(e) { if (e.target === lightbox) lightbox.style.display = 'none'; }
@@ -314,10 +315,35 @@
         window.onmousemove = (e) => { if (!isDragging) return; x = e.clientX - startX; y = e.clientY - startY; updateTransform(); };
         window.onmouseup = () => { isDragging = false; lightbox.classList.remove('dragging'); };
 
-        // ТАЧ
-        lightbox.ontouchstart = (e) => { isDragging = true; startX = e.touches[0].clientX - x; startY = e.touches[0].clientY - y; };
-        lightbox.ontouchmove = (e) => { if (!isDragging) return; x = e.touches[0].clientX - startX; y = e.touches[0].clientY - startY; updateTransform(); };
-        lightbox.ontouchend = () => { isDragging = false; };
+        // ТАЧ И ПИНЧ-ЗУМ (Улучшено для мобильных)
+        lightbox.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) {
+                initialDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+                initialScale = scale;
+            } else if (e.touches.length === 1) {
+                isDragging = true;
+                startX = e.touches[0].clientX - x;
+                startY = e.touches[0].clientY - y;
+            }
+        }, { passive: false });
+
+        lightbox.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (e.touches.length === 2) {
+                const currentDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+                scale = Math.min(Math.max(0.5, initialScale * (currentDistance / initialDistance)), 5);
+                updateTransform();
+            } else if (e.touches.length === 1 && isDragging) {
+                x = e.touches[0].clientX - startX;
+                y = e.touches[0].clientY - startY;
+                updateTransform();
+            }
+        }, { passive: false });
+
+        lightbox.addEventListener('touchend', (e) => {
+            if (e.touches.length < 2) initialDistance = 0;
+            if (e.touches.length === 0) isDragging = false;
+        });
 
         // ЗАЩИТА
         function setBlur(on) { if (on) document.body.classList.add('protected-blur'); else document.body.classList.remove('protected-blur'); }
