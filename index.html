@@ -146,12 +146,14 @@
         }
         .main-img-container img { max-width: 900px; width: 100%; display: block; border-radius: 4px; -webkit-user-drag: none; margin: 0 auto; transition: 0.3s; }
 
-        /* Исправленный Лайтбокс */
+        /* Лайтбокс с размытием фона */
         #lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); display: none; z-index: 20000;
+            background: rgba(0,0,0,0.8); display: none; z-index: 20000;
             justify-content: center; align-items: center; overflow: hidden;
             touch-action: none;
+            backdrop-filter: blur(10px); /* Эффект матового стекла */
+            -webkit-backdrop-filter: blur(10px);
         }
         #lightbox img {
             max-width: 95vw; 
@@ -169,8 +171,29 @@
         .age-gate-content { background: #151515; padding: 30px; border: 2px solid #e67e22; border-radius: 10px; text-align: center; max-width: 450px; }
         .age-btn { padding: 15px 40px; background: #e67e22; color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
 
+        /* Стилизация кредита художницы и Telegram */
         .artist-credit { font-size: 14px; color: #d2b48c; margin-top: 20px; text-align: center; }
-        .artist-link { color: #e67e22; text-decoration: none; border-bottom: 1px dashed #e67e22; }
+        .artist-link-container { display: inline-flex; align-items: center; position: relative; text-decoration: none; }
+        .artist-link { 
+            color: #24A1DE; /* Telegram Синий */
+            font-weight: bold;
+            transition: 0.2s ease-in-out;
+        }
+        .paw-icon {
+            opacity: 0;
+            margin-left: -5px;
+            transform: scale(0.5);
+            transition: 0.2s ease-in-out;
+            pointer-events: none;
+        }
+        .artist-link-container:hover .paw-icon {
+            opacity: 1;
+            margin-left: 5px;
+            transform: scale(1);
+        }
+        .artist-link-container:hover .artist-link {
+            filter: brightness(1.1);
+        }
 
         .site-footer { width: 100%; max-width: 900px; margin-top: 60px; padding: 25px 0; border-top: 1px solid #333; text-align: center; font-size: 13px; color: #777; line-height: 1.6; }
         .site-footer strong { color: #e67e22; }
@@ -223,7 +246,10 @@
 
     <div class="artist-credit">
         Референс персонажа сделан лапками художницы: 
-        <a href="https://t.me/ricky0plush" class="artist-link en-text" target="_blank">@ricky0plush</a>
+        <a href="https://t.me/ricky0plush" class="artist-link-container en-text" target="_blank">
+            <span class="artist-link">@ricky0plush</span>
+            <span class="paw-icon">🐾</span>
+        </a>
     </div>
 
     <div style="text-align: center; width: 100%; max-width: 900px; margin-top: 30px;">
@@ -286,8 +312,15 @@
         <tr><td>Дальность</td><td>≈8 км</td><td>мощность</td><td>20–30 км</td></tr>
     </table>
 
+    <h2>6. Система жизнедеятельности</h2>
+    <table>
+        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+        <tr><td>Моча (сутки)</td><td>≈1.5 л</td><td>M × k³</td><td>≈38–57 л</td></tr>
+        <tr><td>Кал (сутки)</td><td>≈2 кг</td><td>M × k³</td><td>≈57–76 кг</td></tr>
+    </table>
+
     <div class="section">
-        <h2>6. Механика охоты</h2>
+        <h2>7. Механика охоты</h2>
         <div style="background: #181818; padding: 20px; border-radius: 8px; border-left: 4px solid #e67e22;">
             <p><strong>1. Психологическое давление:</strong> Рометто использует инфразвук, парализующий волю.</p>
             <p><strong>2. Инерционный рывок:</strong> Взрывная скорость до 50 км/ч при массе 9 тонн.</p>
