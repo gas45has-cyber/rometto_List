@@ -15,6 +15,13 @@
     <link rel="apple-touch-icon" href="/favicon.png">
 
     <style>
+        @font-face {
+            font-family: 'LionKing';
+            src: url('lion_king.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: #0f0f0f;
@@ -25,29 +32,79 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            -webkit-user-select: none;
-            user-select: none;
+            /* Protection removed: text is now selectable */
+            user-select: text;
+            -webkit-user-select: text;
         }
 
-        /* Language Switcher Styles */
-        .lang-switch {
+        /* Applying LionKing font to English headers and specific names */
+        .en-text, h1, h2 {
+            font-family: 'LionKing', Arial, sans-serif !important;
+            letter-spacing: 1px;
+        }
+
+        /* Language Switcher Panel in your style */
+        .lang-wrapper {
             position: fixed;
             top: 20px;
             right: 20px;
-            z-index: 999;
-            background: rgba(230, 126, 34, 0.1);
-            border: 1px solid #e67e22;
-            color: #e67e22;
-            padding: 8px 15px;
-            border-radius: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            background: rgba(40, 20, 5, 0.8);
+            padding: 5px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(230, 126, 34, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .lang-label {
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 10px;
+            opacity: 0.9;
+            white-space: nowrap;
+        }
+
+        .animated-arrow {
+            color: #fff;
+            margin-right: 15px;
+            font-size: 14px;
+            animation: arrow-move 1.5s infinite;
+        }
+
+        @keyframes arrow-move {
+            0%, 100% { transform: translateX(0); opacity: 1; }
+            50% { transform: translateX(5px); opacity: 0.5; }
+        }
+
+        .lang-switch {
+            background: #e67e22;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 4px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 14px;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
+            font-size: 13px;
             text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 0 5px rgba(230, 126, 34, 0.5);
+            animation: glow-pulse 2s infinite ease-in-out;
         }
-        .lang-switch:hover { background: #e67e22; color: #fff; }
+
+        @keyframes glow-pulse {
+            0% { box-shadow: 0 0 5px rgba(230, 126, 34, 0.4); background: #e67e22; }
+            50% { box-shadow: 0 0 20px rgba(230, 126, 34, 0.8); background: #ff943d; }
+            100% { box-shadow: 0 0 5px rgba(230, 126, 34, 0.4); background: #e67e22; }
+        }
+
+        .lang-switch:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
 
         .container {
             width: 100%;
@@ -57,10 +114,28 @@
             border-radius: 10px;
             border: 1px solid #333;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-top: 20px;
+            margin-top: 40px;
+            box-sizing: border-box;
         }
-        h1 { text-align: center; color: #fff; text-transform: uppercase; border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-bottom: 30px; }
-        h2 { color: #e67e22; text-transform: uppercase; font-size: 1.2em; margin-top: 35px; border-left: 4px solid #e67e22; padding-left: 15px; }
+
+        h1 { 
+            text-align: center; 
+            color: #fff; 
+            text-transform: uppercase; 
+            border-bottom: 2px solid #e67e22; 
+            padding-bottom: 10px; 
+            margin-bottom: 30px; 
+        }
+
+        h2 { 
+            color: #e67e22; 
+            text-transform: uppercase; 
+            font-size: 1.2em; 
+            margin-top: 35px; 
+            border-left: 4px solid #e67e22; 
+            padding-left: 15px; 
+        }
+
         p { margin-bottom: 15px; text-align: justify; }
         .highlight { color: #fff; font-weight: bold; }
         
@@ -70,6 +145,7 @@
             border-top: 1px solid #333;
             padding-top: 30px;
         }
+
         .back-btn {
             display: inline-block;
             padding: 12px 30px;
@@ -82,6 +158,7 @@
             transition: 0.3s;
             background: rgba(230, 126, 34, 0.05);
         }
+
         .back-btn:hover { 
             background: #e67e22; 
             color: #fff; 
@@ -102,30 +179,38 @@
             font-size: 13px;
             color: #777;
         }
+
         .site-footer strong { color: #e67e22; }
         .site-footer a { color: #d2b48c; text-decoration: none; border-bottom: 1px solid #444; }
         
-        @media (max-width: 600px) {
-            .container { padding: 20px; }
-            h1 { font-size: 24px; }
-            .back-btn { width: 80%; }
+        @media (max-width: 768px) {
+            .lang-wrapper { top: 10px; right: 10px; padding: 4px 10px; }
+            .lang-label { display: none; }
+            .container { padding: 20px; margin-top: 60px; }
+            h1 { font-size: 22px; }
+            .back-btn { width: 85%; }
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <a href="about.html" class="lang-switch">RU</a>
+    <div class="lang-wrapper">
+        <span class="lang-label">Switch language here</span>
+        <span class="animated-arrow">➔</span>
+        <a href="about.html" class="lang-switch">RU</a>
+    </div>
 
     <div class="container">
-        <h1>Rometto Archive: About the Project</h1>
+        <h1><span class="en-text">Rometto</span> Archive: About the Project</h1>
         
         <p>This project is an interactive digital archive created to systematize a colossal amount of data regarding <span class="highlight">Rometto</span>, a giant demon-lion weighing over 9 tons.</p>
 
         <h2>🎯 Why is this needed?</h2>
-        <p>Rometto is a character with deep lore, complex history, and detailed physiology. Keeping all the variables in mind became physically difficult, while the number of questions from the community grew every day. This resource solves three key tasks:</p>
+        <p>Rometto is a character with deep lore, complex history, and detailed physiology. This resource solves three key tasks:</p>
         <ul>
             <li><span class="highlight">External Memory:</span> Protecting data from loss and confusion. Every centimeter and every kilogram of the character is recorded here.</li>
-            <li><span class="highlight">Scientific Approach:</span> All parameters are calculated based on physics and biological scaling coefficients. This is not just a fantasy, but a mathematical model of a giant.</li>
+            <li><span class="highlight">Scientific Approach:</span> All parameters are calculated based on physics and biological scaling coefficients. This is a mathematical model of a giant.</li>
+            <li><span class="highlight">Ultimate Reference:</span> A tool for artists and role-players. Only precise, canonical data.</li>
         </ul>
 
         <h2>🔞 Addressing Specific Questions</h2>
@@ -134,31 +219,28 @@
         <h2>🚀 Future Plans</h2>
         <ul>
             <li>Creation of a <span class="highlight">SFW version</span> of the sheet.</li>
-            <li>Support for multiple characters from the Rometto universe.</li>
+            <li>Full English localization.</li>
+            <li>Support for other characters in the universe.</li>
         </ul>
 
         <div class="back-btn-container">
-            <a href="index.html" class="back-btn">🐾 Return to the Lair</a>
+            <a href="/" class="back-btn">🐾 Return to the Lair</a>
         </div>
     </div>
 
     <footer class="site-footer">
         <div>
-            © 2017 — <span id="year"></span> <strong>Mr. Rometto</strong>. All rights reserved.
+            © 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">Rometto</span></strong>. All rights reserved.
         </div>
         
         <div style="margin-top: 15px; max-width: 750px; margin-left: auto; margin-right: auto;">
-            Gifts are always appreciated! Rometto and I are always happy to see collaborative art. 🐾<br>
-            However, please <a href="https://t.me/mr_Rometto" target="_blank">contact me</a> in advance so we can discuss the details.
-        </div>
-
-        <div style="margin-top: 15px; opacity: 0.8;">
-            Using this character, his likeness, or redraws without direct consent from the owner is <strong>prohibited</strong>. 
+            Using this character or his likeness without the owner's direct consent is <strong>prohibited</strong>. 
             Rometto is one of a kind.
         </div>
 
         <div style="margin-top: 12px;">
-            Contact: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a>
+            Contact: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a> | 
+            <a href="https://github.com/gas45has-cyber/rometto_List" target="_blank" style="opacity: 0.7;">GitHub Source</a>
         </div>
     </footer>
 
