@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="/favicon.png">
     
     <style>
-        /* Подключение твоего шрифта */
+        /* Подключение шрифта из корня проекта */
         @font-face {
             font-family: 'LionKing';
             src: url('lion_king.ttf') format('truetype');
@@ -32,6 +32,7 @@
             transition: filter 0.1s ease, opacity 0.1s ease;
         }
 
+        /* Класс для английского текста */
         .en-text {
             font-family: 'LionKing', Arial, sans-serif;
             letter-spacing: 1px;
@@ -61,6 +62,7 @@
         }
         .lang-switch:hover { background: #e67e22; color: #fff; }
 
+        /* Уведомление об английской версии */
         #en-notice {
             display: none;
             position: fixed;
@@ -134,6 +136,31 @@
         }
         .nav-btn:hover { background: #e67e22; color: #fff; box-shadow: 0 0 10px rgba(230, 126, 34, 0.3); }
 
+        /* Та самая лапка при наведении */
+        .main-img-container { 
+            text-align:center; 
+            margin-bottom:15px; 
+            width: 100%; 
+            position: relative;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="font-size: 24px;"><text y="24">🐾</text></svg>'), auto;
+        }
+        .main-img-container img { max-width: 900px; width: 100%; display: block; border-radius: 4px; -webkit-user-drag: none; margin: 0 auto; transition: 0.3s; }
+
+        /* Исправленный Лайтбокс */
+        #lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); display: none; z-index: 20000;
+            justify-content: center; align-items: center; overflow: hidden;
+            touch-action: none;
+        }
+        #lightbox img {
+            max-width: 95vw; 
+            max-height: 95vh; 
+            object-fit: contain;
+            transition: transform 0.1s ease-out;
+            transform-origin: center;
+        }
+
         #age-gate {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.99); display: flex; justify-content: center; align-items: center;
@@ -142,31 +169,12 @@
         .age-gate-content { background: #151515; padding: 30px; border: 2px solid #e67e22; border-radius: 10px; text-align: center; max-width: 450px; }
         .age-btn { padding: 15px 40px; background: #e67e22; color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
 
-        .main-img-container { text-align:center; margin-bottom:15px; width: 100%; cursor: zoom-in; }
-        .main-img-container img { max-width: 900px; width: 100%; display: block; border-radius: 4px; -webkit-user-drag: none; margin: 0 auto; transition: 0.3s; }
-        .main-img-container:hover img { filter: brightness(1.1); }
-
-        /* FIX: Lightbox Image Size */
-        #lightbox {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.95); display: none; z-index: 20000;
-            justify-content: center; align-items: center; overflow: hidden;
-            touch-action: none; cursor: grab;
-        }
-        #lightbox img {
-            max-width: 90vw; 
-            max-height: 90vh; 
-            object-fit: contain;
-            transition: transform 0.1s ease-out;
-            transform-origin: center;
-            user-select: none; -webkit-user-drag: none;
-        }
-        #lightbox.dragging { cursor: grabbing; }
+        .artist-credit { font-size: 14px; color: #d2b48c; margin-top: 20px; text-align: center; }
+        .artist-link { color: #e67e22; text-decoration: none; border-bottom: 1px dashed #e67e22; }
 
         .site-footer { width: 100%; max-width: 900px; margin-top: 60px; padding: 25px 0; border-top: 1px solid #333; text-align: center; font-size: 13px; color: #777; line-height: 1.6; }
         .site-footer strong { color: #e67e22; }
         .site-footer a { color: #d2b48c; text-decoration: none; border-bottom: 1px solid #444; transition: 0.3s; }
-        .site-footer a:hover { color: #e67e22; border-bottom-color: #e67e22; }
 
         @media (max-width: 900px) {
             .nav-container-main { flex-direction: column; align-items: center; }
@@ -195,25 +203,27 @@
     </div>
 
     <div id="lightbox" onclick="closeLightbox(event)">
-        <img id="lightbox-img" src="/assets/rometto_ru_nsfw.png" alt="Zoomed Rometto">
+        <img id="lightbox-img" src="/assets/rometto_ru_nsfw.png">
     </div>
 
-    <h1>Информационный лист о Рометто</h1>
+    <h1>ИНФОРМАЦИОННЫЙ ЛИСТ О ROMETTO</h1>
 
     <div class="nav-container-main">
-        <a href="about" class="nav-btn"><span class="en-text">About</span> (О проекте)</a>
+        <a href="about" class="nav-btn">О проекте (Section translated to EN)</a>
         <a href="/404" class="nav-btn">Биография и Лор</a>
         <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
     </div>
 
     <div class="main-img-container" onclick="openLightbox()">
-        <img src="/assets/rometto_ru_nsfw.png" alt="Rometto" id="main-ref">
-        <div style="font-size: 12px; color: #d2b48c; margin-top: 8px;">Кликни на фото, чтобы увеличить и зумить (<span class="en-text">Click the photo to enlarge and zoom.</span>)</div>
+        <img src="/assets/rometto_ru_nsfw.png" alt="Rometto">
+        <div style="font-size: 12px; color: #d2b48c; margin-top: 10px;">
+            Кликни на фото, чтобы увеличить и зумить (<span class="en-text">Click the photo to enlarge and zoom.</span>)
+        </div>
     </div>
 
-    <div class="appearance-desc">
-        <h3>Описание внешности и особенностей</h3>
-        <p>Появится позже, так как у Рометто лапки... 🐾 Пока вы можете увидеть всё на референсе выше</p>
+    <div class="artist-credit">
+        Референс персонажа сделан лапками художницы: 
+        <a href="https://t.me/ricky0plush" class="artist-link en-text" target="_blank">@ricky0plush</a>
     </div>
 
     <div style="text-align: center; width: 100%; max-width: 900px; margin-top: 30px;">
@@ -224,6 +234,11 @@
             <a href="https://vk.com/mr.rometto" class="contact-link" target="_blank"><img src="/assets/icon_vk.png" class="contact-icon"> Мой ВК</a>
             <a href="https://youtube.com/@rombblog" class="contact-link" target="_blank"><img src="/assets/icon_youtube.png" class="contact-icon"> Мой YouTube</a>
         </div>
+    </div>
+
+    <div class="appearance-desc">
+        <h3>Описание внешности и особенностей</h3>
+        <p>Появится позже, так как у Рометто лапки... 🐾 Пока вы можете увидеть всё на референсе выше</p>
     </div>
 
     <h2>1. Общая биология</h2>
@@ -271,15 +286,8 @@
         <tr><td>Дальность</td><td>≈8 км</td><td>мощность</td><td>20–30 км</td></tr>
     </table>
 
-    <h2>6. Система жизнедеятельности</h2>
-    <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Моча (сутки)</td><td>≈1.5 л</td><td>M × k³</td><td>≈38–57 л</td></tr>
-        <tr><td>Кал (сутки)</td><td>≈2 кг</td><td>M × k³</td><td>≈57–76 кг</td></tr>
-    </table>
-
     <div class="section">
-        <h2>7. Механика охоты</h2>
+        <h2>6. Механика охоты</h2>
         <div style="background: #181818; padding: 20px; border-radius: 8px; border-left: 4px solid #e67e22;">
             <p><strong>1. Психологическое давление:</strong> Рометто использует инфразвук, парализующий волю.</p>
             <p><strong>2. Инерционный рывок:</strong> Взрывная скорость до 50 км/ч при массе 9 тонн.</p>
@@ -303,12 +311,12 @@
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // AGE GATE
+        // Проверка возраста
         const ageGate = document.getElementById('age-gate');
         if (localStorage.getItem('ageConfirmed') === 'true') ageGate.style.display = 'none';
         function confirmAge() { localStorage.setItem('ageConfirmed', 'true'); ageGate.style.display = 'none'; }
 
-        // LIGHTBOX
+        // Функционал Лайтбокса
         const lightbox = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
         let scale = 1, x = 0, y = 0, isDragging = false, startX, startY;
@@ -322,6 +330,7 @@
         function closeLightbox(e) { if (e.target === lightbox) lightbox.style.display = 'none'; }
         function updateTransform() { lbImg.style.transform = `translate(${x}px, ${y}px) scale(${scale})`; }
 
+        // Зум колесиком (ПК)
         lightbox.onwheel = (e) => {
             e.preventDefault();
             const delta = e.deltaY > 0 ? -0.2 : 0.2;
@@ -329,10 +338,7 @@
             updateTransform();
         };
 
-        lightbox.onmousedown = (e) => { isDragging = true; lightbox.classList.add('dragging'); startX = e.clientX - x; startY = e.clientY - y; };
-        window.onmousemove = (e) => { if (!isDragging) return; x = e.clientX - startX; y = e.clientY - startY; updateTransform(); };
-        window.onmouseup = () => { isDragging = false; lightbox.classList.remove('dragging'); };
-
+        // Тач-события (Телефон)
         lightbox.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
                 initialDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
@@ -357,16 +363,16 @@
             }
         }, { passive: false });
 
-        lightbox.addEventListener('touchend', (e) => {
-            if (e.touches.length < 2) initialDistance = 0;
-            if (e.touches.length === 0) isDragging = false;
-        });
+        lightbox.addEventListener('touchend', () => { isDragging = false; });
 
+        // Функции для EN уведомления
+        function showEnNotice() { document.getElementById('en-notice').style.display = 'flex'; }
+        function hideEnNotice() { document.getElementById('en-notice').style.display = 'none'; }
+
+        // Защита блюром при потере фокуса
         function setBlur(on) { if (on) document.body.classList.add('protected-blur'); else document.body.classList.remove('protected-blur'); }
         window.addEventListener('blur', () => setBlur(true));
         window.addEventListener('focus', () => setBlur(false));
-        function showEnNotice() { document.getElementById('en-notice').style.display = 'flex'; }
-        function hideEnNotice() { document.getElementById('en-notice').style.display = 'none'; }
     </script>
 </body>
 </html>
