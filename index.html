@@ -4,9 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Информационный лист о Рометто</title>
+
+    <!-- SEO и Соцсети (Open Graph) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Информационный лист о Рометто — Гигантский лев-полудемон">
+    <meta property="og:description" content="Подробные биологические данные, расчеты метаболизма и физические характеристики Рометто.">
+    <meta property="og:image" content="/assets/rometto_ru_nsfw.png">
+    <meta property="og:site_name" content="Rometto Project">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Информационный лист о Рометто">
+    <meta name="twitter:image" content="/assets/rometto_ru_nsfw.png">
     
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
+    
+    <!-- Подключение MathJax для рендеринга формул -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <style>
         @font-face {
@@ -29,14 +43,12 @@
             user-select: text;
         }
 
-        /* Шрифт LionKing теперь ТОЛЬКО для английского текста в спец. контейнерах */
         .en-text {
             font-family: 'LionKing', Arial, sans-serif !important;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
 
-        /* Все заголовки теперь используют обычный Arial */
         h1, h2, h3 {
             font-family: Arial, Helvetica, sans-serif;
             letter-spacing: normal;
@@ -129,7 +141,7 @@
         }
 
         .section { width: 100%; max-width: 900px; margin-top: 35px; }
-        .formula { width: 100%; max-width: 870px; background: #181818; padding: 15px; border-left: 4px solid #666; margin-top: 15px; color: #d2b48c; font-size: 14px; }
+        .formula { width: 100%; max-width: 870px; background: #181818; padding: 15px; border-left: 4px solid #666; margin-top: 15px; color: #d2b48c; font-size: 14px; overflow-x: auto; }
 
         .nav-container-main { display: flex; justify-content: center; gap: 10px; width: 100%; max-width: 1100px; margin-bottom: 25px; flex-wrap: wrap; }
         .nav-btn {
@@ -173,8 +185,7 @@
             z-index: 10000; backdrop-filter: blur(20px);
         }
         .age-gate-content { background: #151515; padding: 30px; border: 2px solid #e67e22; border-radius: 10px; text-align: center; max-width: 450px; }
-        .age-btn { padding: 15px 40px; background: #e67e22; color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
-
+        
         .artist-credit { font-size: 14px; color: #d2b48c; margin-top: 20px; text-align: center; }
         .artist-link-container { display: inline-flex; align-items: center; position: relative; text-decoration: none; }
         .artist-link { color: #24A1DE; font-weight: bold; transition: 0.2s ease-in-out; }
@@ -186,7 +197,6 @@
             pointer-events: none;
         }
         .artist-link-container:hover .paw-icon { opacity: 1; margin-left: 5px; transform: scale(1); }
-        .artist-link-container:hover .artist-link { filter: brightness(1.1); }
 
         .site-footer { width: 100%; max-width: 900px; margin-top: 60px; padding: 25px 0; border-top: 1px solid #333; text-align: center; font-size: 13px; color: #777; line-height: 1.6; }
         .site-footer strong { color: #e67e22; }
@@ -300,75 +310,83 @@
         <tr><td>Прыжок в высоту</td><td>≈3 м</td><td>-</td><td>≈10 м</td></tr>
     </table>
 
-    <h2>3. Сердечно-сосудистая система</h2>
+    <h2>3. Анатомия и питание</h2>
     <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Масса сердца</td><td>≈1 кг</td><td>M × k³</td><td>≈40 кг</td></tr>
-        <tr><td>Объём крови</td><td>≈15 л</td><td>M × k³</td><td>≈600 л</td></tr>
-        <tr><td>Объём лёгких</td><td>≈13 л</td><td>M × k³</td><td>≈500 л</td></tr>
-        <tr><td>Пульс (покой)</td><td>≈40 уд/мин</td><td>M^-0.25</td><td>≈15–20 уд/мин</td></tr>
-        <tr><td>Пульс (нагрузка)</td><td>≈160–180 уд/мин</td><td>M^-0.25</td><td>≈60–80 уд/мин</td></tr>
-        <tr><td>Давление (к.д.)</td><td>120/80</td><td>-</td><td>250/160</td></tr>
+        <thead>
+            <tr>
+                <th>Параметр</th>
+                <th>Обычный лев</th>
+                <th>Формула</th>
+                <th>Рометто</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Плотность костей</td>
+                <td>≈1.9 г/см³</td>
+                <td>усилено демонической сущностью</td>
+                <td style="color:#e67e22; font-weight:bold;">≈5.5–6.0 г/см³</td>
+            </tr>
+            <tr>
+                <td>Прочность сухожилий</td>
+                <td>стандарт</td>
+                <td>M × k³</td>
+                <td style="color:#e67e22; font-weight:bold;">в ≈40 раз выше</td>
+            </tr>
+            <tr>
+                <td>Рацион (сутки)</td>
+                <td>5–7 кг</td>
+                <td>метаболизм $$BMR = c \cdot M^{0.75}$$</td>
+                <td style="color:#e67e22; font-weight:bold;">100–150 кг</td>
+            </tr>
+            <tr>
+                <td>Энергопотребность</td>
+                <td>≈18 000 ккал</td>
+                <td>BMR × α</td>
+                <td style="color:#e67e22; font-weight:bold;">≈354 000 ккал</td>
+            </tr>
+            <tr>
+                <td>Пиковая еда (раз)</td>
+                <td>≈30 кг</td>
+                <td>M × k³</td>
+                <td style="color:#e67e22; font-weight:bold;">до 500 кг</td>
+            </tr>
+            <tr>
+                <td>Эффективность ЖКТ</td>
+                <td>≈70%</td>
+                <td>усилено</td>
+                <td style="color:#e67e22; font-weight:bold;">≈90–95%</td>
+            </tr>
+        </tbody>
     </table>
 
-    <h2>4. Репродуктивная система</h2>
-    <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Диаметр яичка</td><td>≈6 см</td><td>L × k</td><td>≈17–20 см</td></tr>
-        <tr><td>Вес яичка (1 шт)</td><td>≈250 г</td><td>M × k³</td><td>≈9–10 кг</td></tr>
-        <tr><td>Длина (спокойный)</td><td>≈15 см</td><td>L × k</td><td>≈25–30 см</td></tr>
-        <tr><td>Длина (эрекция)</td><td>≈25 см</td><td>L × k</td><td>≈65–75 см</td></tr>
-        <tr><td>Диаметр пениса</td><td>≈4 см</td><td>L × k</td><td>≈12–15 см</td></tr>
-        <tr><td>Простата</td><td>≈4 см</td><td>усилено</td><td>≈20–25 см</td></tr>
-        <tr><td>Объём эякулята</td><td>≈60 мл</td><td>M × k³</td><td>≈1–2 л (180 км/ч)</td></tr>
-    </table>
-
-    <h2>5. Звук и коммуникация</h2>
-    <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Громкость рёва</td><td>114 dB</td><td>лёгкие</td><td>150–160 dB</td></tr>
-        <tr><td>Дальность</td><td>≈8 км</td><td>мощность</td><td>20–30 км</td></tr>
-        <tr><td>Тип звука</td><td>Низкий рёв</td><td>резонатор</td><td>Доминирующий рёв</td></tr>
-    </table>
-
-    <h2>6. Система следов жизнедеятельности</h2>
-    <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Моча (сутки)</td><td>≈1.5 л</td><td>M × k³</td><td>≈38–57 л</td></tr>
-        <tr><td>Моча (за раз)</td><td>≈400 мл</td><td>M × k³</td><td>≈10–15 л</td></tr>
-        <tr><td>Кал (сутки)</td><td>≈2 кг</td><td>M × k³</td><td>≈57–76 кг</td></tr>
-        <tr><td>Кал (за раз)</td><td>≈1 кг</td><td>M × k³</td><td>≈30–40 кг</td></tr>
-        <tr><td>Диаметр сегмента</td><td>≈4 см</td><td>L × k</td><td>≈14–16 см</td></tr>
-        <tr><td>Длина сегмента</td><td>≈15 см</td><td>L × k</td><td>≈40–50 см</td></tr>
-    </table>
-
-    <div class="section">
-        <h2>7. Механика охоты</h2>
-        <div style="background: #181818; padding: 20px; border-radius: 8px; border-left: 4px solid #e67e22;">
-            <p><strong>1. Фаза сближения:</strong> Рометто использует низкочастотный рокот (инфразвук), парализующий волю жертвы.</p>
-            <p><strong>2. Фаза инерционного рывка:</strong> Развивает скорость до 50 км/ч. Остановить 9 тонн на ходу физически невозможно.</p>
-            <p><strong>3. Фаза сокрушительного контакта:</strong> Удар лапой шириной 70 см не просто ломает кости, а буквально впечатывает в грунт.</p>
-            <p><strong>4. Завершение:</strong> Приземление генерирует усилие в 30-40 тонн, вызывая мгновенный компрессионный шок. Рометто может просто раздавить жертву всем своим весом, как только свалит её, или с лёгкостью раздавить голову лапой используя весь вес. Смертельный <i>«кусь»</i> он использует редко.</p>
-        </div>
+    <div class="appearance-desc">
+        <h3>Пояснение по механизмам усиления:</h3>
+        <p><strong>Костная матрица:</strong> Высокая плотность достигается через форсированную минерализацию под давлением демонической крови, что превращает скелет в сверхплотный монолит.</p>
+        <p><strong>Метаболический форсаж:</strong> Экстремальная кислотность ЖКТ и демонический коэффициент позволяют за один цикл полностью утилизировать скелет жертвы весом до 500 кг.</p>
     </div>
 
     <div class="formula">
-        <b>Формулы масштабирования и физики</b><br><br>
-        • k = 3.47 (Линейный коэффициент)<br>
-        • k³ ≈ 41.8 (Кубический закон для массы)<br>
-        • F<sub>dyn</sub> ≈ 30–40 т (Динамическая сила при прыжке)<br><br>
-        <b>Пояснение по силе удара лапой:</b><br>
-        Расчет кинетической энергии удара производится по формуле $E = \frac{1}{2}mv^2$. <br>
-        При массе лапы Рометто в 250 кг ($m = 250$) и скорости замаха/удара в 35 м/с ($v = 35$):<br>
-        $E = 0.5 \times 250 \times 1225 = 153,125$ Джоулей. <br>
-        Такая колоссальная энергия эквивалентна мгновенному воздействию веса в 16–20 тонн в точке контакта, что физически разрушает любые биологические структуры.
+        <b>4. Формулы масштабирования и метаболизма</b><br><br>
+        Где M — масса тела, а c — константа (для кошачьих она выше).<br>
+        Для Рометто мы вводим коэффициент демонического форсажа (α):<br>
+        $$BMR_{rometto} = (c \cdot M^{0.75}) \cdot \alpha$$
+        <br>
+        <b>Расчет для таблицы:</b><br>
+        • Масса (M): 9 200 кг.<br>
+        • Базовый расчет: Рометто тяжелее льва в 41.8 раза. Согласно закону степени 0.75, его базовые потребности растут в ≈16.4 раза.<br>
+        • Энергия: Обычный лев тратит ≈18 000 ккал/сут. Рометто требуется 18 000 * 16.4 ≈ 295 000 ккал.<br>
+        • Демонический коэффициент (α = 1.2): Учитывая температуру тела 40–42°C и давление 250/160, его метаболизм разогнан. 295 000 * 1.2 ≈ <b>354 000 ккал</b>.<br><br>
+        
+        <b>Перевод в мясо (Питание):</b><br>
+        При средней калорийности добычи в 2 500 ккал/кг (мясо + жир + костный мозг): Рометто требуется около 140 кг биомассы в сутки для поддержания активной формы.
     </div>
 
     <footer class="site-footer">
         <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">ROMETTO</span></strong>. Все права защищены.</div>
         <div style="margin-top: 15px; color: #d2b48c;">
             Подарки очень приятны, я и Рометто всегда рады совместным артам! 🐾<br>
-            Но, пожалуйста, <a href="https://t.me/mr_Rometto" target="_blank">свяжитесь со мной</a> заранее, чтобы мы могли обсудить все детали.
+            Но, пожалуйста, <a href="https://t.me/mr_Rometto" target="_blank">свяжитесь со мной</a> заранее.
         </div>
         <div style="margin-top: 15px;">Использование образа без согласия хозяина — <strong>запрещено</strong>.</div>
         <div style="margin-top: 12px;">Связь: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a></div>
