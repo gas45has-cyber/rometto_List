@@ -9,7 +9,6 @@
     <link rel="apple-touch-icon" href="/favicon.png">
     
     <style>
-        /* Подключение шрифта из корня проекта */
         @font-face {
             font-family: 'LionKing';
             src: url('lion_king.ttf') format('truetype');
@@ -32,7 +31,6 @@
             transition: filter 0.1s ease, opacity 0.1s ease;
         }
 
-        /* Класс для кастомного шрифта (только латиница) */
         .en-text {
             font-family: 'LionKing', Arial, sans-serif;
             letter-spacing: 2px;
@@ -44,7 +42,6 @@
             opacity: 0 !important;
         }
 
-        /* Кнопка переключения языка */
         .lang-switch {
             position: fixed;
             top: 20px;
@@ -63,7 +60,6 @@
         }
         .lang-switch:hover { background: #e67e22; color: #fff; }
 
-        /* Уведомление об английской версии */
         #en-notice {
             display: none;
             position: fixed;
@@ -137,7 +133,6 @@
         }
         .nav-btn:hover { background: #e67e22; color: #fff; box-shadow: 0 0 10px rgba(230, 126, 34, 0.3); }
 
-        /* Кастомный курсор */
         .main-img-container { 
             text-align:center; 
             margin-bottom:15px; 
@@ -147,7 +142,6 @@
         }
         .main-img-container img { max-width: 900px; width: 100%; display: block; border-radius: 4px; -webkit-user-drag: none; margin: 0 auto; transition: 0.3s; }
 
-        /* Лайтбокс */
         #lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.8); display: none; z-index: 20000;
@@ -158,11 +152,13 @@
         }
         #lightbox img {
             max-width: 95vw; 
-            max-height: 150vh; 
+            max-height: 95vh; 
             object-fit: contain;
             transition: transform 0.1s ease-out;
             transform-origin: center;
+            cursor: grab;
         }
+        #lightbox img:active { cursor: grabbing; }
 
         #age-gate {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -224,10 +220,10 @@
     </div>
 
     <div id="lightbox" onclick="closeLightbox(event)">
-        <img id="lightbox-img" src="/assets/rometto_ru_nsfw.png">
+        <img id="lightbox-img" src="/assets/rometto_ru_nsfw.png" draggable="false">
     </div>
 
-    <h1>Информационный лист о <span class="en-text">Rometto</span></h1>
+    <h1>Информационный лист о <span class="en-text">ROMETTO</span></h1>
 
     <div class="nav-container-main">
         <a href="about" class="nav-btn">О проекте (Section translated to EN)</a>
@@ -262,7 +258,7 @@
 
     <div class="appearance-desc">
         <h3>Описание внешности и особенностей</h3>
-        <p>Появится позже, так как у <span class="en-text">Rometo</span> лапки... Пока вы можете увидеть всё на референсе выше</p>
+        <p>Появится позже, так как у <span class="en-text">ROMETTO</span> лапки... Пока вы можете увидеть всё на референсе выше</p>
     </div>
 
     <h2>1. Общая биология</h2>
@@ -285,36 +281,6 @@
         <tr><td>Длина лапы</td><td>≈20 см</td><td>L × k</td><td>≈90–110 см</td></tr>
         <tr><td>Сила укуса</td><td>≈650 PSI</td><td>M × k³</td><td>≈24 000 PSI</td></tr>
         <tr><td>Давление (наступ)</td><td>≈0.2 т</td><td>импульс</td><td>≈20–30 т</td></tr>
-    </table>
-
-    <h2>3. Сердечно-сосудистая система</h2>
-    <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Масса сердца</td><td>≈1 кг</td><td>M × k³</td><td>≈40 кг</td></tr>
-        <tr><td>Объём крови</td><td>≈15 л</td><td>M × k³</td><td>≈600 л</td></tr>
-        <tr><td>Объём лёгких</td><td>≈13 л</td><td>M × k³</td><td>≈500 л</td></tr>
-    </table>
-
-    <h2>4. Репродуктивная система</h2>
-    <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Диаметр яичка</td><td>≈6 см</td><td>L × k</td><td>≈17–20 см</td></tr>
-        <tr><td>Длина (эрекция)</td><td>≈25 см</td><td>L × k</td><td>≈65–75 см</td></tr>
-        <tr><td>Объём эякулята</td><td>≈60 мл</td><td>M × k³</td><td>≈1–2 л</td></tr>
-    </table>
-
-    <h2>5. Звук и коммуникация</h2>
-    <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Громкость рёва</td><td>114 dB</td><td>лёгкие</td><td>150–160 dB</td></tr>
-        <tr><td>Дальность</td><td>≈8 км</td><td>мощность</td><td>20–30 км</td></tr>
-    </table>
-
-    <h2>6. Система жизнедеятельности</h2>
-    <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Моча (сутки)</td><td>≈1.5 л</td><td>M × k³</td><td>≈38–57 л</td></tr>
-        <tr><td>Кал (сутки)</td><td>≈2 кг</td><td>M × k³</td><td>≈57–76 кг</td></tr>
     </table>
 
     <div class="section">
@@ -342,12 +308,10 @@
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Проверка возраста
         const ageGate = document.getElementById('age-gate');
         if (localStorage.getItem('ageConfirmed') === 'true') ageGate.style.display = 'none';
         function confirmAge() { localStorage.setItem('ageConfirmed', 'true'); ageGate.style.display = 'none'; }
 
-        // Функционал Лайтбокса
         const lightbox = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
         let scale = 1, x = 0, y = 0, isDragging = false, startX, startY;
@@ -361,7 +325,6 @@
         function closeLightbox(e) { if (e.target === lightbox) lightbox.style.display = 'none'; }
         function updateTransform() { lbImg.style.transform = `translate(${x}px, ${y}px) scale(${scale})`; }
 
-        // Зум колесиком
         lightbox.onwheel = (e) => {
             e.preventDefault();
             const delta = e.deltaY > 0 ? -0.2 : 0.2;
@@ -369,7 +332,26 @@
             updateTransform();
         };
 
-        // Тач-события
+        // СОБЫТИЯ МЫШИ (ДЛЯ ПК)
+        lightbox.addEventListener('mousedown', (e) => {
+            if (e.target === lbImg) {
+                isDragging = true;
+                startX = e.clientX - x;
+                startY = e.clientY - y;
+            }
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                x = e.clientX - startX;
+                y = e.clientY - startY;
+                updateTransform();
+            }
+        });
+
+        window.addEventListener('mouseup', () => { isDragging = false; });
+
+        // ТАЧ-СОБЫТИЯ (ДЛЯ МОБИЛЬНЫХ)
         lightbox.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
                 initialDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
