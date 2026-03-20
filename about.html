@@ -6,7 +6,7 @@
     <title>О проекте — Рометто</title>
 
     <meta property="og:title" content="О проекте — Рометто">
-    <meta property="og:description" content="Интерактивный цифровой архив и био-параметры гигантского льва-полудемона.">
+    <meta property="og:description" content="Интерактивный цифровой архив и параметры гигантского льва-полудемона.">
     <meta property="og:image" content="/assets/rometto_ru_nsfw.png"> 
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
@@ -15,6 +15,13 @@
     <link rel="apple-touch-icon" href="/favicon.png">
 
     <style>
+        @font-face {
+            font-family: 'LionKing';
+            src: url('lion_king.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
         body {
             font-family: Arial, sans-serif;
             background: #0f0f0f;
@@ -25,11 +32,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            -webkit-user-select: none;
-            user-select: none;
+            /* Системы защиты убраны */
+            user-select: text;
+            -webkit-user-select: text;
         }
 
-        /* Обновленный контейнер переключения языка (стиль как на фото) */
+        .en-text {
+            font-family: 'LionKing', Arial, sans-serif !important;
+            letter-spacing: 1px;
+        }
+
         .lang-wrapper {
             position: fixed;
             top: 20px;
@@ -82,18 +94,9 @@
         }
 
         @keyframes glow-pulse {
-            0% { 
-                box-shadow: 0 0 5px rgba(230, 126, 34, 0.4);
-                background: #e67e22;
-            }
-            50% { 
-                box-shadow: 0 0 20px rgba(230, 126, 34, 0.8);
-                background: #ff943d;
-            }
-            100% { 
-                box-shadow: 0 0 5px rgba(230, 126, 34, 0.4);
-                background: #e67e22;
-            }
+            0% { box-shadow: 0 0 5px rgba(230, 126, 34, 0.4); background: #e67e22; }
+            50% { box-shadow: 0 0 20px rgba(230, 126, 34, 0.8); background: #ff943d; }
+            100% { box-shadow: 0 0 5px rgba(230, 126, 34, 0.4); background: #e67e22; }
         }
 
         .lang-switch:hover {
@@ -110,10 +113,27 @@
             border: 1px solid #333;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             margin-top: 40px;
+            box-sizing: border-box;
         }
 
-        h1 { text-align: center; color: #fff; text-transform: uppercase; border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-bottom: 30px; }
-        h2 { color: #e67e22; text-transform: uppercase; font-size: 1.2em; margin-top: 35px; border-left: 4px solid #e67e22; padding-left: 15px; }
+        h1 { 
+            text-align: center; 
+            color: #fff; 
+            text-transform: uppercase; 
+            border-bottom: 2px solid #e67e22; 
+            padding-bottom: 10px; 
+            margin-bottom: 30px; 
+        }
+
+        h2 { 
+            color: #e67e22; 
+            text-transform: uppercase; 
+            font-size: 1.2em; 
+            margin-top: 35px; 
+            border-left: 4px solid #e67e22; 
+            padding-left: 15px; 
+        }
+
         p { margin-bottom: 15px; text-align: justify; }
         .highlight { color: #fff; font-weight: bold; }
         
@@ -123,6 +143,7 @@
             border-top: 1px solid #333;
             padding-top: 30px;
         }
+
         .back-btn {
             display: inline-block;
             padding: 12px 30px;
@@ -135,6 +156,7 @@
             transition: 0.3s;
             background: rgba(230, 126, 34, 0.05);
         }
+
         .back-btn:hover { 
             background: #e67e22; 
             color: #fff; 
@@ -155,25 +177,21 @@
             font-size: 13px;
             color: #777;
         }
+
         .site-footer strong { color: #e67e22; }
         .site-footer a { color: #d2b48c; text-decoration: none; border-bottom: 1px solid #444; }
         
         @media (max-width: 768px) {
-            .lang-wrapper {
-                top: 10px;
-                right: 10px;
-                padding: 4px 10px;
-            }
-            .lang-label { display: none; } /* Скрываем длинный текст на мобильных для экономии места */
+            .lang-wrapper { top: 10px; right: 10px; padding: 4px 10px; }
+            .lang-label { display: none; }
             .container { padding: 20px; margin-top: 60px; }
             h1 { font-size: 22px; }
             .back-btn { width: 85%; }
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body>
 
-    <!-- Панель переключения языка -->
     <div class="lang-wrapper">
         <span class="lang-label">Translation button works here</span>
         <span class="animated-arrow">➔</span>
@@ -181,46 +199,46 @@
     </div>
 
     <div class="container">
-        <h1>Bio-Archive Rometto: О проекте</h1>
+        <h1>Архив <span class="en-text">Rometto</span>: О проекте</h1>
         
         <p>Этот проект — интерактивный цифровой архив, созданный для систематизации колоссального объема данных о <span class="highlight">Рометто</span>, гигантском льве-полудемоне массой более 9 тонн.</p>
 
         <h2>🎯 Зачем это нужно?</h2>
-        <p>Рометто — персонаж с глубоким лором, сложной историей и детализированной физиологией. Держать все переменные в голове стало физически трудно, а количество вопросов от аудитории росло с каждым днем. Данный ресурс решает три ключевые задачи:</p>
+        <p>Рометто — персонаж с глубоким лором, сложной историей и детализированной физиологией. Данный ресурс решает три ключевые задачи:</p>
         <ul>
             <li><span class="highlight">Внешняя память:</span> Защита данных от потери и путаницы. Здесь зафиксирован каждый сантиметр и каждый килограмм персонажа.</li>
-            <li><span class="highlight">Научный подход:</span> Все параметры рассчитаны на основе физики и биологических коэффициентов масштабирования. Это не просто фантазия, а математическая модель гиганта.</li>
-            <li><span class="highlight">Ультимативный референс:</span> Готовый инструмент для художников и соигроков. Больше никаких «примерно», только точные, каноничные данные.</li>
+            <li><span class="highlight">Научный подход:</span> Все параметры рассчитаны на основе физики и биологических коэффициентов масштабирования. Это математическая модель гиганта.</li>
+            <li><span class="highlight">Ультимативный референс:</span> Готовый инструмент для художников и соигроков. Только точные, каноничные данные.</li>
         </ul>
 
         <h2>🔞 Ответ на специфические вопросы</h2>
-        <p>В ходе дискуссий в сообществе часто возникали вопросы о деталях репродуктивной системы и метаболизма. Я подошел к этому серьезно. Вместо того чтобы игнорировать запросы, я провел расчеты, основанные на массе тела в 9.2 тонны. Теперь эти данные — официальная часть канона.</p>
+        <p>В ходе дискуссий часто возникали вопросы о деталях репродуктивной системы и метаболизма. Я подошел к этому серьезно. Вместо того чтобы игнорировать запросы, я провел расчеты, основанные на массе тела в 9.2 тонны. Теперь эти данные — официальная часть канона.</p>
 
         <h2>🚀 Планы на будущее</h2>
         <ul>
-            <li>Создание <span class="highlight">SFW-версии</span> листа (для общей аудитории).</li>
-            <li>Полная английская локализация всех таблиц и описаний.</li>
-            <li>Поддержка нескольких персонажей из вселенной Рометто.</li>
+            <li>Создание <span class="highlight">SFW-версии</span> листа.</li>
+            <li>Полная английская локализация.</li>
+            <li>Поддержка других персонажей вселенной.</li>
         </ul>
 
         <div class="back-btn-container">
-            <a href="index.html" class="back-btn">🐾 Вернуться в логово</a>
+            <a href="/" class="back-btn">🐾 Вернуться в логово</a>
         </div>
     </div>
 
     <footer class="site-footer">
         <div>
-            © 2017 — <span id="year"></span> <strong>Mr. Rometto</strong>. Все права защищены.
+            © 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">Rometto</span></strong>. Все права защищены.
         </div>
         
         <div style="margin-top: 15px; max-width: 750px; margin-left: auto; margin-right: auto;">
-            Использование персонажа, его образа или перерисовка без прямого согласия хозяина — <strong>запрещены</strong>. 
+            Использование персонажа без согласия хозяина — <strong>запрещено</strong>. 
             Рометто — единственный в своём роде.
         </div>
 
         <div style="margin-top: 12px;">
-            Связь с автором: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a> | 
-            <a href="https://github.com/gas45has-cyber/rometto_List/blob/main/README.md" target="_blank" style="opacity: 0.7;">GitHub Source</a>
+            Связь: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a> | 
+            <a href="https://github.com/gas45has-cyber/rometto_List" target="_blank" style="opacity: 0.7;">GitHub Source</a>
         </div>
     </footer>
 
