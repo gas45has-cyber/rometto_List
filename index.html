@@ -32,10 +32,11 @@
             transition: filter 0.1s ease, opacity 0.1s ease;
         }
 
-        /* Класс для английского текста */
+        /* Класс для кастомного шрифта (только латиница) */
         .en-text {
             font-family: 'LionKing', Arial, sans-serif;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         .protected-blur {
@@ -136,7 +137,7 @@
         }
         .nav-btn:hover { background: #e67e22; color: #fff; box-shadow: 0 0 10px rgba(230, 126, 34, 0.3); }
 
-        /* Та самая лапка при наведении */
+        /* Кастомный курсор */
         .main-img-container { 
             text-align:center; 
             margin-bottom:15px; 
@@ -146,13 +147,13 @@
         }
         .main-img-container img { max-width: 900px; width: 100%; display: block; border-radius: 4px; -webkit-user-drag: none; margin: 0 auto; transition: 0.3s; }
 
-        /* Лайтбокс с размытием фона */
+        /* Лайтбокс */
         #lightbox {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.8); display: none; z-index: 20000;
             justify-content: center; align-items: center; overflow: hidden;
             touch-action: none;
-            backdrop-filter: blur(10px); /* Эффект матового стекла */
+            backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
         }
         #lightbox img {
@@ -171,11 +172,10 @@
         .age-gate-content { background: #151515; padding: 30px; border: 2px solid #e67e22; border-radius: 10px; text-align: center; max-width: 450px; }
         .age-btn { padding: 15px 40px; background: #e67e22; color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; text-transform: uppercase; margin-top: 20px; }
 
-        /* Стилизация кредита художницы и Telegram */
         .artist-credit { font-size: 14px; color: #d2b48c; margin-top: 20px; text-align: center; }
         .artist-link-container { display: inline-flex; align-items: center; position: relative; text-decoration: none; }
         .artist-link { 
-            color: #24A1DE; /* Telegram Синий */
+            color: #24A1DE; 
             font-weight: bold;
             transition: 0.2s ease-in-out;
         }
@@ -191,9 +191,7 @@
             margin-left: 5px;
             transform: scale(1);
         }
-        .artist-link-container:hover .artist-link {
-            filter: brightness(1.1);
-        }
+        .artist-link-container:hover .artist-link { filter: brightness(1.1); }
 
         .site-footer { width: 100%; max-width: 900px; margin-top: 60px; padding: 25px 0; border-top: 1px solid #333; text-align: center; font-size: 13px; color: #777; line-height: 1.6; }
         .site-footer strong { color: #e67e22; }
@@ -229,7 +227,7 @@
         <img id="lightbox-img" src="/assets/rometto_ru_nsfw.png">
     </div>
 
-    <h1>Информационный лист о Rometto</h1>
+    <h1>Информационный лист о <span class="en-text">ROMETTO</span></h1>
 
     <div class="nav-container-main">
         <a href="about" class="nav-btn">О проекте (Section translated to EN)</a>
@@ -245,7 +243,7 @@
     </div>
 
     <div class="artist-credit">
-        Референс персонажа сделан прекрасными лапками художницы  Ricky_Plush. Она  Обитает тут: 
+        Референс персонажа сделан прекрасными лапками художницы Ricky_Plush. Она обитает тут: 
         <a href="https://t.me/ricky0plush" class="artist-link-container en-text" target="_blank">
             <span class="artist-link">Telegram</span>
             <span class="paw-icon">🐾</span>
@@ -264,7 +262,7 @@
 
     <div class="appearance-desc">
         <h3>Описание внешности и особенностей</h3>
-        <p>Появится позже, так как у Рометто лапки...  Пока вы можете увидеть всё на референсе выше</p>
+        <p>Появится позже, так как у <span class="en-text">ROMETTO</span> лапки... Пока вы можете увидеть всё на референсе выше</p>
     </div>
 
     <h2>1. Общая биология</h2>
@@ -322,7 +320,7 @@
     <div class="section">
         <h2>7. Механика охоты</h2>
         <div style="background: #181818; padding: 20px; border-radius: 8px; border-left: 4px solid #e67e22;">
-            <p><strong>1. Психологическое давление:</strong> Рометто использует инфразвук, парализующий волю.</p>
+            <p><strong>1. Психологическое давление:</strong> <span class="en-text">ROMETTO</span> использует инфразвук, парализующий волю.</p>
             <p><strong>2. Инерционный рывок:</strong> Взрывная скорость до 50 км/ч при массе 9 тонн.</p>
             <p><strong>3. Удар лапой:</strong> Энергия удара буквально «впечатывает» жертву в грунт.</p>
         </div>
@@ -336,7 +334,7 @@
     </div>
 
     <footer class="site-footer">
-        <div>© 2017 — <span id="year"></span> <strong>Mr. Rometto</strong>. Все права защищены.</div>
+        <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">ROMETTO</span></strong>. Все права защищены.</div>
         <div style="margin-top: 15px;">Использование образа без согласия хозяина — <strong>запрещено</strong>.</div>
         <div style="margin-top: 12px;">Связь: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a></div>
     </footer>
@@ -363,7 +361,7 @@
         function closeLightbox(e) { if (e.target === lightbox) lightbox.style.display = 'none'; }
         function updateTransform() { lbImg.style.transform = `translate(${x}px, ${y}px) scale(${scale})`; }
 
-        // Зум колесиком (ПК)
+        // Зум колесиком
         lightbox.onwheel = (e) => {
             e.preventDefault();
             const delta = e.deltaY > 0 ? -0.2 : 0.2;
@@ -371,7 +369,7 @@
             updateTransform();
         };
 
-        // Тач-события (Телефон)
+        // Тач-события
         lightbox.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
                 initialDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
@@ -398,11 +396,9 @@
 
         lightbox.addEventListener('touchend', () => { isDragging = false; });
 
-        // Функции для EN уведомления
         function showEnNotice() { document.getElementById('en-notice').style.display = 'flex'; }
         function hideEnNotice() { document.getElementById('en-notice').style.display = 'none'; }
 
-        // Защита блюром при потере фокуса
         function setBlur(on) { if (on) document.body.classList.add('protected-blur'); else document.body.classList.remove('protected-blur'); }
         window.addEventListener('blur', () => setBlur(true));
         window.addEventListener('focus', () => setBlur(false));
