@@ -170,11 +170,7 @@
 
         .artist-credit { font-size: 14px; color: #d2b48c; margin-top: 20px; text-align: center; }
         .artist-link-container { display: inline-flex; align-items: center; position: relative; text-decoration: none; }
-        .artist-link { 
-            color: #24A1DE; 
-            font-weight: bold;
-            transition: 0.2s ease-in-out;
-        }
+        .artist-link { color: #24A1DE; font-weight: bold; transition: 0.2s ease-in-out; }
         .paw-icon {
             opacity: 0;
             margin-left: -5px;
@@ -182,11 +178,7 @@
             transition: 0.2s ease-in-out;
             pointer-events: none;
         }
-        .artist-link-container:hover .paw-icon {
-            opacity: 1;
-            margin-left: 5px;
-            transform: scale(1);
-        }
+        .artist-link-container:hover .paw-icon { opacity: 1; margin-left: 5px; transform: scale(1); }
         .artist-link-container:hover .artist-link { filter: brightness(1.1); }
 
         .site-footer { width: 100%; max-width: 900px; margin-top: 60px; padding: 25px 0; border-top: 1px solid #333; text-align: center; font-size: 13px; color: #777; line-height: 1.6; }
@@ -283,6 +275,36 @@
         <tr><td>Давление (наступ)</td><td>≈0.2 т</td><td>импульс</td><td>≈20–30 т</td></tr>
     </table>
 
+    <h2>3. Сердечно-сосудистая система</h2>
+    <table>
+        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+        <tr><td>Масса сердца</td><td>≈1 кг</td><td>M × k³</td><td>≈40 кг</td></tr>
+        <tr><td>Объём крови</td><td>≈15 л</td><td>M × k³</td><td>≈600 л</td></tr>
+        <tr><td>Объём лёгких</td><td>≈13 л</td><td>M × k³</td><td>≈500 л</td></tr>
+    </table>
+
+    <h2>4. Репродуктивная система</h2>
+    <table>
+        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+        <tr><td>Диаметр яичка</td><td>≈6 см</td><td>L × k</td><td>≈17–20 см</td></tr>
+        <tr><td>Длина (эрекция)</td><td>≈25 см</td><td>L × k</td><td>≈65–75 см</td></tr>
+        <tr><td>Объём эякулята</td><td>≈60 мл</td><td>M × k³</td><td>≈1–2 л</td></tr>
+    </table>
+
+    <h2>5. Звук и коммуникация</h2>
+    <table>
+        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+        <tr><td>Громкость рёва</td><td>114 dB</td><td>лёгкие</td><td>150–160 dB</td></tr>
+        <tr><td>Дальность</td><td>≈8 км</td><td>мощность</td><td>20–30 км</td></tr>
+    </table>
+
+    <h2>6. Система жизнедеятельности</h2>
+    <table>
+        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+        <tr><td>Моча (сутки)</td><td>≈1.5 л</td><td>M × k³</td><td>≈38–57 л</td></tr>
+        <tr><td>Кал (сутки)</td><td>≈2 кг</td><td>M × k³</td><td>≈57–76 кг</td></tr>
+    </table>
+
     <div class="section">
         <h2>7. Механика охоты</h2>
         <div style="background: #181818; padding: 20px; border-radius: 8px; border-left: 4px solid #e67e22;">
@@ -332,7 +354,6 @@
             updateTransform();
         };
 
-        // СОБЫТИЯ МЫШИ (ДЛЯ ПК)
         lightbox.addEventListener('mousedown', (e) => {
             if (e.target === lbImg) {
                 isDragging = true;
@@ -351,7 +372,6 @@
 
         window.addEventListener('mouseup', () => { isDragging = false; });
 
-        // ТАЧ-СОБЫТИЯ (ДЛЯ МОБИЛЬНЫХ)
         lightbox.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
                 initialDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
