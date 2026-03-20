@@ -28,6 +28,79 @@
             -webkit-user-select: none;
             user-select: none;
         }
+
+        /* Обновленный контейнер переключения языка (стиль как на фото) */
+        .lang-wrapper {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            background: rgba(40, 20, 5, 0.8);
+            padding: 5px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(230, 126, 34, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .lang-label {
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 10px;
+            opacity: 0.9;
+            white-space: nowrap;
+        }
+
+        .animated-arrow {
+            color: #fff;
+            margin-right: 15px;
+            font-size: 14px;
+            animation: arrow-move 1.5s infinite;
+        }
+
+        @keyframes arrow-move {
+            0%, 100% { transform: translateX(0); opacity: 1; }
+            50% { transform: translateX(5px); opacity: 0.5; }
+        }
+
+        .lang-switch {
+            background: #e67e22;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 0 5px rgba(230, 126, 34, 0.5);
+            animation: glow-pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes glow-pulse {
+            0% { 
+                box-shadow: 0 0 5px rgba(230, 126, 34, 0.4);
+                background: #e67e22;
+            }
+            50% { 
+                box-shadow: 0 0 20px rgba(230, 126, 34, 0.8);
+                background: #ff943d;
+            }
+            100% { 
+                box-shadow: 0 0 5px rgba(230, 126, 34, 0.4);
+                background: #e67e22;
+            }
+        }
+
+        .lang-switch:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+
         .container {
             width: 100%;
             max-width: 900px;
@@ -36,14 +109,14 @@
             border-radius: 10px;
             border: 1px solid #333;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            margin-top: 20px;
+            margin-top: 40px;
         }
+
         h1 { text-align: center; color: #fff; text-transform: uppercase; border-bottom: 2px solid #e67e22; padding-bottom: 10px; margin-bottom: 30px; }
         h2 { color: #e67e22; text-transform: uppercase; font-size: 1.2em; margin-top: 35px; border-left: 4px solid #e67e22; padding-left: 15px; }
         p { margin-bottom: 15px; text-align: justify; }
         .highlight { color: #fff; font-weight: bold; }
         
-        /* КНОПКА НАЗАД ВНИЗУ */
         .back-btn-container {
             text-align: center;
             margin-top: 40px;
@@ -85,17 +158,30 @@
         .site-footer strong { color: #e67e22; }
         .site-footer a { color: #d2b48c; text-decoration: none; border-bottom: 1px solid #444; }
         
-        @media (max-width: 600px) {
-            .container { padding: 20px; }
-            h1 { font-size: 24px; }
-            .back-btn { width: 80%; }
+        @media (max-width: 768px) {
+            .lang-wrapper {
+                top: 10px;
+                right: 10px;
+                padding: 4px 10px;
+            }
+            .lang-label { display: none; } /* Скрываем длинный текст на мобильных для экономии места */
+            .container { padding: 20px; margin-top: 60px; }
+            h1 { font-size: 22px; }
+            .back-btn { width: 85%; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
+    <!-- Панель переключения языка -->
+    <div class="lang-wrapper">
+        <span class="lang-label">Translation button works here</span>
+        <span class="animated-arrow">➔</span>
+        <a href="about_en.html" class="lang-switch">EN</a>
+    </div>
+
     <div class="container">
-        <h1>Архив Rometto: О проекте</h1>
+        <h1>Bio-Archive Rometto: О проекте</h1>
         
         <p>Этот проект — интерактивный цифровой архив, созданный для систематизации колоссального объема данных о <span class="highlight">Рометто</span>, гигантском льве-полудемоне массой более 9 тонн.</p>
 
@@ -118,7 +204,7 @@
         </ul>
 
         <div class="back-btn-container">
-            <a href="index./" class="back-btn">🐾 Вернуться в логово</a>
+            <a href="index.html" class="back-btn">🐾 Вернуться в логово</a>
         </div>
     </div>
 
