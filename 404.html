@@ -31,7 +31,8 @@
             -webkit-user-select: text;
         }
 
-        .en-text {
+        /* Оставляем LionKing только для заголовков и брендинга, если нужно */
+        .brand-text {
             font-family: 'LionKing', Arial, sans-serif !important;
             letter-spacing: 1px;
         }
@@ -56,12 +57,14 @@
             line-height: 1.6;
         }
 
+        /* Английский текст теперь обычный */
         .error-description.en {
             opacity: 0.6;
             font-size: 15px;
             border-top: 1px solid rgba(210, 180, 140, 0.15);
             padding-top: 15px;
             margin-top: 20px;
+            font-family: Arial, sans-serif !important; /* Принудительно обычный шрифт */
         }
 
         .lapy-text {
@@ -97,10 +100,12 @@
         .error-img {
             max-width: 260px;
             width: 65%;
+            height: auto; /* Гарантируем сохранение пропорций */
             margin-bottom: 25px;
             border-radius: 12px;
             opacity: 0.9;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            object-fit: contain; /* Чтобы картинка не обрезалась внутри контейнера */
         }
 
         .site-footer {
@@ -134,7 +139,7 @@
     
     <div class="error-container">
         <h1>Ой, кажется тут пусто...<br>
-        <span class="en-text" style="font-size: 0.75em; color: #fff; opacity: 0.8;">Oops, it's empty here...</span></h1>
+        <span style="font-size: 0.75em; color: #fff; opacity: 0.8; font-family: Arial, sans-serif;">Oops, it's empty here...</span></h1>
         
         <div class="error-description">
             Эта территория еще не освоена Рометто.
@@ -155,7 +160,7 @@
 
     <footer class="site-footer">
         <div>
-            © 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">Rometto</span></strong>. All rights reserved.
+            © 2017 — <span id="year"></span> <strong>Mr. <span class="brand-text">Rometto</span></strong>. All rights reserved.
         </div>
         <div style="margin-top: 8px;">
             Связь / Contact: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a>
