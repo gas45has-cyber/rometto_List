@@ -17,7 +17,7 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
+            font-family: Arial, Helvetica, sans-serif;
             background: #0f0f0f;
             color: #d2b48c; 
             margin: 0;
@@ -29,14 +29,17 @@
             user-select: text;
         }
 
-        /* Применение шрифта LionKing для английского текста и заголовков */
-        .en-text, h1, h2, h3 {
+        /* Шрифт LionKing теперь ТОЛЬКО для английского текста в спец. контейнерах */
+        .en-text {
             font-family: 'LionKing', Arial, sans-serif !important;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        .en-text {
-            letter-spacing: 2px;
+        /* Все заголовки теперь используют обычный Arial */
+        h1, h2, h3 {
+            font-family: Arial, Helvetica, sans-serif;
+            letter-spacing: normal;
             text-transform: uppercase;
         }
 
@@ -77,11 +80,7 @@
             max-width: 450px;
             margin: 20px;
         }
-        .en-notice-content h3 { 
-            color: #e67e22; 
-            margin-top: 0; 
-            text-transform: uppercase;
-        }
+        .en-notice-content h3 { color: #e67e22; margin-top: 0; text-transform: uppercase; }
         .en-notice-content p { color: #d2b48c; font-size: 16px; margin-bottom: 25px; }
         .close-notice {
             background: #e67e22;
@@ -94,11 +93,11 @@
             text-transform: uppercase;
         }
 
-        h1 { text-align: center; font-size: 34px; margin: 20px 0; color: #d2b48c; text-transform: uppercase; }
+        h1 { text-align: center; font-size: 34px; margin: 20px 0; color: #d2b48c; }
         h2 { 
             width: 100%; max-width: 900px; margin-top: 45px; 
             border-bottom: 2px solid #444; padding-bottom: 6px; 
-            color: #e67e22; text-transform: uppercase; text-align: center; 
+            color: #e67e22; text-align: center; 
         }
         .sub-header { color: #e67e22; font-weight: bold; text-transform: uppercase; font-size: 14px; margin-bottom: 5px; margin-top: 0; }
 
@@ -107,10 +106,10 @@
             background: rgba(230, 126, 34, 0.05); padding: 20px;
             border-radius: 8px; border-left: 3px solid #e67e22; box-sizing: border-box; text-align: left;
         }
-        .appearance-desc h3 { margin: 0 0 10px 0; color: #e67e22; font-size: 18px; text-transform: uppercase; }
+        .appearance-desc h3 { margin: 0 0 10px 0; color: #e67e22; font-size: 18px; }
         .appearance-desc p { margin: 0; font-style: italic; font-size: 15px; }
 
-        .contacts-block { display: flex; gap: 20px; margin-top: 10px; font-family: 'Segoe UI', sans-serif; justify-content: center; flex-wrap: wrap; }
+        .contacts-block { display: flex; gap: 20px; margin-top: 10px; justify-content: center; flex-wrap: wrap; }
         .contact-link { color: #d2b48c; text-decoration: none; font-weight: bold; display: flex; align-items: center; transition: 0.3s; border-bottom: 1px solid transparent; }
         .contact-link:hover { color: #e67e22; border-bottom-color: #e67e22; }
         .contact-icon { width: 20px; height: 20px; margin-right: 8px; object-fit: contain; }
@@ -120,8 +119,17 @@
         th { background: #1f1f1f; font-weight: bold; color: #e67e22; }
         tr:nth-child(even) { background: #181818; }
 
+        .footnote-in-table {
+            display: block;
+            font-size: 12px;
+            color: #e67e22;
+            margin-top: 5px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
         .section { width: 100%; max-width: 900px; margin-top: 35px; }
-        .formula { width: 100%; max-width: 870px; background: #181818; padding: 15px; border-left: 4px solid #666; margin-top: 15px; color: #d2b48c; }
+        .formula { width: 100%; max-width: 870px; background: #181818; padding: 15px; border-left: 4px solid #666; margin-top: 15px; color: #d2b48c; font-size: 14px; }
 
         .nav-container-main { display: flex; justify-content: center; gap: 10px; width: 100%; max-width: 1100px; margin-bottom: 25px; flex-wrap: wrap; }
         .nav-btn {
@@ -266,9 +274,13 @@
         <tr><td>Длина клыков</td><td>≈8 см</td><td>L × k</td><td>≈24–28 см</td></tr>
         <tr><td>Длина когтей</td><td>≈3.8 см</td><td>L × k</td><td>≈13–15 см</td></tr>
         <tr><td>Толщина шкуры</td><td>≈1 см</td><td>L × k</td><td>≈3.5 см</td></tr>
-        <tr><td>Температура тела</td><td>≈38–39 °C</td><td>-</td><td>≈40–42 °C</td></tr>
+        <tr>
+            <td>Температура тела</td>
+            <td>≈38–39 °C</td>
+            <td>-</td>
+            <td>≈40–42 °C <span class="footnote-in-table">* Охлаждение идет через демоническую кровь и форсированное дыхание.</span></td>
+        </tr>
     </table>
-    <p class="footnote" style="font-size: 16px; margin-top: 5px; width: 100%; max-width: 900px; text-align: left;">* Охлаждение идет через демоническую кровь и форсированное дыхание.</p>
 
     <h2>2. Физика и сила</h2>
     <table>
@@ -278,11 +290,15 @@
         <tr><td>Сила укуса</td><td>≈650 PSI</td><td>M × k³</td><td>≈24 000 PSI</td></tr>
         <tr><td>Давление (наступ)</td><td>≈0.2 т</td><td>импульс</td><td>≈20–30 т</td></tr>
         <tr><td>Грузоподъёмность</td><td>≈300 кг</td><td>M × k²</td><td>≈3.6 т</td></tr>
-        <tr><td>Сила удара лапой</td><td>≈400 кг</td><td>M × k³</td><td>≈16–20 т</td></tr>
+        <tr>
+            <td>Сила удара лапой</td>
+            <td>≈400 кг</td>
+            <td>M × k³</td>
+            <td>≈16–20 т <span class="footnote-in-table">* При массе лапы 250кг и скорости 35м/с.</span></td>
+        </tr>
         <tr><td>Макс. скорость</td><td>≈80 км/ч</td><td>-</td><td>≈50 км/ч</td></tr>
         <tr><td>Прыжок в высоту</td><td>≈3 м</td><td>-</td><td>≈10 м</td></tr>
     </table>
-    <p style="font-size: 16px; color: #888; width: 100%; max-width: 900px; text-align: left;">* При массе лапы 250кг и скорости 35м/с.</p>
 
     <h2>3. Сердечно-сосудистая система</h2>
     <table>
@@ -340,7 +356,12 @@
         <b>Формулы масштабирования и физики</b><br><br>
         • k = 3.47 (Линейный коэффициент)<br>
         • k³ ≈ 41.8 (Кубический закон для массы)<br>
-        • F<sub>dyn</sub> ≈ 30–40 т (Динамическая сила при прыжке)
+        • F<sub>dyn</sub> ≈ 30–40 т (Динамическая сила при прыжке)<br><br>
+        <b>Пояснение по силе удара лапой:</b><br>
+        Расчет кинетической энергии удара производится по формуле $E = \frac{1}{2}mv^2$. <br>
+        При массе лапы Рометто в 250 кг ($m = 250$) и скорости замаха/удара в 35 м/с ($v = 35$):<br>
+        $E = 0.5 \times 250 \times 1225 = 153,125$ Джоулей. <br>
+        Такая колоссальная энергия эквивалентна мгновенному воздействию веса в 16–20 тонн в точке контакта, что физически разрушает любые биологические структуры.
     </div>
 
     <footer class="site-footer">
@@ -410,17 +431,14 @@
 
         window.addEventListener('mouseup', () => { isDragging = false; });
 
-        // Улучшенная поддержка мобильных жестов
         lightbox.addEventListener('touchstart', (e) => {
             if (e.touches.length === 2) {
-                // Пинч (зум)
                 initialDistance = Math.hypot(
                     e.touches[0].clientX - e.touches[1].clientX, 
                     e.touches[0].clientY - e.touches[1].clientY
                 );
                 initialScale = scale;
             } else if (e.touches.length === 1) {
-                // Перемещение
                 isDragging = true;
                 startX = e.touches[0].clientX - x;
                 startY = e.touches[0].clientY - y;
@@ -428,7 +446,7 @@
         }, { passive: false });
 
         lightbox.addEventListener('touchmove', (e) => {
-            e.preventDefault(); // Предотвращаем скролл страницы при просмотре фото
+            e.preventDefault();
             if (e.touches.length === 2) {
                 const currentDistance = Math.hypot(
                     e.touches[0].clientX - e.touches[1].clientX, 
