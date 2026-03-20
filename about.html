@@ -28,59 +28,6 @@
             -webkit-user-select: none;
             user-select: none;
         }
-
-        /* ЗАМЕТНЫЙ БЛОК ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА */
-        .lang-wrapper {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .lang-hint {
-            font-size: 13px;
-            color: #ffffff;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            text-shadow: 0 0 8px #e67e22;
-            background: rgba(230, 126, 34, 0.2);
-            padding: 6px 12px;
-            border-radius: 4px;
-            border-right: 3px solid #e67e22;
-            animation: pulse-move 2s infinite ease-in-out;
-            white-space: nowrap;
-        }
-
-        @keyframes pulse-move {
-            0% { transform: translateX(0); opacity: 0.7; }
-            50% { transform: translateX(-8px); opacity: 1; text-shadow: 0 0 15px #e67e22; }
-            100% { transform: translateX(0); opacity: 0.7; }
-        }
-
-        .lang-switch {
-            background: #e67e22;
-            border: 2px solid #ff9d4d;
-            color: #fff;
-            padding: 10px 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: 900;
-            font-size: 15px;
-            text-decoration: none;
-            transition: 0.3s;
-            box-shadow: 0 0 15px rgba(230, 126, 34, 0.5);
-        }
-        
-        .lang-switch:hover {
-            transform: scale(1.1);
-            background: #ff9234;
-            box-shadow: 0 0 25px rgba(230, 126, 34, 0.8);
-        }
-
         .container {
             width: 100%;
             max-width: 900px;
@@ -96,9 +43,7 @@
         p { margin-bottom: 15px; text-align: justify; }
         .highlight { color: #fff; font-weight: bold; }
         
-        ul { padding-left: 20px; list-style-type: square; }
-        li { margin-bottom: 10px; }
-
+        /* КНОПКА НАЗАД ВНИЗУ */
         .back-btn-container {
             text-align: center;
             margin-top: 40px;
@@ -123,6 +68,9 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
         }
+        
+        ul { padding-left: 20px; list-style-type: square; }
+        li { margin-bottom: 10px; }
 
         .site-footer {
             width: 100%;
@@ -134,60 +82,43 @@
             font-size: 13px;
             color: #777;
         }
-
-        /* ИСПРАВЛЕННАЯ МОБИЛЬНАЯ ВЕРСИЯ */
+        .site-footer strong { color: #e67e22; }
+        .site-footer a { color: #d2b48c; text-decoration: none; border-bottom: 1px solid #444; }
+        
         @media (max-width: 600px) {
             .container { padding: 20px; }
-            .lang-wrapper { top: 10px; right: 10px; gap: 8px; }
-            .lang-hint { 
-                display: inline-block; /* Текст теперь виден */
-                font-size: 9px; 
-                padding: 4px 6px; 
-                letter-spacing: 0px;
-            }
-            .lang-switch { padding: 6px 12px; font-size: 12px; }
-            @keyframes pulse-move {
-                0% { transform: translateX(0); opacity: 0.7; }
-                50% { transform: translateX(-4px); opacity: 1; }
-                100% { transform: translateX(0); opacity: 0.7; }
-            }
+            h1 { font-size: 24px; }
+            .back-btn { width: 80%; }
         }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="lang-wrapper">
-        <span class="lang-hint">Translation button works here ➔</span>
-        <a href="about_en.html" class="lang-switch">EN</a>
-    </div>
-
     <div class="container">
-        <h1>Архив Рометто: О проекте</h1>
+        <h1>Bio-Archive Rometto: О проекте</h1>
         
-        <p>Этот проект — интерактивный цифровой архив, созданный для систематизации колоссального объема данных о <span class="highlight">Рометто</span>, гигантском льве-полудемоне с добрым сердцем и ростом 417см.</p>
+        <p>Этот проект — интерактивный цифровой архив, созданный для систематизации колоссального объема данных о <span class="highlight">Рометто</span>, гигантском льве-полудемоне массой более 9 тонн.</p>
 
         <h2>🎯 Зачем это нужно?</h2>
-        <p>Рометто — персонаж с глубоким лором, сложной историей и детализированной физиологией. Данный ресурс решает три ключевые задачи:</p>
+        <p>Рометто — персонаж с глубоким лором, сложной историей и детализированной физиологией. Держать все переменные в голове стало физически трудно, а количество вопросов от аудитории росло с каждым днем. Данный ресурс решает три ключевые задачи:</p>
         <ul>
-            <li><span class="highlight">Внешняя память:</span> Защита данных от потери и путаницы.</li>
-            <li><span class="highlight">Научный подход:</span> Все параметры рассчитаны на основе физики и биологии.</li>
-            <li><span class="highlight">Ультимативный референс:</span> Готовый инструмент для художников и соигроков.</li>
+            <li><span class="highlight">Внешняя память:</span> Защита данных от потери и путаницы. Здесь зафиксирован каждый сантиметр и каждый килограмм персонажа.</li>
+            <li><span class="highlight">Научный подход:</span> Все параметры рассчитаны на основе физики и биологических коэффициентов масштабирования. Это не просто фантазия, а математическая модель гиганта.</li>
+            <li><span class="highlight">Ультимативный референс:</span> Готовый инструмент для художников и соигроков. Больше никаких «примерно», только точные, каноничные данные.</li>
         </ul>
 
         <h2>🔞 Ответ на специфические вопросы</h2>
-        <p>В ходе дискуссий в сообществе часто возникали вопросы о деталях репродуктивной системы и метаболизма. Я провел расчеты, основанные на массе тела в 9.2 тонны. Теперь эти данные — официальная часть канона. </p>
+        <p>В ходе дискуссий в сообществе часто возникали вопросы о деталях репродуктивной системы и метаболизма. Я подошел к этому серьезно. Вместо того чтобы игнорировать запросы, я провел расчеты, основанные на массе тела в 9.2 тонны. Теперь эти данные — официальная часть канона.</p>
 
         <h2>🚀 Планы на будущее</h2>
         <ul>
             <li>Создание <span class="highlight">SFW-версии</span> листа (для общей аудитории).</li>
             <li>Полная английская локализация всех таблиц и описаний.</li>
             <li>Поддержка нескольких персонажей из вселенной Рометто.</li>
-            <li>Доделать страницы "Лор и Биография" и "Фетиши и РП предпочтения".</li> 
-            <li>Дописать на главной странице внешнее описание и характер.</li>
         </ul>
 
         <div class="back-btn-container">
-            <a href="/" class="back-btn">🐾 Вернуться в логово</a>
+            <a href="index./" class="back-btn">🐾 Вернуться в логово</a>
         </div>
     </div>
 
@@ -195,12 +126,15 @@
         <div>
             © 2017 — <span id="year"></span> <strong>Mr. Rometto</strong>. Все права защищены.
         </div>
-        <div style="margin-top: 15px; max-width: 750px; margin-left: auto; margin-right: auto; line-height: 1.4;">
-            Использование персонажа, его образа или перерисовка без прямого согласия хозяина — <strong>запрещены</strong>.
+        
+        <div style="margin-top: 15px; max-width: 750px; margin-left: auto; margin-right: auto;">
+            Использование персонажа, его образа или перерисовка без прямого согласия хозяина — <strong>запрещены</strong>. 
+            Рометто — единственный в своём роде.
         </div>
+
         <div style="margin-top: 12px;">
-            Связь с автором: <a href="https://t.me/mr_Rometto" target="_blank" style="color:#e67e22; text-decoration:none;">@mr_Rometto</a> | 
-            <a href="https://github.com/gas45has-cyber/rometto_List" target="_blank" style="opacity: 0.7; color:#d2b48c; text-decoration:none;">GitHub Source</a>
+            Связь с автором: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a> | 
+            <a href="https://github.com/gas45has-cyber/rometto_List/blob/main/README.md" target="_blank" style="opacity: 0.7;">GitHub Source</a>
         </div>
     </footer>
 
