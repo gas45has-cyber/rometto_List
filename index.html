@@ -24,7 +24,6 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     
     <style>
-        @import 'cursors.css';
         @font-face {
             font-family: 'LionKing';
             src: url('lion_king.ttf') format('truetype');
@@ -33,6 +32,7 @@
         }
 
         body {
+            cursor: url('cursor_busy.png'), auto;
             font-family: Arial, Helvetica, sans-serif;
             background: #0f0f0f;
             color: #d2b48c; 
@@ -46,9 +46,11 @@
         }
 
         a, button, [role="button"] {
+            cursor: url('cursor_pointer.png'), pointer;
         }
 
         input[type="text"], textarea {
+            cursor: url('cursor_text.png'), text;
         }
 
         .en-text {
