@@ -32,27 +32,41 @@
         }
 
         body {
-            cursor: url('cursor_busy.png'), auto;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #0f0f0f;
-            color: #d2b48c; 
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            user-select: text;
-        }
+           /* 1. Основной курсор для всего сайта */
+body {
+  cursor: url('cursor_busy.png') 12 12, auto;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #0f0f0f;
+  color: #d2b48c;
+  margin: 0;
+  padding: 20px;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  user-select: text;
+}
 
-        a, button, [role="button"] {
-            cursor: url('cursor_pointer.png'), pointer;
-        }
+/* 2. Курсор для ссылок и кнопок */
+a, button, [role="button"] {
+  cursor: url('cursor_pointer.png') 12 12, pointer;
+  transition: transform 0.1s ease; /* Плавность для эффекта клика */
+}
 
-        input[type="text"], textarea {
-            cursor: url('cursor_text.png'), text;
-        }
+/* Эффект свечения при наведении на кнопки */
+a:hover, button:hover {
+  filter: drop-shadow(0 0 5px #d2b48c);
+}
 
+/* Эффект "вдавливания" при клике */
+a:active, button:active {
+  transform: scale(0.9);
+}
+
+/* 3. Текстовый курсор (для всех текстов) */
+p, span, h1, h2, h3, div, li, label, input, textarea {
+  cursor: url('cursor_text.png') 12 12, text !important;
+}
         .en-text {
             font-family: 'LionKing', Arial, sans-serif !important;
             letter-spacing: 2px;
