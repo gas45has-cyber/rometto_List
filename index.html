@@ -34,6 +34,20 @@
         }
 
         body {
+            /* Основной курсор для всего сайта */
+
+    cursor: url('cursor_busy.png'), auto;
+}
+
+/* Курсор при наведении на ссылки, кнопки и интерактивные элементы */
+a, button, [role="button"] {
+    cursor: url('cursor_pointer.png'), pointer;
+}
+
+/* Курсор для полей ввода и текстовых зон */
+input[type="text"], textarea, p, span {
+    cursor: url('cursor_text.png'), text;
+}
             font-family: Arial, Helvetica, sans-serif;
             background: #0f0f0f;
             color: #d2b48c; 
