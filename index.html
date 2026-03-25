@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Информационный лист о персонаже Rometto — гигантский лев-полудемон. Детализированные биологические данные, физика и анатомия.">
     <title>Информационный лист о Рометто</title>
-  
+ 
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
-  
+ 
     <script>
         window.MathJax = {
             tex: {
@@ -22,7 +22,7 @@
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-  
+ 
     <style>
         @font-face {
             font-family: 'LionKing';
@@ -30,7 +30,6 @@
             font-weight: normal;
             font-style: normal;
         }
-        /* Базовый курсор - стрелка (заменяет вашу busy если нужно, или оставляем busy как дефолт) */
         body {
             cursor: url('cursor_busy.png') 12 12, auto;
             font-family: Arial, Helvetica, sans-serif;
@@ -48,18 +47,15 @@
             overflow: hidden;
             height: 100vh;
         }
-        /* Указатель для всех интерактивных элементов */
         a, button, [role="button"], .nav-btn, .close-notice, .main-img-container, .lang-switch, .contact-link, .artist-link-container {
             cursor: url('cursor_pointer.png') 12 12, pointer !important;
             transition: transform 0.10s ease;
         }
         a:hover, button:hover { filter: drop-shadow(0 0 5px #d2b48c); }
         a:active, button:active { transform: scale(1.0); }
-        /* Текстовый курсор появляется ТОЛЬКО при активном взаимодействии с текстом (выделении) */
         p, span, h1, h2, h3, li, label, th, td, .appearance-desc, .hunting-block {
-            cursor: inherit; /* Использует курсор родителя (стрелку), пока не выделяется */
+            cursor: inherit;
         }
-        /* Имитация появления текстового курсора при зажатии на текстовых блоках */
         .selectable-text:active {
             cursor: url('cursor_text.png') 12 12, text !important;
         }
@@ -225,10 +221,34 @@
             .nav-btn { width: 90%; margin: 2px 0; }
             th, td { font-size: 12px; padding: 5px; }
         }
+
+        /* === ИСКРЫ И КНОПКА === */
+        .particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.65; }
+        .toggle-particles {
+            position: fixed; top: 72px; right: 20px; z-index: 1000;
+            background: rgba(230,126,34,0.15); border: 1px solid #e67e22; color: #e67e22;
+            padding: 8px 14px; border-radius: 50px; font-size: 13px; cursor: pointer; transition: 0.3s;
+        }
+        .toggle-particles:hover { background: #e67e22; color: #000; }
+
+        /* Переливающаяся рамка вокруг TOC (как на скриншоте) */
+        @keyframes glow {
+            0% { box-shadow: 0 0 15px #e67e22; }
+            50% { box-shadow: 0 0 35px #ff5500; }
+            100% { box-shadow: 0 0 15px #e67e22; }
+        }
+        .toc { animation: glow 4s ease-in-out infinite; }
+
+        /* Режим ада */
+        .hell-mode { filter: brightness(1.55) contrast(1.35) hue-rotate(355deg) saturate(1.4) !important; animation: hellShake 0.6s infinite alternate linear; }
+        @keyframes hellShake {
+            from { transform: translate(2px, 3px) rotate(1deg); }
+            to { transform: translate(-2px, -3px) rotate(-1deg); }
+        }
     </style>
 </head>
 <body class="no-scroll">
-    <!-- Age Gate (Экран подтверждения возраста) -->
+    <!-- Age Gate -->
     <div id="age-gate">
         <div class="age-gate-content">
             <h2 style="color:#fff; margin-top:0;">ВНИМАНИЕ: 18+ <br><span class="en-text" style="font-size: 0.7em;">(WARNING: 18+)</span></h2>
@@ -238,9 +258,15 @@
         </div>
     </div>
 
-    <!-- Основной контент страницы -->
+    <!-- Основной контент -->
     <div id="page-content">
         <div class="lang-switch en-text" onclick="showEnNotice()">EN</div>
+
+        <!-- Кнопка отключения искр -->
+        <div class="toggle-particles" id="toggleParticles">✦ Отключить искры</div>
+        <!-- Canvas искр -->
+        <canvas id="particleCanvas" class="particle-canvas"></canvas>
+
         <div id="en-notice">
             <div class="en-notice-content">
                 <h3 class="selectable-text">English Version Notice</h3>
@@ -254,8 +280,8 @@
 
         <h1 class="selectable-text">Информационный лист о <span class="en-text" id="rometto-click">ROMETTO</span></h1>
 
-        <!-- Оглавление (TOC) сразу под заголовком -->
-        <div class="nav-container-main" id="toc-container" style="margin-top: -10px; margin-bottom: 30px;">
+        <!-- TOC с переливающейся рамкой -->
+        <div class="nav-container-main toc" id="toc-container" style="margin-top: -10px; margin-bottom: 30px; padding: 15px; border-radius: 12px;">
             <ul id="toc-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; width: 100%;"></ul>
         </div>
 
@@ -265,7 +291,6 @@
             <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
         </div>
 
-        <!-- Блок изображения -->
         <div class="main-img-container" onclick="openLightbox('/assets/rometto_ru_nsfw.png')">
             <img src="/assets/rometto_ru_nsfw.png" alt="Rometto" loading="lazy">
         </div>
@@ -293,6 +318,7 @@
             <p>Появится позже, так как у <span class="en-text">ROMETTO</span> лапки... Пока вы можете увидеть всё на референсе выше.</p>
         </div>
 
+        <!-- 1. Общая биология (полностью) -->
         <h2 class="selectable-text">1. Общая биология</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -313,6 +339,7 @@
             </tr>
         </table>
 
+        <!-- 2. Физика и сила (полностью) -->
         <h2 class="selectable-text">2. Физика и сила</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -342,6 +369,7 @@
             </tr>
         </table>
 
+        <!-- 3. Звук и коммуникация (полностью) -->
         <h2 class="selectable-text">3. Звук и коммуникация</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -351,6 +379,7 @@
             <tr><td>Частотный диапазон</td><td>40–200 Гц</td><td>инфразвук</td><td><strong>5–150 Гц</strong> <span class="footnote-in-table">* Основная мощь в инфразвуке.</span></td></tr>
         </table>
 
+        <!-- 4. Репродуктивная система (полностью) -->
         <h2 class="selectable-text">4. Репродуктивная система</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -366,6 +395,7 @@
             <tr><td>Шипы (Spines)</td><td>≈0.5 см</td><td>$L \times k$</td><td><strong>1.5–2 см</strong> <span class="footnote-in-table">* Сохраняют кошачью форму, усилены демонической структурой.</span></td></tr>
         </table>
 
+        <!-- 5. Анатомия и питание (полностью) -->
         <h2>5. Анатомия и питание</h2>
         <table>
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -393,6 +423,7 @@
             <tr><td>Эффективность ЖКТ</td><td>≈70%</td><td>усилено</td><td><strong>≈90–95%</strong></td></tr>
         </table>
 
+        <!-- Пояснение (appearance-desc) -->
         <div class="appearance-desc">
             <h3>Пояснение по механизмам демонического усиления:</h3>
             <p><strong>Костная матрица:</strong> Высокая плотность (5.5–6.0 г/см³) достигается через форсированную минерализацию под давлением демонической крови, что превращает скелет в сверхплотный монолит.</p>
@@ -403,6 +434,7 @@
             <p><strong>Гемостатический затвор:</strong> Кровь обладает неньютоновскими свойствами; при резком перепаде давления (ранении) вязкость мгновенно возрастает в 50 раз, создавая биологическую «пробку», способную удержать внутреннее давление до 15 атмосфер.</p>
         </div>
 
+        <!-- 6. Гидродинамика крови -->
         <h2>6. Гидродинамика крови</h2>
         <table>
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -448,6 +480,7 @@
             $$t \sim \frac{1}{Fg \cdot A_{adh}}$$
         </div>
 
+        <!-- 7. Система следов жизнедеятельности -->
         <h2>7. Система следов жизнедеятельности</h2>
         <table>
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -459,11 +492,12 @@
             <tr><td>Длина сегмента</td><td>≈15 см</td><td>$L \times k$</td><td>≈40–50 см</td></tr>
         </table>
 
+        <!-- 8. МЕХАНИКА ОХОТЫ -->
         <div class="section">
             <h2>8. МЕХАНИКА ОХОТЫ: ГРАВИТАЦИОННОЕ ПОДАВЛЕНИЕ</h2>
             <div class="hunting-block">
                 <p>Охота Рометто — это не погоня, а фатальное столкновение колоссальной массы с пространством. Для хищника такого масштаба физика — самое эффективное оружие.</p>
-              
+                
                 <h4>I. Инфразвуковой рокот: Резонанс страха</h4>
                 <p>Рометто не нужно прятаться — он подавляет волю цели на расстоянии. Благодаря огромному объему легких и специфической структуре гортани, усиленной демоническим фактором, он генерирует звуковые волны частотой ниже 10 Гц.</p>
                 <p><strong>Механизм:</strong> Это физический резонанс гипертрофированных голосовых связок и объёмной грудной клетки.<br>
@@ -508,13 +542,13 @@
     <!-- Кнопка Наверх -->
     <button id="backToTop" style="position:fixed;bottom:30px;right:30px;background:#e67e22;color:#000;width:56px;height:56px;border-radius:50%;font-size:30px;box-shadow:0 6px 20px rgba(230,126,34,0.6);display:none;z-index:9999;">↑</button>
 
-    <!-- Гамбургер (только на мобильных) -->
+    <!-- Гамбургер -->
     <div id="hamburgerBtn" style="position:fixed;top:22px;left:20px;background:rgba(230,126,34,0.15);border:1px solid #e67e22;color:#e67e22;width:50px;height:50px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:28px;cursor:pointer;z-index:1001;">☰</div>
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Age Gate (твоя оригинальная логика)
+        // Age Gate
         const ageGate = document.getElementById('age-gate');
         const pageContent = document.getElementById('page-content');
         const body = document.body;
@@ -535,12 +569,9 @@
             ageGate.style.display = 'none';
             pageContent.style.display = 'flex';
             body.classList.remove('no-scroll');
-            if (window.MathJax && window.MathJax.typeset) {
-                window.MathJax.typeset();
-            }
         }
 
-        // Лайтбокс
+        // Лайтбокс + pinch-to-zoom
         const lightbox = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
         let scale = 1, x = 0, y = 0, isDragging = false, startX, startY;
@@ -584,6 +615,22 @@
         });
         window.addEventListener('mouseup', () => isDragging = false);
 
+        // Pinch-to-zoom на телефоне
+        let startDistance = 0;
+        lightbox.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) startDistance = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+        });
+        lightbox.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const currentDistance = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+                const delta = currentDistance / startDistance;
+                scale = Math.min(Math.max(0.5, scale * delta), 10);
+                startDistance = currentDistance;
+                updateTransform();
+            }
+        });
+
         function showEnNotice() { document.getElementById('en-notice').style.display = 'flex'; }
         function hideEnNotice() { document.getElementById('en-notice').style.display = 'none'; }
 
@@ -598,7 +645,7 @@
             document.body.style.cursor = "url('cursor_busy.png') 12 12, auto";
         });
 
-        // TOC (оглавление)
+        // TOC
         function generateTOC() {
             const tocList = document.getElementById('toc-list');
             const headers = document.querySelectorAll('#page-content h2');
@@ -608,10 +655,7 @@
                 a.href = `#section-${index}`;
                 a.className = 'nav-btn';
                 a.textContent = h2.textContent;
-                a.onclick = (e) => {
-                    e.preventDefault();
-                    h2.scrollIntoView({ behavior: 'smooth' });
-                };
+                a.onclick = (e) => { e.preventDefault(); h2.scrollIntoView({ behavior: 'smooth' }); };
                 h2.id = `section-${index}`;
                 li.appendChild(a);
                 tocList.appendChild(li);
@@ -625,7 +669,7 @@
         });
         backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-        // Гамбургер (мобильные)
+        // Гамбургер
         const hamburger = document.getElementById('hamburgerBtn');
         const tocContainer = document.getElementById('toc-container');
         hamburger.style.display = window.innerWidth < 900 ? 'flex' : 'none';
@@ -636,7 +680,60 @@
             tocContainer.style.display = tocContainer.style.display === 'flex' ? 'none' : 'flex';
         });
 
-        // Easter egg — 6 кликов по ROMETTO
+        // Искры
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let particlesEnabled = true;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.speedY = Math.random() * 1.5 + 0.8;
+                this.life = 180 + Math.random() * 120;
+                this.color = Math.random() > 0.6 ? '#ff5500' : '#ffaa00';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life--;
+                this.speedY += 0.02;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life / 200;
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.size, this.size);
+                ctx.restore();
+            }
+        }
+        function animateParticles() {
+            if (!particlesEnabled) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                requestAnimationFrame(animateParticles);
+                return;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (Math.random() < 0.4) particles.push(new Particle());
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) particles.splice(i, 1);
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        document.getElementById('toggleParticles').addEventListener('click', () => {
+            particlesEnabled = !particlesEnabled;
+            document.getElementById('toggleParticles').textContent = particlesEnabled ? '✦ Отключить искры' : '✦ Включить искры';
+        });
+
+        // Easter egg — 6 кликов
         let clickCount = 0;
         const romettoSpan = document.getElementById('rometto-click');
         romettoSpan.addEventListener('click', () => {
@@ -650,9 +747,12 @@
 
         // Запуск
         window.addEventListener('load', () => {
-            checkAge();
+            resizeCanvas();
+            animateParticles();
             generateTOC();
+            checkAge();
         });
+        window.addEventListener('resize', resizeCanvas);
     </script>
 </body>
 </html>
