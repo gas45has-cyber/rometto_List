@@ -49,7 +49,7 @@
         /* 2. Курсор для ссылок и кнопок */
         a, button, [role="button"], .nav-btn, .close-notice {
             cursor: url('cursor_pointer.png') 12 12, pointer !important;
-            transition: transform 0.1s ease; /* Плавность для эффекта клика */
+            transition: transform 0.10s ease; /* Плавность для эффекта клика */
         }
 
         /* Эффект свечения при наведении на кнопки */
@@ -59,11 +59,11 @@
 
         /* Эффект "вдавливания" при клике */
         a:active, button:active {
-            transform: scale(0.9);
+            transform: scale(1.0);
         }
 
         /* 3. Текстовый курсор (убрали div, чтобы он не перебивал всё остальное) */
-        p, span, h1, h2, h3, li, label, input, textarea, th, td {
+        p, span, h1, h2, h3, li, label, input, textarea, th, td, en, telrgram{
             cursor: url('cursor_text.png') 12 12, text;
         }
 
