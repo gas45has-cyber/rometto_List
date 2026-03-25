@@ -9,8 +9,6 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
     
-    <!-- polyfill.io УДАЛЁН: домен скомпрометирован в 2024, ES6 поддерживается всеми современными браузерами -->
-
     <script>
         window.MathJax = {
             tex: {
@@ -34,7 +32,6 @@
         }
 
         body {
-            /* Основной курсор для всего сайта */
             cursor: url('cursor_busy.png'), auto;
             font-family: Arial, Helvetica, sans-serif;
             background: #0f0f0f;
@@ -48,12 +45,10 @@
             user-select: text;
         }
 
-        /* Курсор при наведении на ссылки, кнопки и интерактивные элементы */
         a, button, [role="button"] {
             cursor: url('cursor_pointer.png'), pointer;
         }
 
-        /* Курсор для полей ввода и текстовых зон */
         input[type="text"], textarea {
             cursor: url('cursor_text.png'), text;
         }
@@ -248,7 +243,6 @@
         </div>
     </div>
 
-    <!-- ИСПРАВЛЕНО: убран лишний класс modal-overlay (не был определён в CSS) -->
     <div id="age-gate">
         <div class="age-gate-content">
             <h2 style="color:#fff; margin-top:0;">ВНИМАНИЕ: 18+ <br><span class="en-text" style="font-size: 0.7em;">(WARNING: 18+)</span></h2>
@@ -258,7 +252,6 @@
         </div>
     </div>
 
-    <!-- ИСПРАВЛЕНО: src убран из HTML, теперь задаётся динамически через openLightbox() -->
     <div id="lightbox" onclick="closeLightbox(event)">
         <img id="lightbox-img" src="" draggable="false">
     </div>
@@ -271,7 +264,6 @@
         <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
     </div>
 
-    <!-- ИСПРАВЛЕНО: src передаётся в openLightbox(); добавлен loading="lazy" -->
     <div class="main-img-container" onclick="openLightbox('/assets/rometto_ru_nsfw.png')">
         <img src="/assets/rometto_ru_nsfw.png" alt="Rometto" loading="lazy">
         <div style="font-size: 12px; color: #d2b48c; margin-top: 10px;">
@@ -279,7 +271,6 @@
         </div>
     </div>
 
-    <!-- ИСПРАВЛЕНО: добавлен rel="noopener noreferrer" на все внешние ссылки -->
     <div class="artist-credit">
         Референс персонажа сделан прекрасными лапками художницы Ricky_Plush. Она обитает тут: 
         <a href="https://t.me/ricky0plush" class="artist-link-container en-text" target="_blank" rel="noopener noreferrer">
@@ -373,7 +364,6 @@
         <tr><td>Объём эякулята</td><td>≈60 мл</td><td>$M \times k^3$ (усил.)</td><td><strong>≈1,5-2 л </strong> <span class="footnote-in-table">* Вязкая, высокоэнергетическая.</span></td></tr>
         <tr><td>Скорость вылета</td><td>≈5 м/с</td><td>$v \times k$</td><td><strong>≈17–20 м/с</strong> <span class="footnote-in-table">* Скорость штормового ветра.</span></td></tr>
         <tr><td>Давление выброса</td><td>≈1 атм</td><td>гидростатика</td><td><strong>≈12–15 атм</strong> <span class="footnote-in-table">* Усиление за счёт демонической крови.</span></td></tr>
-        <!-- ИСПРАВЛЕНО: убрана пустая сноска "*." — заменена осмысленным текстом -->
         <tr><td>Шипы (Spines)</td><td>≈0.5 см</td><td>$L \times k$</td><td><strong>1.5–2 см</strong> <span class="footnote-in-table">* Сохраняют кошачью форму, усилены демонической структурой.</span></td></tr>
     </table>
 
@@ -422,7 +412,6 @@
     <h2>6. Гидродинамика крови</h2>
     <table>
         <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        
         <tr>
             <td>Фибриноген (Fg)</td>
             <td>≈2–4 г/л</td>
@@ -430,7 +419,6 @@
             <td><strong>≈20 г/л</strong> 
             <span class="footnote-in-table">* Усиленная концентрация для быстрого свертывания и демонический ДНК.</span></td>
         </tr>
-
         <tr>
             <td>Адгезия тромбоцитов</td>
             <td>1×</td>
@@ -438,7 +426,6 @@
             <td><strong>≈10×</strong> 
             <span class="footnote-in-table">* Повышенное сцепление с повреждёнными сосудами.</span></td>
         </tr>
-
         <tr>
             <td>Время образования тромба</td>
             <td>≈2–5 мин</td>
@@ -446,7 +433,6 @@
             <td><strong>≈10–30 сек</strong> 
             <span class="footnote-in-table">* Мгновенный гемостаз за счёт днк демона.</span></td>
         </tr>
-
         <tr>
             <td>Прочность тромба</td>
             <td>Стандарт</td>
@@ -454,7 +440,6 @@
             <td><strong>Экстремально высокая</strong> 
             <span class="footnote-in-table">* Плотная фибриновая структура.</span></td>
         </tr>
-
         <tr>
             <td>Гемостатический затвор</td>
             <td>Отсутствует</td>
@@ -466,9 +451,7 @@
 
     <div class="formula">
         <b>Механика свертывания:</b><br><br>
-        
         $$v_{clot} \propto Fg \cdot A_{adh}$$
-        
         $$t \sim \frac{1}{Fg \cdot A_{adh}}$$
     </div>
 
@@ -514,13 +497,10 @@
         <b>Базальный метаболизм (BMR):</b><br>
         $$BMR_{rometto} = (c \cdot M^{0.75}) \cdot \alpha$$
         <b>Гемостаз (усиленная модель):</b><br><br>
-    
         • Скорость формирования тромба:<br>
         $$v_{clot} \sim Fg \cdot A_{adh}$$
-        
         • Время свертывания:<br>
         $$t \sim \frac{1}{Fg \cdot A_{adh}}$$
-        
         • Усиление:<br>
         $$Fg = Fg_{lion} \cdot \alpha,\quad A_{adh} = A_{lion} \cdot \alpha$$
     </div>
@@ -536,7 +516,6 @@
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Безопасная работа с localStorage
         function storageGet(key) {
             try { return localStorage.getItem(key); }
             catch (e) { return null; }
@@ -559,20 +538,18 @@
         const lightbox = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
         let scale = 1, x = 0, y = 0, isDragging = false, startX, startY;
-        let initialDistance = 0, initialScale = 1;
 
-        // ИСПРАВЛЕНО: src теперь передаётся динамически
         function openLightbox(src) {
             lbImg.src = src;
             lightbox.style.display = 'flex';
-            scale = 1; x = 0; y = 0; updateTransform();
+            scale = 1; x = 0; y = 0; 
+            updateTransform();
         }
 
         function closeLightbox(e) { 
             if (e.target === lightbox) lightbox.style.display = 'none'; 
         }
 
-        // ДОБАВЛЕНО: закрытие лайтбокса по клавише Escape
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') lightbox.style.display = 'none';
         });
@@ -581,15 +558,16 @@
             lbImg.style.transform = `translate(${x}px, ${y}px) scale(${scale})`; 
         }
 
-        lightbox.onwheel = (e) => {
+        lightbox.addEventListener('wheel', (e) => {
             e.preventDefault();
-            const delta = e.deltaY > 0 ? -0.2 : 0.2;
-            scale = Math.min(Math.max(0.5, scale + delta), 6);
+            const delta = e.deltaY > 0 ? 0.9 : 1.1;
+            scale = Math.min(Math.max(1, scale * delta), 10);
+            if (scale === 1) { x = 0; y = 0; }
             updateTransform();
-        };
+        }, { passive: false });
 
-        lightbox.addEventListener('mousedown', (e) => {
-            if (e.target === lbImg) {
+        lbImg.addEventListener('mousedown', (e) => {
+            if (scale > 1) {
                 isDragging = true;
                 startX = e.clientX - x;
                 startY = e.clientY - y;
@@ -604,33 +582,7 @@
             }
         });
 
-        window.addEventListener('mouseup', () => { isDragging = false; });
-
-        lightbox.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 2) {
-                initialDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-                initialScale = scale;
-            } else if (e.touches.length === 1) {
-                isDragging = true;
-                startX = e.touches[0].clientX - x;
-                startY = e.touches[0].clientY - y;
-            }
-        }, { passive: false });
-
-        lightbox.addEventListener('touchmove', (e) => {
-            e.preventDefault();
-            if (e.touches.length === 2) {
-                const currentDistance = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-                scale = Math.min(Math.max(0.5, initialScale * (currentDistance / initialDistance)), 6);
-                updateTransform();
-            } else if (e.touches.length === 1 && isDragging) {
-                x = e.touches[0].clientX - startX;
-                y = e.touches[0].clientY - startY;
-                updateTransform();
-            }
-        }, { passive: false });
-
-        lightbox.addEventListener('touchend', () => { isDragging = false; });
+        window.addEventListener('mouseup', () => isDragging = false);
 
         function showEnNotice() { document.getElementById('en-notice').style.display = 'flex'; }
         function hideEnNotice() { document.getElementById('en-notice').style.display = 'none'; }
