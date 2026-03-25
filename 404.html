@@ -29,6 +29,35 @@
             text-align: center;
             user-select: text;
             -webkit-user-select: text;
+             /* 1. Основной курсор для всего сайта */
+        body {
+            cursor: url('cursor_busy.png') 12 12, auto;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f0f0f;
+            color: #d2b48c;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            user-select: text;
+        }
+
+        /* 2. Курсор для ссылок и кнопок */
+        a, button, [role="button"], .nav-btn, .close-notice {
+            cursor: url('cursor_pointer.png') 12 12, pointer !important;
+            transition: transform 0.10s ease; /* Плавность для эффекта клика */
+        }
+
+        /* Эффект свечения при наведении на кнопки */
+        a:hover, button:hover {
+            filter: drop-shadow(0 0 5px #d2b48c);
+        }
+
+        /* Эффект "вдавливания" при клике */
+        a:active, button:active {
+            transform: scale(1.0);
         }
 
         /* LionKing только для заголовков и брендинга */
