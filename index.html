@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Информационный лист о персонаже Rometto — гигантский лев-полудемон. Детализированные биологические данные, физика и анатомия.">
+    <meta property="og:title" content="Информационный лист о Rometto">
+    <meta property="og:description" content="Гигантский лев-полудемон. 9,2 тонны ярости и демонической силы.">
+    <meta property="og:image" content="/assets/rometto_ru_nsfw.png">
+    <meta property="og:url" content="https://your-site.com">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
     <title>Информационный лист о Рометто</title>
    
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -222,15 +229,74 @@
         .hunting-block h4 { color: #e67e22; margin-bottom: 5px; margin-top: 20px; }
         .hunting-block p { margin-bottom: 15px; font-size: 15px; }
         .hunting-block strong { color: #e67e22; }
-        @media (max-width: 900px) {
-            .nav-container-main { flex-direction: column; align-items: center; }
-            .nav-btn { width: 90%; margin: 2px 0; }
-            th, td { font-size: 12px; padding: 5px; }
+
+        /* ====================== НОВЫЕ СТИЛИ ДЛЯ ФИЧ ====================== */
+        .toc {
+            width: 100%; max-width: 1100px; margin: 15px 0 25px; background: rgba(230,126,34,0.1);
+            border: 1px solid #e67e22; border-radius: 8px; padding: 12px; box-shadow: 0 0 10px rgba(230,126,34,0.3);
+        }
+        .toc ul {
+            display: flex; flex-wrap: wrap; gap: 12px; list-style: none; padding: 0; margin: 0; justify-content: center;
+        }
+        .toc li { flex: 1; min-width: 220px; }
+        .toc a {
+            display: block; padding: 12px 18px; background: #1f1f1f; border: 1px solid #e67e22;
+            color: #e67e22; text-align: center; border-radius: 6px; font-weight: bold; transition: all 0.2s;
+        }
+        .toc a:hover { background: #e67e22; color: #fff; transform: translateY(-2px); }
+        @media (max-width: 768px) { .toc ul { flex-direction: column; } .toc a { min-height: 52px; } }
+
+        .tooltip { position: relative; cursor: help; display: inline-block; }
+        .tooltip::after {
+            content: attr(data-tooltip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+            background: #111; color: #e67e22; padding: 10px 16px; border-radius: 8px; white-space: nowrap;
+            font-size: 14px; opacity: 0; pointer-events: none; transition: 0.25s; z-index: 10000;
+            box-shadow: 0 0 15px #e67e22; border: 1px solid #e67e22;
+        }
+        .tooltip:hover::after { opacity: 1; }
+
+        .particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.65; }
+        .toggle-particles {
+            position: fixed; top: 72px; right: 20px; z-index: 1000; background: rgba(230,126,34,0.15);
+            border: 1px solid #e67e22; color: #e67e22; padding: 8px 14px; border-radius: 50px; font-size: 13px;
+            cursor: pointer; transition: 0.3s;
+        }
+        .toggle-particles:hover { background: #e67e22; color: #000; }
+
+        .hell-mode { filter: brightness(1.55) contrast(1.35) hue-rotate(355deg) saturate(1.4) !important; animation: hellShake 0.6s infinite alternate linear; }
+        @keyframes hellShake {
+            from { transform: translate(1px, 2px) rotate(0.5deg); }
+            to { transform: translate(-1px, -2px) rotate(-0.5deg); }
+        }
+
+        .faq { width: 100%; max-width: 900px; margin-top: 70px; }
+        .faq-item { margin-bottom: 16px; border: 1px solid #444; border-radius: 8px; overflow: hidden; background: #181818; }
+        .faq-question {
+            background: #1f1f1f; padding: 20px 24px; cursor: pointer; font-weight: bold; color: #e67e22;
+            display: flex; justify-content: space-between; align-items: center; font-size: 17px;
+        }
+        .faq-answer {
+            padding: 0 24px; max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease;
+            color: #d2b48c;
+        }
+
+        .mathjax-loading {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background: #e67e22; color: #000; padding: 10px 24px; border-radius: 30px;
+            font-size: 15px; font-weight: bold; display: none; z-index: 99999; box-shadow: 0 0 20px #e67e22;
+        }
+
+        @media (max-width: 768px) {
+            button, .nav-btn, .toc a, .faq-question { min-height: 56px; font-size: 16px; padding: 14px 20px; }
+            .age-gate-content { padding: 45px 25px; }
+            h1 { font-size: 28px; }
+            .toggle-particles { top: 65px; right: 15px; font-size: 12px; padding: 6px 12px; }
         }
     </style>
 </head>
 <body class="no-scroll">
-    <!-- Age Gate (Экран подтверждения возраста) -->
+
+    <!-- Age Gate (без изменений) -->
     <div id="age-gate">
         <div class="age-gate-content">
             <h2 style="color:#fff; margin-top:0;">ВНИМАНИЕ: 18+ <br><span class="en-text" style="font-size: 0.7em;">(WARNING: 18+)</span></h2>
@@ -239,9 +305,17 @@
             <button id="confirm-age" class="nav-btn" onclick="confirmAge()" style="background: #e67e22; color: #fff; width: 100%;">ДА, МНЕ ЕСТЬ 18 (YES, I AM 18+)</button>
         </div>
     </div>
-    <!-- Основной контент страницы -->
+
+    <!-- Основной контент -->
     <div id="page-content">
         <div class="lang-switch en-text" onclick="showEnNotice()">EN</div>
+
+        <!-- Кнопка отключения частиц -->
+        <div class="toggle-particles" id="toggleParticles">✦ Отключить искры</div>
+
+        <!-- Canvas частиц -->
+        <canvas id="particleCanvas" class="particle-canvas"></canvas>
+
         <div id="en-notice">
             <div class="en-notice-content">
                 <h3 class="selectable-text">English Version Notice</h3>
@@ -249,19 +323,32 @@
                 <button class="close-notice" onclick="hideEnNotice()">Understood</button>
             </div>
         </div>
+
         <div id="lightbox" onclick="closeLightbox(event)">
             <img id="lightbox-img" src="" draggable="false">
         </div>
-        <h1 class="selectable-text">Информационный лист о <span class="en-text">ROMETTO</span></h1>
+
+        <!-- Главный заголовок (с Easter egg) -->
+        <h1 class="selectable-text" id="title-rometto">
+            Информационный лист о <span class="en-text" id="rometto-click">ROMETTO</span>
+        </h1>
+
+        <!-- Оглавление (TOC) сразу под заголовком -->
+        <div class="toc" id="toc-container">
+            <ul id="toc-list"></ul>
+        </div>
+
         <div class="nav-container-main">
             <a href="about" class="nav-btn">О проекте (Section translated to EN)</a>
             <a href="/404" class="nav-btn">Биография и Лор</a>
             <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
         </div>
-        <!-- Блок изображения без текста инструкции -->
+
+        <!-- Блок изображения -->
         <div class="main-img-container" onclick="openLightbox('/assets/rometto_ru_nsfw.png')">
             <img src="/assets/rometto_ru_nsfw.png" alt="Rometto" loading="lazy">
         </div>
+
         <div class="artist-credit selectable-text">
             Референс персонажа сделан прекрасными лапками художницы Ricky_Plush. Она обитает тут:
             <a href="https://t.me/ricky0plush" class="artist-link-container en-text" target="_blank" rel="noopener noreferrer">
@@ -269,6 +356,7 @@
                 <span class="paw-icon">🐾</span>
             </a>
         </div>
+
         <div style="text-align: center; width: 100%; max-width: 900px; margin-top: 30px;">
             <p class="sub-header selectable-text">Каналы связи со мной:</p>
             <div class="contacts-block">
@@ -278,10 +366,13 @@
                 <a href="https://youtube.com/@rombblog" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/icon_youtube.png" class="contact-icon"> Мой YouTube</a>
             </div>
         </div>
+
         <div class="appearance-desc selectable-text">
             <h3>Описание внешности и особенностей</h3>
             <p>Появится позже, так как у <span class="en-text">ROMETTO</span> лапки... Пока вы можете увидеть всё на референсе выше.</p>
         </div>
+
+        <!-- ==================== ВСЕ ТАБЛИЦЫ ОСТАЛИСЬ БЕЗ ИЗМЕНЕНИЙ ==================== -->
         <h2 class="selectable-text">1. Общая биология</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -298,9 +389,10 @@
                 <td>Температура тела</td>
                 <td>≈38–39 °C</td>
                 <td>-</td>
-                <td>≈40–42 °C <span class="footnote-in-table">* Охлаждение через демоническую кровь и Форсированное дыхание.</span></td>
+                <td>≈40–42 °C <span class="footnote-in-table tooltip" data-tooltip="Охлаждение через демоническую кровь и Форсированное дыхание">* Охлаждение через демоническую кровь и Форсированное дыхание.</span></td>
             </tr>
         </table>
+
         <h2 class="selectable-text">2. Физика и сила</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -313,175 +405,218 @@
                 <td>Сила удара лапой</td>
                 <td>≈400 кг</td>
                 <td>$M \times k^3$</td>
-                <td>≈16–20 т <span class="footnote-in-table">* При массе лапы 250кг и скорости 35м/с.</span></td>
+                <td>≈16–20 т <span class="footnote-in-table tooltip" data-tooltip="При массе лапы 250кг и скорости 35м/с">* При массе лапы 250кг и скорости 35м/с.</span></td>
             </tr>
             <tr><td>Макс. скорость</td><td>≈80 км/ч</td><td>-</td><td>≈50 км/ч</td></tr>
             <tr>
                 <td>Прыжок в высоту</td>
                 <td>≈3 м</td>
                 <td>-</td>
-                <td>≈10 м <span class="footnote-in-table">* Реактивная мощь задних конечностей.</span></td>
+                <td>≈10 м <span class="footnote-in-table tooltip" data-tooltip="Реактивная мощь задних конечностей">* Реактивная мощь задних конечностей.</span></td>
             </tr>
             <tr>
                 <td>Прыжок в длину</td>
                 <td>≈10–12 м</td>
                 <td>-</td>
-                <td>≈30–35 м <span class="footnote-in-table">* Фактически — полет «живого снаряда».</span></td>
+                <td>≈30–35 м <span class="footnote-in-table tooltip" data-tooltip="Фактически — полет «живого снаряда»">* Фактически — полет «живого снаряда».</span></td>
             </tr>
         </table>
+
         <h2 class="selectable-text">3. Звук и коммуникация</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-            <tr><td>Громкость рёва</td><td>≈114 dB</td><td>лёгкие + демон. фактор</td><td><strong>150–160 dB</strong> <span class="footnote-in-table">* Порог болевого шока.</span></td></tr>
-            <tr><td>Дальность слышимости</td><td>≈8 км</td><td>мощность</td><td><strong>20–30 км</strong> <span class="footnote-in-table">* В зависимости от ландшафта.</span></td></tr>
-            <tr><td>Тип звука</td><td>Низкий рёв</td><td>резонатор</td><td><strong>Сейсмический рёв</strong> <span class="footnote-in-table">* Ощущается телом как вибрация.</span></td></tr>
-            <tr><td>Частотный диапазон</td><td>40–200 Гц</td><td>инфразвук</td><td><strong>5–150 Гц</strong> <span class="footnote-in-table">* Основная мощь в инфразвуке.</span></td></tr>
+            <tr><td>Громкость рёва</td><td>≈114 dB</td><td>лёгкие + демон. фактор</td><td><strong>150–160 dB</strong> <span class="footnote-in-table tooltip" data-tooltip="Порог болевого шока">* Порог болевого шока.</span></td></tr>
+            <tr><td>Дальность слышимости</td><td>≈8 км</td><td>мощность</td><td><strong>20–30 км</strong> <span class="footnote-in-table tooltip" data-tooltip="В зависимости от ландшафта">* В зависимости от ландшафта.</span></td></tr>
+            <tr><td>Тип звука</td><td>Низкий рёв</td><td>резонатор</td><td><strong>Сейсмический рёв</strong> <span class="footnote-in-table tooltip" data-tooltip="Ощущается телом как вибрация">* Ощущается телом как вибрация.</span></td></tr>
+            <tr><td>Частотный диапазон</td><td>40–200 Гц</td><td>инфразвук</td><td><strong>5–150 Гц</strong> <span class="footnote-in-table tooltip" data-tooltip="Основная мощь в инфразвуке">* Основная мощь в инфразвуке.</span></td></tr>
         </table>
+
         <h2 class="selectable-text">4. Репродуктивная система</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-            <tr><td>Длина пениса (в покое)</td><td>≈6–8 см</td><td>$L \times k$</td><td><strong> ≈25–30 см</strong> <span class="footnote-in-table">* Скрыт в препуциальном мешке.</span></td></tr>
-            <tr><td>Длина пениса (Эрекция)</td><td>≈15–20 см</td><td>$L \times k$ (усил.)</td><td><strong> ≈65–70 см</strong> <span class="footnote-in-table">* В состоянии полной эрекции.</span></td></tr>
-            <tr><td>Диаметр (кончик)</td><td>≈1.5–2 см</td><td>$L \times k$ (усил.)</td><td><strong>≈5.5–7 см</strong> <span class="footnote-in-table">* Зона головки.</span></td></tr>
-            <tr><td>Диаметр (основание)</td><td>≈4–5 см</td><td>$L \times k$ (усил.)</td><td><strong>18–22 см</strong> <span class="footnote-in-table">* Максимальное расширение.</span></td></tr>
-            <tr><td>Яички (Testicles)</td><td>≈6 см (диам)</td><td>$L \times k$ (усил.)</td><td><strong>25–30 см</strong> <span class="footnote-in-table">* Размер крупного помело.</span></td></tr>
-            <tr><td>Вес мошонки (всего)</td><td>≈500 г</td><td>$M \times k^3$</td><td><strong>≈18–20 кг</strong> <span class="footnote-in-table">* Суммарный вес двух яичек.</span></td></tr>
-            <tr><td>Объём эякулята</td><td>≈60 мл</td><td>$M \times k^3$ (усил.)</td><td><strong>≈1,5-2 л </strong> <span class="footnote-in-table">* Вязкая, высокоэнергетическая.</span></td></tr>
-            <tr><td>Скорость вылета</td><td>≈5 м/с</td><td>$v \times k$</td><td><strong>≈17–20 м/с</strong> <span class="footnote-in-table">* Скорость штормового ветра.</span></td></tr>
-            <tr><td>Давление выброса</td><td>≈1 атм</td><td>гидростатика</td><td><strong>≈12–15 атм</strong> <span class="footnote-in-table">* Усиление за счёт демонической крови.</span></td></tr>
-            <tr><td>Шипы (Spines)</td><td>≈0.5 см</td><td>$L \times k$</td><td><strong>1.5–2 см</strong> <span class="footnote-in-table">* Сохраняют кошачью форму, усилены демонической структурой.</span></td></tr>
+            <tr><td>Длина пениса (в покое)</td><td>≈6–8 см</td><td>$L \times k$</td><td><strong> ≈25–30 см</strong> <span class="footnote-in-table tooltip" data-tooltip="Скрыт в препуциальном мешке">* Скрыт в препуциальном мешке.</span></td></tr>
+            <tr><td>Длина пениса (Эрекция)</td><td>≈15–20 см</td><td>$L \times k$ (усил.)</td><td><strong> ≈65–70 см</strong> <span class="footnote-in-table tooltip" data-tooltip="В состоянии полной эрекции">* В состоянии полной эрекции.</span></td></tr>
+            <tr><td>Диаметр (кончик)</td><td>≈1.5–2 см</td><td>$L \times k$ (усил.)</td><td><strong>≈5.5–7 см</strong> <span class="footnote-in-table tooltip" data-tooltip="Зона головки">* Зона головки.</span></td></tr>
+            <tr><td>Диаметр (основание)</td><td>≈4–5 см</td><td>$L \times k$ (усил.)</td><td><strong>18–22 см</strong> <span class="footnote-in-table tooltip" data-tooltip="Максимальное расширение">* Максимальное расширение.</span></td></tr>
+            <tr><td>Яички (Testicles)</td><td>≈6 см (диам)</td><td>$L \times k$ (усил.)</td><td><strong>25–30 см</strong> <span class="footnote-in-table tooltip" data-tooltip="Размер крупного помело">* Размер крупного помело.</span></td></tr>
+            <tr><td>Вес мошонки (всего)</td><td>≈500 г</td><td>$M \times k^3$</td><td><strong>≈18–20 кг</strong> <span class="footnote-in-table tooltip" data-tooltip="Суммарный вес двух яичек">* Суммарный вес двух яичек.</span></td></tr>
+            <tr><td>Объём эякулята</td><td>≈60 мл</td><td>$M \times k^3$ (усил.)</td><td><strong>≈1,5-2 л </strong> <span class="footnote-in-table tooltip" data-tooltip="Вязкая, высокоэнергетическая">* Вязкая, высокоэнергетическая.</span></td></tr>
+            <tr><td>Скорость вылета</td><td>≈5 м/с</td><td>$v \times k$</td><td><strong>≈17–20 м/с</strong> <span class="footnote-in-table tooltip" data-tooltip="Скорость штормового ветра">* Скорость штормового ветра.</span></td></tr>
+            <tr><td>Давление выброса</td><td>≈1 атм</td><td>гидростатика</td><td><strong>≈12–15 атм</strong> <span class="footnote-in-table tooltip" data-tooltip="Усиление за счёт демонической крови">* Усиление за счёт демонической крови.</span></td></tr>
+            <tr><td>Шипы (Spines)</td><td>≈0.5 см</td><td>$L \times k$</td><td><strong>1.5–2 см</strong> <span class="footnote-in-table tooltip" data-tooltip="Сохраняют кошачью форму, усилены демонической структурой">* Сохраняют кошачью форму, усилены демонической структурой.</span></td></tr>
         </table>
+
         <h2>5. Анатомия и питание</h2>
-    <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Длина черепа</td><td>≈38 см</td><td>L × k</td><td>≈132 см</td></tr>
-        <tr><td>Ширина черепа</td><td>≈25 см</td><td>W × k</td><td>≈87 см</td></tr>
-        <tr><td>Масса головы</td><td>≈12 кг</td><td>(M × k³) × 3*</td><td>≈1500–1600 кг</td></tr>
-        <tr><td>Толщина лобной кости</td><td>≈1.5 см</td><td>T × k × 2**</td><td>≈10–12 см</td></tr>
-        <tr><td>Диаметр глаза</td><td>≈3.8 см</td><td>D × k</td><td>≈13.2 см</td></tr>
-        <tr><td>Частота моргания</td><td>1–2 раз/мин</td><td>M^-0.25</td><td>≈0.5–0.7 раз/мин</td></tr>
-        <tr><td>Размер мозга</td><td>≈240 г</td><td>$M^{0.75}$</td><td><strong>≈1.6–1.8 кг</strong></td></tr>
-        <tr><td>Вес лёгких</td><td>≈1.5 кг</td><td>$M \times k^3$</td><td><strong>≈60 кг</strong></td></tr>
-        <tr><td>Объём лёгких</td><td>≈13 л</td><td>$M \times k^3$</td><td><strong>≈500 л</strong></td></tr>
-        <tr><td>Сила чиха</td><td>~8 м/с</td><td>$\times 38$</td><td><strong>≈80–100 м/с</strong> <span class="footnote-in-table">* Локальная ударная волна. Не стойте перед ним в этот момент.</span></td></tr>
-        <tr><td>Плотность костей</td><td>≈1.9 г/см³</td><td>усилено</td><td><strong>≈5.5–6.0 г/см³</strong></td></tr>
-        <tr><td>Прочность сухожилий</td><td>стандарт</td><td>$M \times k^3$</td><td><strong>в ≈40 раз выше</strong></td></tr>
-        <tr><td>Миоглобин в мышцах</td><td>стандарт</td><td>$M \times k$</td><td><strong>экстремально высокий</strong></td></tr>
-        <tr><td>Масса сердца</td><td>≈1 кг</td><td>$M \times k^3$</td><td>≈40 кг</td></tr>
-        <tr><td>Объём крови</td><td>≈15 л</td><td>$M \times k^3$</td><td>≈600 л</td></tr>
-        <tr><td>Пульс (покой)</td><td>≈40 уд/мин</td><td>$M^{-0.25}$</td><td>≈15–20 уд/мин</td></tr>
-        <tr><td>Пульс (нагрузка)</td><td>≈160–180 уд/мин</td><td>$M^{-0.25}$</td><td>≈60–80 уд/мин</td></tr>
-        <tr><td>Давление (к.д.)</td><td>120/80</td><td>-</td><td>250/160</td></tr>
-        <tr><td>Рацион (сутки)</td><td>5–7 кг</td><td>метаболизм</td><td><strong>100–150 кг</strong></td></tr>
-        <tr><td>Пиковая еда (раз)</td><td>≈30 кг</td><td>$M \times k^3$</td><td><strong>до 500 кг</strong></td></tr>
-        <tr><td>Время переваривания</td><td>≈24 часа</td><td>повышенная кислотность</td><td><strong>≈4–6 часов</strong></td></tr>
-        <tr><td>Эффективность ЖКТ</td><td>≈70%</td><td>усилено</td><td><strong>≈90–95%</strong></td></tr>
-    </table>
-    <div class="appearance-desc">
-        <h3>Пояснение по механизмам демонического усиления:</h3>
-        <p><strong>Костная матрица:</strong> Высокая плотность (5.5–6.0 г/см³) достигается через форсированную минерализацию под давлением демонической крови, что превращает скелет в сверхплотный монолит.</p>
-        <p><strong>Кинетическая вязкость мышц:</strong> Увеличенная скорость нервного импульса и снабжение миоцитов кислородом позволяют мгновенно мобилизовать 9 тонн массы.</p>
-        <p><strong>Метаболический форсаж:</strong> Экстремальная кислотность ЖКТ позволяет за один цикл полностью утилизовать скелет жертвы весом до 500 кг.</p>
-        <p><i>* Умножение на 3 обусловлено разницей плотности костей (6.0 г/см³ против ~1.9 г/см³ у обычного льва).</i></p>
-        <p><i>** Коэффициент 2 добавлен с учётом демонической гипертрофии костной ткани для защиты мозга.</i></p>
-        <p><strong>Гемостатический затвор:</strong> Кровь обладает неньютоновскими свойствами; при резком перепаде давления (ранении) вязкость мгновенно возрастает в 50 раз, создавая биологическую «пробку», способную удержать внутреннее давление до 15 атмосфер.</p>
-    </div>
-    <h2>6. Гидродинамика крови</h2>
-    <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr>
-            <td>Фибриноген (Fg)</td>
-            <td>≈2–4 г/л</td>
-            <td>$Fg_{lion}$ + демоническая днк</td>
-            <td><strong>≈20 г/л</strong>
-            <span class="footnote-in-table">* Усиленная концентрация для быстрого свертывания и демонический ДНК.</span></td>
-        </tr>
-        <tr>
-            <td>Адгезия тромбоцитов</td>
-            <td>1×</td>
-            <td>$A_{adh}$</td>
-            <td><strong>≈10×</strong>
-            <span class="footnote-in-table">* Повышенное сцепление с повреждёнными сосудами.</span></td>
-        </tr>
-        <tr>
-            <td>Время образования тромба</td>
-            <td>≈2–5 мин</td>
-            <td>$t \sim \frac{1}{Fg \cdot A_{adh}}$</td>
-            <td><strong>≈10–30 сек</strong>
-            <span class="footnote-in-table">* Мгновенный гемостаз за счёт днк демона.</span></td>
-        </tr>
-        <tr>
-            <td>Прочность тромба</td>
-            <td>Стандарт</td>
-            <td>$\rho_{fibrin}$</td>
-            <td><strong>Экстремально высокая</strong>
-            <span class="footnote-in-table">* Плотная фибриновая структура.</span></td>
-        </tr>
-        <tr>
-            <td>Гемостатический затвор</td>
-            <td>Отсутствует</td>
-            <td> компенсация давление 15 атмосфер</td>
-            <td><strong>до ≈15 атм</strong>
-            <span class="footnote-in-table">* Удержание давления за счёт тромба.</span></td>
-        </tr>
-    </table>
-    <div class="formula">
-        <b>Механика свертывания:</b><br><br>
-        $$v_{clot} \propto Fg \cdot A_{adh}$$
-        $$t \sim \frac{1}{Fg \cdot A_{adh}}$$
-    </div>
-    <h2>7. Система следов жизнедеятельности</h2>
-    <table>
-        <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-        <tr><td>Моча (сутки)</td><td>≈1.5 л</td><td>$M \times k^3$</td><td>≈38–57 л</td></tr>
-        <tr><td>Моча (за раз)</td><td>≈400 мл</td><td>$M \times k^3$</td><td>≈10–15 л</td></tr>
-        <tr><td>Кал (сутки)</td><td>≈2 кг</td><td>$M \times k^3$</td><td>≈57–76 кг</td></tr>
-        <tr><td>Кал (за раз)</td><td>≈1 кг</td><td>$M \times k^3$</td><td>≈30–40 кг</td></tr>
-        <tr><td>Диаметр сегмента</td><td>≈4 см</td><td>$L \times k$</td><td>≈14–16 см</td></tr>
-        <tr><td>Длина сегмента</td><td>≈15 см</td><td>$L \times k$</td><td>≈40–50 см</td></tr>
-    </table>
-    <div class="section">
-        <h2>8. МЕХАНИКА ОХОТЫ: ГРАВИТАЦИОННОЕ ПОДАВЛЕНИЕ</h2>
-        <div class="hunting-block">
-            <p>Охота Рометто — это не погоня, а фатальное столкновение колоссальной массы с пространством. Для хищника такого масштаба физика — самое эффективное оружие.</p>
+        <table>
+            <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+            <tr><td>Длина черепа</td><td>≈38 см</td><td>L × k</td><td>≈132 см</td></tr>
+            <tr><td>Ширина черепа</td><td>≈25 см</td><td>W × k</td><td>≈87 см</td></tr>
+            <tr><td>Масса головы</td><td>≈12 кг</td><td>(M × k³) × 3*</td><td>≈1500–1600 кг</td></tr>
+            <tr><td>Толщина лобной кости</td><td>≈1.5 см</td><td>T × k × 2**</td><td>≈10–12 см</td></tr>
+            <tr><td>Диаметр глаза</td><td>≈3.8 см</td><td>D × k</td><td>≈13.2 см</td></tr>
+            <tr><td>Частота моргания</td><td>1–2 раз/мин</td><td>M^-0.25</td><td>≈0.5–0.7 раз/мин</td></tr>
+            <tr><td>Размер мозга</td><td>≈240 г</td><td>$M^{0.75}$</td><td><strong>≈1.6–1.8 кг</strong></td></tr>
+            <tr><td>Вес лёгких</td><td>≈1.5 кг</td><td>$M \times k^3$</td><td><strong>≈60 кг</strong></td></tr>
+            <tr><td>Объём лёгких</td><td>≈13 л</td><td>$M \times k^3$</td><td><strong>≈500 л</strong></td></tr>
+            <tr><td>Сила чиха</td><td>~8 м/с</td><td>$\times 38$</td><td><strong>≈80–100 м/с</strong> <span class="footnote-in-table tooltip" data-tooltip="Локальная ударная волна. Не стойте перед ним в этот момент">* Локальная ударная волна. Не стойте перед ним в этот момент.</span></td></tr>
+            <tr><td>Плотность костей</td><td>≈1.9 г/см³</td><td>усилено</td><td><strong>≈5.5–6.0 г/см³</strong></td></tr>
+            <tr><td>Прочность сухожилий</td><td>стандарт</td><td>$M \times k^3$</td><td><strong>в ≈40 раз выше</strong></td></tr>
+            <tr><td>Миоглобин в мышцах</td><td>стандарт</td><td>$M \times k$</td><td><strong>экстремально высокий</strong></td></tr>
+            <tr><td>Масса сердца</td><td>≈1 кг</td><td>$M \times k^3$</td><td>≈40 кг</td></tr>
+            <tr><td>Объём крови</td><td>≈15 л</td><td>$M \times k^3$</td><td>≈600 л</td></tr>
+            <tr><td>Пульс (покой)</td><td>≈40 уд/мин</td><td>$M^{-0.25}$</td><td>≈15–20 уд/мин</td></tr>
+            <tr><td>Пульс (нагрузка)</td><td>≈160–180 уд/мин</td><td>$M^{-0.25}$</td><td>≈60–80 уд/мин</td></tr>
+            <tr><td>Давление (к.д.)</td><td>120/80</td><td>-</td><td>250/160</td></tr>
+            <tr><td>Рацион (сутки)</td><td>5–7 кг</td><td>метаболизм</td><td><strong>100–150 кг</strong></td></tr>
+            <tr><td>Пиковая еда (раз)</td><td>≈30 кг</td><td>$M \times k^3$</td><td><strong>до 500 кг</strong></td></tr>
+            <tr><td>Время переваривания</td><td>≈24 часа</td><td>повышенная кислотность</td><td><strong>≈4–6 часов</strong></td></tr>
+            <tr><td>Эффективность ЖКТ</td><td>≈70%</td><td>усилено</td><td><strong>≈90–95%</strong></td></tr>
+        </table>
+
+        <div class="appearance-desc">
+            <h3>Пояснение по механизмам демонического усиления:</h3>
+            <p><strong>Костная матрица:</strong> Высокая плотность (5.5–6.0 г/см³) достигается через форсированную минерализацию под давлением демонической крови, что превращает скелет в сверхплотный монолит.</p>
+            <p><strong>Кинетическая вязкость мышц:</strong> Увеличенная скорость нервного импульса и снабжение миоцитов кислородом позволяют мгновенно мобилизовать 9 тонн массы.</p>
+            <p><strong>Метаболический форсаж:</strong> Экстремальная кислотность ЖКТ позволяет за один цикл полностью утилизовать скелет жертвы весом до 500 кг.</p>
+            <p><i>* Умножение на 3 обусловлено разницей плотности костей (6.0 г/см³ против ~1.9 г/см³ у обычного льва).</i></p>
+            <p><i>** Коэффициент 2 добавлен с учётом демонической гипертрофии костной ткани для защиты мозга.</i></p>
+            <p><strong>Гемостатический затвор:</strong> Кровь обладает неньютоновскими свойствами; при резком перепаде давления (ранении) вязкость мгновенно возрастает в 50 раз, создавая биологическую «пробку», способную удержать внутреннее давление до 15 атмосфер.</p>
+        </div>
+
+        <h2>6. Гидродинамика крови</h2>
+        <table>
+            <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+            <tr>
+                <td>Фибриноген (Fg)</td>
+                <td>≈2–4 г/л</td>
+                <td>$Fg_{lion}$ + демоническая днк</td>
+                <td><strong>≈20 г/л</strong>
+                <span class="footnote-in-table tooltip" data-tooltip="Усиленная концентрация для быстрого свертывания и демонический ДНК">* Усиленная концентрация для быстрого свертывания и демонический ДНК.</span></td>
+            </tr>
+            <tr>
+                <td>Адгезия тромбоцитов</td>
+                <td>1×</td>
+                <td>$A_{adh}$</td>
+                <td><strong>≈10×</strong>
+                <span class="footnote-in-table tooltip" data-tooltip="Повышенное сцепление с повреждёнными сосудами">* Повышенное сцепление с повреждёнными сосудами.</span></td>
+            </tr>
+            <tr>
+                <td>Время образования тромба</td>
+                <td>≈2–5 мин</td>
+                <td>$t \sim \frac{1}{Fg \cdot A_{adh}}$</td>
+                <td><strong>≈10–30 сек</strong>
+                <span class="footnote-in-table tooltip" data-tooltip="Мгновенный гемостаз за счёт днк демона">* Мгновенный гемостаз за счёт днк демона.</span></td>
+            </tr>
+            <tr>
+                <td>Прочность тромба</td>
+                <td>Стандарт</td>
+                <td>$\rho_{fibrin}$</td>
+                <td><strong>Экстремально высокая</strong>
+                <span class="footnote-in-table tooltip" data-tooltip="Плотная фибриновая структура">* Плотная фибриновая структура.</span></td>
+            </tr>
+            <tr>
+                <td>Гемостатический затвор</td>
+                <td>Отсутствует</td>
+                <td> компенсация давление 15 атмосфер</td>
+                <td><strong>до ≈15 атм</strong>
+                <span class="footnote-in-table tooltip" data-tooltip="Удержание давления за счёт тромба">* Удержание давления за счёт тромба.</span></td>
+            </tr>
+        </table>
+        <div class="formula">
+            <b>Механика свертывания:</b><br><br>
+            $$v_{clot} \propto Fg \cdot A_{adh}$$
+            $$t \sim \frac{1}{Fg \cdot A_{adh}}$$
+        </div>
+
+        <h2>7. Система следов жизнедеятельности</h2>
+        <table>
+            <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
+            <tr><td>Моча (сутки)</td><td>≈1.5 л</td><td>$M \times k^3$</td><td>≈38–57 л</td></tr>
+            <tr><td>Моча (за раз)</td><td>≈400 мл</td><td>$M \times k^3$</td><td>≈10–15 л</td></tr>
+            <tr><td>Кал (сутки)</td><td>≈2 кг</td><td>$M \times k^3$</td><td>≈57–76 кг</td></tr>
+            <tr><td>Кал (за раз)</td><td>≈1 кг</td><td>$M \times k^3$</td><td>≈30–40 кг</td></tr>
+            <tr><td>Диаметр сегмента</td><td>≈4 см</td><td>$L \times k$</td><td>≈14–16 см</td></tr>
+            <tr><td>Длина сегмента</td><td>≈15 см</td><td>$L \times k$</td><td>≈40–50 см</td></tr>
+        </table>
+
+        <div class="section">
+            <h2>8. МЕХАНИКА ОХОТЫ: ГРАВИТАЦИОННОЕ ПОДАВЛЕНИЕ</h2>
+            <div class="hunting-block">
+                <p>Охота Рометто — это не погоня, а фатальное столкновение колоссальной массы с пространством. Для хищника такого масштаба физика — самое эффективное оружие.</p>
+               
+                <h4>I. Инфразвуковой рокот: Резонанс страха</h4>
+                <p>Рометто не нужно прятаться — он подавляет волю цели на расстоянии. Благодаря огромному объему легких и специфической структуре гортани, усиленной демоническим фактором, он генерирует звуковые волны частотой ниже 10 Гц.</p>
+                <p><strong>Механизм:</strong> Это физический резонанс гипертрофированных голосовых связок и объёмной грудной клетки.<br>
+                <strong>Эффект:</strong> Инфразвук входит в резонанс с внутренними органами любой биологической цели в радиусе 50 метров. Это вызывает «системный сбой»: паралич воли, потерю ориентации и неконтролируемый ужас. Жертва замирает еще до физического контакта.</p>
+                <h4>II. Инерционный рывок: 9 тонн неизбежности</h4>
+                <p>При массе в 9.2 тонны Рометто развивает скорость до 50 км/ч. На такой скорости он превращается в живой снаряд с чудовищным импульсом. Любое препятствие на пути (деревья, камни или броня жертвы) просто деформируется, не снижая скорости хищника.</p>
+                <h4>III. Сокрушение весом (Фаза контакта)</h4>
+                <p>Для Рометто самый естественный способ убийства — это прыжок всем весом.</p>
+                <p><strong>Гравитационный краш:</strong> Приземление 9-тонного тела генерирует динамическое усилие в 30–40 тонн. В момент контакта возникает компрессионный шок, который мгновенно разрушает скелет и останавливает работу внутренних органов цели. Жертву буквально «впрессовывает» в ландшафт.</p>
+                <p><strong>Милосердный финал:</strong> Если после удара цель проявляет признаки жизни, Рометто прекращает её страдания максимально эффективно. Он просто переносит вес на одну из передних лап шириной 70 см, раздавливая голову жертвы. Это вопрос чистой механики — при его габаритах это проще и быстрее любого другого действия.</p>
+                <p><strong>Смертельный «кусь»:</strong> Используется крайне редко. Несмотря на силу укуса в 24 000 PSI, Рометто предпочитает работать массой. Использовать челюсти при таких габаритах просто неудобно — лапы и собственный вес позволяют достичь результата с гораздо меньшими усилиями.</p>
+            </div>
+        </div>
+
+        <div class="formula">
+            <b> Формулы масштабирования и физики</b><br><br>
+            • $k = 3.47$ (Линейный коэффициент масштабирования)<br>
+            • $k^3 \approx 41.8$ (Кубический закон)<br>
+            • Динамическая сила ($F_{dyn}$): 30–40 тонн.<br>
+            • Громкость рёва: $\text{dB}_{max} \approx 160$<br><br>
            
-            <h4>I. Инфразвуковой рокот: Резонанс страха</h4>
-            <p>Рометто не нужно прятаться — он подавляет волю цели на расстоянии. Благодаря огромному объему легких и специфической структуре гортани, усиленной демоническим фактором, он генерирует звуковые волны частотой ниже 10 Гц.</p>
-            <p><strong>Механизм:</strong> Это физический резонанс гипертрофированных голосовых связок и объёмной грудной клетки.<br>
-            <strong>Эффект:</strong> Инфразвук входит в резонанс с внутренними органами любой биологической цели в радиусе 50 метров. Это вызывает «системный сбой»: паралич воли, потерю ориентации и неконтролируемый ужас. Жертва замирает еще до физического контакта.</p>
-            <h4>II. Инерционный рывок: 9 тонн неизбежности</h4>
-            <p>При массе в 9.2 тонны Рометто развивает скорость до 50 км/ч. На такой скорости он превращается в живой снаряд с чудовищным импульсом. Любое препятствие на пути (деревья, камни или броня жертвы) просто деформируется, не снижая скорости хищника.</p>
-            <h4>III. Сокрушение весом (Фаза контакта)</h4>
-            <p>Для Рометто самый естественный способ убийства — это прыжок всем весом.</p>
-            <p><strong>Гравитационный краш:</strong> Приземление 9-тонного тела генерирует динамическое усилие в 30–40 тонн. В момент контакта возникает компрессионный шок, который мгновенно разрушает скелет и останавливает работу внутренних органов цели. Жертву буквально «впрессовывает» в ландшафт.</p>
-            <p><strong>Милосердный финал:</strong> Если после удара цель проявляет признаки жизни, Рометто прекращает её страдания максимально эффективно. Он просто переносит вес на одну из передних лап шириной 70 см, раздавливая голову жертвы. Это вопрос чистой механики — при его габаритах это проще и быстрее любого другого действия.</p>
-            <p><strong>Смертельный «кусь»:</strong> Используется крайне редко. Несмотря на силу укуса в 24 000 PSI, Рометто предпочитает работать массой. Использовать челюсти при таких габаритах просто неудобно — лапы и собственный вес позволяют достичь результата с гораздо меньшими усилиями.</p>
+            <b>Базальный метаболизм (BMR):</b><br>
+            $$BMR_{rometto} = (c \cdot M^{0.75}) \cdot \alpha$$
+            <b>Гемостаз (усиленная модель):</b><br><br>
+            • Скорость формирования тромба:<br>
+            $$v_{clot} \sim Fg \cdot A_{adh}$$
+            • Время свертывания:<br>
+            $$t \sim \frac{1}{Fg \cdot A_{adh}}$$
+            • Усиление:<br>
+            $$Fg = Fg_{lion} \cdot \alpha,\quad A_{adh} = A_{lion} \cdot \alpha$$
         </div>
-    </div>
-    <div class="formula">
-        <b> Формулы масштабирования и физики</b><br><br>
-        • $k = 3.47$ (Линейный коэффициент масштабирования)<br>
-        • $k^3 \approx 41.8$ (Кубический закон)<br>
-        • Динамическая сила ($F_{dyn}$): 30–40 тонн.<br>
-        • Громкость рёва: $\text{dB}_{max} \approx 160$<br><br>
-       
-        <b>Базальный метаболизм (BMR):</b><br>
-        $$BMR_{rometto} = (c \cdot M^{0.75}) \cdot \alpha$$
-        <b>Гемостаз (усиленная модель):</b><br><br>
-        • Скорость формирования тромба:<br>
-        $$v_{clot} \sim Fg \cdot A_{adh}$$
-        • Время свертывания:<br>
-        $$t \sim \frac{1}{Fg \cdot A_{adh}}$$
-        • Усиление:<br>
-        $$Fg = Fg_{lion} \cdot \alpha,\quad A_{adh} = A_{lion} \cdot \alpha$$
-    </div>
-    <footer class="site-footer">
-        <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">ROMETTO</span></strong>. Все права защищены.</div>
-        <div style="margin-top: 15px; color: #d2b48c;">
-            Подарки очень приятны, я и Рометто всегда рады совместным артам! 🐾<br>
-            Но, пожалуйста, <a href="https://t.me/mr_Rometto" target="_blank" rel="noopener noreferrer">свяжитесь со мной</a> заранее.
+
+        <!-- FAQ (новый блок) -->
+        <div class="faq">
+            <h2 class="selectable-text">Часто задаваемые вопросы</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">Почему максимальная скорость Рометто (≈50 км/ч) ниже, чем у обычного льва (≈80 км/ч)? <span style="font-size:18px;">▼</span></div>
+                <div class="faq-answer">Рометто слишком огромен — 9,2 тонны живой массы. На скорости около 50 км/ч он уже ведёт себя как разогнавшийся 9-тонный КАМАЗ. Дальнейший разгон требует чудовищной энергии и создаёт огромную нагрузку на скелет, сухожилия и внутренние органы. Даже с демонической помощью природа ставит свои пределы.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">Можно ли в принципе победить Рометто в бою? <span style="font-size:18px;">▼</span></div>
+                <div class="faq-answer">Теоретически — да. Но этот секрет знают лишь трое живых существ — его самые близкие друзья.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">Как Рометто справляется с перегревом при массе 9,2 тонны? <span style="font-size:18px;">▼</span></div>
+                <div class="faq-answer">Демоническая кровь радикально изменена и стабилизирует структуру белков, позволяя выдерживать температуру тела даже выше 100 °C без разрушения тканей. Кроме того, он может активно охлаждаться: погрузиться в воду или лечь и 15–30 минут глубоко дышать форсированно.</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">Почему его рёв ощущается телом как вибрация даже на расстоянии 20–30 км? <span style="font-size:18px;">▼</span></div>
+                <div class="faq-answer">Основная мощь рёва лежит в инфразвуковом диапазоне (частоты ниже 10 Гц). Благодаря гипертрофированным голосовым связкам и огромному объёму лёгких он генерирует мощные низкочастотные волны.<br><br><b>Формула:</b><br>$$f_{\text{основная}} \approx 5-10\ \text{Гц (инфразвук)}$$</div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">Что произойдёт, если встать прямо перед Рометто в момент, когда он чихает? <span style="font-size:18px;">▼</span></div>
+                <div class="faq-answer">Мгновенная смерть. Локальная ударная волна летит со скоростью 80–100 м/с и действует как направленный взрыв.</div>
+            </div>
         </div>
-    </footer>
+
+        <footer class="site-footer">
+            <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">ROMETTO</span></strong>. Все права защищены.</div>
+            <div style="margin-top: 15px; color: #d2b48c;">
+                Подарки очень приятны, я и Рометто всегда рады совместным артам! 🐾<br>
+                Но, пожалуйста, <a href="https://t.me/mr_Rometto" target="_blank" rel="noopener noreferrer">свяжитесь со мной</a> заранее.
+            </div>
+        </footer>
+
+        <!-- Аудио для демонического режима -->
+        <audio id="hellMusic" src="/demonic_theme.mp3" loop></audio>
+    </div>
 
     <script>
         // Обновление года
@@ -510,13 +645,12 @@
             ageGate.style.display = 'none';
             pageContent.style.display = 'flex';
             body.classList.remove('no-scroll');
-            // Перерендер MathJax после показа контента
             if (window.MathJax && window.MathJax.typesetPromise) {
                 window.MathJax.typesetPromise().catch(() => {});
             }
         }
 
-        // Лайтбокс
+        // Лайтбокс (без изменений)
         const lightbox = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
         let scale = 1, x = 0, y = 0, isDragging = false, startX, startY;
@@ -572,7 +706,7 @@
         function showEnNotice() { document.getElementById('en-notice').style.display = 'flex'; }
         function hideEnNotice() { document.getElementById('en-notice').style.display = 'none'; }
 
-        // Дополнительная логика курсора текста
+        // Курсор текста
         const selectableElements = document.querySelectorAll('.selectable-text');
         selectableElements.forEach(el => {
             el.addEventListener('mousedown', () => {
@@ -581,6 +715,140 @@
         });
         window.addEventListener('mouseup', () => {
             document.body.style.cursor = "url('cursor_busy.png') 12 12, auto";
+        });
+
+        // ==================== НОВЫЕ ФИЧИ ====================
+
+        // 1. Индикатор MathJax
+        const mathjaxIndicator = document.createElement('div');
+        mathjaxIndicator.className = 'mathjax-loading';
+        mathjaxIndicator.textContent = '📐 Загрузка формул...';
+        document.body.appendChild(mathjaxIndicator);
+        window.addEventListener('load', () => {
+            if (window.MathJax) mathjaxIndicator.style.display = 'block';
+            setTimeout(() => { mathjaxIndicator.style.display = 'none'; }, 2200);
+        });
+
+        // 2. Генерация TOC (оглавление)
+        function generateTOC() {
+            const tocList = document.getElementById('toc-list');
+            const headers = document.querySelectorAll('#page-content h2');
+            headers.forEach((h2, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#section-${index}`;
+                a.textContent = h2.textContent;
+                a.onclick = (e) => {
+                    e.preventDefault();
+                    h2.scrollIntoView({ behavior: 'smooth' });
+                };
+                h2.id = `section-${index}`;
+                li.appendChild(a);
+                tocList.appendChild(li);
+            });
+        }
+
+        // 3. Лёгкий particle-фон (искры + пепел)
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let particlesEnabled = true;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.speedY = Math.random() * 1.5 + 0.8;
+                this.life = 180 + Math.random() * 120;
+                this.color = Math.random() > 0.6 ? '#ff5500' : '#ffaa00';
+                this.type = Math.random() > 0.7 ? 'spark' : 'ash';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life--;
+                this.speedY += 0.02;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life / 200;
+                if (this.type === 'spark') {
+                    ctx.fillStyle = this.color;
+                    ctx.fillRect(this.x, this.y, this.size, this.size);
+                } else {
+                    ctx.fillStyle = '#222';
+                    ctx.fillRect(this.x, this.y, this.size * 1.8, this.size * 0.6);
+                }
+                ctx.restore();
+            }
+        }
+
+        function animateParticles() {
+            if (!particlesEnabled) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                requestAnimationFrame(animateParticles);
+                return;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (Math.random() < 0.4) particles.push(new Particle());
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) particles.splice(i, 1);
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        // Кнопка отключения частиц
+        document.getElementById('toggleParticles').addEventListener('click', () => {
+            particlesEnabled = !particlesEnabled;
+            document.getElementById('toggleParticles').textContent = particlesEnabled ? '✦ Отключить искры' : '✦ Включить искры';
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // 4. Easter egg — 6 кликов по ROMETTO
+        let clickCount = 0;
+        const romettoSpan = document.getElementById('rometto-click');
+        const hellAudio = document.getElementById('hellMusic');
+
+        romettoSpan.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 6) {
+                body.classList.add('hell-mode');
+                hellAudio.play().catch(() => {});
+                setTimeout(() => {
+                    alert('🔥 АД АКТИВИРОВАН 🔥\nРометто доволен тобой, смертный…');
+                }, 600);
+                clickCount = 0;
+            }
+        });
+
+        // 5. FAQ toggle
+        function toggleFAQ(el) {
+            const answer = el.nextElementSibling;
+            const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+            answer.style.maxHeight = isOpen ? null : answer.scrollHeight + 'px';
+            el.querySelector('span').textContent = isOpen ? '▼' : '▲';
+        }
+
+        // Запуск всего
+        window.addEventListener('load', () => {
+            resizeCanvas();
+            animateParticles();
+            generateTOC();
+            // Sticky TOC (простой вариант)
+            const toc = document.getElementById('toc-container');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) toc.style.position = 'sticky';
+            });
         });
     </script>
 </body>
