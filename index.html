@@ -30,41 +30,43 @@
             font-weight: normal;
             font-style: normal;
         }
-           /* 1. Основной курсор для всего сайта */
-body {
-  cursor: url('cursor_busy.png') 12 12, auto;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #0f0f0f;
-  color: #d2b48c;
-  margin: 0;
-  padding: 20px;
-  line-height: 1.6;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  user-select: text;
-}
 
-/* 2. Курсор для ссылок и кнопок */
-a, button, [role="button"] {
-  cursor: url('cursor_pointer.png') 12 12, pointer;
-  transition: transform 0.1s ease; /* Плавность для эффекта клика */
-}
+        /* 1. Основной курсор для всего сайта */
+        body {
+            cursor: url('cursor_busy.png') 12 12, auto;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f0f0f;
+            color: #d2b48c;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            user-select: text;
+        }
 
-/* Эффект свечения при наведении на кнопки */
-a:hover, button:hover {
-  filter: drop-shadow(0 0 5px #d2b48c);
-}
+        /* 2. Курсор для ссылок и кнопок */
+        a, button, [role="button"], .nav-btn, .close-notice {
+            cursor: url('cursor_pointer.png') 12 12, pointer !important;
+            transition: transform 0.1s ease; /* Плавность для эффекта клика */
+        }
 
-/* Эффект "вдавливания" при клике */
-a:active, button:active {
-  transform: scale(0.9);
-}
+        /* Эффект свечения при наведении на кнопки */
+        a:hover, button:hover {
+            filter: drop-shadow(0 0 5px #d2b48c);
+        }
 
-/* 3. Текстовый курсор (для всех текстов) */
-p, span, h1, h2, h3, div, li, label, input, textarea {
-  cursor: url('cursor_text.png') 12 12, text !important;
-}
+        /* Эффект "вдавливания" при клике */
+        a:active, button:active {
+            transform: scale(0.9);
+        }
+
+        /* 3. Текстовый курсор (убрали div, чтобы он не перебивал всё остальное) */
+        p, span, h1, h2, h3, li, label, input, textarea, th, td {
+            cursor: url('cursor_text.png') 12 12, text;
+        }
+
         .en-text {
             font-family: 'LionKing', Arial, sans-serif !important;
             letter-spacing: 2px;
@@ -178,7 +180,8 @@ p, span, h1, h2, h3, div, li, label, input, textarea {
             margin-bottom:15px; 
             width: 100%; 
             position: relative;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="font-size: 24px;"><text y="24">🐾</text></svg>'), auto;
+            /* Правильно закодированный SVG курсор */
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size: 24px;'%3E%3Ctext y='24'%3E🐾%3C/text%3E%3C/svg%3E") 16 16, pointer !important;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -596,8 +599,14 @@ p, span, h1, h2, h3, div, li, label, input, textarea {
 
         window.addEventListener('mouseup', () => isDragging = false);
 
-        function showEnNotice() { document.getElementById('en-notice').style.display = 'flex'; }
-        function hideEnNotice() { document.getElementById('en-notice').style.display = 'none'; }
+        // Функции для окна с уведомлением EN
+        function showEnNotice() {
+            document.getElementById('en-notice').style.display = 'flex';
+        }
+        
+        function hideEnNotice() {
+            document.getElementById('en-notice').style.display = 'none';
+        }
     </script>
 </body>
 </html>
