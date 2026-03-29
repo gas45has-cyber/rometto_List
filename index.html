@@ -1285,120 +1285,53 @@
         });
 
         // ══════════════════════════════════════════════
-//  КАЛЬКУЛЯТОР — ОДИН, РЕАЛ-ТАЙМ, С ПРОВЕРКОЙ НА ПЕРЕБОР
-// ══════════════════════════════════════════════
-const ROMETTO = {
-    height: 417,
-    weight: 9200,
-    bite: 24000,
-    speed: 50,
-    penis: 67.5
-};
+        //  КАЛЬКУЛЯТОР СРАВНЕНИЯ
+        // ══════════════════════════════════════════════
+        const ROMETTO = { height: 417, weight: 9200, bite: 24000, speed: 50 };
 
-const PRESETS = [
-    { h: 175, w: 70,  b: 160,  s: 25,  p: 15 },
-    { h: 190, w: 95,  b: 300,  s: 40,  p: 18 },
-    { h: 220, w: 150, b: 500,  s: 35,  p: 22 },
-    { h: 185, w: 110, b: 250,  s: 30,  p: 20 }
-];
+        function runCalc() {
+            const h = parseFloat(document.getElementById('calc-height').value);
+            const w = parseFloat(document.getElementById('calc-weight').value);
+            const b = parseFloat(document.getElementById('calc-bite').value);
+            const s = parseFloat(document.getElementById('calc-speed').value);
 
-function applyPreset(i) {
-    const p = PRESETS[i];
-    document.getElementById('calc-height').value = p.h;
-    document.getElementById('calc-weight').value = p.w;
-    document.getElementById('calc-bite').value   = p.b;
-    document.getElementById('calc-speed').value  = p.s;
-    document.getElementById('calc-penis').value  = p.p;
-    runCalc();
-}
+            const results = document.getElementById('calc-results');
+            results.style.display = 'block';
 
-function runCalc() {
-    const h = parseFloat(document.getElementById('calc-height').value) || 0;
-    const w = parseFloat(document.getElementById('calc-weight').value) || 0;
-    const b = parseFloat(document.getElementById('calc-bite').value)   || 0;
-    const s = parseFloat(document.getElementById('calc-speed').value)  || 0;
-    const p = parseFloat(document.getElementById('calc-penis').value)  || 0;
+            const fields = [
+                { id: 'cr-height', label: 'Рост',        you: h, rom: ROMETTO.height, unit: 'см',   youLabel: h ? h+'см'    : '?' },
+                { id: 'cr-weight', label: 'Вес',         you: w, rom: ROMETTO.weight, unit: 'кг',   youLabel: w ? w+'кг'    : '?' },
+                { id: 'cr-bite',   label: 'Сила укуса',  you: b, rom: ROMETTO.bite,   unit: 'PSI',  youLabel: b ? b+' PSI'  : '?' },
+                { id: 'cr-speed',  label: 'Скорость',    you: s, rom: ROMETTO.speed,   unit: 'км/ч', youLabel: s ? s+' км/ч' : '?' },
+            ];
 
-    const resultsDiv = document.getElementById('calc-results');
-    resultsDiv.style.display = 'block';
+            fields.forEach(f => {
+                const el = document.getElementById(f.id);
+                if (!f.you || f.you <= 0) { el.innerHTML = ''; return; }
+                const pct = Math.min((f.you / f.rom) * 100, 100);
+                const mult = (f.rom / f.you).toFixed(1);
+                el.innerHTML = `
+                    <div class="calc-result-label">${f.label}</div>
+                    <div class="calc-bar-wrap">
+                        <div class="calc-bar-you" style="width:${pct}%">${pct > 12 ? f.youLabel : ''}</div>
+                        <div class="calc-bar-rometto-line" data-label="417см / 9.2т / 24000PSI / 50км/ч"></div>
+                    </div>
+                    <div class="calc-multiplier">×${mult}</div>
+                `;
+            });
 
-    const fields = [
-        { id: 'cr-height', label: 'Рост',        you: h, rom: ROMETTO.height, unit: 'см'   },
-        { id: 'cr-weight', label: 'Вес',         you: w, rom: ROMETTO.weight, unit: 'кг'   },
-        { id: 'cr-bite',   label: 'Сила укуса',  you: b, rom: ROMETTO.bite,   unit: 'PSI'  },
-        { id: 'cr-speed',  label: 'Скорость',    you: s, rom: ROMETTO.speed,   unit: 'км/ч' },
-        { id: 'cr-penis',  label: 'Пенис (эрекция)', you: p, rom: ROMETTO.penis, unit: 'см 🔥' }
-    ];
+            // Вердикт
+            const validVals = fields.filter(f => f.you > 0);
+            if (validVals.length === 0) return;
+            const avgMult = validVals.reduce((s, f) => s + f.rom / f.you, 0) / validVals.length;
+            let verdict = '';
+            if (avgMult >= 50)       verdict = `Рометто превосходит тебя в среднем в <strong>${avgMult.toFixed(0)}×</strong>. Ты для него — букашка Даже не жертва — просто, то что он случайно раздавит.`;
+            else if (avgMult >= 20)  verdict = `В среднем разрыв <strong>${avgMult.toFixed(1)}×</strong>. Если Рометто чихнёт в твою сторону — это уже смертельный исход.`;
+            else if (avgMult >= 10)  verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Ты был бы одним из самых опасных существ на Земле — если бы не он.`;
+            else if (avgMult >= 3)   verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Ты неплох для человека. Но против 9 тонн демонического льва — не очень.`;
+            else                     verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Ты вполне достойный противник... в отдельных показателях.`;
 
-    let totalMult = 0;
-    let validCount = 0;
-    let isBigger = false;   // ← вот эта проверка
-
-    fields.forEach(f => {
-        const el = document.getElementById(f.id);
-        if (f.you <= 0) {
-            el.innerHTML = '';
-            return;
-        }
-        if (f.you > f.rom) isBigger = true;
-
-        const pct = Math.min((f.you / f.rom) * 100, 100);
-        const mult = (f.rom / f.you).toFixed(1);
-        totalMult += parseFloat(mult);
-        validCount++;
-
-        el.innerHTML = `
-            <div class="calc-result-label">${f.label}</div>
-            <div class="calc-bar-wrap">
-                <div class="calc-bar-you" style="width:${pct}%; background:#3a86ff;">${pct > 12 ? f.you + f.unit : ''}</div>
-                <div class="calc-bar-rometto-line" data-label="${f.rom}${f.unit}"></div>
-            </div>
-            <div class="calc-multiplier">×${mult}</div>
-        `;
-    });
-
-    const verdictEl = document.getElementById('calc-verdict');
-    const extraEl   = document.getElementById('calc-extra');
-
-    if (isBigger) {
-        // Специальное сообщение, если хоть в одном параметре больше Рометто
-        verdictEl.innerHTML = `
-            <strong style="color:#e67e22; font-size:18px;">окей.. Допустим</strong><br>
-            жду пруфов<br>
-            <span style="font-size:13px; opacity:0.8;">контакты найдёшь в низу страницы 🐾</span>
-        `;
-        extraEl.style.display = 'none';
-        return;
-    }
-
-    // Обычный расчёт (если всё меньше Рометто)
-    const avgMult = validCount ? (totalMult / validCount) : 0;
-    let verdict = '';
-    let extra = '';
-
-    if (avgMult >= 80)      { verdict = `Ты для него — <strong>пыль на лапе</strong>.`; extra = `💥 Под его лапой ≈ 0.3 секунды`; }
-    else if (avgMult >= 50) { verdict = `Рометто в <strong>${avgMult.toFixed(0)}×</strong> сильнее. Ты — букашка.`; extra = `🦴 Нужно ${Math.round(9200 / w)} таких как ты`; }
-    else if (avgMult >= 25) { verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Он чихнёт — ты мёртв.`; }
-    else if (avgMult >= 10) { verdict = `Ты был бы легендой… если бы не Рометто.`; }
-    else if (avgMult >= 4)  { verdict = `Неплохо для человека. Но всё равно будешь раздавлен.`; }
-    else                    { verdict = `Ты почти на равных… но всё равно <strong>размазан</strong>.`; }
-
-    if (p > 0) {
-        const penisMult = (ROMETTO.penis / p).toFixed(1);
-        verdict += `<br><br>🔞 По длине пениса он в <strong>${penisMult}×</strong> больше.`;
-    }
-
-    verdictEl.innerHTML = verdict;
-    extraEl.innerHTML = extra;
-    extraEl.style.display = extra ? 'block' : 'none';
-}
-
-// Автозапуск
-window.addEventListener('load', () => {
-    if (localStorage.getItem('ageConfirmed') === 'true') {
-        setTimeout(runCalc, 600);
-    }
-});
+            document.getElementById('calc-verdict').innerHTML = verdict;
         }
 
         // ══════════════════════════════════════════════
