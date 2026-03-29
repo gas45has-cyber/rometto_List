@@ -263,6 +263,199 @@
             to { transform: translate(-2px, -3px) rotate(-1deg); }
         }
 
+        /* === МУЗЫКАЛЬНЫЙ ПЛЕЕР === */
+        #music-player {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            z-index: 9998;
+            background: rgba(15,15,15,0.95);
+            border: 1px solid #e67e22;
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 20px rgba(230,126,34,0.3);
+            max-width: 260px;
+            transition: opacity 0.3s ease;
+        }
+        #music-player.hidden { opacity: 0; pointer-events: none; }
+        .music-cover {
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #e67e22, #8b0000);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            animation: spinRecord 4s linear infinite;
+            animation-play-state: paused;
+        }
+        .music-cover.playing { animation-play-state: running; }
+        @keyframes spinRecord { to { transform: rotate(360deg); } }
+        .music-info { flex: 1; min-width: 0; }
+        .music-title {
+            font-size: 11px; color: #e67e22; font-weight: bold;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .music-sub { font-size: 10px; color: #777; margin-top: 2px; }
+        .music-progress {
+            width: 100%; height: 3px; background: #333;
+            border-radius: 2px; margin-top: 6px; cursor: pointer;
+        }
+        .music-progress-bar {
+            height: 100%; background: #e67e22;
+            border-radius: 2px; width: 0%;
+            transition: width 0.5s linear;
+        }
+        .music-btn {
+            background: none; border: none; color: #e67e22;
+            font-size: 20px; cursor: url('cursor_pointer.png') 12 12, pointer;
+            padding: 0; line-height: 1; flex-shrink: 0;
+            transition: transform 0.15s ease;
+        }
+        .music-btn:hover { transform: scale(1.2); filter: drop-shadow(0 0 4px #e67e22); }
+        .music-volume {
+            width: 60px; accent-color: #e67e22;
+            cursor: url('cursor_pointer.png') 12 12, pointer;
+        }
+
+        /* === ГАЛЕРЕЯ === */
+        .gallery-section { width: 100%; max-width: 900px; margin-top: 35px; }
+        .gallery-filters {
+            display: flex; gap: 8px; flex-wrap: wrap;
+            justify-content: center; margin-bottom: 20px;
+        }
+        .gallery-filter-btn {
+            padding: 6px 16px; border: 1px solid #e67e22;
+            background: transparent; color: #e67e22;
+            border-radius: 20px; font-size: 12px; font-weight: bold;
+            text-transform: uppercase; cursor: url('cursor_pointer.png') 12 12, pointer;
+            transition: 0.2s ease;
+        }
+        .gallery-filter-btn:hover,
+        .gallery-filter-btn.active { background: #e67e22; color: #000; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .gallery-card {
+            position: relative; border-radius: 8px; overflow: hidden;
+            aspect-ratio: 1/1; background: #181818;
+            border: 1px solid #333; cursor: url('cursor_pointer.png') 12 12, pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .gallery-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(230,126,34,0.4);
+            border-color: #e67e22;
+        }
+        .gallery-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            display: block; transition: transform 0.3s ease;
+        }
+        .gallery-card:hover img { transform: scale(1.05); }
+        .gallery-card-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 20px 10px 10px;
+            opacity: 0; transition: opacity 0.2s ease;
+        }
+        .gallery-card:hover .gallery-card-overlay { opacity: 1; }
+        .gallery-card-label {
+            font-size: 11px; color: #e67e22; font-weight: bold;
+            text-transform: uppercase; display: block;
+        }
+        .gallery-card-artist { font-size: 10px; color: #aaa; }
+        .gallery-tag {
+            position: absolute; top: 8px; right: 8px;
+            background: rgba(0,0,0,0.75); color: #e67e22;
+            font-size: 9px; font-weight: bold; text-transform: uppercase;
+            padding: 2px 6px; border-radius: 10px; border: 1px solid #e67e22;
+        }
+        .gallery-empty {
+            text-align: center; color: #555; padding: 40px;
+            font-style: italic; grid-column: 1/-1;
+        }
+
+        /* === КАЛЬКУЛЯТОР === */
+        .calc-section { width: 100%; max-width: 900px; margin-top: 35px; }
+        .calc-box {
+            background: #111; border: 1px solid #333;
+            border-radius: 12px; padding: 30px; box-sizing: border-box;
+        }
+        .calc-inputs {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 16px; margin-bottom: 24px;
+        }
+        @media(max-width:600px){ .calc-inputs { grid-template-columns: 1fr; } }
+        .calc-field label {
+            display: block; color: #e67e22; font-size: 12px;
+            font-weight: bold; text-transform: uppercase;
+            margin-bottom: 6px; letter-spacing: 0.5px;
+        }
+        .calc-field input {
+            width: 100%; box-sizing: border-box;
+            background: #1a1a1a; border: 1px solid #444; color: #d2b48c;
+            padding: 10px 14px; border-radius: 6px; font-size: 15px;
+            outline: none; transition: border-color 0.2s;
+        }
+        .calc-field input:focus { border-color: #e67e22; }
+        .calc-btn-run {
+            width: 100%; padding: 14px;
+            background: linear-gradient(135deg, #e67e22, #c0392b);
+            border: none; color: #fff; font-size: 15px;
+            font-weight: bold; text-transform: uppercase;
+            border-radius: 8px; cursor: url('cursor_pointer.png') 12 12, pointer;
+            letter-spacing: 1px; transition: 0.2s ease;
+            box-shadow: 0 4px 15px rgba(230,126,34,0.3);
+        }
+        .calc-btn-run:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(230,126,34,0.5); }
+        #calc-results { margin-top: 28px; display: none; }
+        .calc-result-row {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 18px;
+        }
+        .calc-result-label {
+            width: 120px; flex-shrink: 0;
+            color: #aaa; font-size: 13px; text-transform: uppercase;
+        }
+        .calc-bar-wrap {
+            flex: 1; background: #1a1a1a; border-radius: 6px;
+            height: 28px; position: relative; overflow: hidden;
+        }
+        .calc-bar-you {
+            height: 100%; background: #3a86ff;
+            border-radius: 6px; transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+            display: flex; align-items: center; padding-left: 8px;
+            font-size: 11px; font-weight: bold; color: #fff;
+            white-space: nowrap; min-width: 2px;
+        }
+        .calc-bar-rometto-line {
+            position: absolute; right: 0; top: 0; bottom: 0;
+            width: 3px; background: #e67e22;
+        }
+        .calc-bar-rometto-line::after {
+            content: attr(data-label);
+            position: absolute; right: 6px; top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px; color: #e67e22; font-weight: bold;
+            white-space: nowrap;
+        }
+        .calc-multiplier {
+            width: 90px; flex-shrink: 0; text-align: right;
+            color: #e67e22; font-weight: bold; font-size: 14px;
+        }
+        .calc-verdict {
+            margin-top: 20px; padding: 16px 20px;
+            background: rgba(230,126,34,0.08);
+            border-left: 3px solid #e67e22; border-radius: 0 8px 8px 0;
+            color: #d2b48c; font-style: italic; font-size: 14px; line-height: 1.6;
+        }
+
         /* === FAQ === */
         .faq { width: 100%; max-width: 900px; margin: 50px auto 30px; }
         .faq-item { margin-bottom: 16px; border: 2px solid #444; border-radius: 10px; background: #181818; overflow: hidden; }
@@ -700,6 +893,57 @@
             </div>
         </div>
 
+        <!-- ═══════════════════════════════════════ -->
+        <!--           ГАЛЕРЕЯ АРТОВ                -->
+        <!-- ═══════════════════════════════════════ -->
+        <div class="gallery-section">
+            <h2 class="selectable-text">Галерея артов</h2>
+            <div class="gallery-filters">
+                <button class="gallery-filter-btn active" data-filter="all">Все</button>
+                <button class="gallery-filter-btn" data-filter="sfw">SFW</button>
+                <button class="gallery-filter-btn" data-filter="nsfw">NSFW</button>
+                <button class="gallery-filter-btn" data-filter="sketch">Скетчи / WIP</button>
+            </div>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Карточки генерируются JS из массива GALLERY_ITEMS -->
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════ -->
+        <!--        КАЛЬКУЛЯТОР СРАВНЕНИЯ            -->
+        <!-- ═══════════════════════════════════════ -->
+        <div class="calc-section">
+            <h2 class="selectable-text">Калькулятор сравнения с Рометто</h2>
+            <div class="calc-box">
+                <div class="calc-inputs">
+                    <div class="calc-field">
+                        <label>Твой рост (см)</label>
+                        <input type="number" id="calc-height" placeholder="например, 175" min="50" max="300">
+                    </div>
+                    <div class="calc-field">
+                        <label>Твой вес (кг)</label>
+                        <input type="number" id="calc-weight" placeholder="например, 70" min="1" max="500">
+                    </div>
+                    <div class="calc-field">
+                        <label>Твоя сила укуса (PSI)</label>
+                        <input type="number" id="calc-bite" placeholder="человек ≈ 160 PSI" min="1" max="5000">
+                    </div>
+                    <div class="calc-field">
+                        <label>Твоя макс. скорость (км/ч)</label>
+                        <input type="number" id="calc-speed" placeholder="средний спринт ≈ 25" min="1" max="200">
+                    </div>
+                </div>
+                <button class="calc-btn-run" onclick="runCalc()">🦁 Сравнить с Рометто</button>
+                <div id="calc-results">
+                    <div class="calc-result-row" id="cr-height"></div>
+                    <div class="calc-result-row" id="cr-weight"></div>
+                    <div class="calc-result-row" id="cr-bite"></div>
+                    <div class="calc-result-row" id="cr-speed"></div>
+                    <div class="calc-verdict" id="calc-verdict"></div>
+                </div>
+            </div>
+        </div>
+
         <footer class="site-footer">
             <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">ROMETTO</span></strong>. Все права защищены.</div>
             <div style="margin-top: 15px; color: #d2b48c;">
@@ -708,6 +952,21 @@
             </div>
         </footer>
     </div>
+
+    <!-- ♫ Музыкальный плеер -->
+    <div id="music-player" class="hidden">
+        <div class="music-cover" id="music-cover">🔥</div>
+        <div class="music-info">
+            <div class="music-title">Lion — Prince of Hell</div>
+            <div class="music-sub">Remastered</div>
+            <div class="music-progress" id="music-progress-wrap">
+                <div class="music-progress-bar" id="music-progress-bar"></div>
+            </div>
+        </div>
+        <button class="music-btn" id="music-toggle-btn" title="Пауза / Воспроизведение">▶</button>
+        <input type="range" class="music-volume" id="music-volume" min="0" max="1" step="0.05" value="0.35" title="Громкость">
+    </div>
+    <audio id="bg-music" loop src="/assets/Lion_The_Prince_of_Hell_(Remastered).mp3" preload="none"></audio>
 
     <!-- Кнопка Наверх -->
     <button id="backToTop" style="position:fixed;bottom:30px;right:30px;background:#e67e22;color:#000;width:56px;height:56px;border-radius:50%;font-size:30px;box-shadow:0 6px 20px rgba(230,126,34,0.6);display:none;z-index:9999;">↑</button>
@@ -739,6 +998,7 @@
             ageGate.style.display = 'none';
             pageContent.style.display = 'flex';
             body.classList.remove('no-scroll');
+            startMusic();
         }
 
         // Лайтбокс + pinch-to-zoom
@@ -932,8 +1192,150 @@
             }
         }
 
-        // ======================================================
-        // ДАННЫЕ ДЛЯ БОКСОВ — подтянуты из таблиц на странице
+        // ══════════════════════════════════════════════
+        //  МУЗЫКАЛЬНЫЙ ПЛЕЕР
+        // ══════════════════════════════════════════════
+        const bgMusic       = document.getElementById('bg-music');
+        const musicPlayer   = document.getElementById('music-player');
+        const musicToggleBtn= document.getElementById('music-toggle-btn');
+        const musicCover    = document.getElementById('music-cover');
+        const musicProgBar  = document.getElementById('music-progress-bar');
+        const musicProgWrap = document.getElementById('music-progress-wrap');
+        const musicVolume   = document.getElementById('music-volume');
+        let musicStarted    = false;
+
+        function startMusic() {
+            if (musicStarted) return;
+            musicStarted = true;
+            bgMusic.volume = parseFloat(musicVolume.value);
+            bgMusic.play().then(() => {
+                musicPlayer.classList.remove('hidden');
+                musicToggleBtn.textContent = '⏸';
+                musicCover.classList.add('playing');
+            }).catch(() => {});
+        }
+
+        musicToggleBtn.addEventListener('click', () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicToggleBtn.textContent = '⏸';
+                musicCover.classList.add('playing');
+            } else {
+                bgMusic.pause();
+                musicToggleBtn.textContent = '▶';
+                musicCover.classList.remove('playing');
+            }
+        });
+
+        musicVolume.addEventListener('input', () => {
+            bgMusic.volume = parseFloat(musicVolume.value);
+        });
+
+        bgMusic.addEventListener('timeupdate', () => {
+            if (bgMusic.duration) {
+                musicProgBar.style.width = (bgMusic.currentTime / bgMusic.duration * 100) + '%';
+            }
+        });
+
+        musicProgWrap.addEventListener('click', (e) => {
+            const rect = musicProgWrap.getBoundingClientRect();
+            const ratio = (e.clientX - rect.left) / rect.width;
+            bgMusic.currentTime = ratio * bgMusic.duration;
+        });
+
+        // ══════════════════════════════════════════════
+        //  ГАЛЕРЕЯ АРТОВ
+        //  Добавляй сюда свои арты! Поля:
+        //    src   — путь к изображению
+        //    thumb — путь к превью (можно то же что src)
+        //    tag   — 'sfw' | 'nsfw' | 'sketch'
+        //    label — подпись
+        //    artist— имя художника
+        // ══════════════════════════════════════════════
+        const GALLERY_ITEMS = [
+            // Пример — замени на свои файлы:
+            // { src: '/assets/rometto_ru_nsfw.png', thumb: '/assets/rometto_ru_nsfw.png', tag: 'nsfw', label: 'Референс', artist: 'Ricky_Plush' },
+        ];
+
+        function buildGallery(filter) {
+            const grid = document.getElementById('gallery-grid');
+            const items = filter === 'all' ? GALLERY_ITEMS : GALLERY_ITEMS.filter(i => i.tag === filter);
+            if (items.length === 0) {
+                grid.innerHTML = '<div class="gallery-empty">Арты появятся здесь 🐾<br><span style="font-size:12px;">Добавь их в массив GALLERY_ITEMS в коде</span></div>';
+                return;
+            }
+            grid.innerHTML = items.map((item, idx) => `
+                <div class="gallery-card" onclick="openLightbox('${item.src}')">
+                    <img src="${item.thumb}" alt="${item.label}" loading="lazy">
+                    <span class="gallery-tag">${item.tag.toUpperCase()}</span>
+                    <div class="gallery-card-overlay">
+                        <span class="gallery-card-label">${item.label}</span>
+                        <span class="gallery-card-artist">✦ ${item.artist}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.querySelectorAll('.gallery-filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.gallery-filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                buildGallery(btn.dataset.filter);
+            });
+        });
+
+        // ══════════════════════════════════════════════
+        //  КАЛЬКУЛЯТОР СРАВНЕНИЯ
+        // ══════════════════════════════════════════════
+        const ROMETTO = { height: 417, weight: 9200, bite: 24000, speed: 50 };
+
+        function runCalc() {
+            const h = parseFloat(document.getElementById('calc-height').value);
+            const w = parseFloat(document.getElementById('calc-weight').value);
+            const b = parseFloat(document.getElementById('calc-bite').value);
+            const s = parseFloat(document.getElementById('calc-speed').value);
+
+            const results = document.getElementById('calc-results');
+            results.style.display = 'block';
+
+            const fields = [
+                { id: 'cr-height', label: 'Рост',        you: h, rom: ROMETTO.height, unit: 'см',   youLabel: h ? h+'см'    : '?' },
+                { id: 'cr-weight', label: 'Вес',         you: w, rom: ROMETTO.weight, unit: 'кг',   youLabel: w ? w+'кг'    : '?' },
+                { id: 'cr-bite',   label: 'Сила укуса',  you: b, rom: ROMETTO.bite,   unit: 'PSI',  youLabel: b ? b+' PSI'  : '?' },
+                { id: 'cr-speed',  label: 'Скорость',    you: s, rom: ROMETTO.speed,   unit: 'км/ч', youLabel: s ? s+' км/ч' : '?' },
+            ];
+
+            fields.forEach(f => {
+                const el = document.getElementById(f.id);
+                if (!f.you || f.you <= 0) { el.innerHTML = ''; return; }
+                const pct = Math.min((f.you / f.rom) * 100, 100);
+                const mult = (f.rom / f.you).toFixed(1);
+                el.innerHTML = `
+                    <div class="calc-result-label">${f.label}</div>
+                    <div class="calc-bar-wrap">
+                        <div class="calc-bar-you" style="width:${pct}%">${pct > 12 ? f.youLabel : ''}</div>
+                        <div class="calc-bar-rometto-line" data-label="417см / 9.2т / 24000PSI / 50км/ч"></div>
+                    </div>
+                    <div class="calc-multiplier">×${mult}</div>
+                `;
+            });
+
+            // Вердикт
+            const validVals = fields.filter(f => f.you > 0);
+            if (validVals.length === 0) return;
+            const avgMult = validVals.reduce((s, f) => s + f.rom / f.you, 0) / validVals.length;
+            let verdict = '';
+            if (avgMult >= 50)       verdict = `Рометто превосходит тебя в среднем в <strong>${avgMult.toFixed(0)}×</strong>. Ты для него — молекула. Даже не жертва — просто статистическая погрешность.`;
+            else if (avgMult >= 20)  verdict = `В среднем разрыв <strong>${avgMult.toFixed(1)}×</strong>. Если Рометто чихнёт в твою сторону — это уже смертельный исход.`;
+            else if (avgMult >= 10)  verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Ты был бы одним из самых опасных существ на Земле — если бы не он.`;
+            else if (avgMult >= 3)   verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Ты неплох для человека. Но против 9 тонн демонического льва — не очень.`;
+            else                     verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Ты вполне достойный противник... в отдельных показателях.`;
+
+            document.getElementById('calc-verdict').innerHTML = verdict;
+        }
+
+        // ══════════════════════════════════════════════
+        //  ЗАПУСК
         // ======================================================
         const BOX_DATA = {
             'box-tail': {
@@ -1092,9 +1494,14 @@
             animateParticles();
             generateTOC();
             checkAge();
+            buildGallery('all');
             const img = document.getElementById('refmap-img');
             if (img.complete) positionRefBoxes();
             else img.addEventListener('load', positionRefBoxes);
+            // Если age уже подтверждён — плеер показываем без звука, дадим юзеру включить
+            if (localStorage.getItem('ageConfirmed') === 'true') {
+                musicPlayer.classList.remove('hidden');
+            }
         });
         window.addEventListener('resize', () => { resizeCanvas(); positionRefBoxes(); });
     </script>
