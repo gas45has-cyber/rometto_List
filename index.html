@@ -292,7 +292,7 @@
             padding: 18px 25px;
         }
 
-        /* === БОКСЫ НА РЕФЕРЕНСЕ === */
+        /* === РЕФЕРЕНС === */
         .refmap-wrapper {
             width: 100%;
             max-width: 900px;
@@ -305,32 +305,77 @@
             border-radius: 4px;
             -webkit-user-drag: none;
             animation: fadeIn 0.8s ease-in-out;
+            cursor: url('cursor_pointer.png') 12 12, pointer;
+            transition: 0.3s;
         }
+        .refmap-wrapper img:active { transform: scale(1.02); }
+
+        /* Боксы на странице — полностью невидимы, только для разметки */
         .refmap-box {
             position: absolute;
-            border: 2px solid #e67e22;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(230,126,34,0.5);
-            cursor: pointer;
-            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+            background: transparent;
+            border: none;
+            cursor: url('cursor_pointer.png') 12 12, pointer;
         }
-        .refmap-box:hover {
-            border-color: #ff6600;
-            box-shadow: 0 0 18px rgba(255,102,0,0.8);
-        }
-        .refmap-label {
+
+        /* === ЛАЙТБОКС: оверлей с боксами поверх картинки === */
+        #lb-overlay {
             position: absolute;
-            bottom: -22px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #e67e22;
-            font-size: 11px;
-            font-weight: bold;
-            text-transform: uppercase;
-            white-space: nowrap;
-            pointer-events: none;
-            text-shadow: 0 0 6px #000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none; /* сам оверлей не перехватывает */
+            z-index: 20002;
         }
+        .lb-box {
+            position: absolute;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            pointer-events: all;
+            cursor: crosshair;
+            transition: border-color 0.15s ease, background 0.15s ease;
+        }
+        .lb-box:hover {
+            border-color: #e67e22;
+            background: rgba(230,126,34,0.08);
+            box-shadow: 0 0 14px rgba(230,126,34,0.5);
+        }
+
+        /* Тултип внутри лайтбокса */
+        #lb-tooltip {
+            position: fixed;
+            background: rgba(15,15,15,0.97);
+            border: 2px solid #e67e22;
+            color: #d2b48c;
+            padding: 14px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            max-width: 300px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            z-index: 20010;
+            box-shadow: 0 0 24px rgba(230,126,34,0.6);
+            line-height: 1.6;
+        }
+        #lb-tooltip.visible { opacity: 1; }
+        #lb-tooltip .tip-title {
+            color: #e67e22;
+            font-weight: bold;
+            font-size: 15px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #333;
+            padding-bottom: 6px;
+            margin-bottom: 8px;
+        }
+        #lb-tooltip .tip-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 3px;
+            font-size: 13px;
+        }
+        #lb-tooltip .tip-row span:first-child { color: #aaa; }
+        #lb-tooltip .tip-row span:last-child { color: #fff; font-weight: bold; }
     </style>
 </head>
 <body class="no-scroll">
@@ -364,6 +409,8 @@
         <div id="lightbox" onclick="closeLightbox(event)">
             <img id="lightbox-img" src="" draggable="false">
             <div id="lightbox-tooltip" class="lightbox-tooltip"></div>
+            <div id="lb-overlay"></div>
+            <div id="lb-tooltip"><div class="tip-title" id="lb-tip-title"></div><div id="lb-tip-rows"></div></div>
         </div>
 
         <h1 class="selectable-text">Информационный лист о <span class="en-text" id="rometto-click">ROMETTO</span></h1>
@@ -382,29 +429,14 @@
         <!-- Референс с боксами -->
         <div class="refmap-wrapper" id="refmap-wrapper">
             <img src="/assets/rometto_ru_nsfw.png" alt="Rometto" loading="lazy" id="refmap-img"
-                 onclick="openLightbox('/assets/rometto_ru_nsfw.png')"
-                 style="cursor:url('cursor_pointer.png') 12 12,pointer;">
+                 onclick="openLightbox('/assets/rometto_ru_nsfw.png')">
 
-            <!-- Хвост -->
-            <div class="refmap-box" id="box-tail" onclick="openLightbox('/assets/rometto_ru_nsfw.png')" title="Хвост">
-                <span class="refmap-label">Хвост</span>
-            </div>
-            <!-- Лапы -->
-            <div class="refmap-box" id="box-paws" onclick="openLightbox('/assets/rometto_ru_nsfw.png')" title="Лапы">
-                <span class="refmap-label">Лапы</span>
-            </div>
-            <!-- Пенис и яйца -->
-            <div class="refmap-box" id="box-genitals" onclick="openLightbox('/assets/rometto_ru_nsfw.png')" title="Пенис и яйца">
-                <span class="refmap-label">Пенис и яйца</span>
-            </div>
-            <!-- Пасть -->
-            <div class="refmap-box" id="box-mouth" onclick="openLightbox('/assets/rometto_ru_nsfw.png')" title="Пасть">
-                <span class="refmap-label">Пасть</span>
-            </div>
-            <!-- Рост и вес -->
-            <div class="refmap-box" id="box-size" onclick="openLightbox('/assets/rometto_ru_nsfw.png')" title="Рост и вес">
-                <span class="refmap-label">Рост и вес</span>
-            </div>
+            <!-- Невидимые зоны — только для разметки координат, боксы активны только в лайтбоксе -->
+            <div class="refmap-box" id="box-tail"></div>
+            <div class="refmap-box" id="box-paws"></div>
+            <div class="refmap-box" id="box-genitals"></div>
+            <div class="refmap-box" id="box-mouth"></div>
+            <div class="refmap-box" id="box-size"></div>
         </div>
 
         <div class="artist-credit selectable-text">
@@ -717,16 +749,19 @@
             lbImg.src = src;
             lightbox.style.display = 'flex';
             scale = 1; x = 0; y = 0;
-            updateTransform();
+            lbImg.style.transform = `translate(0px, 0px) scale(1)`;
+            hideLbTooltip();
+            requestAnimationFrame(() => buildLightboxBoxes());
         }
         function closeLightbox(e) {
-            if (e.target === lightbox) lightbox.style.display = 'none';
+            if (e.target === lightbox) { lightbox.style.display = 'none'; hideLbTooltip(); }
         }
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') lightbox.style.display = 'none';
+            if (e.key === 'Escape') { lightbox.style.display = 'none'; hideLbTooltip(); }
         });
         function updateTransform() {
             lbImg.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+            requestAnimationFrame(() => buildLightboxBoxes());
         }
         lightbox.addEventListener('wheel', (e) => {
             if (lightbox.style.display === 'flex') {
@@ -897,20 +932,78 @@
             }
         }
 
-        // Позиционирование боксов на референсе (% от размера картинки)
-        // Координаты: [left%, top%, width%, height%] — по референсу с изображения
-        const BOX_DEFS = {
-            'box-tail':     [1.5,  68, 10,  24],   // Хвост — левый низ
-            'box-paws':     [27,   72, 11,  22],    // Лапы — центр-лево низ
-            'box-genitals': [38.5, 62, 13,  30],    // Пенис и яйца — центр низ
-            'box-mouth':    [52,   62, 14,  30],    // Пасть — правее центра
-            'box-size':     [67,   55, 17,  37],    // Рост и вес — правый низ
+        // ======================================================
+        // ДАННЫЕ ДЛЯ БОКСОВ — подтянуты из таблиц на странице
+        // ======================================================
+        const BOX_DATA = {
+            'box-tail': {
+                title: '🐾 Хвост',
+                rows: [
+                    ['Длина хвоста (лев)',    '≈1 м'],
+                    ['Длина хвоста (Рометто)','≈4 м'],
+                    ['Коэффициент',           'L × k (k = 3.47)'],
+                ]
+            },
+            'box-paws': {
+                title: '🦁 Лапы',
+                rows: [
+                    ['Ширина лапы',     '60–70 см'],
+                    ['Длина лапы',      '≈90–110 см'],
+                    ['Длина когтей',    '≈13–15 см'],
+                    ['Сила удара лапой','≈16–20 т'],
+                    ['Давление (наступ)','≈20–30 т'],
+                ]
+            },
+            'box-genitals': {
+                title: '🔞 Репродуктивная система',
+                rows: [
+                    ['Пенис (покой)',   '≈25–30 см'],
+                    ['Пенис (эрекция)', '≈65–70 см'],
+                    ['Диаметр основания','18–22 см'],
+                    ['Яички (диам.)',   '25–30 см'],
+                    ['Вес мошонки',     '≈18–20 кг'],
+                    ['Объём эякулята',  '≈1.5–2 л'],
+                    ['Скорость вылета', '≈17–20 м/с'],
+                ]
+            },
+            'box-mouth': {
+                title: '🦷 Пасть',
+                rows: [
+                    ['Длина клыков',    '≈24–28 см'],
+                    ['Сила укуса',      '≈24 000 PSI'],
+                    ['Длина черепа',    '≈132 см'],
+                    ['Ширина черепа',   '≈87 см'],
+                    ['Масса головы',    '≈1500–1600 кг'],
+                    ['Сила чиха',       '≈80–100 м/с'],
+                    ['Громкость рёва',  '150–160 dB'],
+                ]
+            },
+            'box-size': {
+                title: '📏 Рост и вес',
+                rows: [
+                    ['Рост в холке',    '≈4.17 м'],
+                    ['Длина тела',      '≈6 м'],
+                    ['Полная длина',    '≈10 м'],
+                    ['Масса',           '≈9.2 т'],
+                    ['Толщина шкуры',   '≈3.5 см'],
+                    ['Плотность костей','≈5.5–6.0 г/см³'],
+                ]
+            }
         };
 
+        // Координаты боксов [left%, top%, width%, height%] относительно картинки
+        const BOX_DEFS = {
+            'box-tail':     [1.5,  68, 10,  24],
+            'box-paws':     [27,   72, 11,  22],
+            'box-genitals': [38.5, 62, 13,  30],
+            'box-mouth':    [52,   62, 14,  30],
+            'box-size':     [67,   55, 17,  37],
+        };
+
+        // Позиционирование невидимых боксов на странице (для разметки)
         function positionRefBoxes() {
-            const wrapper = document.getElementById('refmap-wrapper');
             const img = document.getElementById('refmap-img');
-            if (!wrapper || !img) return;
+            if (!img) return;
             const W = img.offsetWidth;
             const H = img.offsetHeight;
             for (const [id, [lp, tp, wp, hp]] of Object.entries(BOX_DEFS)) {
@@ -923,7 +1016,77 @@
             }
         }
 
-        // Запуск
+        // ======================================================
+        // ЛАЙТБОКС: строим интерактивные боксы поверх картинки
+        // ======================================================
+        const lbOverlay  = document.getElementById('lb-overlay');
+        const lbTooltip  = document.getElementById('lb-tooltip');
+        const lbTipTitle = document.getElementById('lb-tip-title');
+        const lbTipRows  = document.getElementById('lb-tip-rows');
+
+        function buildLightboxBoxes() {
+            lbOverlay.innerHTML = '';
+            const lbImgEl = document.getElementById('lightbox-img');
+
+            // Ждём пока картинка загружена и отрендерена
+            function place() {
+                const rect = lbImgEl.getBoundingClientRect();
+                const lbRect = lightbox.getBoundingClientRect();
+
+                // Позиция картинки относительно лайтбокса
+                const offX = rect.left - lbRect.left;
+                const offY = rect.top  - lbRect.top;
+                const W = rect.width;
+                const H = rect.height;
+
+                lbOverlay.style.left   = offX + 'px';
+                lbOverlay.style.top    = offY + 'px';
+                lbOverlay.style.width  = W + 'px';
+                lbOverlay.style.height = H + 'px';
+
+                lbOverlay.innerHTML = '';
+                for (const [id, [lp, tp, wp, hp]] of Object.entries(BOX_DEFS)) {
+                    const div = document.createElement('div');
+                    div.className = 'lb-box';
+                    div.style.left   = (W * lp / 100) + 'px';
+                    div.style.top    = (H * tp / 100) + 'px';
+                    div.style.width  = (W * wp / 100) + 'px';
+                    div.style.height = (H * hp / 100) + 'px';
+
+                    const data = BOX_DATA[id];
+                    div.addEventListener('mouseenter', (e) => showLbTooltip(e, data));
+                    div.addEventListener('mousemove',  (e) => moveLbTooltip(e));
+                    div.addEventListener('mouseleave', hideLbTooltip);
+                    div.addEventListener('click', (e) => e.stopPropagation());
+
+                    lbOverlay.appendChild(div);
+                }
+            }
+
+            if (lbImgEl.complete && lbImgEl.naturalWidth) place();
+            else lbImgEl.addEventListener('load', place, { once: true });
+        }
+
+        function showLbTooltip(e, data) {
+            lbTipTitle.textContent = data.title;
+            lbTipRows.innerHTML = data.rows.map(([k, v]) =>
+                `<div class="tip-row"><span>${k}</span><span>${v}</span></div>`
+            ).join('');
+            lbTooltip.classList.add('visible');
+            moveLbTooltip(e);
+        }
+        function moveLbTooltip(e) {
+            const tw = lbTooltip.offsetWidth;
+            const th = lbTooltip.offsetHeight;
+            let tx = e.clientX + 18;
+            let ty = e.clientY + 18;
+            if (tx + tw > window.innerWidth  - 10) tx = e.clientX - tw - 18;
+            if (ty + th > window.innerHeight - 10) ty = e.clientY - th - 18;
+            lbTooltip.style.left = tx + 'px';
+            lbTooltip.style.top  = ty + 'px';
+        }
+        function hideLbTooltip() { lbTooltip.classList.remove('visible'); }
+
         window.addEventListener('load', () => {
             resizeCanvas();
             animateParticles();
