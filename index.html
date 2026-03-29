@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Информационный лист о персонаже Rometto — гигантский лев-полудемон. Детализированные биологические данные, физика и анатомия.">
     <title>Информационный лист о Рометто</title>
  
@@ -11,32 +11,122 @@
  
     <script>
         window.MathJax = {
-            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
-            options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+            }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
  
     <style>
-        @font-face { font-family: 'LionKing'; src: url('lion_king.ttf') format('truetype'); font-weight: normal; font-style: normal; }
-        body { cursor: url('cursor_busy.png') 12 12, auto; font-family: Arial, Helvetica, sans-serif; background: #0f0f0f; color: #d2b48c; margin: 0; padding: 20px; line-height: 1.6; display: flex; flex-direction: column; align-items: center; user-select: text; }
-        .no-scroll { overflow: hidden; height: 100vh; }
-        a, button, [role="button"], .nav-btn, .close-notice, .main-img-container, .lang-switch, .contact-link, .artist-link-container, .toggle-particles, .faq-question { cursor: url('cursor_pointer.png') 12 12, pointer !important; transition: transform 0.10s ease; }
+        @font-face {
+            font-family: 'LionKing';
+            src: url('lion_king.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        body {
+            cursor: url('cursor_busy.png') 12 12, auto;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #0f0f0f;
+            color: #d2b48c;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            user-select: text;
+        }
+        .no-scroll {
+            overflow: hidden;
+            height: 100vh;
+        }
+        a, button, [role="button"], .nav-btn, .close-notice, .main-img-container, .lang-switch, .contact-link, .artist-link-container, .toggle-particles, .faq-question {
+            cursor: url('cursor_pointer.png') 12 12, pointer !important;
+            transition: transform 0.10s ease;
+        }
         a:hover, button:hover { filter: drop-shadow(0 0 5px #d2b48c); }
         a:active, button:active { transform: scale(1.0); }
-        p, span, h1, h2, h3, li, label, th, td, .appearance-desc, .hunting-block { cursor: inherit; }
-        .selectable-text:active { cursor: url('cursor_text.png') 12 12, text !important; }
-        .en-text { font-family: 'LionKing', Arial, sans-serif !important; letter-spacing: 2px; text-transform: uppercase; }
-        h1, h2, h3 { font-family: Arial, Helvetica, sans-serif; letter-spacing: normal; text-transform: uppercase; }
-        .lang-switch { position: fixed; top: 20px; right: 20px; z-index: 999; background: rgba(230, 126, 34, 0.1); border: 1px solid #e67e22; color: #e67e22; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; transition: 0.3s; backdrop-filter: blur(5px); }
+        p, span, h1, h2, h3, li, label, th, td, .appearance-desc, .hunting-block {
+            cursor: inherit;
+        }
+        .selectable-text:active {
+            cursor: url('cursor_text.png') 12 12, text !important;
+        }
+        .en-text {
+            font-family: 'LionKing', Arial, sans-serif !important;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        h1, h2, h3 {
+            font-family: Arial, Helvetica, sans-serif;
+            letter-spacing: normal;
+            text-transform: uppercase;
+        }
+        .lang-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            background: rgba(230, 126, 34, 0.1);
+            border: 1px solid #e67e22;
+            color: #e67e22;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+        }
         .lang-switch:hover { background: #e67e22; color: #fff; }
-        #en-notice { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10001; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
-        .en-notice-content { background: #151515; padding: 30px; border: 2px solid #e67e22; border-radius: 10px; text-align: center; max-width: 450px; margin: 20px; }
-        .close-notice { background: #e67e22; border: none; color: #fff; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-transform: uppercase; }
+        #en-notice {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10001;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        .en-notice-content {
+            background: #151515;
+            padding: 30px;
+            border: 2px solid #e67e22;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 450px;
+            margin: 20px;
+        }
+        .en-notice-content h3 { color: #e67e22; margin-top: 0; text-transform: uppercase; }
+        .en-notice-content p { color: #d2b48c; font-size: 16px; margin-bottom: 25px; }
+        .close-notice {
+            background: #e67e22;
+            border: none;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
         h1 { text-align: center; font-size: 34px; margin: 20px 0; color: #d2b48c; }
-        h2 { width: 100%; max-width: 900px; margin-top: 45px; border-bottom: 2px solid #444; padding-bottom: 6px; color: #e67e22; text-align: center; }
+        h2 {
+            width: 100%; max-width: 900px; margin-top: 45px;
+            border-bottom: 2px solid #444; padding-bottom: 6px;
+            color: #e67e22; text-align: center;
+        }
         .sub-header { color: #e67e22; font-weight: bold; text-transform: uppercase; font-size: 14px; margin-bottom: 5px; margin-top: 0; }
-        .appearance-desc { width: 100%; max-width: 900px; margin: 20px 0; background: rgba(230, 126, 34, 0.05); padding: 20px; border-radius: 8px; border-left: 3px solid #e67e22; box-sizing: border-box; text-align: left; }
+        .appearance-desc {
+            width: 100%; max-width: 900px; margin: 20px 0;
+            background: rgba(230, 126, 34, 0.05); padding: 20px;
+            border-radius: 8px; border-left: 3px solid #e67e22; box-sizing: border-box; text-align: left;
+        }
         .appearance-desc h3 { margin: 0 0 10px 0; color: #e67e22; font-size: 18px; }
         .appearance-desc p { margin: 0 0 10px 0; font-style: italic; font-size: 15px; }
         .appearance-desc strong { color: #e67e22; font-style: normal; }
@@ -48,27 +138,92 @@
         th, td { border: 1px solid #444; padding: 10px; text-align: center; word-wrap: break-word; }
         th { background: #1f1f1f; font-weight: bold; color: #e67e22; }
         tr:nth-child(even) { background: #181818; }
-        .footnote-in-table { display: block; font-size: 12px; color: #e67e22; margin-top: 5px; font-style: italic; opacity: 0.9; }
+        .footnote-in-table {
+            display: block;
+            font-size: 12px;
+            color: #e67e22;
+            margin-top: 5px;
+            font-style: italic;
+            opacity: 0.9;
+        }
         .section { width: 100%; max-width: 900px; margin-top: 35px; }
         .formula { width: 100%; max-width: 900px; background: #181818; padding: 15px; border-left: 4px solid #666; margin-top: 15px; color: #d2b48c; font-size: 14px; overflow-x: auto; box-sizing: border-box; }
         .nav-container-main { display: flex; justify-content: center; gap: 10px; width: 100%; max-width: 1100px; margin-bottom: 25px; flex-wrap: wrap; }
-        .nav-btn { display: inline-block; padding: 12px 20px; border: 2px solid #e67e22; color: #e67e22; text-decoration: none; font-weight: bold; text-transform: uppercase; border-radius: 5px; transition: 0.3s; background: rgba(230, 126, 34, 0.05); text-align: center; font-size: 12px; white-space: nowrap; }
+        .nav-btn {
+            display: inline-block; padding: 12px 20px; border: 2px solid #e67e22; color: #e67e22; text-decoration: none; font-weight: bold; text-transform: uppercase;
+            border-radius: 5px; transition: 0.3s; background: rgba(230, 126, 34, 0.05); text-align: center; font-size: 12px; white-space: nowrap;
+        }
         .nav-btn:hover { background: #e67e22; color: #fff; box-shadow: 0 0 10px rgba(230, 126, 34, 0.3); }
-        .main-img-container { text-align:center; margin-bottom:15px; width: 100%; position: relative; }
+        .main-img-container {
+            text-align:center;
+            margin-bottom:15px;
+            width: 100%;
+            position: relative;
+        }
         .main-img-container img { max-width: 900px; width: 100%; display: block; border-radius: 4px; -webkit-user-drag: none; margin: 0 auto; transition: 0.3s; animation: fadeIn 0.8s ease-in-out; }
         .main-img-container img:active { transform: scale(1.08); }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; z-index: 20000; justify-content: center; align-items: center; overflow: hidden; backdrop-filter: blur(10px); }
-        #lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; transition: transform 0.05s linear; cursor: grab; user-select: none; }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        #lightbox {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); display: none; z-index: 20000;
+            justify-content: center; align-items: center; overflow: hidden;
+            touch-action: none;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        #lightbox img {
+            max-width: 95vw;
+            max-height: 95vh;
+            object-fit: contain;
+            transition: transform 0.05s linear;
+            transform-origin: center;
+            cursor: grab;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
         #lightbox img:active { cursor: grabbing; }
-        .lightbox-tooltip { position: absolute; background: rgba(21,21,21,0.97); border: 2px solid #e67e22; color: #d2b48c; padding: 14px 20px; border-radius: 10px; font-size: 15px; max-width: 320px; pointer-events: none; opacity: 0; transition: opacity 0.25s ease; z-index: 20001; box-shadow: 0 0 20px rgba(230,126,34,0.7); line-height: 1.5; }
-        #page-content { display: none; width: 100%; max-width: 1100px; flex-direction: column; align-items: center; }
-        #age-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,1); display: flex; justify-content: center; align-items: center; z-index: 10000; backdrop-filter: blur(20px); }
+        .lightbox-tooltip {
+            position: absolute;
+            background: rgba(21,21,21,0.97);
+            border: 2px solid #e67e22;
+            color: #d2b48c;
+            padding: 14px 20px;
+            border-radius: 10px;
+            font-size: 15px;
+            max-width: 320px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            z-index: 20001;
+            box-shadow: 0 0 20px rgba(230,126,34,0.7);
+            line-height: 1.5;
+        }
+        #page-content {
+            display: none;
+            width: 100%;
+            max-width: 1100px;
+            flex-direction: column;
+            align-items: center;
+        }
+        #age-gate {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 1); display: flex; justify-content: center; align-items: center;
+            z-index: 10000; backdrop-filter: blur(20px);
+        }
         .age-gate-content { background: #151515; padding: 30px; border: 2px solid #e67e22; border-radius: 10px; text-align: center; max-width: 450px; margin: 20px; }
         .artist-credit { font-size: 14px; color: #d2b48c; margin-top: 20px; text-align: center; }
         .artist-link-container { display: inline-flex; align-items: center; position: relative; text-decoration: none; }
         .artist-link { color: #24A1DE; font-weight: bold; transition: 0.2s ease-in-out; }
-        .paw-icon { opacity: 0; margin-left: -5px; transform: scale(0.5); transition: 0.2s ease-in-out; pointer-events: none; }
+        .paw-icon {
+            opacity: 0;
+            margin-left: -5px;
+            transform: scale(0.5);
+            transition: 0.2s ease-in-out;
+            pointer-events: none;
+        }
         .artist-link-container:hover .paw-icon { opacity: 1; margin-left: 5px; transform: scale(1); }
         .site-footer { width: 100%; max-width: 900px; margin-top: 60px; padding: 25px 0; border-top: 1px solid #333; text-align: center; font-size: 13px; color: #777; line-height: 1.6; }
         .site-footer strong { color: #e67e22; }
@@ -78,36 +233,124 @@
         .hunting-block h4 { color: #e67e22; margin-bottom: 5px; margin-top: 20px; }
         .hunting-block p { margin-bottom: 15px; font-size: 15px; }
         .hunting-block strong { color: #e67e22; }
-        @media (max-width: 900px) { .nav-container-main { flex-direction: column; align-items: center; } .nav-btn { width: 90%; margin: 2px 0; } th, td { font-size: 12px; padding: 5px; } }
+        @media (max-width: 900px) {
+            .nav-container-main { flex-direction: column; align-items: center; }
+            .nav-btn { width: 90%; margin: 2px 0; }
+            th, td { font-size: 12px; padding: 5px; }
+        }
+
+        /* === ИСКРЫ === */
         .particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.65; }
-        .toggle-particles { position: fixed; top: 72px; right: 20px; z-index: 1000; background: rgba(230,126,34,0.15); border: 1px solid #e67e22; color: #e67e22; padding: 8px 14px; border-radius: 50px; font-size: 13px; }
+        .toggle-particles {
+            position: fixed; top: 72px; right: 20px; z-index: 1000;
+            background: rgba(230,126,34,0.15); border: 1px solid #e67e22; color: #e67e22;
+            padding: 8px 14px; border-radius: 50px; font-size: 13px; cursor: pointer; transition: 0.3s;
+        }
+        .toggle-particles:hover { background: #e67e22; color: #000; }
+
+        /* Переливающаяся рамка вокруг TOC */
+        @keyframes glow {
+            0% { box-shadow: 0 0 15px #e67e22; }
+            50% { box-shadow: 0 0 35px #ff5500; }
+            100% { box-shadow: 0 0 15px #e67e22; }
+        }
+        .toc { animation: glow 4s ease-in-out infinite; }
+
+        /* Режим ада */
+        .hell-mode { filter: brightness(1.55) contrast(1.35) hue-rotate(355deg) saturate(1.4) !important; animation: hellShake 0.6s infinite alternate linear; }
+        @keyframes hellShake {
+            from { transform: translate(2px, 3px) rotate(1deg); }
+            to { transform: translate(-2px, -3px) rotate(-1deg); }
+        }
+
+        /* === FAQ === */
         .faq { width: 100%; max-width: 900px; margin: 50px auto 30px; }
         .faq-item { margin-bottom: 16px; border: 2px solid #444; border-radius: 10px; background: #181818; overflow: hidden; }
-        .faq-question { padding: 20px 25px; background: rgba(230,126,34,0.1); color: #e67e22; font-weight: bold; font-size: 17px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; transition: all 0.3s ease; }
+        .faq-question {
+            padding: 20px 25px;
+            background: rgba(230,126,34,0.1);
+            color: #e67e22;
+            font-weight: bold;
+            font-size: 17px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background 0.3s ease;
+        }
         .faq-question:hover { background: rgba(230,126,34,0.25); }
-        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 0 25px; color: #d2b48c; line-height: 1.7; }
-        .toc { animation: glow 4s ease-in-out infinite; }
-        @keyframes glow { 0% { box-shadow: 0 0 15px #e67e22; } 50% { box-shadow: 0 0 35px #ff5500; } 100% { box-shadow: 0 0 15px #e67e22; } }
-        .hell-mode { filter: brightness(1.55) contrast(1.35) hue-rotate(355deg) saturate(1.4) !important; animation: hellShake 0.6s infinite alternate linear; }
-        @keyframes hellShake { from { transform: translate(2px, 3px) rotate(1deg); } to { transform: translate(-2px, -3px) rotate(-1deg); } }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+            padding: 0 25px;
+            color: #d2b48c;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+        .faq-answer.open {
+            padding: 18px 25px;
+        }
+
+        /* === БОКСЫ НА РЕФЕРЕНСЕ === */
+        .refmap-wrapper {
+            width: 100%;
+            max-width: 900px;
+            position: relative;
+            margin: 0 auto 15px;
+        }
+        .refmap-wrapper img {
+            width: 100%;
+            display: block;
+            border-radius: 4px;
+            -webkit-user-drag: none;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        .refmap-box {
+            position: absolute;
+            border: 2px solid #e67e22;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(230,126,34,0.5);
+            cursor: pointer;
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .refmap-box:hover {
+            border-color: #ff6600;
+            box-shadow: 0 0 18px rgba(255,102,0,0.8);
+        }
+        .refmap-label {
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #e67e22;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            white-space: nowrap;
+            pointer-events: none;
+            text-shadow: 0 0 6px #000;
+        }
     </style>
 </head>
 <body class="no-scroll">
-
-    <!-- Age Gate (запоминает выбор) -->
+    <!-- Age Gate -->
     <div id="age-gate">
         <div class="age-gate-content">
             <h2 style="color:#fff; margin-top:0;">ВНИМАНИЕ: 18+ <br><span class="en-text" style="font-size: 0.7em;">(WARNING: 18+)</span></h2>
             <p class="selectable-text">Этот сайт содержит детализированные биологические данные и изображения NSFW. Вам есть 18 лет?<br>
             <span style="font-size: 0.9em; opacity: 0.8;">(This site contains detailed biological data and NSFW images. Are you 18 years or older?)</span></p>
-            <button id="confirm-age-btn" class="nav-btn" style="background: #e67e22; color: #fff; width: 100%;">ДА, МНЕ ЕСТЬ 18 (YES, I AM 18+)</button>
+            <button id="confirm-age" class="nav-btn" onclick="confirmAge()" style="background: #e67e22; color: #fff; width: 100%;">ДА, МНЕ ЕСТЬ 18 (YES, I AM 18+)</button>
         </div>
     </div>
 
     <!-- Основной контент -->
     <div id="page-content">
         <div class="lang-switch en-text" onclick="showEnNotice()">EN</div>
+
+        <!-- Кнопка отключения искр -->
         <div class="toggle-particles" id="toggleParticles">✦ Отключить искры</div>
+        <!-- Canvas искр -->
         <canvas id="particleCanvas" class="particle-canvas"></canvas>
 
         <div id="en-notice">
@@ -125,6 +368,7 @@
 
         <h1 class="selectable-text">Информационный лист о <span class="en-text" id="rometto-click">ROMETTO</span></h1>
 
+        <!-- TOC с переливающейся рамкой -->
         <div class="nav-container-main toc" id="toc-container" style="margin-top: -10px; margin-bottom: 30px; padding: 15px; border-radius: 12px;">
             <ul id="toc-list" style="list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; width: 100%;"></ul>
         </div>
@@ -135,8 +379,32 @@
             <a href="/404" class="nav-btn">Фетиши и РП предпочтения</a>
         </div>
 
-        <div class="main-img-container" onclick="openLightbox('/assets/rometto_ru_nsfw.png')">
-            <img src="/assets/rometto_ru_nsfw.png" alt="Rometto" loading="lazy">
+        <!-- Референс с боксами -->
+        <div class="refmap-wrapper" id="refmap-wrapper">
+            <img src="/assets/rometto_ru_nsfw.png" alt="Rometto" loading="lazy" id="refmap-img"
+                 onclick="openLightbox('/assets/rometto_ru_nsfw.png')"
+                 style="cursor:url('cursor_pointer.png') 12 12,pointer;">
+
+            <!-- Хвост -->
+            <div class="refmap-box" id="box-tail" onclick="openLightbox('/assets/rometto_ru_nsfw.png')" title="Хвост">
+                <span class="refmap-label">Хвост</span>
+            </div>
+            <!-- Лапы -->
+            <div class="refmap-box" id="box-paws" onclick="openLightbox('/assets/rometto_ru_nsfw.png')" title="Лапы">
+                <span class="refmap-label">Лапы</span>
+            </div>
+            <!-- Пенис и яйца -->
+            <div class="refmap-box" id="box-genitals" onclick="openLightbox('/assets/rometto_ru_nsfw.png')" title="Пенис и яйца">
+                <span class="refmap-label">Пенис и яйца</span>
+            </div>
+            <!-- Пасть -->
+            <div class="refmap-box" id="box-mouth" onclick="openLightbox('/assets/rometto_ru_nsfw.png')" title="Пасть">
+                <span class="refmap-label">Пасть</span>
+            </div>
+            <!-- Рост и вес -->
+            <div class="refmap-box" id="box-size" onclick="openLightbox('/assets/rometto_ru_nsfw.png')" title="Рост и вес">
+                <span class="refmap-label">Рост и вес</span>
+            </div>
         </div>
 
         <div class="artist-credit selectable-text">
@@ -162,7 +430,7 @@
             <p>Появится позже, так как у <span class="en-text">ROMETTO</span> лапки... Пока вы можете увидеть всё на референсе выше.</p>
         </div>
 
-        <!-- Все таблицы полностью прописаны -->
+        <!-- 1. Общая биология -->
         <h2 class="selectable-text">1. Общая биология</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -175,9 +443,15 @@
             <tr><td>Длина клыков</td><td>≈8 см</td><td>$L \times k$</td><td>≈24–28 см</td></tr>
             <tr><td>Длина когтей</td><td>≈3.8 см</td><td>$L \times k$</td><td>≈13–15 см</td></tr>
             <tr><td>Толщина шкуры</td><td>≈1 см</td><td>$L \times k$</td><td>≈3.5 см</td></tr>
-            <tr><td>Температура тела</td><td>≈38–39 °C</td><td>-</td><td>≈40–42 °C <span class="footnote-in-table">* Охлаждение через демоническую кровь и Форсированное дыхание.</span></td></tr>
+            <tr>
+                <td>Температура тела</td>
+                <td>≈38–39 °C</td>
+                <td>-</td>
+                <td>≈40–42 °C <span class="footnote-in-table">* Охлаждение через демоническую кровь и Форсированное дыхание.</span></td>
+            </tr>
         </table>
 
+        <!-- 2. Физика и сила -->
         <h2 class="selectable-text">2. Физика и сила</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -186,12 +460,28 @@
             <tr><td>Сила укуса</td><td>≈650 PSI</td><td>$M \times k^3$</td><td>≈24 000 PSI</td></tr>
             <tr><td>Давление (наступ)</td><td>≈0.2 т</td><td>импульс</td><td>≈20–30 т</td></tr>
             <tr><td>Грузоподъёмность</td><td>≈300 кг</td><td>$M \times k^2$</td><td>≈3.6 т</td></tr>
-            <tr><td>Сила удара лапой</td><td>≈400 кг</td><td>$M \times k^3$</td><td>≈16–20 т <span class="footnote-in-table">* При массе лапы 250кг и скорости 35м/с.</span></td></tr>
+            <tr>
+                <td>Сила удара лапой</td>
+                <td>≈400 кг</td>
+                <td>$M \times k^3$</td>
+                <td>≈16–20 т <span class="footnote-in-table">* При массе лапы 250кг и скорости 35м/с.</span></td>
+            </tr>
             <tr><td>Макс. скорость</td><td>≈80 км/ч</td><td>-</td><td>≈50 км/ч</td></tr>
-            <tr><td>Прыжок в высоту</td><td>≈3 м</td><td>-</td><td>≈10 м <span class="footnote-in-table">* Реактивная мощь задних конечностей.</span></td></tr>
-            <tr><td>Прыжок в длину</td><td>≈10–12 м</td><td>-</td><td>≈30–35 м <span class="footnote-in-table">* Фактически — полет «живого снаряда».</span></td></tr>
+            <tr>
+                <td>Прыжок в высоту</td>
+                <td>≈3 м</td>
+                <td>-</td>
+                <td>≈10 м <span class="footnote-in-table">* Реактивная мощь задних конечностей.</span></td>
+            </tr>
+            <tr>
+                <td>Прыжок в длину</td>
+                <td>≈10–12 м</td>
+                <td>-</td>
+                <td>≈30–35 м <span class="footnote-in-table">* Фактически — полет «живого снаряда».</span></td>
+            </tr>
         </table>
 
+        <!-- 3. Звук и коммуникация -->
         <h2 class="selectable-text">3. Звук и коммуникация</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -201,6 +491,7 @@
             <tr><td>Частотный диапазон</td><td>40–200 Гц</td><td>инфразвук</td><td><strong>5–150 Гц</strong> <span class="footnote-in-table">* Основная мощь в инфразвуке.</span></td></tr>
         </table>
 
+        <!-- 4. Репродуктивная система -->
         <h2 class="selectable-text">4. Репродуктивная система</h2>
         <table class="selectable-text">
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -216,6 +507,7 @@
             <tr><td>Шипы (Spines)</td><td>≈0.5 см</td><td>$L \times k$</td><td><strong>1.5–2 см</strong> <span class="footnote-in-table">* Сохраняют кошачью форму, усилены демонической структурой.</span></td></tr>
         </table>
 
+        <!-- 5. Анатомия и питание -->
         <h2>5. Анатомия и питание</h2>
         <table>
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -256,11 +548,41 @@
         <h2>6. Гидродинамика крови</h2>
         <table>
             <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-            <tr><td>Фибриноген (Fg)</td><td>≈2–4 г/л</td><td>$Fg_{lion}$ + демоническая днк</td><td><strong>≈20 г/л</strong><span class="footnote-in-table">* Усиленная концентрация для быстрого свертывания и демонический ДНК.</span></td></tr>
-            <tr><td>Адгезия тромбоцитов</td><td>1×</td><td>$A_{adh}$</td><td><strong>≈10×</strong><span class="footnote-in-table">* Повышенное сцепление с повреждёнными сосудами.</span></td></tr>
-            <tr><td>Время образования тромба</td><td>≈2–5 мин</td><td>$t \sim \frac{1}{Fg \cdot A_{adh}}$</td><td><strong>≈10–30 сек</strong><span class="footnote-in-table">* Мгновенный гемостаз за счёт днк демона.</span></td></tr>
-            <tr><td>Прочность тромба</td><td>Стандарт</td><td>$\rho_{fibrin}$</td><td><strong>Экстремально высокая</strong><span class="footnote-in-table">* Плотная фибриновая структура.</span></td></tr>
-            <tr><td>Гемостатический затвор</td><td>Отсутствует</td><td> компенсация давление 15 атмосфер</td><td><strong>до ≈15 атм</strong><span class="footnote-in-table">* Удержание давления за счёт тромба.</span></td></tr>
+            <tr>
+                <td>Фибриноген (Fg)</td>
+                <td>≈2–4 г/л</td>
+                <td>$Fg_{lion}$ + демоническая днк</td>
+                <td><strong>≈20 г/л</strong>
+                <span class="footnote-in-table">* Усиленная концентрация для быстрого свертывания и демонический ДНК.</span></td>
+            </tr>
+            <tr>
+                <td>Адгезия тромбоцитов</td>
+                <td>1×</td>
+                <td>$A_{adh}$</td>
+                <td><strong>≈10×</strong>
+                <span class="footnote-in-table">* Повышенное сцепление с повреждёнными сосудами.</span></td>
+            </tr>
+            <tr>
+                <td>Время образования тромба</td>
+                <td>≈2–5 мин</td>
+                <td>$t \sim \frac{1}{Fg \cdot A_{adh}}$</td>
+                <td><strong>≈10–30 сек</strong>
+                <span class="footnote-in-table">* Мгновенный гемостаз за счёт днк демона.</span></td>
+            </tr>
+            <tr>
+                <td>Прочность тромба</td>
+                <td>Стандарт</td>
+                <td>$\rho_{fibrin}$</td>
+                <td><strong>Экстремально высокая</strong>
+                <span class="footnote-in-table">* Плотная фибриновая структура.</span></td>
+            </tr>
+            <tr>
+                <td>Гемостатический затвор</td>
+                <td>Отсутствует</td>
+                <td> компенсация давление 15 атмосфер</td>
+                <td><strong>до ≈15 атм</strong>
+                <span class="footnote-in-table">* Удержание давления за счёт тромба.</span></td>
+            </tr>
         </table>
         <div class="formula">
             <b>Механика свертывания:</b><br><br>
@@ -283,9 +605,11 @@
             <h2>8. МЕХАНИКА ОХОТЫ: ГРАВИТАЦИОННОЕ ПОДАВЛЕНИЕ</h2>
             <div class="hunting-block">
                 <p>Охота Рометто — это не погоня, а фатальное столкновение колоссальной массы с пространством. Для хищника такого масштаба физика — самое эффективное оружие.</p>
+                
                 <h4>I. Инфразвуковой рокот: Резонанс страха</h4>
                 <p>Рометто не нужно прятаться — он подавляет волю цели на расстоянии. Благодаря огромному объему легких и специфической структуре гортани, усиленной демоническим фактором, он генерирует звуковые волны частотой ниже 10 Гц.</p>
-                <p><strong>Механизм:</strong> Это физический резонанс гипертрофированных голосовых связок и объёмной грудной клетки.<br><strong>Эффект:</strong> Инфразвук входит в резонанс с внутренними органами любой биологической цели в радиусе 50 метров. Это вызывает «системный сбой»: паралич воли, потерю ориентации и неконтролируемый ужас. Жертва замирает еще до физического контакта.</p>
+                <p><strong>Механизм:</strong> Это физический резонанс гипертрофированных голосовых связок и объёмной грудной клетки.<br>
+                <strong>Эффект:</strong> Инфразвук входит в резонанс с внутренними органами любой биологической цели в радиусе 50 метров. Это вызывает «системный сбой»: паралич воли, потерю ориентации и неконтролируемый ужас. Жертва замирает еще до физического контакта.</p>
                 <h4>II. Инерционный рывок: 9 тонн неизбежности</h4>
                 <p>При массе в 9.2 тонны Рометто развивает скорость до 50 км/ч. На такой скорости он превращается в живой снаряд с чудовищным импульсом. Любое препятствие на пути (деревья, камни или броня жертвы) просто деформируется, не снижая скорости хищника.</p>
                 <h4>III. Сокрушение весом (Фаза контакта)</h4>
@@ -302,6 +626,7 @@
             • $k^3 \approx 41.8$ (Кубический закон)<br>
             • Динамическая сила ($F_{dyn}$): 30–40 тонн.<br>
             • Громкость рёва: $\text{dB}_{max} \approx 160$<br><br>
+          
             <b>Базальный метаболизм (BMR):</b><br>
             $$BMR_{rometto} = (c \cdot M^{0.75}) \cdot \alpha$$
             <b>Гемостаз (усиленная модель):</b><br><br>
@@ -313,24 +638,30 @@
             $$Fg = Fg_{lion} \cdot \alpha,\quad A_{adh} = A_{lion} \cdot \alpha$$
         </div>
 
+        <!-- FAQ -->
         <div class="faq">
             <h2 class="selectable-text">Часто задаваемые вопросы</h2>
+           
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">Почему максимальная скорость Рометто (≈50 км/ч) ниже, чем у обычного льва (≈80 км/ч)? <span style="font-size:18px;">▼</span></div>
                 <div class="faq-answer">Рометто слишком огромен — 9,2 тонны живой массы. На скорости около 50 км/ч он уже ведёт себя как разогнавшийся 9-тонный КАМАЗ. Дальнейший разгон требует чудовищной энергии и создаёт огромную нагрузку на скелет, сухожилия и внутренние органы. Даже с демонической помощью природа ставит свои пределы.</div>
             </div>
+           
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">Можно ли в принципе победить Рометто в бою? <span style="font-size:18px;">▼</span></div>
                 <div class="faq-answer">Теоретически — да. Но этот секрет знают лишь трое живых существ — его самые близкие друзья.</div>
             </div>
+           
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">Как Рометто справляется с перегревом при массе 9,2 тонны? <span style="font-size:18px;">▼</span></div>
                 <div class="faq-answer">Демоническая кровь радикально изменена и стабилизирует структуру белков, позволяя выдерживать температуру тела даже выше 100 °C без разрушения тканей. Кроме того, он может активно охлаждаться: погрузиться в воду или лечь и 15–30 минут глубоко дышать форсированно.</div>
             </div>
+           
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">Почему его рёв ощущается телом как вибрация даже на расстоянии 20–30 км? <span style="font-size:18px;">▼</span></div>
                 <div class="faq-answer">Основная мощь рёва лежит в инфразвуковом диапазоне (частоты ниже 10 Гц). Благодаря гипертрофированным голосовым связкам и огромному объёму лёгких он генерирует мощные низкочастотные волны.<br><br><b>Формула:</b><br>$$f_{\text{основная}} \approx 5-10\ \text{Гц (инфразвук)}$$</div>
             </div>
+           
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">Что произойдёт, если встать прямо перед Рометто в момент, когда он чихает? <span style="font-size:18px;">▼</span></div>
                 <div class="faq-answer">Мгновенная смерть. Локальная ударная волна летит со скоростью 80–100 м/с и действует как направленный взрыв.</div>
@@ -346,48 +677,263 @@
         </footer>
     </div>
 
+    <!-- Кнопка Наверх -->
     <button id="backToTop" style="position:fixed;bottom:30px;right:30px;background:#e67e22;color:#000;width:56px;height:56px;border-radius:50%;font-size:30px;box-shadow:0 6px 20px rgba(230,126,34,0.6);display:none;z-index:9999;">↑</button>
+
+    <!-- Гамбургер -->
     <div id="hamburgerBtn" style="position:fixed;top:22px;left:20px;background:rgba(230,126,34,0.15);border:1px solid #e67e22;color:#e67e22;width:50px;height:50px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:28px;cursor:pointer;z-index:1001;">☰</div>
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
+        // Age Gate
         const ageGate = document.getElementById('age-gate');
         const pageContent = document.getElementById('page-content');
         const body = document.body;
-
+        function checkAge() {
+            if (localStorage.getItem('ageConfirmed') === 'true') {
+                ageGate.style.display = 'none';
+                pageContent.style.display = 'flex';
+                body.classList.remove('no-scroll');
+            } else {
+                ageGate.style.display = 'flex';
+                pageContent.style.display = 'none';
+                body.classList.add('no-scroll');
+            }
+        }
+        checkAge();
         function confirmAge() {
             localStorage.setItem('ageConfirmed', 'true');
             ageGate.style.display = 'none';
             pageContent.style.display = 'flex';
             body.classList.remove('no-scroll');
         }
-        document.getElementById('confirm-age-btn').addEventListener('click', confirmAge);
 
-        function checkAge() {
-            if (localStorage.getItem('ageConfirmed') === 'true') {
-                ageGate.style.display = 'none';
-                pageContent.style.display = 'flex';
-                body.classList.remove('no-scroll');
-            }
-        }
-
-        // Lightbox, тултипы, искры, FAQ, TOC — всё как раньше (полностью сохранено)
+        // Лайтбокс + pinch-to-zoom
         const lightbox = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
         let scale = 1, x = 0, y = 0, isDragging = false, startX, startY;
-        function openLightbox(src) { lbImg.src = src; lightbox.style.display = 'flex'; scale = 1; x = 0; y = 0; updateTransform(); }
-        function closeLightbox(e) { if (e.target === lightbox) lightbox.style.display = 'none'; }
-        function updateTransform() { lbImg.style.transform = `translate(${x}px, ${y}px) scale(${scale})`; }
-        // ... (весь остальной скрипт lightbox, тултипы, particles, FAQ, TOC и т.д. — точно как в предыдущей версии) ...
+        function openLightbox(src) {
+            lbImg.src = src;
+            lightbox.style.display = 'flex';
+            scale = 1; x = 0; y = 0;
+            updateTransform();
+        }
+        function closeLightbox(e) {
+            if (e.target === lightbox) lightbox.style.display = 'none';
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') lightbox.style.display = 'none';
+        });
+        function updateTransform() {
+            lbImg.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+        }
+        lightbox.addEventListener('wheel', (e) => {
+            if (lightbox.style.display === 'flex') {
+                e.preventDefault();
+                const delta = e.deltaY > 0 ? 0.9 : 1.1;
+                scale = Math.min(Math.max(1, scale * delta), 10);
+                if (scale === 1) { x = 0; y = 0; }
+                updateTransform();
+            }
+        }, { passive: false });
+        lbImg.addEventListener('mousedown', (e) => {
+            if (scale > 1) {
+                isDragging = true;
+                startX = e.clientX - x;
+                startY = e.clientY - y;
+            }
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                x = e.clientX - startX;
+                y = e.clientY - startY;
+                updateTransform();
+            }
+        });
+        window.addEventListener('mouseup', () => isDragging = false);
 
+        // Pinch-to-zoom
+        let startDistance = 0;
+        lightbox.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 2) startDistance = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+        });
+        lightbox.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const currentDistance = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+                const delta = currentDistance / startDistance;
+                scale = Math.min(Math.max(0.5, scale * delta), 10);
+                startDistance = currentDistance;
+                updateTransform();
+            }
+        });
+
+        function showEnNotice() { document.getElementById('en-notice').style.display = 'flex'; }
+        function hideEnNotice() { document.getElementById('en-notice').style.display = 'none'; }
+
+        const selectableElements = document.querySelectorAll('.selectable-text');
+        selectableElements.forEach(el => {
+            el.addEventListener('mousedown', () => {
+                document.body.style.cursor = "url('cursor_text.png') 12 12, text";
+            });
+        });
+        window.addEventListener('mouseup', () => {
+            document.body.style.cursor = "url('cursor_busy.png') 12 12, auto";
+        });
+
+        // TOC
+        function generateTOC() {
+            const tocList = document.getElementById('toc-list');
+            const headers = document.querySelectorAll('#page-content h2');
+            headers.forEach((h2, index) => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `#section-${index}`;
+                a.className = 'nav-btn';
+                a.textContent = h2.textContent;
+                a.onclick = (e) => { e.preventDefault(); h2.scrollIntoView({ behavior: 'smooth' }); };
+                h2.id = `section-${index}`;
+                li.appendChild(a);
+                tocList.appendChild(li);
+            });
+        }
+
+        // Кнопка Наверх
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            backToTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
+        });
+        backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        // Гамбургер
+        const hamburger = document.getElementById('hamburgerBtn');
+        const tocContainer = document.getElementById('toc-container');
+        hamburger.style.display = window.innerWidth < 900 ? 'flex' : 'none';
+        window.addEventListener('resize', () => {
+            hamburger.style.display = window.innerWidth < 900 ? 'flex' : 'none';
+        });
+        hamburger.addEventListener('click', () => {
+            tocContainer.style.display = tocContainer.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        // Искры
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let particlesEnabled = true;
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 0.8 - 0.4;
+                this.speedY = Math.random() * 1.5 + 0.8;
+                this.life = 180 + Math.random() * 120;
+                this.color = Math.random() > 0.6 ? '#ff5500' : '#ffaa00';
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.life--;
+                this.speedY += 0.02;
+            }
+            draw() {
+                ctx.save();
+                ctx.globalAlpha = this.life / 200;
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, this.size, this.size);
+                ctx.restore();
+            }
+        }
+        function animateParticles() {
+            if (!particlesEnabled) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                requestAnimationFrame(animateParticles);
+                return;
+            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (Math.random() < 0.4) particles.push(new Particle());
+            for (let i = particles.length - 1; i >= 0; i--) {
+                particles[i].update();
+                particles[i].draw();
+                if (particles[i].life <= 0) particles.splice(i, 1);
+            }
+            requestAnimationFrame(animateParticles);
+        }
+        document.getElementById('toggleParticles').addEventListener('click', () => {
+            particlesEnabled = !particlesEnabled;
+            document.getElementById('toggleParticles').textContent = particlesEnabled ? '✦ Отключить искры' : '✦ Включить искры';
+        });
+
+        // Easter egg
+        let clickCount = 0;
+        const romettoSpan = document.getElementById('rometto-click');
+        romettoSpan.addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 6) {
+                body.classList.add('hell-mode');
+                alert('🔥 ДОБРО ПОЖАЛОВАТЬ В АД 🔥');
+                clickCount = 0;
+            }
+        });
+
+        // FAQ toggle — исправленная версия
+        function toggleFAQ(el) {
+            const answer = el.nextElementSibling;
+            const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+            if (isOpen) {
+                answer.style.maxHeight = '0px';
+                answer.classList.remove('open');
+                el.querySelector('span').textContent = '▼';
+            } else {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                answer.classList.add('open');
+                el.querySelector('span').textContent = '▲';
+            }
+        }
+
+        // Позиционирование боксов на референсе (% от размера картинки)
+        // Координаты: [left%, top%, width%, height%] — по референсу с изображения
+        const BOX_DEFS = {
+            'box-tail':     [1.5,  68, 10,  24],   // Хвост — левый низ
+            'box-paws':     [27,   72, 11,  22],    // Лапы — центр-лево низ
+            'box-genitals': [38.5, 62, 13,  30],    // Пенис и яйца — центр низ
+            'box-mouth':    [52,   62, 14,  30],    // Пасть — правее центра
+            'box-size':     [67,   55, 17,  37],    // Рост и вес — правый низ
+        };
+
+        function positionRefBoxes() {
+            const wrapper = document.getElementById('refmap-wrapper');
+            const img = document.getElementById('refmap-img');
+            if (!wrapper || !img) return;
+            const W = img.offsetWidth;
+            const H = img.offsetHeight;
+            for (const [id, [lp, tp, wp, hp]] of Object.entries(BOX_DEFS)) {
+                const box = document.getElementById(id);
+                if (!box) continue;
+                box.style.left   = (W * lp / 100) + 'px';
+                box.style.top    = (H * tp / 100) + 'px';
+                box.style.width  = (W * wp / 100) + 'px';
+                box.style.height = (H * hp / 100) + 'px';
+            }
+        }
+
+        // Запуск
         window.addEventListener('load', () => {
             resizeCanvas();
             animateParticles();
             generateTOC();
             checkAge();
+            const img = document.getElementById('refmap-img');
+            if (img.complete) positionRefBoxes();
+            else img.addEventListener('load', positionRefBoxes);
         });
-        // (полный скрипт с тултипами, particles, toggleFAQ и т.д. — всё включено в предыдущих версиях)
+        window.addEventListener('resize', () => { resizeCanvas(); positionRefBoxes(); });
     </script>
 </body>
 </html>
