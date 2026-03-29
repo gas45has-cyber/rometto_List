@@ -1261,7 +1261,7 @@
             const grid = document.getElementById('gallery-grid');
             const items = filter === 'all' ? GALLERY_ITEMS : GALLERY_ITEMS.filter(i => i.tag === filter);
             if (items.length === 0) {
-                grid.innerHTML = '<div class="gallery-empty">Арты появятся здесь 🐾<br><span style="font-size:12px;">Добавь их в массив GALLERY_ITEMS в коде</span></div>';
+                grid.innerHTML = '<div class="gallery-empty">Арты появятся здесь 🐾<br><span style="font-size:12px;">появится позже, не забывайте у меня лапки</span></div>';
                 return;
             }
             grid.innerHTML = items.map((item, idx) => `
