@@ -11,89 +11,32 @@
  
     <script>
         window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true
-            },
-            options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-            }
+            tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']], processEscapes: true },
+            options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
         };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
  
     <style>
-        @font-face {
-            font-family: 'LionKing';
-            src: url('lion_king.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
-        body {
-            cursor: url('cursor_busy.png') 12 12, auto;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #0f0f0f;
-            color: #d2b48c;
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            user-select: text;
-        }
+        @font-face { font-family: 'LionKing'; src: url('lion_king.ttf') format('truetype'); font-weight: normal; font-style: normal; }
+        body { cursor: url('cursor_busy.png') 12 12, auto; font-family: Arial, Helvetica, sans-serif; background: #0f0f0f; color: #d2b48c; margin: 0; padding: 20px; line-height: 1.6; display: flex; flex-direction: column; align-items: center; user-select: text; }
         .no-scroll { overflow: hidden; height: 100vh; }
-        a, button, [role="button"], .nav-btn, .close-notice, .main-img-container, .lang-switch, .contact-link, .artist-link-container, .toggle-particles, .faq-question {
-            cursor: url('cursor_pointer.png') 12 12, pointer !important;
-            transition: transform 0.10s ease;
-        }
+        a, button, [role="button"], .nav-btn, .close-notice, .main-img-container, .lang-switch, .contact-link, .artist-link-container, .toggle-particles, .faq-question { cursor: url('cursor_pointer.png') 12 12, pointer !important; transition: transform 0.10s ease; }
         a:hover, button:hover { filter: drop-shadow(0 0 5px #d2b48c); }
         a:active, button:active { transform: scale(1.0); }
-        p, span, h1, h2, h3, li, label, th, td, .appearance-desc, .hunting-block {
-            cursor: inherit;
-        }
-        .selectable-text:active {
-            cursor: url('cursor_text.png') 12 12, text !important;
-        }
-        .en-text {
-            font-family: 'LionKing', Arial, sans-serif !important;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-        h1, h2, h3 {
-            font-family: Arial, Helvetica, sans-serif;
-            letter-spacing: normal;
-            text-transform: uppercase;
-        }
-        .lang-switch {
-            position: fixed; top: 20px; right: 20px; z-index: 999;
-            background: rgba(230, 126, 34, 0.1); border: 1px solid #e67e22;
-            color: #e67e22; padding: 8px 15px; border-radius: 20px;
-            font-weight: bold; font-size: 14px; transition: 0.3s; backdrop-filter: blur(5px);
-        }
+        p, span, h1, h2, h3, li, label, th, td, .appearance-desc, .hunting-block { cursor: inherit; }
+        .selectable-text:active { cursor: url('cursor_text.png') 12 12, text !important; }
+        .en-text { font-family: 'LionKing', Arial, sans-serif !important; letter-spacing: 2px; text-transform: uppercase; }
+        h1, h2, h3 { font-family: Arial, Helvetica, sans-serif; letter-spacing: normal; text-transform: uppercase; }
+        .lang-switch { position: fixed; top: 20px; right: 20px; z-index: 999; background: rgba(230, 126, 34, 0.1); border: 1px solid #e67e22; color: #e67e22; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 14px; transition: 0.3s; backdrop-filter: blur(5px); }
         .lang-switch:hover { background: #e67e22; color: #fff; }
-        #en-notice {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 10001;
-            justify-content: center; align-items: center; backdrop-filter: blur(10px);
-        }
-        .en-notice-content {
-            background: #151515; padding: 30px; border: 2px solid #e67e22;
-            border-radius: 10px; text-align: center; max-width: 450px; margin: 20px;
-        }
-        .close-notice {
-            background: #e67e22; border: none; color: #fff; padding: 10px 25px;
-            border-radius: 5px; font-weight: bold; text-transform: uppercase;
-        }
+        #en-notice { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10001; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
+        .en-notice-content { background: #151515; padding: 30px; border: 2px solid #e67e22; border-radius: 10px; text-align: center; max-width: 450px; margin: 20px; }
+        .close-notice { background: #e67e22; border: none; color: #fff; padding: 10px 25px; border-radius: 5px; font-weight: bold; text-transform: uppercase; }
         h1 { text-align: center; font-size: 34px; margin: 20px 0; color: #d2b48c; }
         h2 { width: 100%; max-width: 900px; margin-top: 45px; border-bottom: 2px solid #444; padding-bottom: 6px; color: #e67e22; text-align: center; }
         .sub-header { color: #e67e22; font-weight: bold; text-transform: uppercase; font-size: 14px; margin-bottom: 5px; margin-top: 0; }
-        .appearance-desc {
-            width: 100%; max-width: 900px; margin: 20px 0;
-            background: rgba(230, 126, 34, 0.05); padding: 20px;
-            border-radius: 8px; border-left: 3px solid #e67e22; box-sizing: border-box; text-align: left;
-        }
+        .appearance-desc { width: 100%; max-width: 900px; margin: 20px 0; background: rgba(230, 126, 34, 0.05); padding: 20px; border-radius: 8px; border-left: 3px solid #e67e22; box-sizing: border-box; text-align: left; }
         .appearance-desc h3 { margin: 0 0 10px 0; color: #e67e22; font-size: 18px; }
         .appearance-desc p { margin: 0 0 10px 0; font-style: italic; font-size: 15px; }
         .appearance-desc strong { color: #e67e22; font-style: normal; }
@@ -105,44 +48,20 @@
         th, td { border: 1px solid #444; padding: 10px; text-align: center; word-wrap: break-word; }
         th { background: #1f1f1f; font-weight: bold; color: #e67e22; }
         tr:nth-child(even) { background: #181818; }
-        .footnote-in-table {
-            display: block; font-size: 12px; color: #e67e22; margin-top: 5px;
-            font-style: italic; opacity: 0.9;
-        }
+        .footnote-in-table { display: block; font-size: 12px; color: #e67e22; margin-top: 5px; font-style: italic; opacity: 0.9; }
         .section { width: 100%; max-width: 900px; margin-top: 35px; }
         .formula { width: 100%; max-width: 900px; background: #181818; padding: 15px; border-left: 4px solid #666; margin-top: 15px; color: #d2b48c; font-size: 14px; overflow-x: auto; box-sizing: border-box; }
         .nav-container-main { display: flex; justify-content: center; gap: 10px; width: 100%; max-width: 1100px; margin-bottom: 25px; flex-wrap: wrap; }
-        .nav-btn {
-            display: inline-block; padding: 12px 20px; border: 2px solid #e67e22; color: #e67e22; text-decoration: none; font-weight: bold; text-transform: uppercase;
-            border-radius: 5px; transition: 0.3s; background: rgba(230, 126, 34, 0.05); text-align: center; font-size: 12px; white-space: nowrap;
-        }
+        .nav-btn { display: inline-block; padding: 12px 20px; border: 2px solid #e67e22; color: #e67e22; text-decoration: none; font-weight: bold; text-transform: uppercase; border-radius: 5px; transition: 0.3s; background: rgba(230, 126, 34, 0.05); text-align: center; font-size: 12px; white-space: nowrap; }
         .nav-btn:hover { background: #e67e22; color: #fff; box-shadow: 0 0 10px rgba(230, 126, 34, 0.3); }
         .main-img-container { text-align:center; margin-bottom:15px; width: 100%; position: relative; }
-        .main-img-container img { 
-            max-width: 900px; width: 100%; display: block; border-radius: 4px; 
-            -webkit-user-drag: none; margin: 0 auto; transition: 0.3s; animation: fadeIn 0.8s ease-in-out; 
-        }
+        .main-img-container img { max-width: 900px; width: 100%; display: block; border-radius: 4px; -webkit-user-drag: none; margin: 0 auto; transition: 0.3s; animation: fadeIn 0.8s ease-in-out; }
         .main-img-container img:active { transform: scale(1.08); }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        #lightbox {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8); display: none; z-index: 20000;
-            justify-content: center; align-items: center; overflow: hidden;
-            backdrop-filter: blur(10px);
-        }
-        #lightbox img {
-            max-width: 95vw; max-height: 95vh; object-fit: contain;
-            transition: transform 0.05s linear; cursor: grab; user-select: none;
-        }
+        #lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; z-index: 20000; justify-content: center; align-items: center; overflow: hidden; backdrop-filter: blur(10px); }
+        #lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; transition: transform 0.05s linear; cursor: grab; user-select: none; }
         #lightbox img:active { cursor: grabbing; }
-        .lightbox-tooltip {
-            position: absolute; background: rgba(21,21,21,0.97);
-            border: 2px solid #e67e22; color: #d2b48c; padding: 14px 20px;
-            border-radius: 10px; font-size: 15px; max-width: 320px;
-            pointer-events: none; opacity: 0; transition: opacity 0.25s ease;
-            z-index: 20001; box-shadow: 0 0 20px rgba(230,126,34,0.7);
-            line-height: 1.5;
-        }
+        .lightbox-tooltip { position: absolute; background: rgba(21,21,21,0.97); border: 2px solid #e67e22; color: #d2b48c; padding: 14px 20px; border-radius: 10px; font-size: 15px; max-width: 320px; pointer-events: none; opacity: 0; transition: opacity 0.25s ease; z-index: 20001; box-shadow: 0 0 20px rgba(230,126,34,0.7); line-height: 1.5; }
         #page-content { display: none; width: 100%; max-width: 1100px; flex-direction: column; align-items: center; }
         #age-gate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,1); display: flex; justify-content: center; align-items: center; z-index: 10000; backdrop-filter: blur(20px); }
         .age-gate-content { background: #151515; padding: 30px; border: 2px solid #e67e22; border-radius: 10px; text-align: center; max-width: 450px; margin: 20px; }
@@ -159,11 +78,7 @@
         .hunting-block h4 { color: #e67e22; margin-bottom: 5px; margin-top: 20px; }
         .hunting-block p { margin-bottom: 15px; font-size: 15px; }
         .hunting-block strong { color: #e67e22; }
-        @media (max-width: 900px) {
-            .nav-container-main { flex-direction: column; align-items: center; }
-            .nav-btn { width: 90%; margin: 2px 0; }
-            th, td { font-size: 12px; padding: 5px; }
-        }
+        @media (max-width: 900px) { .nav-container-main { flex-direction: column; align-items: center; } .nav-btn { width: 90%; margin: 2px 0; } th, td { font-size: 12px; padding: 5px; } }
         .particle-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.65; }
         .toggle-particles { position: fixed; top: 72px; right: 20px; z-index: 1000; background: rgba(230,126,34,0.15); border: 1px solid #e67e22; color: #e67e22; padding: 8px 14px; border-radius: 50px; font-size: 13px; }
         .faq { width: 100%; max-width: 900px; margin: 50px auto 30px; }
@@ -178,13 +93,14 @@
     </style>
 </head>
 <body class="no-scroll">
-    <!-- Age Gate -->
+
+    <!-- Age Gate (исправленный) -->
     <div id="age-gate">
         <div class="age-gate-content">
             <h2 style="color:#fff; margin-top:0;">ВНИМАНИЕ: 18+ <br><span class="en-text" style="font-size: 0.7em;">(WARNING: 18+)</span></h2>
             <p class="selectable-text">Этот сайт содержит детализированные биологические данные и изображения NSFW. Вам есть 18 лет?<br>
             <span style="font-size: 0.9em; opacity: 0.8;">(This site contains detailed biological data and NSFW images. Are you 18 years or older?)</span></p>
-            <button id="confirm-age" class="nav-btn" onclick="confirmAge()" style="background: #e67e22; color: #fff; width: 100%;">ДА, МНЕ ЕСТЬ 18 (YES, I AM 18+)</button>
+            <button id="confirm-age-btn" class="nav-btn" style="background: #e67e22; color: #fff; width: 100%;">ДА, МНЕ ЕСТЬ 18 (YES, I AM 18+)</button>
         </div>
     </div>
 
@@ -444,30 +360,28 @@
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Age Gate
+        // Age Gate (исправленный)
         const ageGate = document.getElementById('age-gate');
         const pageContent = document.getElementById('page-content');
         const body = document.body;
-        function checkAge() {
-            if (localStorage.getItem('ageConfirmed') === 'true') {
-                ageGate.style.display = 'none';
-                pageContent.style.display = 'flex';
-                body.classList.remove('no-scroll');
-            } else {
-                ageGate.style.display = 'flex';
-                pageContent.style.display = 'none';
-                body.classList.add('no-scroll');
-            }
-        }
-        checkAge();
+
         function confirmAge() {
             localStorage.setItem('ageConfirmed', 'true');
             ageGate.style.display = 'none';
             pageContent.style.display = 'flex';
             body.classList.remove('no-scroll');
         }
+        document.getElementById('confirm-age-btn').addEventListener('click', confirmAge);
 
-        // Lightbox
+        function checkAge() {
+            if (localStorage.getItem('ageConfirmed') === 'true') {
+                ageGate.style.display = 'none';
+                pageContent.style.display = 'flex';
+                body.classList.remove('no-scroll');
+            }
+        }
+
+        // Lightbox + тултипы
         const lightbox = document.getElementById('lightbox');
         const lbImg = document.getElementById('lightbox-img');
         let scale = 1, x = 0, y = 0, isDragging = false, startX, startY;
@@ -480,12 +394,8 @@
         function closeLightbox(e) {
             if (e.target === lightbox) lightbox.style.display = 'none';
         }
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') lightbox.style.display = 'none';
-        });
-        function updateTransform() {
-            lbImg.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-        }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.style.display = 'none'; });
+        function updateTransform() { lbImg.style.transform = `translate(${x}px, ${y}px) scale(${scale})`; }
         lightbox.addEventListener('wheel', (e) => {
             if (lightbox.style.display === 'flex') {
                 e.preventDefault();
@@ -495,27 +405,13 @@
                 updateTransform();
             }
         }, { passive: false });
-        lbImg.addEventListener('mousedown', (e) => {
-            if (scale > 1) {
-                isDragging = true;
-                startX = e.clientX - x;
-                startY = e.clientY - y;
-            }
-        });
-        window.addEventListener('mousemove', (e) => {
-            if (isDragging) {
-                x = e.clientX - startX;
-                y = e.clientY - startY;
-                updateTransform();
-            }
-        });
+        lbImg.addEventListener('mousedown', (e) => { if (scale > 1) { isDragging = true; startX = e.clientX - x; startY = e.clientY - y; } });
+        window.addEventListener('mousemove', (e) => { if (isDragging) { x = e.clientX - startX; y = e.clientY - startY; updateTransform(); } });
         window.addEventListener('mouseup', () => isDragging = false);
 
         // Pinch-to-zoom
         let startDistance = 0;
-        lightbox.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 2) startDistance = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-        });
+        lightbox.addEventListener('touchstart', (e) => { if (e.touches.length === 2) startDistance = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY); });
         lightbox.addEventListener('touchmove', (e) => {
             if (e.touches.length === 2) {
                 e.preventDefault();
@@ -527,7 +423,7 @@
             }
         });
 
-        // ТУЛТИПЫ ПО ЗОНАМ (точно по твоей картинке)
+        // Тултипы по зонам
         const tooltip = document.getElementById('lightbox-tooltip');
         const zones = [
             { label: "Хвост", text: "Длина ≈4 м. Мощный, гибкий. Используется для баланса при прыжках и как сигнал коммуникации.", x: 5, y: 72, w: 15, h: 12 },
@@ -537,7 +433,6 @@
             { label: "Рост и вес", text: "Рост в холке ≈4.17 м. Полная масса ≈9.2 тонны.", x: 77, y: 48, w: 20, h: 18 },
             { label: "Цвет глаз", text: "Глубокий фиолетово-синий оттенок с демоническим блеском.", x: 47, y: 8, w: 6, h: 9 }
         ];
-
         function showTooltip(text, clientX, clientY) {
             tooltip.textContent = text;
             tooltip.style.left = (clientX + 20) + 'px';
@@ -585,31 +480,22 @@
 
         // Кнопка Наверх
         const backToTop = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            backToTop.style.display = window.scrollY > 400 ? 'flex' : 'none';
-        });
+        window.addEventListener('scroll', () => { backToTop.style.display = window.scrollY > 400 ? 'flex' : 'none'; });
         backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
         // Гамбургер
         const hamburger = document.getElementById('hamburgerBtn');
         const tocContainer = document.getElementById('toc-container');
         hamburger.style.display = window.innerWidth < 900 ? 'flex' : 'none';
-        window.addEventListener('resize', () => {
-            hamburger.style.display = window.innerWidth < 900 ? 'flex' : 'none';
-        });
-        hamburger.addEventListener('click', () => {
-            tocContainer.style.display = tocContainer.style.display === 'flex' ? 'none' : 'flex';
-        });
+        window.addEventListener('resize', () => { hamburger.style.display = window.innerWidth < 900 ? 'flex' : 'none'; });
+        hamburger.addEventListener('click', () => { tocContainer.style.display = tocContainer.style.display === 'flex' ? 'none' : 'flex'; });
 
         // Искры
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
         let particlesEnabled = true;
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -620,12 +506,7 @@
                 this.life = 180 + Math.random() * 120;
                 this.color = Math.random() > 0.6 ? '#ff5500' : '#ffaa00';
             }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                this.life--;
-                this.speedY += 0.02;
-            }
+            update() { this.x += this.speedX; this.y += this.speedY; this.life--; this.speedY += 0.02; }
             draw() {
                 ctx.save();
                 ctx.globalAlpha = this.life / 200;
@@ -635,11 +516,7 @@
             }
         }
         function animateParticles() {
-            if (!particlesEnabled) {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                requestAnimationFrame(animateParticles);
-                return;
-            }
+            if (!particlesEnabled) { ctx.clearRect(0, 0, canvas.width, canvas.height); requestAnimationFrame(animateParticles); return; }
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             if (Math.random() < 0.4) particles.push(new Particle());
             for (let i = particles.length - 1; i >= 0; i--) {
