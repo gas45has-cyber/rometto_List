@@ -1325,7 +1325,7 @@
             if (validVals.length === 0) return;
             const avgMult = validVals.reduce((s, f) => s + f.rom / f.you, 0) / validVals.length;
             let verdict = '';
-            if (avgMult >= 50)       verdict = `Рометто превосходит тебя в среднем в <strong>${avgMult.toFixed(0)}×</strong>. Ты для него — молекула. Даже не жертва — просто статистическая погрешность.`;
+            if (avgMult >= 50)       verdict = `Рометто превосходит тебя в среднем в <strong>${avgMult.toFixed(0)}×</strong>. Ты для него — букашка Даже не жертва — просто, то что он случайно раздавит.`;
             else if (avgMult >= 20)  verdict = `В среднем разрыв <strong>${avgMult.toFixed(1)}×</strong>. Если Рометто чихнёт в твою сторону — это уже смертельный исход.`;
             else if (avgMult >= 10)  verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Ты был бы одним из самых опасных существ на Земле — если бы не он.`;
             else if (avgMult >= 3)   verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Ты неплох для человека. Но против 9 тонн демонического льва — не очень.`;
