@@ -263,63 +263,192 @@
             to { transform: translate(-2px, -3px) rotate(-1deg); }
         }
 
-        /* === МУЗЫКАЛЬНЫЙ ПЛЕЕР === */
+        /* ═══════════════════════════════════════════════════
+           ЗАГОЛОВОК — свечение + коричнево-рыжий ROMETTO
+        ═══════════════════════════════════════════════════ */
+
+        /* Верхняя строка "ИНФОРМАЦИОННЫЙ ЛИСТ О" */
+        .title-top-line {
+            display: block;
+            color: #c8a06a;
+            text-shadow:
+                0 0 8px rgba(200, 140, 60, 0.6),
+                0 0 20px rgba(180, 100, 20, 0.4),
+                0 0 40px rgba(160, 70, 10, 0.25),
+                2px 2px 6px rgba(0,0,0,0.85);
+            animation: titleGlowTop 4s ease-in-out infinite alternate;
+        }
+        @keyframes titleGlowTop {
+            from {
+                text-shadow:
+                    0 0 6px rgba(200, 140, 60, 0.5),
+                    0 0 16px rgba(180, 100, 20, 0.35),
+                    0 0 32px rgba(160, 70, 10, 0.2),
+                    2px 2px 6px rgba(0,0,0,0.85);
+            }
+            to {
+                text-shadow:
+                    0 0 12px rgba(220, 160, 80, 0.75),
+                    0 0 28px rgba(200, 110, 30, 0.55),
+                    0 0 55px rgba(180, 80, 10, 0.35),
+                    0 0 80px rgba(150, 50, 0, 0.18),
+                    2px 2px 6px rgba(0,0,0,0.85);
+            }
+        }
+
+        /* ROMETTO — коричнево-рыжий с огненным свечением */
+        .title-rometto {
+            display: block;
+            font-family: 'LionKing', Arial, sans-serif !important;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            /* Насыщенный коричнево-рыжий цвет */
+            color: #a0522d;
+            /* Многослойное свечение: внутренний рыжий → средний оранжевый → внешний тёмно-красный */
+            text-shadow:
+                0 0 5px #ff6a00,
+                0 0 12px rgba(255, 106, 0, 0.75),
+                0 0 25px rgba(200, 70, 0, 0.55),
+                0 0 50px rgba(160, 40, 0, 0.35),
+                0 0 90px rgba(120, 20, 0, 0.2),
+                2px 2px 8px rgba(0,0,0,0.9);
+            animation: romettoGlow 3s ease-in-out infinite alternate;
+        }
+        @keyframes romettoGlow {
+            from {
+                color: #9a4820;
+                text-shadow:
+                    0 0 4px #e05a00,
+                    0 0 10px rgba(224, 90, 0, 0.65),
+                    0 0 20px rgba(180, 55, 0, 0.45),
+                    0 0 42px rgba(140, 30, 0, 0.28),
+                    0 0 75px rgba(100, 10, 0, 0.15),
+                    2px 2px 8px rgba(0,0,0,0.9);
+            }
+            to {
+                color: #bf5a1e;
+                text-shadow:
+                    0 0 7px #ff7a10,
+                    0 0 16px rgba(255, 122, 16, 0.85),
+                    0 0 32px rgba(230, 90, 10, 0.65),
+                    0 0 62px rgba(190, 55, 5, 0.42),
+                    0 0 100px rgba(150, 30, 0, 0.25),
+                    2px 2px 8px rgba(0,0,0,0.9);
+            }
+        }
+
+        /* === МУЗЫКАЛЬНЫЙ ПЛЕЕР — круглая кнопка + слайдер === */
         #music-player {
             position: fixed;
-            bottom: 100px;
-            right: 20px;
+            bottom: 30px;
+            right: 30px;
             z-index: 9998;
-            background: rgba(15,15,15,0.95);
-            border: 1px solid #e67e22;
-            border-radius: 16px;
-            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            pointer-events: none;
+        }
+        #music-player.hidden {
+            display: none;
+        }
+
+        /* Вертикальный слайдер громкости */
+        .music-vol-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            pointer-events: all;
+        }
+        .music-vol-icon {
+            font-size: 13px;
+            color: #e67e22;
+            line-height: 1;
+            user-select: none;
+        }
+        #music-volume {
+            -webkit-appearance: slider-vertical;
+            appearance: slider-vertical;
+            writing-mode: vertical-lr;
+            direction: rtl;
+            width: 22px;
+            height: 70px;
+            accent-color: #e67e22;
+            cursor: url('cursor_pointer.png') 12 12, pointer;
+            background: transparent;
+            pointer-events: all;
+        }
+        /* Firefox vertical range fallback */
+        @supports not (appearance: slider-vertical) {
+            #music-volume {
+                transform: rotate(-90deg);
+                width: 70px;
+                height: 22px;
+            }
+        }
+
+        /* Круглая кнопка Play/Pause */
+        #music-toggle-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: 2px solid #e67e22;
+            background: rgba(15,15,15,0.92);
+            color: #e67e22;
+            font-size: 22px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 0 20px rgba(230,126,34,0.3);
-            max-width: 260px;
-            transition: opacity 0.3s ease;
-        }
-        #music-player.hidden { opacity: 0; pointer-events: none; }
-        .music-cover {
-            width: 40px; height: 40px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #e67e22, #8b0000);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-            animation: spinRecord 4s linear infinite;
-            animation-play-state: paused;
-        }
-        .music-cover.playing { animation-play-state: running; }
-        @keyframes spinRecord { to { transform: rotate(360deg); } }
-        .music-info { flex: 1; min-width: 0; }
-        .music-title {
-            font-size: 11px; color: #e67e22; font-weight: bold;
-            text-transform: uppercase; letter-spacing: 0.5px;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-        .music-sub { font-size: 10px; color: #777; margin-top: 2px; }
-        .music-progress {
-            width: 100%; height: 3px; background: #333;
-            border-radius: 2px; margin-top: 6px; cursor: pointer;
-        }
-        .music-progress-bar {
-            height: 100%; background: #e67e22;
-            border-radius: 2px; width: 0%;
-            transition: width 0.5s linear;
-        }
-        .music-btn {
-            background: none; border: none; color: #e67e22;
-            font-size: 20px; cursor: url('cursor_pointer.png') 12 12, pointer;
-            padding: 0; line-height: 1; flex-shrink: 0;
-            transition: transform 0.15s ease;
-        }
-        .music-btn:hover { transform: scale(1.2); filter: drop-shadow(0 0 4px #e67e22); }
-        .music-volume {
-            width: 60px; accent-color: #e67e22;
+            justify-content: center;
             cursor: url('cursor_pointer.png') 12 12, pointer;
+            pointer-events: all;
+            transition: transform 0.15s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 18px rgba(230,126,34,0.25);
+            flex-shrink: 0;
+            outline: none;
+            line-height: 1;
+        }
+        #music-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 22px rgba(230,126,34,0.6);
+        }
+
+        /* Пульсация при воспроизведении */
+        @keyframes musicPulse {
+            0%   { box-shadow: 0 0 0px rgba(230,126,34,0.5), 0 0 10px rgba(230,126,34,0.3); }
+            50%  { box-shadow: 0 0 22px rgba(230,126,34,0.85), 0 0 40px rgba(230,126,34,0.35); }
+            100% { box-shadow: 0 0 0px rgba(230,126,34,0.5), 0 0 10px rgba(230,126,34,0.3); }
+        }
+        #music-toggle-btn.playing {
+            animation: musicPulse 1.8s ease-in-out infinite;
+        }
+
+        /* === Кнопка "Наверх" — НЕ перекрывает плеер === */
+        /* Плеер: bottom:30px right:30px (ширина ~56px + слайдер)
+           Кнопка наверх: bottom:30px, right = 30 + 56 + 20 = 106px */
+        #backToTop {
+            position: fixed;
+            bottom: 30px;
+            right: 106px;
+            background: #e67e22;
+            color: #000;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            border: none;
+            font-size: 30px;
+            box-shadow: 0 6px 20px rgba(230,126,34,0.6);
+            display: none;
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            cursor: url('cursor_pointer.png') 12 12, pointer !important;
+            transition: transform 0.15s ease, box-shadow 0.3s ease;
+        }
+        #backToTop:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 22px rgba(230,126,34,0.7);
         }
 
         /* === ГАЛЕРЕЯ === */
@@ -527,7 +656,6 @@
         }
         .refmap-wrapper img:active { transform: scale(1.02); }
 
-        /* Боксы на странице — полностью невидимы, только для разметки */
         .refmap-box {
             position: absolute;
             background: transparent;
@@ -540,7 +668,7 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            pointer-events: none; /* сам оверлей не перехватывает */
+            pointer-events: none;
             z-index: 20002;
         }
         .lb-box {
@@ -557,7 +685,6 @@
             box-shadow: 0 0 14px rgba(230,126,34,0.5);
         }
 
-        /* Тултип внутри лайтбокса */
         #lb-tooltip {
             position: fixed;
             background: rgba(15,15,15,0.97);
@@ -630,7 +757,14 @@
             <div id="lb-tooltip"><div class="tip-title" id="lb-tip-title"></div><div id="lb-tip-rows"></div></div>
         </div>
 
-        <h1 class="selectable-text">Информационный лист о <span class="en-text" id="rometto-click">ROMETTO</span></h1>
+        <!-- ═══════════════════════════════════════════════════
+             ЗАГОЛОВОК — шрифт сохранён, добавлено свечение
+             ROMETTO — коричнево-рыжий + огненный glow
+        ═══════════════════════════════════════════════════ -->
+        <h1 class="selectable-text" style="line-height:1.15; font-size:36px; font-weight:900;">
+            <span class="title-top-line">ИНФОРМАЦИОННЫЙ ЛИСТ О</span>
+            <span class="en-text title-rometto" id="rometto-click">ROMETTO</span>
+        </h1>
 
         <!-- TOC с переливающейся рамкой -->
         <div class="nav-container-main toc" id="toc-container" style="margin-top: -10px; margin-bottom: 30px; padding: 15px; border-radius: 12px;">
@@ -648,7 +782,6 @@
             <img src="/assets/rometto_ru_nsfw.png" alt="Rometto" loading="lazy" id="refmap-img"
                  onclick="openLightbox('/assets/rometto_ru_nsfw.png')">
 
-            <!-- Невидимые зоны — только для разметки координат, боксы активны только в лайтбоксе -->
             <div class="refmap-box" id="box-tail"></div>
             <div class="refmap-box" id="box-paws"></div>
             <div class="refmap-box" id="box-genitals"></div>
@@ -917,9 +1050,7 @@
             </div>
         </div>
 
-        <!-- ═══════════════════════════════════════ -->
-        <!--           ГАЛЕРЕЯ АРТОВ                -->
-        <!-- ═══════════════════════════════════════ -->
+        <!-- ГАЛЕРЕЯ АРТОВ -->
         <div class="gallery-section">
             <h2 class="selectable-text">Галерея артов</h2>
             <div class="gallery-filters">
@@ -928,14 +1059,10 @@
                 <button class="gallery-filter-btn" data-filter="nsfw">NSFW</button>
                 <button class="gallery-filter-btn" data-filter="sketch">Скетчи / WIP</button>
             </div>
-            <div class="gallery-grid" id="gallery-grid">
-                <!-- Карточки генерируются JS из массива GALLERY_ITEMS -->
-            </div>
+            <div class="gallery-grid" id="gallery-grid"></div>
         </div>
 
-        <!-- ═══════════════════════════════════════ -->
-        <!--        КАЛЬКУЛЯТОР СРАВНЕНИЯ            -->
-        <!-- ═══════════════════════════════════════ -->
+        <!-- КАЛЬКУЛЯТОР СРАВНЕНИЯ -->
         <div class="calc-section">
             <h2 class="selectable-text">Калькулятор сравнения с Рометто</h2>
             <p style="text-align:center;color:#555;font-size:13px;margin-top:-10px;margin-bottom:20px;">Заполни что знаешь — остальное пропусти</p>
@@ -1019,23 +1146,19 @@
         </footer>
     </div>
 
-    <!-- ♫ Музыкальный плеер -->
+    <!-- ♫ Музыкальный плеер — круглая кнопка + вертикальный слайдер -->
     <div id="music-player" class="hidden">
-        <div class="music-cover" id="music-cover">🔥</div>
-        <div class="music-info">
-            <div class="music-title">Lion — Prince of Hell</div>
-            <div class="music-sub">Remastered</div>
-            <div class="music-progress" id="music-progress-wrap">
-                <div class="music-progress-bar" id="music-progress-bar"></div>
-            </div>
+        <div class="music-vol-wrap">
+            <span class="music-vol-icon">🔊</span>
+            <input type="range" id="music-volume" min="0" max="1" step="0.05" value="0.35" title="Громкость">
+            <span class="music-vol-icon">🔈</span>
         </div>
-        <button class="music-btn" id="music-toggle-btn" title="Пауза / Воспроизведение">▶</button>
-        <input type="range" class="music-volume" id="music-volume" min="0" max="1" step="0.05" value="0.35" title="Громкость">
+        <button id="music-toggle-btn" title="Пауза / Воспроизведение">▶</button>
     </div>
     <audio id="bg-music" loop src="/assets/Lion_The_Prince_of_Hell_(Remastered).mp3" preload="none"></audio>
 
-    <!-- Кнопка Наверх -->
-    <button id="backToTop" style="position:fixed;bottom:30px;right:30px;background:#e67e22;color:#000;width:56px;height:56px;border-radius:50%;font-size:30px;box-shadow:0 6px 20px rgba(230,126,34,0.6);display:none;z-index:9999;">↑</button>
+    <!-- Кнопка Наверх — right:106px чтобы не перекрывать плеер (30px отступ + 56px плеер + 20px gap) -->
+    <button id="backToTop" aria-label="Наверх">↑</button>
 
     <!-- Гамбургер -->
     <div id="hamburgerBtn" style="position:fixed;top:22px;left:20px;background:rgba(230,126,34,0.15);border:1px solid #e67e22;color:#e67e22;width:50px;height:50px;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:28px;cursor:pointer;z-index:1001;">☰</div>
@@ -1243,7 +1366,7 @@
             }
         });
 
-        // FAQ toggle — исправленная версия
+        // FAQ toggle
         function toggleFAQ(el) {
             const answer = el.nextElementSibling;
             const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
@@ -1261,35 +1384,40 @@
         // ══════════════════════════════════════════════
         //  МУЗЫКАЛЬНЫЙ ПЛЕЕР
         // ══════════════════════════════════════════════
-        const bgMusic       = document.getElementById('bg-music');
-        const musicPlayer   = document.getElementById('music-player');
-        const musicToggleBtn= document.getElementById('music-toggle-btn');
-        const musicCover    = document.getElementById('music-cover');
-        const musicProgBar  = document.getElementById('music-progress-bar');
-        const musicProgWrap = document.getElementById('music-progress-wrap');
-        const musicVolume   = document.getElementById('music-volume');
-        let musicStarted    = false;
+        const bgMusic        = document.getElementById('bg-music');
+        const musicPlayer    = document.getElementById('music-player');
+        const musicToggleBtn = document.getElementById('music-toggle-btn');
+        const musicVolume    = document.getElementById('music-volume');
+        let musicStarted     = false;
+
+        function setPlayingState(playing) {
+            if (playing) {
+                musicToggleBtn.textContent = '⏸';
+                musicToggleBtn.classList.add('playing');
+            } else {
+                musicToggleBtn.textContent = '▶';
+                musicToggleBtn.classList.remove('playing');
+            }
+        }
 
         function startMusic() {
             if (musicStarted) return;
             musicStarted = true;
             bgMusic.volume = parseFloat(musicVolume.value);
+            musicPlayer.classList.remove('hidden');
             bgMusic.play().then(() => {
-                musicPlayer.classList.remove('hidden');
-                musicToggleBtn.textContent = '⏸';
-                musicCover.classList.add('playing');
-            }).catch(() => {});
+                setPlayingState(true);
+            }).catch(() => {
+                setPlayingState(false);
+            });
         }
 
         musicToggleBtn.addEventListener('click', () => {
             if (bgMusic.paused) {
-                bgMusic.play();
-                musicToggleBtn.textContent = '⏸';
-                musicCover.classList.add('playing');
+                bgMusic.play().then(() => setPlayingState(true)).catch(() => {});
             } else {
                 bgMusic.pause();
-                musicToggleBtn.textContent = '▶';
-                musicCover.classList.remove('playing');
+                setPlayingState(false);
             }
         });
 
@@ -1297,31 +1425,10 @@
             bgMusic.volume = parseFloat(musicVolume.value);
         });
 
-        bgMusic.addEventListener('timeupdate', () => {
-            if (bgMusic.duration) {
-                musicProgBar.style.width = (bgMusic.currentTime / bgMusic.duration * 100) + '%';
-            }
-        });
-
-        musicProgWrap.addEventListener('click', (e) => {
-            const rect = musicProgWrap.getBoundingClientRect();
-            const ratio = (e.clientX - rect.left) / rect.width;
-            bgMusic.currentTime = ratio * bgMusic.duration;
-        });
-
         // ══════════════════════════════════════════════
         //  ГАЛЕРЕЯ АРТОВ
-        //  Добавляй сюда свои арты! Поля:
-        //    src   — путь к изображению
-        //    thumb — путь к превью (можно то же что src)
-        //    tag   — 'sfw' | 'nsfw' | 'sketch'
-        //    label — подпись
-        //    artist— имя художника
         // ══════════════════════════════════════════════
-        const GALLERY_ITEMS = [
-            // Пример — замени на свои файлы:
-            // { src: '/assets/rometto_ru_nsfw.png', thumb: '/assets/rometto_ru_nsfw.png', tag: 'nsfw', label: 'Референс', artist: 'Ricky_Plush' },
-        ];
+        const GALLERY_ITEMS = [];
 
         function buildGallery(filter) {
             const grid = document.getElementById('gallery-grid');
@@ -1353,8 +1460,6 @@
         // ══════════════════════════════════════════════
         //  КАЛЬКУЛЯТОР СРАВНЕНИЯ
         // ══════════════════════════════════════════════
-
-        // Параметры Рометто
         const ROMETTO_STATS = {
             height:    { val: 417,   unit: 'см',   label: 'Рост' },
             weight:    { val: 9200,  unit: 'кг',   label: 'Вес' },
@@ -1370,8 +1475,6 @@
             balls:     { val: 27,    unit: 'см',   label: 'Яйца (диам)' },
         };
 
-        // Комментарии [мин_множитель, макс_множитель, текст, класс]
-        // множитель = rometto/you, т.е. чем больше — тем меньше у юзера
         const COMMENTS = {
             height: [
                 [0,    0.5,  'Ты выше Рометто?! Архитектурное чудо. Достанешь языком до Бурджхалифа? ', 'respect'],
@@ -1388,7 +1491,7 @@
                 [10,   999,  'Для него ты весишь как пыль.', 'roast'],
             ],
             pawweight: [
-                [0,    0.5,  'Твоя рука тяжелее его лапы?! Это противозаконно.Звоню копам биологии', 'respect'],
+                [0,    0.5,  'Твоя рука тяжелее его лапы?! Это противозаконно. Звоню копам биологии', 'respect'],
                 [0.5,  2,    'Неплохо. Его лапа всего в пару раз тяжелее.', 'neutral'],
                 [2,    10,   'Его лапа весит как ты целиком. Уютно?', 'roast'],
                 [10,   999,  'Одна его лапа — это целый ты, умноженный на несколько.', 'roast'],
@@ -1400,7 +1503,7 @@
                 [20,   999,  'Он вдыхает больше воздуха за раз, чем ты за сутки.', 'roast'],
             ],
             db: [
-                [0,    0.6,  'Ты рычишь громче Рометто?! Так Барт Симпсон, верни громкоговрители на место.', 'respect'],
+                [0,    0.6,  'Ты рычишь громче Рометто?! Так Барт Симпсон, верни громкоговорители на место.', 'respect'],
                 [0.6,  0.9,  'Почти сейсмический уровень. Уважение.', 'respect'],
                 [0.9,  1.2,  'Примерно как отбойный молоток. Но не сравним с рёвом Рометто', 'neutral'],
                 [1.2,  2,    'Его рёв ощущается телом на 30 км. Твой — соседями в стене пока дырки заняты.', 'roast'],
@@ -1409,14 +1512,14 @@
             bite: [
                 [0,    0.1,  'Ты кусаешь сильнее Рометто?! Дантист в шоке.', 'respect'],
                 [0.1,  0.5,  'Неплохой укус. Рометто всё равно сильнее в разы.', 'neutral'],
-                [0.5,  2,    'Твой укус — как поатка вонзить платиковый нож в титан', 'roast'],
+                [0.5,  2,    'Твой укус — как попытка вонзить пластиковый нож в титан', 'roast'],
                 [2,    10,   'Он перекусывает сталь. Ты — максимум сухарь.', 'roast'],
                 [10,   999,  'Разница как между степлером и гидравлическим прессом.', 'roast'],
             ],
             punch: [
                 [0,    0.1,  'Ты бьёшь сильнее его лапы?! Ты годзилла?', 'respect'],
-                [0.1,  0.5,  'Крепкий удар. Но удра Рометто как грузовк...твой как сильного медведя .', 'neutral'],
-                [0.5,  5,    'Его лёгкий шлепок оставит от тебя вмятину в асфальте. Ты там живой?У ютно под тёплой лапой?', 'roast'],
+                [0.1,  0.5,  'Крепкий удар. Но удар Рометто как грузовик... твой как сильного медведя.', 'neutral'],
+                [0.5,  5,    'Его лёгкий шлепок оставит от тебя вмятину в асфальте. Ты там живой? Уютно под тёплой лапой?', 'roast'],
                 [5,    50,   'Удар его лапы — это 20 тонн. Я соболезную твоим костям', 'roast'],
                 [50,   999,  'Ты бьёшь как котёнок лапой по клубку ниток.', 'roast'],
             ],
@@ -1430,30 +1533,30 @@
             jumpH: [
                 [0,    0.3,  'Прыгаешь выше Рометто?! Гравитация забыла о тебе.', 'respect'],
                 [0.3,  0.7,  'Неплохо! Его прыжок всего в пару раз выше.', 'neutral'],
-                [0.7,  3,    'Он прыгает на 10 метров. Ты — менньше в несколко раз.', 'roast'],
+                [0.7,  3,    'Он прыгает на 10 метров. Ты — меньше в несколько раз.', 'roast'],
                 [3,    999,  'Он перепрыгнул бы твой дом. Ты — максимум порог.', 'roast'],
             ],
             jumpL: [
                 [0,    0.3,  'В длину дальше Рометто?! Чемпион мира в панике.', 'respect'],
                 [0.3,  0.7,  'Почти треть его прыжка. Неплохо для такого размера.', 'neutral'],
-                [0.7,  3,    'Он прыгает 32 метра. А ты...Главное не плач, возможно спорт против Рометто не твоё.', 'roast'],
+                [0.7,  3,    'Он прыгает 32 метра. А ты... Главное не плачь, возможно спорт против Рометто не твоё.', 'roast'],
                 [3,    10,   'Его один прыжок — это как ты бежишь несколько секунд.', 'roast'],
                 [10,   999,  'Он приземлился бы там, где ты ещё только разгоняешься.', 'roast'],
             ],
             penis: [
                 [0,    0.15, 'Ага, так я и поверил. Жду пруфы.', 'respect'],
-                [0.15, 0.3,  'Внушительно для своего вида. Но Рометто всёравно превосходит. не обижайся.', 'neutral'],
+                [0.15, 0.3,  'Внушительно для своего вида. Но Рометто всё равно превосходит. Не обижайся.', 'neutral'],
                 [0.3,  0.6,  'Почти, но всё ещё нет, твой ножичек не дорос до меча. Бывает когда кузнецу не хватает металла', 'roast'],
-                [0.6, 2, 'Рометто в покое больше твоего максимума. Приятного вечера', 'roast'],
+                [0.6,  2,    'Рометто в покое больше твоего максимума. Приятного вечера', 'roast'],
                 [2,    5,    'Что ты собрался делать этой зубочисткой?.', 'roast'],
-                [5,    999,  'Я не врач, я шаман, но мне кажется это диагноз.А что говорят дамы?.', 'roast'],
+                [5,    999,  'Я не врач, я шаман, но мне кажется это диагноз. А что говорят дамы?.', 'roast'],
             ],
             balls: [
                 [0,    0.15, 'Больше чем у Рометто?! Как ты вообще ходишь. Надеюсь тебе не больно ходить', 'respect'],
                 [0.15, 0.4,  'Достойно. Но всё равно как грейпфрут.', 'neutral'],
                 [0.4,  1.5,  'Его яйца весят под 20 кг каждое. Твои — чуть поменьше.', 'roast'],
                 [1.5,  5,    'Сравнивать виноградину с помело как-то неловко.', 'roast'],
-                [5,    999,  'Меньше мячиков для тениса. Но ты молодец что измерил.', 'roast'],
+                [5,    999,  'Меньше мячиков для тенниса. Но ты молодец что измерил.', 'roast'],
             ],
         };
 
@@ -1495,7 +1598,6 @@
             let totalMult = 0, totalCount = 0;
             let cheatDetected = false;
 
-            // Пороги "читерства" — значения выше которых = явная ложь
             const cheatLimits = {
                 height: 250, weight: 600, pawweight: 50,
                 lungs: 15, db: 130, bite: 2000,
@@ -1558,7 +1660,7 @@
             else if (avgMult <= 5)   verdict = `Разрыв <strong>×${avgMult.toFixed(1)}</strong>. Ты неплох для своего вида. Но Рометто — это другой вид проблем.`;
             else if (avgMult <= 15)  verdict = `Разрыв <strong>×${avgMult.toFixed(1)}</strong>. Против 9 тонн демонического льва у тебя один шанс — убежать. Но он быстрее.`;
             else if (avgMult <= 50)  verdict = `Разрыв <strong>×${avgMult.toFixed(0)}</strong>. Ты для него — забавная мышь. Он бы даже не разозлился, просто не заметил.`;
-            else                     verdict = `Разрыв <strong>×${avgMult.toFixed(0)}</strong>. Статистически ты — есть, но  Рометто тебя не увидит под лапами, будь осторжнее.`;
+            else                     verdict = `Разрыв <strong>×${avgMult.toFixed(0)}</strong>. Статистически ты — есть, но Рометто тебя не увидит под лапами, будь осторожнее.`;
 
             const verdictEl = document.createElement('div');
             verdictEl.className = 'calc-verdict';
@@ -1569,8 +1671,8 @@
         }
 
         // ══════════════════════════════════════════════
-        //  ЗАПУСК
-        // ======================================================
+        //  БОКСЫ ПОВЕРХ РЕФЕРЕНСА
+        // ══════════════════════════════════════════════
         const BOX_DATA = {
             'box-tail': {
                 title: '🐾 Хвост',
@@ -1591,7 +1693,7 @@
                 ]
             },
             'box-genitals': {
-                title: 'Генеталии пенис и яйца',
+                title: 'Гениталии — пенис и яйца',
                 rows: [
                     ['Пенис (покой)',   '≈25–30 см'],
                     ['Пенис (эрекция)', '≈65–70 см'],
@@ -1627,16 +1729,14 @@
             }
         };
 
-        // Координаты боксов [left%, top%, width%, height%] относительно картинки
         const BOX_DEFS = {
-            'box-tail':     [3.6,  78,   11.5, 17.4],  // Хвост — левый низ
-            'box-paws':     [37,   71,   10.2, 24.4],  // Лапы — центр
-            'box-genitals': [46.8, 51.5, 12.9, 43.9],  // Гениталии — рядом с лапами
-            'box-mouth':    [60.7, 58.5, 13.2, 39],    // Пасть
-            'box-size':     [75.2, 57.8, 22.8, 39.7],  // Рост и вес — правый край
+            'box-tail':     [3.6,  78,   11.5, 17.4],
+            'box-paws':     [37,   71,   10.2, 24.4],
+            'box-genitals': [46.8, 51.5, 12.9, 43.9],
+            'box-mouth':    [60.7, 58.5, 13.2, 39],
+            'box-size':     [75.2, 57.8, 22.8, 39.7],
         };
 
-        // Позиционирование невидимых боксов на странице (для разметки)
         function positionRefBoxes() {
             const img = document.getElementById('refmap-img');
             if (!img) return;
@@ -1652,9 +1752,9 @@
             }
         }
 
-        // ======================================================
-        // ЛАЙТБОКС: строим интерактивные боксы поверх картинки
-        // ======================================================
+        // ══════════════════════════════════════════════
+        // ЛАЙТБОКС: строим интерактивные боксы
+        // ══════════════════════════════════════════════
         const lbOverlay  = document.getElementById('lb-overlay');
         const lbTooltip  = document.getElementById('lb-tooltip');
         const lbTipTitle = document.getElementById('lb-tip-title');
@@ -1664,12 +1764,10 @@
             lbOverlay.innerHTML = '';
             const lbImgEl = document.getElementById('lightbox-img');
 
-            // Ждём пока картинка загружена и отрендерена
             function place() {
                 const rect = lbImgEl.getBoundingClientRect();
                 const lbRect = lightbox.getBoundingClientRect();
 
-                // Позиция картинки относительно лайтбокса
                 const offX = rect.left - lbRect.left;
                 const offY = rect.top  - lbRect.top;
                 const W = rect.width;
@@ -1732,9 +1830,9 @@
             const img = document.getElementById('refmap-img');
             if (img.complete) positionRefBoxes();
             else img.addEventListener('load', positionRefBoxes);
-            // Если age уже подтверждён — плеер показываем без звука, дадим юзеру включить
+
             if (localStorage.getItem('ageConfirmed') === 'true') {
-                musicPlayer.classList.remove('hidden');
+                startMusic();
             }
         });
         window.addEventListener('resize', () => { resizeCanvas(); positionRefBoxes(); });
