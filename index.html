@@ -570,6 +570,28 @@
         #lb-tooltip .tip-row span:first-child { color: #aaa; }
         #lb-tooltip .tip-row span:last-child { color: #fff; font-weight: bold; }
     </style>
+<script>
+        // ===== AGE GATE CHECK =====
+        function confirmAge() {
+            localStorage.setItem("ageConfirmed", "true");
+            var gate = document.getElementById("age-gate");
+            if (gate) gate.style.display = "none";
+            document.body.classList.remove("no-scroll");
+            document.body.style.overflow = "";
+            if (typeof startMusic === "function") startMusic();
+        }
+        document.addEventListener("DOMContentLoaded", function() {
+            var gate = document.getElementById("age-gate");
+            if (!gate) return;
+            if (localStorage.getItem("ageConfirmed") === "true") {
+                gate.style.display = "none";
+                document.body.classList.remove("no-scroll");
+                var content = document.getElementById("page-content");
+                if (content) content.style.display = "flex";
+            }
+        });
+        // ===== / AGE GATE CHECK =====
+    </script>
 </head>
 <body class="no-scroll">
     <!-- Age Gate -->
