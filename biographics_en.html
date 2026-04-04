@@ -23,7 +23,6 @@
             margin: 0;
         }
 
-        /* Canvas for Sparks */
         #sparkCanvas {
             position: fixed;
             top: 0;
@@ -34,11 +33,88 @@
             z-index: 1;
         }
 
+        /* Top Right Controls */
+        .top-right-controls {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            z-index: 110;
+        }
+
+        /* Corner button style */
+        .btn-corner {
+            background: transparent;
+            color: var(--accent-orange);
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-decoration: none;
+            border: 1px solid var(--accent-orange);
+            transition: all 0.3s ease;
+            text-align: center;
+            min-width: 140px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .btn-corner:hover {
+            background: var(--accent-orange);
+            color: black;
+            box-shadow: 0 0 15px rgba(255, 123, 0, 0.6);
+        }
+
+        /* Central Navigation */
+        .nav-header {
+            position: relative;
+            z-index: 100;
+            max-width: 1000px;
+            margin: 100px auto 30px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .btn-nav-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-custom {
+            background: transparent;
+            color: var(--accent-orange);
+            padding: 10px 22px;
+            border: 1px solid var(--accent-orange);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-custom:hover {
+            background: var(--accent-orange);
+            color: #000;
+            box-shadow: 0 0 25px rgba(255, 123, 0, 0.7);
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
         .main-container {
             position: relative;
             z-index: 10;
             max-width: 900px;
-            margin: 60px auto;
+            margin: 0 auto 60px;
             background: var(--card-bg);
             border-radius: 12px;
             padding: 50px;
@@ -57,6 +133,7 @@
             width: 100%;
             padding-bottom: 20px;
             text-transform: uppercase;
+            font-size: 2rem;
         }
 
         .section-title {
@@ -69,7 +146,8 @@
             gap: 12px;
             text-transform: uppercase;
             font-size: 1.15rem;
-            letter-spacing: 1px;
+            border-left: 4px solid var(--accent-orange);
+            padding-left: 15px;
         }
 
         .content-text {
@@ -102,149 +180,91 @@
             font-size: 1.1rem;
         }
 
-        /* Top Nav */
-        .top-nav {
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 10px;
-            z-index: 100;
-        }
-
-        .btn-lang {
-            background: transparent;
-            color: var(--accent-orange);
-            padding: 6px 20px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-decoration: none;
-            border: 1px solid var(--accent-orange);
-            transition: all 0.3s;
-        }
-
-        .btn-lang:hover {
-            background: var(--accent-orange);
-            color: white;
-        }
-
-        .btn-sparks {
-            background: rgba(255, 123, 0, 0.1);
-            color: var(--accent-orange);
-            padding: 8px 18px;
-            border-radius: 50px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            border: 1px solid var(--accent-orange);
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        /* RP Invitation Block */
         .rp-invitation {
             width: 100%;
             margin-top: 40px;
-            margin-bottom: 20px;
-            color: #aaa;
-            font-size: 1rem;
-            line-height: 1.6;
             background: rgba(255, 123, 0, 0.05);
             padding: 25px;
             border-radius: 12px;
             border: 1px dashed #444;
             text-align: center;
             font-style: italic;
+            color: #aaa;
         }
 
-        /* Scroll Up Button */
-        #scrollUp {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 55px;
-            height: 55px;
-            background-color: var(--accent-orange);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 0 20px rgba(255, 123, 0, 0.4);
-            transition: all 0.3s;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 1000;
-        }
-
-        #scrollUp.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Footer Button Block */
-        .footer-btn-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid #222;
-        }
-
-        .btn-home {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            padding: 14px 40px;
-            border: 1px solid var(--accent-orange);
-            color: var(--accent-orange);
-            text-transform: uppercase;
-            font-weight: 600;
-            font-size: 1rem;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.3s;
-            background: transparent;
-        }
-
-        .btn-home:hover {
-            background: rgba(255, 123, 0, 0.1);
-        }
-
-        /* FAQ Styling */
+        /* FAQ Styles */
         .faq-item {
-            background: #1a1a1a;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border: 1px solid #2a2a2a;
+            border-bottom: 1px solid #222;
+            padding: 15px 0;
         }
 
         .faq-question {
-            padding: 18px 24px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 600;
+            color: white;
+            transition: color 0.3s;
+            padding: 10px 0;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            color: var(--accent-orange);
+        }
+
+        .faq-question span {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
         }
 
         .faq-answer {
-            padding: 0 24px;
             max-height: 0;
             overflow: hidden;
-            transition: all 0.4s ease;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
             color: #aaa;
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
         .faq-item.active .faq-answer {
-            padding-bottom: 20px;
-            max-height: 800px;
+            max-height: 200px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .faq-item.active .faq-question span {
+            transform: rotate(180deg);
+        }
+
+        .footer-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #222;
+        }
+
+        .btn-home-lair {
+            background: transparent;
+            color: var(--accent-orange);
+            padding: 14px 40px;
+            border: 1px solid var(--accent-orange);
+            border-radius: 8px;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn-home-lair:hover {
+            background: var(--accent-orange);
+            color: black;
+            box-shadow: 0 0 20px rgba(255, 123, 0, 0.4);
         }
 
         .site-footer {
@@ -259,11 +279,36 @@
             z-index: 10;
         }
 
+        #scrollUp {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+
+        #scrollUp.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
         @media (max-width: 768px) {
+            .nav-header { margin-top: 30px; }
+            .btn-nav-group { flex-direction: column; width: 100%; padding: 0 20px; }
+            .btn-custom { width: 100%; }
             .main-container { padding: 25px; margin: 15px; }
-            .top-nav { position: relative; top: 0; right: 0; align-items: center; margin-bottom: 30px; padding: 20px; }
-            h1 { font-size: 1.5rem; }
-            .btn-home { width: 100%; justify-content: center; }
+            .top-right-controls { position: relative; top: 0; right: 0; align-items: center; margin: 20px 0; }
         }
     </style>
 </head>
@@ -271,82 +316,86 @@
 
     <canvas id="sparkCanvas"></canvas>
 
-    <div class="top-nav">
-        <a href="/rometto_legend_ru.html" class="btn-lang">RU</a>
-        <button id="toggleSparks" class="btn-sparks">
-            <span id="sparkIcon">✦</span> <span id="sparkText">Disable sparks</span>
-        </button>
+    <div class="top-right-controls">
+        <a href="/rometto_biography_ru.html" class="btn-corner" style="min-width: 50px;">RU</a>
+        <button id="toggleSparks" class="btn-corner">Disable Sparks</button>
     </div>
 
+    <nav class="nav-header">
+        <div class="btn-nav-group">
+            <a href="/about" class="btn-custom">ABOUT PROJECT</a>
+            <a href="/RP_AND_FETISH" class="btn-custom">FETISHES AND RP PREFERENCES</a>
+        </div>
+    </nav>
+
     <div class="main-container">
-        <h1> LORE AND BIOGRAPHY</h1>
+        <h1>LORE AND BIOGRAPHY</h1>
 
         <div class="section-title">✦ GENERAL INFORMATION</div>
         <div class="content-text space-y-2">
             <p><span class="highlight">Name:</span> Rometto.</p>
-            <p><span class="highlight">Race:</span> Feral half-demon lion.</p>
-            <p><span class="highlight">Status:</span> Wanderer, finding peace in a new home.</p>
-            <p><span class="highlight">Features:</span> Height 417 cm, weight 9.2-15 tons. Paw width 70 cm. Black sclerae only in demonic form.</p>
+            <p><span class="highlight">Race:</span> Feral lion, demi-demon.</p>
+            <p><span class="highlight">Current Status:</span> Wanderer who found peace in a new home.</p>
+            <p><span class="highlight">Features:</span> Height 417 cm, weight from 9.2 to 15 tons. Colossal, powerful build (paw width 70 cm). Eye scleras are clear (they turn black only when the demonic form manifests).</p>
         </div>
 
-        <div class="section-title">✦ BLOOD AND MEMORY</div>
+        <div class="section-title">✦ BLOOD AND MEMORY: MECHANICS OF IMMORTALITY</div>
         <div class="content-text space-y-4">
-            <p>Rometto possesses a unique gift of rebirth. After every death, he returns as a small lion cub in a random location. Currently, he is living his <span class="highlight">19th life</span>.</p>
-            <p>Memory returns in painful flashes during adolescence, forcing him to relive past tragedies and search anew for his path and loved ones.</p>
+            <p>Rometto possesses a unique gift of rebirth thanks to the blood of his demon father. After every death, he returns to the world as a small cub in a random location. His growth is accelerated.</p>
+            <p>During adolescence, his memory begins to return. This process occurs in flashes and can be incredibly painful — like a sudden high-voltage electric shock. This forces him to relive past tragedies over and over again, searching for his path and loved ones anew. Currently, Rometto is living his <span class="highlight">19th life</span>. It is in this incarnation that his body has reached true greatness and colossal size naturally.</p>
         </div>
 
         <div class="section-title">✦ LIFE STORY</div>
         
         <div class="sub-section">
-            <span class="sub-title">1. Childhood Tragedy</span>
-            <p class="content-text">Born in territories ruled by hyenas. His mother was Lily, his father the demon Agares. Agares tried to kill him, but Rometto was saved and raised by ancient shamans who taught him magic. He eventually defeated his father, trapping him in stone.</p>
+            <span class="sub-title">1. Childhood Tragedy and Shamanic Legacy</span>
+            <p class="content-text">Rometto was born in the harsh Outlands, ruled by hyenas. His mother was Lily the lioness, and his father was the cruel demon Agares. Discovering a spark of his power in his son, Agares tried to destroy him by throwing him off a cliff into a gorge. Rometto survived thanks to the intervention of shamans of an ancient cult, who became his new family and taught him magic. Later, Rometto faced his father in battle. He managed to seal his father into a stone, which later disappeared without a trace. The price of victory was a severe injury to his right paw.</p>
         </div>
 
         <div class="sub-section">
-            <span class="sub-title">2. The Empire of Dalor</span>
-            <p class="content-text">As the right hand of great kings, he became a legendary warrior and shaman. Believing in the legend of the Golden Lion, he built his own legacy. After betrayals led to the death of his friends and the fall of the empire, Rometto burned its ruins to the ground in a fit of rage.</p>
+            <span class="sub-title">2. Golden Age and the Fall of Dalor</span>
+            <p class="content-text">In the great empire of Dalor, Rometto became a legend. As the right hand of the great kings Jax, Munol, and August I, he earned fame as a fearless warrior and wise shaman. Since childhood, Rometto believed in the legend of the Golden Lion, but that lion had died long ago. In this pride, he was the first to bring a hyena — his loyal friend Charlie. However, betrayals led to the death of his friends. Due to an external will that enslaved his demonic power, Rometto was cursed, and his eyes turned black. After the fall of the empire, he burned its ruins to the ground in a fit of rage.</p>
         </div>
 
         <div class="sub-section">
-            <span class="sub-title">3. War with the Heavens</span>
-            <p class="content-text">In his 16th life, the gods bound him in celestial chains out of fear. His rage allowed him to break free and declare war on the heavens. His daughter survives today but reproaches him for his absence during her darkest hours.</p>
+            <span class="sub-title">3. War with the Gods and the Burden of the Past</span>
+            <p class="content-text">In his 16th reincarnation, Rometto founded his own pride, "Reverse Time," but the gods, fearing his power, bound him with heavenly chains. For years, he watched the suffering of his children from the heavens until his rage gave him the strength to break the shackles. Rometto declared war on the heavens and crushed many celestial beings. This tragedy left a mark: his daughter is alive. She carries his blood and recognizes him, but constantly reproaches her father for not being there in her hour of need.</p>
         </div>
 
-        <div class="section-title">✦ BIOLOGY AND HUNTING</div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div class="bg-black/30 p-4 rounded-lg border border-zinc-800 text-sm">
-                <span class="text-orange-500 font-bold block">INFRASONIC ROAR</span>
-                Paralyzes victims within 50 meters via 10Hz waves.
-            </div>
-            <div class="bg-black/30 p-4 rounded-lg border border-zinc-800 text-sm">
-                <span class="text-orange-500 font-bold block">INERTIAL CHARGE</span>
-                9.2 tons moving at 50 km/h. Obstacles simply deform.
-            </div>
-            <div class="bg-black/30 p-4 rounded-lg border border-zinc-800 text-sm">
-                <span class="text-orange-500 font-bold block">GRAVITATIONAL CRUSH</span>
-                Landing force of 30–40 tons on a 70cm wide paw.
-            </div>
+        <div class="section-title">✦ INNER CIRCLE</div>
+        <div class="content-text space-y-4">
+            <p>Despite his past loneliness, Rometto has surrounded himself with loyal allies:</p>
+            <ul class="space-y-2 pl-4 list-disc marker:text-orange-500">
+                <li><span class="highlight">Kristalna:</span> The only lioness with whom he shares a strong, pure friendship.</li>
+                <li><span class="highlight">Walter:</span> A lion who has become almost a blood brother to Rometto.</li>
+                <li><span class="highlight">Richard:</span> Rometto's adopted son.</li>
+                <li><span class="highlight">Phil and Bess:</span> Loyal friends, always ready to support.</li>
+            </ul>
         </div>
 
         <div class="rp-invitation">
-            You can also become a part of his great story, as I include all the events that happened to him in RP here, provided they are interesting and do not contradict the canon. To do this, contact me and we will discuss RP details and the plot. I love to improvise, be ready.
+            You too can become part of his grand story, as I include all events that happened with him in RP here, if they are interesting and do not contradict the canon. To do this, contact me; we will discuss RP details and the plot.
         </div>
 
         <div class="section-title">❓ FREQUENTLY ASKED QUESTIONS</div>
         <div id="faq">
             <div class="faq-item">
-                <div class="faq-question">Does he have a growth limit? <span>▼</span></div>
-                <div class="faq-answer">Yes, 417 cm is his current physical peak in this life.</div>
+                <div class="faq-question">Does Rometto have a growth limit? <span>▼</span></div>
+                <div class="faq-answer">Yes, 417 cm is his current limit and the absolute peak of physical development in this life.</div>
             </div>
             <div class="faq-item">
-                <div class="faq-question">What magic does he still have? <span>▼</span></div>
-                <div class="faq-answer">Most was lost in the war. He can read minds but chooses not to out of principle.</div>
+                <div class="faq-question">What magical abilities has he retained? <span>▼</span></div>
+                <div class="faq-answer">Most have been lost. He recovers them gradually. One of the few remaining is mind reading, but he does not use it out of principle.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Can he be defeated? <span>▼</span></div>
+                <div class="faq-answer">Yes, he can. But that is a secret known only to three living beings in all worlds.</div>
             </div>
         </div>
 
         <div class="footer-btn-container">
-            <a href="/" class="btn-home">
-                <span class="paw-icon">🐾</span> RETURN TO THE LAIR
+            <a href="/" class="btn-home-lair">
+                <span>🐾</span> RETURN TO THE LAIR
             </a>
         </div>
     </div>
@@ -356,21 +405,12 @@
         <div class="mt-2">Contact: <a href="https://t.me/mr_Rometto" target="_blank" class="text-orange-500 hover:underline">@mr_Rometto</a></div>
     </footer>
 
-    <button id="scrollUp" title="Scroll Up">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    <button id="scrollUp" title="Scroll to Top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
     </button>
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
-
-        // FAQ logic
-        document.querySelectorAll('.faq-question').forEach(q => {
-            q.addEventListener('click', () => {
-                q.parentElement.classList.toggle('active');
-            });
-        });
-
-        // Scroll Logic
         const scrollBtn = document.getElementById('scrollUp');
         window.onscroll = () => {
             if (window.scrollY > 500) scrollBtn.classList.add('show');
@@ -378,7 +418,15 @@
         };
         scrollBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
-        // Spark Canvas Logic
+        // FAQ Logic
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Sparks falling DOWN
         const canvas = document.getElementById('sparkCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -395,18 +443,18 @@
             constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
-                this.y = canvas.height + 10;
+                this.y = Math.random() * -canvas.height; // Appear from top
                 this.size = Math.random() * 2 + 0.5;
-                this.speedY = Math.random() * -3 - 1;
-                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 1.5 + 0.5; // Falling speed
+                this.speedX = Math.random() * 1 - 0.5;
                 this.opacity = Math.random() * 0.5 + 0.5;
                 this.color = `rgba(255, ${Math.floor(Math.random() * 150 + 100)}, 0, ${this.opacity})`;
             }
             update() {
                 this.y += this.speedY;
                 this.x += this.speedX;
-                this.opacity -= 0.005;
-                if (this.opacity <= 0 || this.y < -10) this.reset();
+                this.opacity -= 0.001;
+                if (this.opacity <= 0 || this.y > canvas.height) this.reset();
             }
             draw() {
                 ctx.fillStyle = this.color;
@@ -421,29 +469,16 @@
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             if (sparksEnabled) {
-                particles.forEach(p => {
-                    p.update();
-                    p.draw();
-                });
+                particles.forEach(p => { p.update(); p.draw(); });
             }
             requestAnimationFrame(animate);
         }
         animate();
 
-        // Toggle Sparks Button
         const toggleBtn = document.getElementById('toggleSparks');
-        const sparkText = document.getElementById('sparkText');
-        const sparkIcon = document.getElementById('sparkIcon');
-
         toggleBtn.onclick = () => {
             sparksEnabled = !sparksEnabled;
-            if (sparksEnabled) {
-                sparkText.innerText = "Disable sparks";
-                sparkIcon.innerText = "✦";
-            } else {
-                sparkText.innerText = "Enable sparks";
-                sparkIcon.innerText = "✧";
-            }
+            toggleBtn.innerText = sparksEnabled ? "Disable Sparks" : "Enable Sparks";
         };
     </script>
 </body>
