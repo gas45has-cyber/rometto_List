@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лор и кртакая биография</title>
+    <title>РОМЕТТО: ЛОР И БИОГРАФИЯ</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -19,9 +20,23 @@
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
             overflow-x: hidden;
+            margin: 0;
+        }
+
+        /* Canvas для искр */
+        #sparkCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .main-container {
+            position: relative;
+            z-index: 10;
             max-width: 900px;
             margin: 60px auto;
             background: var(--card-bg);
@@ -93,35 +108,50 @@
             top: 20px;
             right: 40px;
             display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .lang-hint {
-            color: #666;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: 600;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            z-index: 100;
         }
 
         .btn-lang {
-            background: var(--accent-orange);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-weight: 800;
+            background: transparent;
+            color: var(--accent-orange);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-weight: 700;
             font-size: 0.9rem;
             text-decoration: none;
-            box-shadow: 0 0 15px rgba(255, 123, 0, 0.3);
+            border: 1px solid var(--accent-orange);
+            transition: all 0.3s;
         }
 
-        /* Scroll Up Button - Styled after the screenshot */
+        .btn-lang:hover {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .btn-sparks {
+            background: rgba(255, 123, 0, 0.1);
+            color: var(--accent-orange);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: 1px solid var(--accent-orange);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Scroll Up Button */
         #scrollUp {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 65px;
-            height: 65px;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
             background-color: var(--accent-orange);
             border-radius: 50%;
             display: flex;
@@ -129,8 +159,8 @@
             justify-content: center;
             cursor: pointer;
             border: none;
-            box-shadow: 0 0 25px rgba(255, 123, 0, 0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 20px rgba(255, 123, 0, 0.4);
+            transition: all 0.3s;
             opacity: 0;
             visibility: hidden;
             z-index: 1000;
@@ -141,34 +171,11 @@
             visibility: visible;
         }
 
-        #scrollUp:hover {
-            box-shadow: 0 0 35px rgba(255, 123, 0, 0.6);
-            transform: translateY(-5px);
-        }
-
-        #scrollUp .arrow {
-            width: 2px;
-            height: 25px;
-            background: black;
-            position: relative;
-        }
-
-        #scrollUp .arrow::before {
-            contt: '';
-            position: absolute;
-            top: 0;
-            left: -6px;
-            width: 8px;
-            height: 8px;
-            border-left: 2px solid black;
-            border-top: 2px solid black;
-            transform: rotate(45deg);
-        }
-
-        /* Footer Button - Styled after the screshot */
+        /* Footer Button Block */
         .footer-btn-container {
             display: flex;
-            justify-contt: cter;
+            flex-direction: column;
+            align-items: center;
             margin-top: 50px;
             padding-top: 30px;
             border-top: 1px solid #222;
@@ -176,29 +183,22 @@
 
         .btn-home {
             display: inline-flex;
-            align-items: cter;
+            align-items: center;
             gap: 12px;
-            padding: 12px 35px;
-            border: 1px solid var(--acct-orange);
-            color: var(--acct-orange);
+            padding: 14px 40px;
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
             text-transform: uppercase;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             border-radius: 8px;
             text-decoration: none;
             transition: all 0.3s;
-            background: transpart;
-            letter-spacing: 1px;
+            background: transparent;
         }
 
         .btn-home:hover {
             background: rgba(255, 123, 0, 0.1);
-            box-shadow: 0 0 20px rgba(255, 123, 0, 0.2);
-            transform: scale(1.02);
-        }
-
-        .paw-icon {
-            font-size: 1.2rem;
         }
 
         /* FAQ Styling */
@@ -213,189 +213,219 @@
             padding: 18px 24px;
             cursor: pointer;
             display: flex;
-            justify-contt: space-betwe;
-            align-items: cter;
+            justify-content: space-between;
+            align-items: center;
             font-weight: 600;
-            transition: color 0.3s;
         }
 
         .faq-answer {
             padding: 0 24px;
             max-height: 0;
-            overflow: hidd;
+            overflow: hidden;
             transition: all 0.4s ease;
             color: #aaa;
-            font-size: 1rem;
         }
 
         .faq-item.active .faq-answer {
             padding-bottom: 20px;
-            max-height: 800px;
+            max-height: 500px;
         }
 
-        .faq-item.active .faq-question {
-            color: var(--acct-orange);
+        .site-footer {
+            margin-top: 60px;
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid #222;
+            color: #666;
+            font-size: 0.9rem;
+            background: #050505;
+            position: relative;
+            z-index: 10;
         }
 
-        .glow-effect {
-            animation: glow 0.5s ease-out;
-        }
-
-        @keyframes glow {
-            0% { box-shadow: 0 0 0 0 rgba(255, 123, 0, 0.8); }
-            100% { box-shadow: 0 0 40px 20px rgba(255, 123, 0, 0); }
-        }
-
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             .main-container { padding: 25px; margin: 15px; }
-            .top-nav { position: relative; top: 0; right: 0; justify-contt: cter; margin-bottom: 20px; }
+            .top-nav { position: relative; top: 0; right: 0; align-items: center; margin-bottom: 30px; padding: 20px; }
+            h1 { font-size: 1.5rem; }
+            .btn-home { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
 
+    <canvas id="sparkCanvas"></canvas>
+
     <div class="top-nav">
-        <span class="lang-hint">Translation button works here →</span>
-        <a href="/biographics_en" class="btn-lang"></a>
+        <a href="/biographics class="btn-lang">EN</a>
+        <button id="toggleSparks" class="btn-sparks">
+            <span id="sparkIcon">✦</span> <span id="sparkText">Отключить искры</span>
+        </button>
     </div>
 
     <div class="main-container">
-        <h1>Лор и Биография</h1>
+        <h1> ЛОР И БИОГРАФИЯ</h1>
 
-        <!-- ОБЩАЯ ИНФОРМАЦИЯ -->
         <div class="section-title">✦ ОБЩАЯ ИНФОРМАЦИЯ</div>
-        <div class="contt-text space-y-2">
+        <div class="content-text space-y-2">
             <p><span class="highlight">Имя:</span> Рометто.</p>
-            <p><span class="highlight">Раса:</span> Феральный лев-полудемон.</p>
-            <p><span class="highlight">Текущий статус:</span> Странник, обретающий покой в новом доме.</p>
-            <p><span class="highlight">Особенности:</span> Рост 417 см, вес от 9.2 до 15 тонн. Исполинское, мощное телосложение (лапа шириной 70 см). Белки глаз чистые (чернеют только в моменты проявления демонической формы).</p>
+            <p><span class="highlight">Раса:</span> Ферал-лев, полудемон.</p>
+            <p><span class="highlight">Текущий статус:</span> Странник, нашедший покой в новом доме.</p>
+            <p><span class="highlight">Особенности:</span> Рост 417 см, вес от 9.2 до 15 тонн. Колоссальное, мощное телосложение (ширина лапы 70 см). Склеры глаз чистые (чернеют только при проявлении демонической формы).</p>
         </div>
 
-        <!-- КРОВЬ И ПАМЯТЬ -->
         <div class="section-title">✦ КРОВЬ И ПАМЯТЬ: МЕХАНИКА БЕССМЕРТИЯ</div>
-        <div class="contt-text space-y-4">
-            <p>Рометто обладает уникальным даром возрождения благодаря крови своего отца-демона. После каждой смерти он возвращается в мир маленьким львёнком в случайном месте. Его взросление ускорено.</p>
-            <p>В подростковом возрасте к нему начинает возвращаться память. Этот процесс происходит вспышками и порой невероятно мучительно — как внезапный удар током в несколько вольт. Это заставляет его раз за разом переживать прошлые трагедии и вновь искать свой путь и тех, кто ему дорог. На данный момент Рометто проживает свою <span class="highlight">19-ю жизнь</span>. Именно в этом воплощении его тело достигло своего истинного величия и колоссальных размеров естественным путем, став абсолютной вершиной его физического развития.</p>
+        <div class="content-text space-y-4">
+            <p>Рометто обладает уникальным даром перерождения благодаря крови своего отца-демона. После каждой гибели он возвращается в мир маленьким львёнком в случайном месте. Его рост ускорен.</p>
+            <p>В подростковом возрасте к нему начинает возвращаться память. Этот процесс происходит вспышками и бывает невероятно болезненным — как внезапный удар током высокого напряжения. Это заставляет его раз за разом проживать прошлые трагедии и заново искать свой путь и близких. Сейчас Рометто проживает свою <span class="highlight">19-ю жизнь</span>. Именно в этом воплощении его тело достигло истинного величия и колоссальных размеров естественным путем.</p>
         </div>
 
-        <!-- ИСТОРИЯ ЖИЗНИ -->
         <div class="section-title">✦ ИСТОРИЯ ЖИЗНИ</div>
         
         <div class="sub-section">
             <span class="sub-title">1. Трагедия детства и наследие шаманов</span>
-            <p class="content-text">Рометто родился в суровых землях в чужеземье, где правили гиены. Его матерью была львица Лили, а отцом — жестокий демон Агарес. Обнаружив у сына искру своей силы, Агарес попытался уничтожить его, сбросив со скал в ущелье. Рометто выжил благодаря вмешательству шаманов древнего культа, которые стали его новой семьёй и обучили магии. Позже Рометто вступил со своим отцом в схватку. Ему удалось заточить отца в камень, который позже бесследно исчез. Цена победы — тяжелая травма правой лапы.</p>
+            <p class="content-text">Рометто родился в суровых землях чужеземья, где правили гиены. Его матерью была львица Лили, а отцом — жестокий демон Агарес. Обнаружив в сыне искру своей силы, Агарес попытался уничтожить его, сбросив со скалы в ущелье. Рометто выжил благодаря вмешательству шаманов древнего культа, которые стали его новой семьей и обучили магии. Позже Рометто сошелся с отцом в схватке. Ему удалось заточить отца в камень, который позже бесследно исчез. Ценой победы стала тяжелая травма правой лапы.</p>
         </div>
 
         <div class="sub-section">
-            <span class="sub-title">2. Золотой век и Падение Далора</span>
-            <p class="content-text">В великой империи Dalor Рометто стал легендой. Будучи правой рукой великих королей Джакса, Мунола и Августа I, он прославился как бесстрашный воин и мудрый шаман. Рометто с детства верил в легенду о Золотом Льве, но тот лев давно умер. В этом прайде он первым привёл гиену — своего верного друга Чарли. Однако предательства привели к гибели его друзей. Из-за чужой воли, поработившей его демоническую силу, Рометто был проклят, а его глаза почернели. После падения империи он в гневе сжёг её руины дотла.</p>
+            <span class="sub-title">2. Золотой век и падение Далора</span>
+            <p class="content-text">В великой империи Далор Рометто стал легендой. Будучи правой рукой великих королей Джакса, Мунола и Августа I, он снискал славу бесстрашного воина и мудрого шамана. С детства Рометто верил в легенду о Золотом Льве, но тот лев давно умер. В этом прайде он первым привел гиену — своего верного друга Чарли. Однако предательства привели к гибели друзей. Из-за чужой воли, поработившей его демоническую мощь, Рометто был проклят, а его глаза стали черными. После падения империи он в ярости сжег её руины до основания.</p>
         </div>
 
         <div class="sub-section">
-            <span class="sub-title">3. Война с Богами и Бремя прошлого</span>
-            <p class="content-text">В 16-м перерождении Рометто основал собственный прайд Reverse Time, но боги, испугавшись его мощи, заковали его в небесные цепи. Годы он наблюдал за страданиями своих детей с небес, пока ярость не дала ему силы разорвать оковы. Рометто объявил войну небесам и сокрушил множество божеств. Эта трагедия оставила след: его дочь жива. Она носит его кровь и признает его, но постоянно упрекает отца за то, что его не было рядом в трудную минуту.</p>
+            <span class="sub-title">3. Война с богами и бремя прошлого</span>
+            <p class="content-text">В своей 16-й реинкарнации Рометто основал собственный прайд "Обратное время", но боги, испугавшись его силы, сковали его небесными цепями. Годами он наблюдал за страданиями своих детей с небес, пока ярость не дала ему сил разорвать оковы. Рометто объявил войну небесам и сокрушил многих небожителей. Эта трагедия оставила след: его дочь жива. Она несет его кровь и признает его, но постоянно упрекает отца за то, что его не было рядом в трудный час.</p>
         </div>
 
-        <!-- БЛИЗКИЙ КРУГ -->
-        <div class="section-title">✦ БЛИЗКИЙ КРУГ И ДРУЗЬЯ</div>
+        <div class="section-title">✦ БЛИЖАЙШЕЕ ОКРУЖЕНИЕ</div>
         <div class="content-text space-y-4">
-            <p>Несмотря на прошлое одиночество, Рометто окружил себя преданными союзниками:</p>
-            <ul class="space-y-3 pl-2">
-                <li><span class="highlight">Кристаллна:</span> Единственная львица, с которой его связывает именно крепкая, чистая дружба. В прошлом между ними были сексуальные отношения, но они остались лучшими друзьями. Оба твёрдо убеждены, что сексом настоящую дружбу невозможно испортить.</li>
-                <li><span class="highlight">Валтер:</span> Лев, который стал для Рометто почти как родной брат.</li>
-                <li><span class="highlight">Ричард:</span> Приёмный сын Рометто.</li>
-                <li><span class="highlight">Филл и Бесс:</span> Верные друзья, лев и львица, всегда готовые поддержать.</li>
-                <li><span class="highlight">Батет:</span> Подруга-львица, которая на данный момент считается пропавшей.</li>
+            <p>Несмотря на прошлое одиночество, Рометто окружил себя верными союзниками:</p>
+            <ul class="space-y-2 pl-4 list-disc marker:text-orange-500">
+                <li><span class="highlight">Кристальна:</span> Единственная львица, с которой его связывает крепкая чистая дружба.</li>
+                <li><span class="highlight">Уолтер:</span> Лев, ставший Рометто почти кровным братом.</li>
+                <li><span class="highlight">Ричард:</span> Приемный сын Рометто.</li>
+                <li><span class="highlight">Фил и Бесс:</span> Преданные друзья, всегда готовые поддержать.</li>
             </ul>
         </div>
 
-        <!-- БИОЛОГИЯ -->
-        <div class="section-title">✦ БИОЛОГИЯ И ОХОТА: ФИЗИКА ИСТРЕБЛЕНИЯ</div>
-        <div class="content-text space-y-6">
-            <p>Охота Рометто — это не погоня, а фатальное столкновение колоссальной массы с пространством.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">I. ИНФРАЗВУКОВОЙ РОКОТ</span>
-                    <p class="text-sm">Генерирует волны ниже 10 Гц. Резонанс вызывает у жертв паралич воли и ужас в радиусе 50 метров.</p>
-                </div>
-                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">II. ИНЕРЦИОННЫЙ РЫВОК</span>
-                    <p class="text-sm">При массе 9.2т развивает 50 км/ч. Любое препятствие (деревья, броня) просто деформируется.</p>
-                </div>
-                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">III. ГРАВИТАЦИОННЫЙ КРАШ</span>
-                    <p class="text-sm">Приземление генерирует усилие 30–40 тонн. Рометто просто переносит вес на переднюю лапу шириной 70 см.</p>
-                </div>
-            </div>
-            <p class="text-sm text-zinc-500 italic text-center">Сила укуса в 24 000 PSI используется крайне редко из-за неудобства габаритов.</p>
-        </div>
-
-        <!-- НОВАЯ ГЛАВА -->
-        <div class="section-title">✦ НОВАЯ ГЛАВА: БЫТ И СИЛА ЛЮБВИ</div>
-        <div class="content-text space-y-4">
-            <p><span class="highlight">Птицы-хранители:</span> Служат его глазами и ушами. Они обрели бессмертие, выпив его демоническую кровь.</p>
-            <p><span class="highlight">Живая грелка:</span> Рометто очень горячий. Все члены прайда спят вместе с ним в одной пещере, используя его как огромную живую грелку.</p>
-            <p><span class="highlight">Исцеление:</span> Встретив львицу с прекрасным рыжим окрасом и искренне полюбив её, Рометто обрёл исцеление. Под чарами истинной любви его старая травма прошла: он просто однажды встал и понял, что ничего не болит.</p>
-        </div>
-
-        <!-- FAQ -->
         <div class="section-title">❓ ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ</div>
         <div id="faq">
             <div class="faq-item">
-                <div class="faq-question">Есть ли у Рометто предел роста в будущих жизнях? <span>▼</span></div>
-                <div class="faq-answer">Текущие 417 см считаются биологическим пиком его вида. Однако в каждой жизни размеры могут варьироваться в зависимости от условий взросления и магического фона.</div>
+                <div class="faq-question">Есть ли у Рометто предел роста? <span>▼</span></div>
+                <div class="faq-answer">Да, 417 см — это его текущий предел и абсолютная вершина физического развития в этой жизни.</div>
             </div>
             <div class="faq-item">
-                <div class="faq-question">Как птицы-хранители общаются с ним на расстоянии? <span>▼</span></div>
-                <div class="faq-answer">После поглощения крови между Рометто и птицами установилась ментальная связь. Он не просто слышит их, он может «переключаться» на их зрение, видя мир с высоты птичьего полета.</div>
+                <div class="faq-question">Какие магические способности он сохранил? <span>▼</span></div>
+                <div class="faq-answer">Большинство утрачено. Он восстанавливает их постепенно. Одно из немногих оставшихся — чтение мыслей, но он им не пользуется из принципа.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Можно ли его победить? <span>▼</span></div>
+                <div class="faq-answer">Да, можно. Но это тайна, которую знают лишь три живых существа во всех мирах.</div>
             </div>
         </div>
 
         <div class="footer-btn-container">
-            <a href="/404" class="btn-home">
-                <span class="paw-icon">🐾</span> ВЕРНУТЬСЯ В ЛОГОВО <span class="paw-icon">🐾</span>
+            <a href="/" class="btn-home">
+                <span class="paw-icon">🐾</span> ВЕРНУТЬСЯ В ЛОГОВО
             </a>
         </div>
-
-        <div class="mt-10 text-center text-xs text-zinc-600">
-            Вы тоже можете стать частью этой истории через РП, если события не противоречат канону.
-        </div>
     </div>
 
-    <!-- Scroll Up Button -->
-    <div id="scrollUp" title="Наверх">
-        <div class="arrow"></div>
-    </div>
+    <footer class="site-footer">
+        <div>© 2017 — 2024 <strong>Mr. <span class="text-orange-500">Rometto</span></strong>. Все права защищены.</div>
+        <div class="mt-2 text-xs">Связь: <a href="https://t.me/mr_Rometto" target="_blank" class="text-orange-500 hover:underline">@mr_Rometto</a></div>
+    </footer>
+
+    <button id="scrollUp" title="Наверх">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
 
     <script>
-        // FAQ logic
+        //faq
         document.querySelectorAll('.faq-question').forEach(q => {
             q.addEventListener('click', () => {
-                const item = q.parentElement;
-                item.classList.toggle('active');
+                q.parentElement.classList.toggle('active');
             });
         });
 
-        // Scroll Logic
+        //scroll
         const scrollBtn = document.getElementById('scrollUp');
-        window.onscroll = function() {
-            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
-                scrollBtn.classList.add('show');
+        window.onscroll = () => {
+            if (window.scrollY > 500) scrollBtn.classList.add('show');
+            else scrollBtn.classList.remove('show');
+        };
+        scrollBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+
+        // Искры (Particles)
+        const canvas = document.getElementById('sparkCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let sparksEnabled = true;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 10;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedY = Math.random() * -3 - 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.opacity = Math.random() * 0.5 + 0.5;
+                this.color = `rgba(255, ${Math.floor(Math.random() * 150 + 100)}, 0, ${this.opacity})`;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.opacity -= 0.005;
+                if (this.opacity <= 0 || this.y < -10) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 50; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (sparksEnabled) {
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Кнопка отключения искр
+        const toggleBtn = document.getElementById('toggleSparks');
+        const sparkText = document.getElementById('sparkText');
+        const sparkIcon = document.getElementById('sparkIcon');
+
+        toggleBtn.onclick = () => {
+            sparksEnabled = !sparksEnabled;
+            if (sparksEnabled) {
+                sparkText.innerText = "Отключить искры";
+                sparkIcon.innerText = "✦";
+                canvas.style.display = "block";
             } else {
-                scrollBtn.classList.remove('show');
+                sparkText.innerText = "Включить искры";
+                sparkIcon.innerText = "✧";
+                canvas.style.display = "none";
             }
         };
-
-        scrollBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            // Glow effect animation
-            scrollBtn.classList.add('glow-effect');
-            setTimeout(() => {
-                scrollBtn.classList.remove('glow-effect');
-            }, 500);
-        });
     </script>
 </body>
-</html> 
+</html>
