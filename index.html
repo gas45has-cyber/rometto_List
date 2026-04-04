@@ -387,25 +387,36 @@
             background: #111; border: 1px solid #333;
             border-radius: 12px; padding: 30px; box-sizing: border-box;
         }
+        .calc-category-title {
+            color: #e67e22; font-weight: bold; font-size: 12px;
+            text-transform: uppercase; letter-spacing: 1.5px;
+            margin: 28px 0 14px; padding: 7px 14px;
+            border-left: 3px solid #e67e22;
+            background: rgba(230,126,34,0.06);
+            border-radius: 0 6px 6px 0;
+        }
         .calc-inputs {
             display: grid; grid-template-columns: 1fr 1fr;
-            gap: 16px; margin-bottom: 24px;
+            gap: 14px; margin-bottom: 4px;
         }
         @media(max-width:600px){ .calc-inputs { grid-template-columns: 1fr; } }
         .calc-field label {
-            display: block; color: #e67e22; font-size: 12px;
+            display: block; color: #999; font-size: 11px;
             font-weight: bold; text-transform: uppercase;
-            margin-bottom: 6px; letter-spacing: 0.5px;
+            margin-bottom: 5px; letter-spacing: 0.5px;
         }
         .calc-field input {
             width: 100%; box-sizing: border-box;
-            background: #1a1a1a; border: 1px solid #444; color: #d2b48c;
-            padding: 10px 14px; border-radius: 6px; font-size: 15px;
-            outline: none; transition: border-color 0.2s;
+            background: #1a1a1a; border: 1px solid #2a2a2a; color: #d2b48c;
+            padding: 10px 14px; border-radius: 6px; font-size: 14px;
+            outline: none; transition: border-color 0.2s, box-shadow 0.2s;
         }
-        .calc-field input:focus { border-color: #e67e22; }
+        .calc-field input:focus {
+            border-color: #e67e22;
+            box-shadow: 0 0 8px rgba(230,126,34,0.2);
+        }
         .calc-btn-run {
-            width: 100%; padding: 14px;
+            width: 100%; padding: 15px; margin-top: 24px;
             background: linear-gradient(135deg, #e67e22, #c0392b);
             border: none; color: #fff; font-size: 15px;
             font-weight: bold; text-transform: uppercase;
@@ -413,47 +424,60 @@
             letter-spacing: 1px; transition: 0.2s ease;
             box-shadow: 0 4px 15px rgba(230,126,34,0.3);
         }
-        .calc-btn-run:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(230,126,34,0.5); }
-        #calc-results { margin-top: 28px; display: none; }
+        .calc-btn-run:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(230,126,34,0.55); }
+        #calc-results { margin-top: 30px; }
         .calc-result-row {
-            display: flex; align-items: center; gap: 12px;
-            margin-bottom: 18px;
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 4px;
         }
         .calc-result-label {
-            width: 120px; flex-shrink: 0;
-            color: #aaa; font-size: 13px; text-transform: uppercase;
+            width: 145px; flex-shrink: 0;
+            color: #aaa; font-size: 11px; text-transform: uppercase; letter-spacing: 0.3px;
         }
         .calc-bar-wrap {
-            flex: 1; background: #1a1a1a; border-radius: 6px;
-            height: 28px; position: relative; overflow: hidden;
+            flex: 1; background: #1a1a1a; border-radius: 5px;
+            height: 24px; position: relative; overflow: hidden;
         }
         .calc-bar-you {
-            height: 100%; background: #3a86ff;
-            border-radius: 6px; transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+            height: 100%; background: linear-gradient(90deg, #3a86ff, #5b9fff);
+            border-radius: 5px; transition: width 0.9s cubic-bezier(0.4,0,0.2,1);
             display: flex; align-items: center; padding-left: 8px;
-            font-size: 11px; font-weight: bold; color: #fff;
+            font-size: 10px; font-weight: bold; color: #fff;
             white-space: nowrap; min-width: 2px;
         }
         .calc-bar-rometto-line {
             position: absolute; right: 0; top: 0; bottom: 0;
             width: 3px; background: #e67e22;
-        }
-        .calc-bar-rometto-line::after {
-            content: attr(data-label);
-            position: absolute; right: 6px; top: 50%;
-            transform: translateY(-50%);
-            font-size: 10px; color: #e67e22; font-weight: bold;
-            white-space: nowrap;
+            box-shadow: 0 0 6px rgba(230,126,34,0.8);
         }
         .calc-multiplier {
-            width: 90px; flex-shrink: 0; text-align: right;
-            color: #e67e22; font-weight: bold; font-size: 14px;
+            width: 55px; flex-shrink: 0; text-align: right;
+            color: #e67e22; font-weight: bold; font-size: 13px;
+        }
+        .calc-comment {
+            font-size: 12px; font-style: italic;
+            margin: 2px 0 14px 155px; line-height: 1.4; padding: 5px 10px;
+            border-radius: 4px;
+        }
+        .calc-comment.roast   { color: #e74c3c; background: rgba(231,76,60,0.07); }
+        .calc-comment.neutral { color: #888;    background: rgba(255,255,255,0.03); }
+        .calc-comment.respect { color: #2ecc71; background: rgba(46,204,113,0.07); }
+        .calc-divider {
+            border: none; border-top: 1px solid #222;
+            margin: 20px 0;
         }
         .calc-verdict {
-            margin-top: 20px; padding: 16px 20px;
+            margin-top: 20px; padding: 18px 22px;
             background: rgba(230,126,34,0.08);
             border-left: 3px solid #e67e22; border-radius: 0 8px 8px 0;
-            color: #d2b48c; font-style: italic; font-size: 14px; line-height: 1.6;
+            color: #d2b48c; font-style: italic; font-size: 14px; line-height: 1.7;
+        }
+        .calc-proofs {
+            margin-top: 18px; padding: 14px 18px;
+            background: rgba(192,57,43,0.08);
+            border: 1px dashed #c0392b; border-radius: 8px;
+            color: #e74c3c; font-size: 13px; text-align: center;
+            display: none;
         }
 
         /* === FAQ === */
@@ -570,28 +594,6 @@
         #lb-tooltip .tip-row span:first-child { color: #aaa; }
         #lb-tooltip .tip-row span:last-child { color: #fff; font-weight: bold; }
     </style>
-<script>
-        // ===== AGE GATE CHECK =====
-        function confirmAge() {
-            localStorage.setItem("ageConfirmed", "true");
-            var gate = document.getElementById("age-gate");
-            if (gate) gate.style.display = "none";
-            document.body.classList.remove("no-scroll");
-            document.body.style.overflow = "";
-            if (typeof startMusic === "function") startMusic();
-        }
-        document.addEventListener("DOMContentLoaded", function() {
-            var gate = document.getElementById("age-gate");
-            if (!gate) return;
-            if (localStorage.getItem("ageConfirmed") === "true") {
-                gate.style.display = "none";
-                document.body.classList.remove("no-scroll");
-                var content = document.getElementById("page-content");
-                if (content) content.style.display = "flex";
-            }
-        });
-        // ===== / AGE GATE CHECK =====
-    </script>
 </head>
 <body class="no-scroll">
     <!-- Age Gate -->
@@ -936,32 +938,74 @@
         <!-- ═══════════════════════════════════════ -->
         <div class="calc-section">
             <h2 class="selectable-text">Калькулятор сравнения с Рометто</h2>
+            <p style="text-align:center;color:#555;font-size:13px;margin-top:-10px;margin-bottom:20px;">Заполни что знаешь — остальное пропусти</p>
             <div class="calc-box">
+
+                <div class="calc-category-title">📏 Физические параметры</div>
                 <div class="calc-inputs">
                     <div class="calc-field">
-                        <label>Твой рост (см)</label>
-                        <input type="number" id="calc-height" placeholder="например, 175" min="50" max="300">
+                        <label>Рост (см)</label>
+                        <input type="number" id="calc-height" placeholder="например, 175" min="1" max="500">
                     </div>
                     <div class="calc-field">
-                        <label>Твой вес (кг)</label>
-                        <input type="number" id="calc-weight" placeholder="например, 70" min="1" max="500">
+                        <label>Вес (кг)</label>
+                        <input type="number" id="calc-weight" placeholder="например, 70" min="1" max="2000">
                     </div>
                     <div class="calc-field">
-                        <label>Твоя сила укуса (PSI)</label>
-                        <input type="number" id="calc-bite" placeholder="человек ≈ 160 PSI" min="1" max="5000">
+                        <label>Вес одной лапы/руки (кг)</label>
+                        <input type="number" id="calc-pawweight" placeholder="рука ≈ 4 кг" min="0.1" max="500" step="0.1">
                     </div>
                     <div class="calc-field">
-                        <label>Твоя макс. скорость (км/ч)</label>
-                        <input type="number" id="calc-speed" placeholder="средний спринт ≈ 25" min="1" max="200">
+                        <label>Объём лёгких (л)</label>
+                        <input type="number" id="calc-lungs" placeholder="человек ≈ 6 л" min="0.1" max="100" step="0.1">
+                    </div>
+                    <div class="calc-field">
+                        <label>Громкость крика (dB)</label>
+                        <input type="number" id="calc-db" placeholder="человек ≈ 88 dB" min="1" max="300">
                     </div>
                 </div>
+
+                <div class="calc-category-title">⚡ Боевые параметры</div>
+                <div class="calc-inputs">
+                    <div class="calc-field">
+                        <label>Сила укуса (PSI)</label>
+                        <input type="number" id="calc-bite" placeholder="человек ≈ 160 PSI" min="1" max="100000">
+                    </div>
+                    <div class="calc-field">
+                        <label>Сила удара лапой/рукой (кг)</label>
+                        <input type="number" id="calc-punch" placeholder="человек ≈ 50 кг" min="1" max="100000">
+                    </div>
+                    <div class="calc-field">
+                        <label>Макс. скорость (км/ч)</label>
+                        <input type="number" id="calc-speed" placeholder="спринт ≈ 25" min="1" max="1000">
+                    </div>
+                    <div class="calc-field">
+                        <label>Прыжок в высоту (м)</label>
+                        <input type="number" id="calc-jump-h" placeholder="человек ≈ 0.5 м" min="0.01" max="100" step="0.01">
+                    </div>
+                    <div class="calc-field">
+                        <label>Прыжок в длину (м)</label>
+                        <input type="number" id="calc-jump-l" placeholder="человек ≈ 2.5 м" min="0.01" max="200" step="0.01">
+                    </div>
+                </div>
+
+                <div class="calc-category-title">🔞 Анатомия (по желанию)</div>
+                <div class="calc-inputs">
+                    <div class="calc-field">
+                        <label>Длина пениса (см)</label>
+                        <input type="number" id="calc-penis" placeholder="среднее ≈ 13 см" min="0.1" max="200" step="0.1">
+                    </div>
+                    <div class="calc-field">
+                        <label>Диаметр яиц (см)</label>
+                        <input type="number" id="calc-balls" placeholder="среднее ≈ 4 см" min="0.1" max="100" step="0.1">
+                    </div>
+                </div>
+
                 <button class="calc-btn-run" onclick="runCalc()">🦁 Сравнить с Рометто</button>
-                <div id="calc-results">
-                    <div class="calc-result-row" id="cr-height"></div>
-                    <div class="calc-result-row" id="cr-weight"></div>
-                    <div class="calc-result-row" id="cr-bite"></div>
-                    <div class="calc-result-row" id="cr-speed"></div>
-                    <div class="calc-verdict" id="calc-verdict"></div>
+                <div id="calc-results"></div>
+                <div class="calc-proofs" id="calc-proofs">
+                    🐾 Жду пруфы в лс и объяснение как такое чудо появилось →
+                    <a href="https://t.me/mr_Rometto" target="_blank" style="color:#e67e22;font-weight:bold;">@mr_Rometto</a>
                 </div>
             </div>
         </div>
@@ -1309,51 +1353,219 @@
         // ══════════════════════════════════════════════
         //  КАЛЬКУЛЯТОР СРАВНЕНИЯ
         // ══════════════════════════════════════════════
-        const ROMETTO = { height: 417, weight: 9200, bite: 24000, speed: 50 };
+
+        // Параметры Рометто
+        const ROMETTO_STATS = {
+            height:    { val: 417,   unit: 'см',   label: 'Рост' },
+            weight:    { val: 9200,  unit: 'кг',   label: 'Вес' },
+            pawweight: { val: 250,   unit: 'кг',   label: 'Вес лапы' },
+            lungs:     { val: 500,   unit: 'л',    label: 'Лёгкие' },
+            db:        { val: 160,   unit: 'dB',   label: 'Крик' },
+            bite:      { val: 24000, unit: 'PSI',  label: 'Укус' },
+            punch:     { val: 20000, unit: 'кг',   label: 'Удар' },
+            speed:     { val: 50,    unit: 'км/ч', label: 'Скорость' },
+            jumpH:     { val: 10,    unit: 'м',    label: 'Прыжок ↑' },
+            jumpL:     { val: 32,    unit: 'м',    label: 'Прыжок →' },
+            penis:     { val: 67,    unit: 'см',   label: 'Пенис' },
+            balls:     { val: 27,    unit: 'см',   label: 'Яйца (диам)' },
+        };
+
+        // Комментарии [мин_множитель, макс_множитель, текст, класс]
+        // множитель = rometto/you, т.е. чем больше — тем меньше у юзера
+        const COMMENTS = {
+            height: [
+                [0,    0.5,  'Ты выше Рометто?! Архитектурное чудо. Достанешь языком до Бурджхалифа? ', 'respect'],
+                [0.5,  0.85, 'Почти дотянулся до середины лапы. Почти.', 'neutral'],
+                [0.85, 1.5,  'Маленький, но гордый.', 'neutral'],
+                [1.5,  3,    'Он бы тебя не заметил под лапой.', 'roast'],
+                [3,    999,  'Ты для него — плюшевая игрушка на полу.', 'roast'],
+            ],
+            weight: [
+                [0,    0.01, 'Ты тяжелее Рометто. Физика в панике.', 'respect'],
+                [0.01, 0.5,  'Ты весишь как его завтрак. Буквально.', 'roast'],
+                [0.5,  2,    'Рометто съедает столько за один присест.', 'roast'],
+                [2,    10,   'Он бы тебя не почувствовал под лапой.', 'roast'],
+                [10,   999,  'Для него ты весишь как пыль.', 'roast'],
+            ],
+            pawweight: [
+                [0,    0.5,  'Твоя рука тяжелее его лапы?! Это противозаконно.Звоню копам биологии', 'respect'],
+                [0.5,  2,    'Неплохо. Его лапа всего в пару раз тяжелее.', 'neutral'],
+                [2,    10,   'Его лапа весит как ты целиком. Уютно?', 'roast'],
+                [10,   999,  'Одна его лапа — это целый ты, умноженный на несколько.', 'roast'],
+            ],
+            lungs: [
+                [0,    0.5,  'У тебя больше объём лёгких? Кит-мутант детектед.', 'respect'],
+                [0.5,  5,    'Ты дышишь как нормальный. Он — как орган в соборе.', 'neutral'],
+                [5,    20,   'Его чих сдует тебя быстрее, чем ты успеешь моргнуть.', 'roast'],
+                [20,   999,  'Он вдыхает больше воздуха за раз, чем ты за сутки.', 'roast'],
+            ],
+            db: [
+                [0,    0.6,  'Ты рычишь громче Рометто?! Так Барт Симпсон, верни громкоговрители на место.', 'respect'],
+                [0.6,  0.9,  'Почти сейсмический уровень. Уважение.', 'respect'],
+                [0.9,  1.2,  'Примерно как отбойный молоток. Но не сравним с рёвом Рометто', 'neutral'],
+                [1.2,  2,    'Его рёв ощущается телом на 30 км. Твой — соседями в стене пока дырки заняты.', 'roast'],
+                [2,    999,  'Твой рык Рометто не услышит даже если ты стоишь рядом.', 'roast'],
+            ],
+            bite: [
+                [0,    0.1,  'Ты кусаешь сильнее Рометто?! Дантист в шоке.', 'respect'],
+                [0.1,  0.5,  'Неплохой укус. Рометто всё равно сильнее в разы.', 'neutral'],
+                [0.5,  2,    'Твой укус — как поатка вонзить платиковый нож в титан', 'roast'],
+                [2,    10,   'Он перекусывает сталь. Ты — максимум сухарь.', 'roast'],
+                [10,   999,  'Разница как между степлером и гидравлическим прессом.', 'roast'],
+            ],
+            punch: [
+                [0,    0.1,  'Ты бьёшь сильнее его лапы?! Ты годзилла?', 'respect'],
+                [0.1,  0.5,  'Крепкий удар. Но удра Рометто как грузовк...твой как сильного медведя .', 'neutral'],
+                [0.5,  5,    'Его лёгкий шлепок оставит от тебя вмятину в асфальте. Ты там живой?У ютно под тёплой лапой?', 'roast'],
+                [5,    50,   'Удар его лапы — это 20 тонн. Я соболезную твоим костям', 'roast'],
+                [50,   999,  'Ты бьёшь как котёнок лапой по клубку ниток.', 'roast'],
+            ],
+            speed: [
+                [0,    0.7,  'Ты быстрее Рометто?! Усэйн Болт нервно курит.', 'respect'],
+                [0.7,  1.1,  'Почти догоняешь. Почти.', 'neutral'],
+                [1.1,  2,    'Он всё равно тебя догонит. Можешь не пытаться убежать', 'roast'],
+                [2,    5,    'Ты бежишь, он идёт — и всё равно настигает и перешагнёт.', 'roast'],
+                [5,    999,  'Ты бы не успел развернуться, как он уже рядом.', 'roast'],
+            ],
+            jumpH: [
+                [0,    0.3,  'Прыгаешь выше Рометто?! Гравитация забыла о тебе.', 'respect'],
+                [0.3,  0.7,  'Неплохо! Его прыжок всего в пару раз выше.', 'neutral'],
+                [0.7,  3,    'Он прыгает на 10 метров. Ты — менньше в несколко раз.', 'roast'],
+                [3,    999,  'Он перепрыгнул бы твой дом. Ты — максимум порог.', 'roast'],
+            ],
+            jumpL: [
+                [0,    0.3,  'В длину дальше Рометто?! Чемпион мира в панике.', 'respect'],
+                [0.3,  0.7,  'Почти треть его прыжка. Неплохо для такого размера.', 'neutral'],
+                [0.7,  3,    'Он прыгает 32 метра. А ты...Главное не плач, возможно спорт против Рометто не твоё.', 'roast'],
+                [3,    10,   'Его один прыжок — это как ты бежишь несколько секунд.', 'roast'],
+                [10,   999,  'Он приземлился бы там, где ты ещё только разгоняешься.', 'roast'],
+            ],
+            penis: [
+                [0,    0.15, 'Ага, так я и поверил. Жду пруфы.', 'respect'],
+                [0.15, 0.3,  'Внушительно для своего вида. Но Рометто всёравно превосходит. не обижайся.', 'neutral'],
+                [0.3,  0.6,  'Почти, но всё ещё нет, твой ножичек не дорос до меча. Бывает когда кузнецу не хватает металла', 'roast'],
+                [0.6,  2,    'Рометто в покое больше твоего максимума. Приятного вечера , 'roast'],
+                [2,    5,    'Что ты собрался делать этой зубочисткой?.', 'roast'],
+                [5,    999,  'Я не врач, я шаман, но мне кажется это диагноз.А что говорят дамы?.', 'roast'],
+            ],
+            balls: [
+                [0,    0.15, 'Больше чем у Рометто?! Как ты вообще ходишь. Надеюсь тебе не больно ходить', 'respect'],
+                [0.15, 0.4,  'Достойно. Но всё равно как грейпфрут.', 'neutral'],
+                [0.4,  1.5,  'Его яйца весят под 20 кг каждое. Твои — чуть поменьше.', 'roast'],
+                [1.5,  5,    'Сравнивать виноградину с помело как-то неловко.', 'roast'],
+                [5,    999,  'Меньше мячиков для тениса. Но ты молодец что измерил.', 'roast'],
+            ],
+        };
+
+        function getComment(key, mult) {
+            const list = COMMENTS[key];
+            if (!list) return ['', 'neutral'];
+            for (const [mn, mx, text, cls] of list) {
+                if (mult >= mn && mult < mx) return [text, cls];
+            }
+            return [list[list.length-1][2], list[list.length-1][3]];
+        }
 
         function runCalc() {
-            const h = parseFloat(document.getElementById('calc-height').value);
-            const w = parseFloat(document.getElementById('calc-weight').value);
-            const b = parseFloat(document.getElementById('calc-bite').value);
-            const s = parseFloat(document.getElementById('calc-speed').value);
+            const vals = {
+                height:    parseFloat(document.getElementById('calc-height').value),
+                weight:    parseFloat(document.getElementById('calc-weight').value),
+                pawweight: parseFloat(document.getElementById('calc-pawweight').value),
+                lungs:     parseFloat(document.getElementById('calc-lungs').value),
+                db:        parseFloat(document.getElementById('calc-db').value),
+                bite:      parseFloat(document.getElementById('calc-bite').value),
+                punch:     parseFloat(document.getElementById('calc-punch').value),
+                speed:     parseFloat(document.getElementById('calc-speed').value),
+                jumpH:     parseFloat(document.getElementById('calc-jump-h').value),
+                jumpL:     parseFloat(document.getElementById('calc-jump-l').value),
+                penis:     parseFloat(document.getElementById('calc-penis').value),
+                balls:     parseFloat(document.getElementById('calc-balls').value),
+            };
 
             const results = document.getElementById('calc-results');
-            results.style.display = 'block';
+            const proofsEl = document.getElementById('calc-proofs');
+            results.innerHTML = '';
 
-            const fields = [
-                { id: 'cr-height', label: 'Рост',        you: h, rom: ROMETTO.height, unit: 'см',   youLabel: h ? h+'см'    : '?' },
-                { id: 'cr-weight', label: 'Вес',         you: w, rom: ROMETTO.weight, unit: 'кг',   youLabel: w ? w+'кг'    : '?' },
-                { id: 'cr-bite',   label: 'Сила укуса',  you: b, rom: ROMETTO.bite,   unit: 'PSI',  youLabel: b ? b+' PSI'  : '?' },
-                { id: 'cr-speed',  label: 'Скорость',    you: s, rom: ROMETTO.speed,   unit: 'км/ч', youLabel: s ? s+' км/ч' : '?' },
+            const groups = [
+                { title: '📏 Физические параметры', keys: ['height','weight','pawweight','lungs','db'] },
+                { title: '⚡ Боевые параметры',      keys: ['bite','punch','speed','jumpH','jumpL'] },
+                { title: '🔞 Анатомия',              keys: ['penis','balls'] },
             ];
 
-            fields.forEach(f => {
-                const el = document.getElementById(f.id);
-                if (!f.you || f.you <= 0) { el.innerHTML = ''; return; }
-                const pct = Math.min((f.you / f.rom) * 100, 100);
-                const mult = (f.rom / f.you).toFixed(1);
-                el.innerHTML = `
-                    <div class="calc-result-label">${f.label}</div>
-                    <div class="calc-bar-wrap">
-                        <div class="calc-bar-you" style="width:${pct}%">${pct > 12 ? f.youLabel : ''}</div>
-                        <div class="calc-bar-rometto-line" data-label="417см / 9.2т / 24000PSI / 50км/ч"></div>
-                    </div>
-                    <div class="calc-multiplier">×${mult}</div>
-                `;
+            let totalMult = 0, totalCount = 0;
+            let cheatDetected = false;
+
+            // Пороги "читерства" — значения выше которых = явная ложь
+            const cheatLimits = {
+                height: 250, weight: 600, pawweight: 50,
+                lungs: 15, db: 130, bite: 2000,
+                punch: 1000, speed: 50, jumpH: 3, jumpL: 12,
+                penis: 35, balls: 10,
+            };
+
+            groups.forEach(group => {
+                const activeKeys = group.keys.filter(k => vals[k] > 0);
+                if (activeKeys.length === 0) return;
+
+                const groupDiv = document.createElement('div');
+                groupDiv.style.cssText = 'margin-bottom:20px;';
+                groupDiv.innerHTML = `<div style="color:#e67e22;font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding:5px 12px;border-left:3px solid #e67e22;background:rgba(230,126,34,0.05);border-radius:0 4px 4px 0;">${group.title}</div>`;
+
+                activeKeys.forEach(key => {
+                    const you = vals[key];
+                    const rom = ROMETTO_STATS[key].val;
+                    const unit = ROMETTO_STATS[key].unit;
+                    const label = ROMETTO_STATS[key].label;
+                    const mult = rom / you;
+                    const pct = Math.min((you / rom) * 100, 100);
+
+                    if (cheatLimits[key] && you > cheatLimits[key]) cheatDetected = true;
+
+                    totalMult += mult;
+                    totalCount++;
+
+                    const [commentText, commentCls] = getComment(key, mult);
+                    const multLabel = mult < 1
+                        ? `<span style="color:#2ecc71">ты в ${(1/mult).toFixed(1)}× сильнее</span>`
+                        : `<span style="color:#e67e22">×${mult.toFixed(1)}</span>`;
+
+                    const youLabel = `${you}${unit}`;
+                    const isCheating = cheatLimits[key] && you > cheatLimits[key];
+
+                    groupDiv.innerHTML += `
+                        <div class="calc-result-row">
+                            <div class="calc-result-label">${label}</div>
+                            <div class="calc-bar-wrap">
+                                <div class="calc-bar-you" style="width:${pct}%">${pct > 15 ? youLabel : ''}</div>
+                                <div class="calc-bar-rometto-line" title="Рометто: ${rom}${unit}"></div>
+                            </div>
+                            <div class="calc-multiplier">${multLabel}</div>
+                        </div>
+                        <div class="calc-comment ${isCheating ? 'roast' : commentCls}">
+                            ${isCheating ? '🤨 Ага, так я и поверил.' : '💬 ' + commentText}
+                        </div>`;
+                });
+
+                results.appendChild(groupDiv);
             });
 
-            // Вердикт
-            const validVals = fields.filter(f => f.you > 0);
-            if (validVals.length === 0) return;
-            const avgMult = validVals.reduce((s, f) => s + f.rom / f.you, 0) / validVals.length;
-            let verdict = '';
-            if (avgMult >= 50)       verdict = `Рометто превосходит тебя в среднем в <strong>${avgMult.toFixed(0)}×</strong>. Ты для него — букашка Даже не жертва — просто, то что он случайно раздавит.`;
-            else if (avgMult >= 20)  verdict = `В среднем разрыв <strong>${avgMult.toFixed(1)}×</strong>. Если Рометто чихнёт в твою сторону — это уже смертельный исход.`;
-            else if (avgMult >= 10)  verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Ты был бы одним из самых опасных существ на Земле — если бы не он.`;
-            else if (avgMult >= 3)   verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Ты неплох для человека. Но против 9 тонн демонического льва — не очень.`;
-            else                     verdict = `Разрыв <strong>${avgMult.toFixed(1)}×</strong>. Ты вполне достойный противник... в отдельных показателях.`;
+            if (totalCount === 0) return;
 
-            document.getElementById('calc-verdict').innerHTML = verdict;
+            const avgMult = totalMult / totalCount;
+            let verdict = '';
+            if (avgMult <= 0.5)      verdict = `В среднем ты <strong>превосходишь</strong> Рометто в ${(1/avgMult).toFixed(1)}×. Это физически невозможно. Но окей.`;
+            else if (avgMult <= 1.5) verdict = `Средний разрыв — <strong>×${avgMult.toFixed(1)}</strong>. Ты почти сопоставим с ним. Почти. Но нет. Ты всего лишь номер 2`;
+            else if (avgMult <= 5)   verdict = `Разрыв <strong>×${avgMult.toFixed(1)}</strong>. Ты неплох для своего вида. Но Рометто — это другой вид проблем.`;
+            else if (avgMult <= 15)  verdict = `Разрыв <strong>×${avgMult.toFixed(1)}</strong>. Против 9 тонн демонического льва у тебя один шанс — убежать. Но он быстрее.`;
+            else if (avgMult <= 50)  verdict = `Разрыв <strong>×${avgMult.toFixed(0)}</strong>. Ты для него — забавная мышь. Он бы даже не разозлился, просто не заметил.`;
+            else                     verdict = `Разрыв <strong>×${avgMult.toFixed(0)}</strong>. Статистически ты — есть, но  Рометто тебя не увидит под лапами, будь осторжнее.`;
+
+            const verdictEl = document.createElement('div');
+            verdictEl.className = 'calc-verdict';
+            verdictEl.innerHTML = verdict;
+            results.appendChild(verdictEl);
+
+            proofsEl.style.display = cheatDetected ? 'block' : 'none';
         }
 
         // ══════════════════════════════════════════════
