@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>РОМЕТТО: ЛЕГЕНДА ДЕВЯТНАДЦАТИ ЖИЗНЕЙ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-orange: #ff7b00;
+            --bg-dark: #0a0a0a;
+            --card-bg: #141414;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: #e0e0e0;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: 60px auto;
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 50px;
+            border: 1px solid #222;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.8);
+        }
+
+        h1 {
+            color: white;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #333;
+            display: inline-block;
+            width: 100%;
+            padding-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            color: var(--accent-orange);
+            font-weight: 700;
+            margin-top: 45px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-transform: uppercase;
+            font-size: 1.15rem;
+            letter-spacing: 1px;
+        }
+
+        .content-text {
+            line-height: 1.8;
+            color: #ccc;
+            font-size: 1.05rem;
+        }
+
+        .highlight {
+            color: white;
+            font-weight: 600;
+        }
+
+        .sub-section {
+            margin-bottom: 30px;
+            border-left: 2px solid #222;
+            padding-left: 20px;
+            transition: border-color 0.3s;
+        }
+        
+        .sub-section:hover {
+            border-color: var(--accent-orange);
+        }
+
+        .sub-title {
+            color: white;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: block;
+            font-size: 1.1rem;
+        }
+
+        /* Top Nav */
+        .top-nav {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lang-hint {
+            color: #666;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .btn-lang {
+            background: var(--accent-orange);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            text-decoration: none;
+            box-shadow: 0 0 15px rgba(255, 123, 0, 0.3);
+        }
+
+        /* Scroll Up Button - Styled after the screenshot */
+        #scrollUp {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            width: 65px;
+            height: 65px;
+            background-color: var(--accent-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 25px rgba(255, 123, 0, 0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 1000;
+        }
+
+        #scrollUp.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #scrollUp:hover {
+            box-shadow: 0 0 35px rgba(255, 123, 0, 0.6);
+            transform: translateY(-5px);
+        }
+
+        #scrollUp .arrow {
+            width: 2px;
+            height: 25px;
+            background: black;
+            position: relative;
+        }
+
+        #scrollUp .arrow::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -6px;
+            width: 8px;
+            height: 8px;
+            border-left: 2px solid black;
+            border-top: 2px solid black;
+            transform: rotate(45deg);
+        }
+
+        /* Footer Button - Styled after the screenshot */
+        .footer-btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #222;
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 35px;
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 1.1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+            background: transparent;
+            letter-spacing: 1px;
+        }
+
+        .btn-home:hover {
+            background: rgba(255, 123, 0, 0.1);
+            box-shadow: 0 0 20px rgba(255, 123, 0, 0.2);
+            transform: scale(1.02);
+        }
+
+        .paw-icon {
+            font-size: 1.2rem;
+        }
+
+        /* FAQ Styling */
+        .faq-item {
+            background: #1a1a1a;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #2a2a2a;
+        }
+
+        .faq-question {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0 24px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            color: #aaa;
+            font-size: 1rem;
+        }
+
+        .faq-item.active .faq-answer {
+            padding-bottom: 20px;
+            max-height: 800px;
+        }
+
+        .faq-item.active .faq-question {
+            color: var(--accent-orange);
+        }
+
+        .glow-effect {
+            animation: glow 0.5s ease-out;
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 123, 0, 0.8); }
+            100% { box-shadow: 0 0 40px 20px rgba(255, 123, 0, 0); }
+        }
+
+        @media (max-width: 640px) {
+            .main-container { padding: 25px; margin: 15px; }
+            .top-nav { position: relative; top: 0; right: 0; justify-content: center; margin-bottom: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <span class="lang-hint">Translation button works here →</span>
+        <a href="/404" class="btn-lang">EN</a>
+    </div>
+
+    <div class="main-container">
+        <h1>🦁 РОМЕТТО: ЛЕГЕНДА ДЕВЯТНАДЦАТИ ЖИЗНЕЙ</h1>
+
+        <!-- ОБЩАЯ ИНФОРМАЦИЯ -->
+        <div class="section-title">✦ ОБЩАЯ ИНФОРМАЦИЯ</div>
+        <div class="content-text space-y-2">
+            <p><span class="highlight">Имя:</span> Рометто.</p>
+            <p><span class="highlight">Раса:</span> Феральный лев-полудемон.</p>
+            <p><span class="highlight">Текущий статус:</span> Странник, обретающий покой в новом доме.</p>
+            <p><span class="highlight">Особенности:</span> Рост 417 см, вес от 9.2 до 15 тонн. Исполинское, мощное телосложение (лапа шириной 70 см). Белки глаз чистые (чернеют только в моменты проявления демонической формы).</p>
+        </div>
+
+        <!-- КРОВЬ И ПАМЯТЬ -->
+        <div class="section-title">✦ КРОВЬ И ПАМЯТЬ: МЕХАНИКА БЕССМЕРТИЯ</div>
+        <div class="content-text space-y-4">
+            <p>Рометто обладает уникальным даром возрождения благодаря крови своего отца-демона. После каждой смерти он возвращается в мир маленьким львёнком в случайном месте. Его взросление ускорено.</p>
+            <p>В подростковом возрасте к нему начинает возвращаться память. Этот процесс происходит вспышками и порой невероятно мучительно — как внезапный удар током в несколько вольт. Это заставляет его раз за разом переживать прошлые трагедии и вновь искать свой путь и тех, кто ему дорог. На данный момент Рометто проживает свою <span class="highlight">19-ю жизнь</span>. Именно в этом воплощении его тело достигло своего истинного величия и колоссальных размеров естественным путем, став абсолютной вершиной его физического развития.</p>
+        </div>
+
+        <!-- ИСТОРИЯ ЖИЗНИ -->
+        <div class="section-title">✦ ИСТОРИЯ ЖИЗНИ</div>
+        
+        <div class="sub-section">
+            <span class="sub-title">1. Трагедия детства и наследие шаманов</span>
+            <p class="content-text">Рометто родился в суровых землях в чужеземье, где правили гиены. Его матерью была львица Лили, а отцом — жестокий демон Агарес. Обнаружив у сына искру своей силы, Агарес попытался уничтожить его, сбросив со скал в ущелье. Рометто выжил благодаря вмешательству шаманов древнего культа, которые стали его новой семьёй и обучили магии. Позже Рометто вступил со своим отцом в схватку. Ему удалось заточить отца в камень, который позже бесследно исчез. Цена победы — тяжелая травма правой лапы.</p>
+        </div>
+
+        <div class="sub-section">
+            <span class="sub-title">2. Золотой век и Падение Далора</span>
+            <p class="content-text">В великой империи Dalor Рометто стал легендой. Будучи правой рукой великих королей Джакса, Мунола и Августа I, он прославился как бесстрашный воин и мудрый шаман. Рометто с детства верил в легенду о Золотом Льве, но тот лев давно умер. В этом прайде он первым привёл гиену — своего верного друга Чарли. Однако предательства привели к гибели его друзей. Из-за чужой воли, поработившей его демоническую силу, Рометто был проклят, а его глаза почернели. После падения империи он в гневе сжёг её руины дотла.</p>
+        </div>
+
+        <div class="sub-section">
+            <span class="sub-title">3. Война с Богами и Бремя прошлого</span>
+            <p class="content-text">В 16-м перерождении Рометто основал собственный прайд Reverse Time, но боги, испугавшись его мощи, заковали его в небесные цепи. Годы он наблюдал за страданиями своих детей с небес, пока ярость не дала ему силы разорвать оковы. Рометто объявил войну небесам и сокрушил множество божеств. Эта трагедия оставила след: его дочь жива. Она носит его кровь и признает его, но постоянно упрекает отца за то, что его не было рядом в трудную минуту.</p>
+        </div>
+
+        <!-- БЛИЗКИЙ КРУГ -->
+        <div class="section-title">✦ БЛИЗКИЙ КРУГ И ДРУЗЬЯ</div>
+        <div class="content-text space-y-4">
+            <p>Несмотря на прошлое одиночество, Рометто окружил себя преданными союзниками:</p>
+            <ul class="space-y-3 pl-2">
+                <li><span class="highlight">Кристаллна:</span> Единственная львица, с которой его связывает именно крепкая, чистая дружба. В прошлом между ними были сексуальные отношения, но они остались лучшими друзьями. Оба твёрдо убеждены, что сексом настоящую дружбу невозможно испортить.</li>
+                <li><span class="highlight">Валтер:</span> Лев, который стал для Рометто почти как родной брат.</li>
+                <li><span class="highlight">Ричард:</span> Приёмный сын Рометто.</li>
+                <li><span class="highlight">Филл и Бесс:</span> Верные друзья, лев и львица, всегда готовые поддержать.</li>
+                <li><span class="highlight">Батет:</span> Подруга-львица, которая на данный момент считается пропавшей.</li>
+            </ul>
+        </div>
+
+        <!-- БИОЛОГИЯ -->
+        <div class="section-title">✦ БИОЛОГИЯ И ОХОТА: ФИЗИКА ИСТРЕБЛЕНИЯ</div>
+        <div class="content-text space-y-6">
+            <p>Охота Рометто — это не погоня, а фатальное столкновение колоссальной массы с пространством.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
+                    <span class="text-orange-500 font-bold block mb-2">I. ИНФРАЗВУКОВОЙ РОКОТ</span>
+                    <p class="text-sm">Генерирует волны ниже 10 Гц. Резонанс вызывает у жертв паралич воли и ужас в радиусе 50 метров.</p>
+                </div>
+                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
+                    <span class="text-orange-500 font-bold block mb-2">II. ИНЕРЦИОННЫЙ РЫВОК</span>
+                    <p class="text-sm">При массе 9.2т развивает 50 км/ч. Любое препятствие (деревья, броня) просто деформируется.</p>
+                </div>
+                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
+                    <span class="text-orange-500 font-bold block mb-2">III. ГРАВИТАЦИОННЫЙ КРАШ</span>
+                    <p class="text-sm">Приземление генерирует усилие 30–40 тонн. Рометто просто переносит вес на переднюю лапу шириной 70 см.</p>
+                </div>
+            </div>
+            <p class="text-sm text-zinc-500 italic text-center">Сила укуса в 24 000 PSI используется крайне редко из-за неудобства габаритов.</p>
+        </div>
+
+        <!-- НОВАЯ ГЛАВА -->
+        <div class="section-title">✦ НОВАЯ ГЛАВА: БЫТ И СИЛА ЛЮБВИ</div>
+        <div class="content-text space-y-4">
+            <p><span class="highlight">Птицы-хранители:</span> Служат его глазами и ушами. Они обрели бессмертие, выпив его демоническую кровь.</p>
+            <p><span class="highlight">Живая грелка:</span> Рометто очень горячий. Все члены прайда спят вместе с ним в одной пещере, используя его как огромную живую грелку.</p>
+            <p><span class="highlight">Исцеление:</span> Встретив львицу с прекрасным рыжим окрасом и искренне полюбив её, Рометто обрёл исцеление. Под чарами истинной любви его старая травма прошла: он просто однажды встал и понял, что ничего не болит.</p>
+        </div>
+
+        <!-- FAQ -->
+        <div class="section-title">❓ ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ</div>
+        <div id="faq">
+            <div class="faq-item">
+                <div class="faq-question">Есть ли у Рометто предел роста в будущих жизнях? <span>▼</span></div>
+                <div class="faq-answer">Текущие 417 см считаются биологическим пиком его вида. Однако в каждой жизни размеры могут варьироваться в зависимости от условий взросления и магического фона.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Как птицы-хранители общаются с ним на расстоянии? <span>▼</span></div>
+                <div class="faq-answer">После поглощения крови между Рометто и птицами установилась ментальная связь. Он не просто слышит их, он может «переключаться» на их зрение, видя мир с высоты птичьего полета.</div>
+            </div>
+        </div>
+
+        <div class="footer-btn-container">
+            <a href="/404" class="btn-home">
+                <span class="paw-icon">🐾</span> ВЕРНУТЬСЯ В ЛОГОВО <span class="paw-icon">🐾</span>
+            </a>
+        </div>
+
+        <div class="mt-10 text-center text-xs text-zinc-600">
+            Вы тоже можете стать частью этой истории через РП, если события не противоречат канону.
+        </div>
+    </div>
+
+    <!-- Scroll Up Button -->
+    <div id="scrollUp" title="Наверх">
+        <div class="arrow"></div>
+    </div>
+
+    <script>
+        // FAQ logic
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', () => {
+                const item = q.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Scroll Logic
+        const scrollBtn = document.getElementById('scrollUp');
+        window.onscroll = function() {
+            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        };
+
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Glow effect animation
+            scrollBtn.classList.add('glow-effect');
+            setTimeout(() => {
+                scrollBtn.classList.remove('glow-effect');
+            }, 500);
+        });
+    </script>
+</body>
+</html> 
