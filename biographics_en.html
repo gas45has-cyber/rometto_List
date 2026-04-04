@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROMETTO: LORE AND BIOGRAPHY</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -19,9 +20,23 @@
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
             overflow-x: hidden;
+            margin: 0;
+        }
+
+        /* Canvas for Sparks */
+        #sparkCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
 
         .main-container {
+            position: relative;
+            z-index: 10;
             max-width: 900px;
             margin: 60px auto;
             background: var(--card-bg);
@@ -93,35 +108,66 @@
             top: 20px;
             right: 40px;
             display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .lang-hint {
-            color: #666;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: 600;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 10px;
+            z-index: 100;
         }
 
         .btn-lang {
-            background: var(--accent-orange);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 4px;
-            font-weight: 800;
+            background: transparent;
+            color: var(--accent-orange);
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-weight: 700;
             font-size: 0.9rem;
             text-decoration: none;
-            box-shadow: 0 0 15px rgba(255, 123, 0, 0.3);
+            border: 1px solid var(--accent-orange);
+            transition: all 0.3s;
+        }
+
+        .btn-lang:hover {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        .btn-sparks {
+            background: rgba(255, 123, 0, 0.1);
+            color: var(--accent-orange);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: 1px solid var(--accent-orange);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* RP Invitation Block */
+        .rp-invitation {
+            width: 100%;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #aaa;
+            font-size: 1rem;
+            line-height: 1.6;
+            background: rgba(255, 123, 0, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px dashed #444;
+            text-align: center;
+            font-style: italic;
         }
 
         /* Scroll Up Button */
         #scrollUp {
             position: fixed;
-            bottom: 40px;
-            right: 40px;
-            width: 65px;
-            height: 65px;
+            bottom: 30px;
+            right: 30px;
+            width: 55px;
+            height: 55px;
             background-color: var(--accent-orange);
             border-radius: 50%;
             display: flex;
@@ -129,8 +175,8 @@
             justify-content: center;
             cursor: pointer;
             border: none;
-            box-shadow: 0 0 25px rgba(255, 123, 0, 0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 20px rgba(255, 123, 0, 0.4);
+            transition: all 0.3s;
             opacity: 0;
             visibility: hidden;
             z-index: 1000;
@@ -139,25 +185,6 @@
         #scrollUp.show {
             opacity: 1;
             visibility: visible;
-        }
-
-        #scrollUp .arrow {
-            width: 2px;
-            height: 25px;
-            background: black;
-            position: relative;
-        }
-
-        #scrollUp .arrow::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -6px;
-            width: 8px;
-            height: 8px;
-            border-left: 2px solid black;
-            border-top: 2px solid black;
-            transform: rotate(45deg);
         }
 
         /* Footer Button Block */
@@ -174,38 +201,20 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            padding: 12px 35px;
+            padding: 14px 40px;
             border: 1px solid var(--accent-orange);
             color: var(--accent-orange);
             text-transform: uppercase;
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1rem;
             border-radius: 8px;
             text-decoration: none;
             transition: all 0.3s;
             background: transparent;
-            letter-spacing: 1px;
         }
 
         .btn-home:hover {
             background: rgba(255, 123, 0, 0.1);
-            box-shadow: 0 0 20px rgba(255, 123, 0, 0.2);
-        }
-
-        /* Invitation Style */
-        .rp-invitation {
-            width: 100%;
-            margin-top: 40px;
-            margin-bottom: 10px;
-            color: #888;
-            font-size: 1rem;
-            line-height: 1.6;
-            background: rgba(255, 255, 255, 0.02);
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px dashed #333;
-            text-align: center;
-            font-style: italic;
         }
 
         /* FAQ Styling */
@@ -238,7 +247,6 @@
             max-height: 800px;
         }
 
-        /* Official Footer Style */
         .site-footer {
             margin-top: 60px;
             padding: 40px 20px;
@@ -247,189 +255,196 @@
             color: #666;
             font-size: 0.9rem;
             background: #050505;
+            position: relative;
+            z-index: 10;
         }
 
-        .site-footer a {
-            color: var(--accent-orange);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .site-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .brand-text {
-            color: var(--accent-orange);
-        }
-
-        .glow-effect {
-            animation: glow 0.5s ease-out;
-        }
-
-        @keyframes glow {
-            0% { box-shadow: 0 0 0 0 rgba(255, 123, 0, 0.8); }
-            100% { box-shadow: 0 0 40px 20px rgba(255, 123, 0, 0); }
-        }
-
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             .main-container { padding: 25px; margin: 15px; }
-            .top-nav { position: relative; top: 0; right: 0; justify-content: center; margin-bottom: 20px; }
+            .top-nav { position: relative; top: 0; right: 0; align-items: center; margin-bottom: 30px; padding: 20px; }
+            h1 { font-size: 1.5rem; }
+            .btn-home { width: 100%; justify-content: center; }
         }
     </style>
 </head>
 <body>
 
+    <canvas id="sparkCanvas"></canvas>
+
     <div class="top-nav">
-        <span class="lang-hint">Translation button works here →</span>
-        <a href="/biographics" class="btn-lang">RU</a>
+        <a href="/rometto_legend_ru.html" class="btn-lang">RU</a>
+        <button id="toggleSparks" class="btn-sparks">
+            <span id="sparkIcon">✦</span> <span id="sparkText">Disable sparks</span>
+        </button>
     </div>
 
     <div class="main-container">
-        <h1>🦁 LORE AND BIOGRAPHY</h1>
+        <h1> LORE AND BIOGRAPHY</h1>
 
         <div class="section-title">✦ GENERAL INFORMATION</div>
         <div class="content-text space-y-2">
             <p><span class="highlight">Name:</span> Rometto.</p>
             <p><span class="highlight">Race:</span> Feral half-demon lion.</p>
-            <p><span class="highlight">Current Status:</span> Wanderer, finding peace in a new home.</p>
-            <p><span class="highlight">Features:</span> Height 417 cm, weight from 9.2 to 15 tons. Colossal, powerful build (paw width 70 cm). Sclerae are clear (they turn black only during the manifestation of his demonic form).</p>
+            <p><span class="highlight">Status:</span> Wanderer, finding peace in a new home.</p>
+            <p><span class="highlight">Features:</span> Height 417 cm, weight 9.2-15 tons. Paw width 70 cm. Black sclerae only in demonic form.</p>
         </div>
 
-        <div class="section-title">✦ BLOOD AND MEMORY: MECHANICS OF IMMORTALITY</div>
+        <div class="section-title">✦ BLOOD AND MEMORY</div>
         <div class="content-text space-y-4">
-            <p>Rometto possesses a unique gift of rebirth thanks to the blood of his demon father. After every death, he returns to the world as a small lion cub in a random location. His growth is accelerated.</p>
-            <p>During adolescence, his memory begins to return. This process occurs in flashes and is sometimes incredibly painful — like a sudden high-voltage electric shock. This forces him to relive past tragedies over and over again, and to search anew for his path and those dear to him. Currently, Rometto is living his <span class="highlight">19th life</span>. It is in this incarnation that his body has reached its true grandeur and colossal size naturally, becoming the absolute peak of his physical development.</p>
+            <p>Rometto possesses a unique gift of rebirth. After every death, he returns as a small lion cub in a random location. Currently, he is living his <span class="highlight">19th life</span>.</p>
+            <p>Memory returns in painful flashes during adolescence, forcing him to relive past tragedies and search anew for his path and loved ones.</p>
         </div>
 
         <div class="section-title">✦ LIFE STORY</div>
         
         <div class="sub-section">
-            <span class="sub-title">1. Childhood Tragedy and the Legacy of Shamans</span>
-            <p class="content-text">Rometto was born in harsh outland territories ruled by hyenas. His mother was the lioness Lily, and his father was the cruel demon Agares. Discovering a spark of his power in his son, Agares tried to destroy him by throwing him off a cliff into a gorge. Rometto survived thanks to the intervention of shamans from an ancient cult, who became his new family and taught him magic. Later, Rometto clashed with his father in combat. He managed to trap his father in a stone, which later disappeared without a trace. The price of victory was a severe injury to his right paw.</p>
+            <span class="sub-title">1. Childhood Tragedy</span>
+            <p class="content-text">Born in territories ruled by hyenas. His mother was Lily, his father the demon Agares. Agares tried to kill him, but Rometto was saved and raised by ancient shamans who taught him magic. He eventually defeated his father, trapping him in stone.</p>
         </div>
 
         <div class="sub-section">
-            <span class="sub-title">2. The Golden Age and the Fall of Dalor</span>
-            <p class="content-text">In the great empire of Dalor, Rometto became a legend. As the right hand of the great kings Jax, Munol, and Augustus I, he gained fame as a fearless warrior and wise shaman. Since childhood, Rometto believed in the legend of the Golden Lion, but that lion had long since died. In this pride, he was the first to bring in a hyena — his loyal friend Charlie. However, betrayals led to the death of his friends. Due to a foreign will that enslaved his demonic power, Rometto was cursed, and his eyes turned black. After the fall of the empire, in a fit of rage, he burned its ruins to the ground.</p>
+            <span class="sub-title">2. The Empire of Dalor</span>
+            <p class="content-text">As the right hand of great kings, he became a legendary warrior and shaman. Believing in the legend of the Golden Lion, he built his own legacy. After betrayals led to the death of his friends and the fall of the empire, Rometto burned its ruins to the ground in a fit of rage.</p>
         </div>
 
         <div class="sub-section">
-            <span class="sub-title">3. The War with the Gods and the Burden of the Past</span>
-            <p class="content-text">In his 16th reincarnation, Rometto founded his own pride, Reverse Time, but the gods, fearing his power, bound him in celestial chains. For years, he watched the suffering of his children from the heavens, until his rage gave him the strength to break the shackles. Rometto declared war on the heavens and crushed many deities. This tragedy left a mark: his daughter is alive. She carries his blood and acknowledges him, but constantly reproaches her father for not being there in her time of need.</p>
+            <span class="sub-title">3. War with the Heavens</span>
+            <p class="content-text">In his 16th life, the gods bound him in celestial chains out of fear. His rage allowed him to break free and declare war on the heavens. His daughter survives today but reproaches him for his absence during her darkest hours.</p>
         </div>
 
-        <div class="section-title">✦ INNER CIRCLE AND FRIENDS</div>
-        <div class="content-text space-y-4">
-            <p>Despite his past loneliness, Rometto surrounded himself with loyal allies:</p>
-            <ul class="space-y-3 pl-2">
-                <li><span class="highlight">Crystalna:</span> The only lioness with whom he shares a strong, pure friendship. They had a sexual relationship in the past, but remained best friends. Both firmly believe that true friendship cannot be ruined by sex.</li>
-                <li><span class="highlight">Walter:</span> A lion who became almost like a blood brother to Rometto.</li>
-                <li><span class="highlight">Richard:</span> Rometto's adopted son.</li>
-                <li><span class="highlight">Phil and Bess:</span> Loyal friends, a lion and lioness, always ready to support him.</li>
-                <li><span class="highlight">Batet:</span> A lioness friend who is currently considered missing.</li>
-            </ul>
-        </div>
-
-        <div class="section-title">✦ BIOLOGY AND HUNTING: THE PHYSICS OF EXTERMINATION</div>
-        <div class="content-text space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">I. INFRASONIC ROAR</span>
-                    <p class="text-sm">Generates waves below 10 Hz. The resonance causes paralysis of will and sheer terror in victims within a 50-meter radius.</p>
-                </div>
-                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">II. INERTIAL CHARGE</span>
-                    <p class="text-sm">With a mass of 9.2 tons, he reaches 50 km/h. Any obstacle (trees, armor) simply deforms.</p>
-                </div>
-                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">III. GRAVITATIONAL CRUSH</span>
-                    <p class="text-sm">Landing generates a force of 30–40 tons. Rometto simply shifts his weight onto a front paw 70 cm wide.</p>
-                </div>
+        <div class="section-title">✦ BIOLOGY AND HUNTING</div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-black/30 p-4 rounded-lg border border-zinc-800 text-sm">
+                <span class="text-orange-500 font-bold block">INFRASONIC ROAR</span>
+                Paralyzes victims within 50 meters via 10Hz waves.
             </div>
-            <p class="text-sm text-zinc-500 italic text-center">The bite force of 24,000 PSI is used extremely rarely due to the inconvenience of his dimensions.</p>
-        </div>
-
-        <div class="section-title">✦ A NEW CHAPTER: EVERYDAY LIFE AND THE POWER OF LOVE</div>
-        <div class="content-text space-y-4">
-            <p><span class="highlight">Guardian Birds:</span> Serve as his eyes and ears. They gained immortality by drinking his demonic blood.</p>
-            <p><span class="highlight">Living Heater:</span> All pride members sleep together with him in one cave, using him as a giant living heater.</p>
-            <p><span class="highlight">Healing:</span> Upon meeting a lioness with a beautiful red coat and truly falling in love with her, Rometto found healing. His old injury vanished: he simply stood up one day and realized that nothing hurt anymore.</p>
+            <div class="bg-black/30 p-4 rounded-lg border border-zinc-800 text-sm">
+                <span class="text-orange-500 font-bold block">INERTIAL CHARGE</span>
+                9.2 tons moving at 50 km/h. Obstacles simply deform.
+            </div>
+            <div class="bg-black/30 p-4 rounded-lg border border-zinc-800 text-sm">
+                <span class="text-orange-500 font-bold block">GRAVITATIONAL CRUSH</span>
+                Landing force of 30–40 tons on a 70cm wide paw.
+            </div>
         </div>
 
         <div class="rp-invitation">
-            You can also become a part of his great story, as I include all the events that happened to him in RP here, provided they are interesting and do not contradict the canon.
+            You can also become a part of his great story, as I include all the events that happened to him in RP here, provided they are interesting and do not contradict the canon. To do this, contact me and we will discuss RP details and the plot. I love to improvise, be ready.
         </div>
 
         <div class="section-title">❓ FREQUENTLY ASKED QUESTIONS</div>
         <div id="faq">
             <div class="faq-item">
-                <div class="faq-question">Does Rometto have a growth limit, or does he keep growing in each life? <span>▼</span></div>
-                <div class="faq-answer">Yes, 417 cm is his current limit and the absolute peak of his physical development.</div>
+                <div class="faq-question">Does he have a growth limit? <span>▼</span></div>
+                <div class="faq-answer">Yes, 417 cm is his current physical peak in this life.</div>
             </div>
             <div class="faq-item">
-                <div class="faq-question">What magical abilities did he retain after the war with the gods? <span>▼</span></div>
-                <div class="faq-answer">Most of them are lost; he is recovering them gradually. One of the few things left is mind reading. But he fundamentally refuses to use it.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">What is the fate of his guardian birds if he dies and is reborn as a cub? <span>▼</span></div>
-                <div class="faq-answer">Don't worry, they will always find each other, as they share a very strong bond.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Can he be killed or defeated? <span>▼</span></div>
-                <div class="faq-answer">Yes, he can be. But exactly how — is a secret known only to three living beings.</div>
+                <div class="faq-question">What magic does he still have? <span>▼</span></div>
+                <div class="faq-answer">Most was lost in the war. He can read minds but chooses not to out of principle.</div>
             </div>
         </div>
 
         <div class="footer-btn-container">
-            <a href="/404" class="btn-home">
-                <span class="paw-icon">🐾</span> RETURN TO THE LAIR <span class="paw-icon">🐾</span>
+            <a href="/" class="btn-home">
+                <span class="paw-icon">🐾</span> RETURN TO THE LAIR
             </a>
         </div>
     </div>
 
     <footer class="site-footer">
-        <div>
-            © 2017 — <span id="year"></span> <strong>Mr. <span class="brand-text">Rometto</span></strong>. All rights reserved.
-        </div>
-        <div style="margin-top: 8px;">
-            Связь / Contact: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a>
-        </div>
+        <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="text-orange-500">Rometto</span></strong>. All rights reserved.</div>
+        <div class="mt-2">Contact: <a href="https://t.me/mr_Rometto" target="_blank" class="text-orange-500 hover:underline">@mr_Rometto</a></div>
     </footer>
 
-    <div id="scrollUp" title="Scroll Up">
-        <div class="arrow"></div>
-    </div>
+    <button id="scrollUp" title="Scroll Up">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+    </button>
 
     <script>
-        // Set dynamic year
         document.getElementById('year').textContent = new Date().getFullYear();
 
         // FAQ logic
         document.querySelectorAll('.faq-question').forEach(q => {
             q.addEventListener('click', () => {
-                const item = q.parentElement;
-                item.classList.toggle('active');
+                q.parentElement.classList.toggle('active');
             });
         });
 
         // Scroll Logic
         const scrollBtn = document.getElementById('scrollUp');
-        window.onscroll = function() {
-            if (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) {
-                scrollBtn.classList.add('show');
+        window.onscroll = () => {
+            if (window.scrollY > 500) scrollBtn.classList.add('show');
+            else scrollBtn.classList.remove('show');
+        };
+        scrollBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
+
+        // Spark Canvas Logic
+        const canvas = document.getElementById('sparkCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let sparksEnabled = true;
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        class Particle {
+            constructor() { this.reset(); }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + 10;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedY = Math.random() * -3 - 1;
+                this.speedX = Math.random() * 2 - 1;
+                this.opacity = Math.random() * 0.5 + 0.5;
+                this.color = `rgba(255, ${Math.floor(Math.random() * 150 + 100)}, 0, ${this.opacity})`;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+                this.opacity -= 0.005;
+                if (this.opacity <= 0 || this.y < -10) this.reset();
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 60; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            if (sparksEnabled) {
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Toggle Sparks Button
+        const toggleBtn = document.getElementById('toggleSparks');
+        const sparkText = document.getElementById('sparkText');
+        const sparkIcon = document.getElementById('sparkIcon');
+
+        toggleBtn.onclick = () => {
+            sparksEnabled = !sparksEnabled;
+            if (sparksEnabled) {
+                sparkText.innerText = "Disable sparks";
+                sparkIcon.innerText = "✦";
             } else {
-                scrollBtn.classList.remove('show');
+                sparkText.innerText = "Enable sparks";
+                sparkIcon.innerText = "✧";
             }
         };
-
-        scrollBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            scrollBtn.classList.add('glow-effect');
-            setTimeout(() => {
-                scrollBtn.classList.remove('glow-effect');
-            }, 500);
-        });
     </script>
 </body>
 </html>
