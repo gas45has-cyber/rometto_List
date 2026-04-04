@@ -3,281 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROMETTO: LORE AND BIOGRAPHY</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <title>About the Project — Rometto</title>
+
+    <meta property="og:title" content="About the Project — Rometto">
+    <meta property="og:description" content="Interactive digital archive and biological parameters of a giant demon-lion.">
+    <meta property="og:image" content="/assets/rometto_ru_nsfw.png"> 
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/favicon.png">
+
     <style>
-        :root {
-            --accent-orange: #ff7b00;
-            --bg-dark: #0a0a0a;
-            --card-bg: #141414;
+        @font-face {
+            font-family: 'LionKing';
+            src: url('lion_king.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
         }
+
         body {
-            background-color: var(--bg-dark);
-            color: #e0e0e0;
-            font-family: 'Inter', sans-serif;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background: #0f0f0f;
+            color: #d2b48c;
             margin: 0;
-        }
-        #sparkCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        /* Top-right controls */
-        .top-right-controls {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            padding: 20px;
+            line-height: 1.6;
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
-            gap: 10px;
-            z-index: 110;
-        }
-        /* Common style for corner buttons */
-        .btn-corner {
-            background: transparent;
-            color: var(--accent-orange);
-            padding: 6px 14px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 0.75rem;
-            text-decoration: none;
-            border: 1px solid var(--accent-orange);
-            transition: all 0.3s ease;
-            text-align: center;
-            min-width: 140px;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-        .btn-corner:hover {
-            background: var(--accent-orange);
-            color: black;
-            box-shadow: 0 0 15px rgba(255, 123, 0, 0.6);
-        }
-        /* Central navigation */
-        .nav-header {
-            position: relative;
-            z-index: 100;
-            max-width: 1000px;
-            margin: 100px auto 30px;
-            display: flex;
-            justify-content: center;
-        }
-        .btn-nav-group {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .btn-custom {
-            background: transparent;
-            color: var(--accent-orange);
-            padding: 10px 22px;
-            border: 1px solid var(--accent-orange);
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            letter-spacing: 0.5px;
+            /* Protection removed: text is now selectable */
+            user-select: text;
+            -webkit-user-select: text;
         }
-        .btn-custom:hover {
-            background: var(--accent-orange);
-            color: #000;
-            box-shadow: 0 0 25px rgba(255, 123, 0, 0.7);
-            transform: translateY(-2px);
+
+        /* Applying LionKing font to English headers and specific names */
+        .en-text, h1, h2 {
+            font-family: 'LionKing', Arial, sans-serif !important;
+            letter-spacing: 1px;
         }
-        /* Main container */
-        .main-container {
-            position: relative;
-            z-index: 10;
-            max-width: 900px;
-            margin: 0 auto 60px;
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 50px;
-            border: 1px solid #222;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.8);
-        }
-        h1 {
-            color: white;
-            font-weight: 800;
-            text-align: center;
-            letter-spacing: 2px;
-            margin-bottom: 40px;
-            border-bottom: 1px solid #333;
-            display: inline-block;
-            width: 100%;
-            padding-bottom: 20px;
-            text-transform: uppercase;
-            font-size: 2rem;
-        }
-        .section-title {
-            color: var(--accent-orange);
-            font-weight: 700;
-            margin-top: 45px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-transform: uppercase;
-            font-size: 1.15rem;
-            border-left: 4px solid var(--accent-orange);
-            padding-left: 15px;
-        }
-        .content-text {
-            line-height: 1.8;
-            color: #ccc;
-            font-size: 1.05rem;
-        }
-        .highlight {
-            color: white;
-            font-weight: 600;
-        }
-        .sub-section {
-            margin-bottom: 30px;
-            border-left: 2px solid #222;
-            padding-left: 20px;
-            transition: border-color 0.3s;
-        }
-       
-        .sub-section:hover {
-            border-color: var(--accent-orange);
-        }
-        .sub-title {
-            color: white;
-            font-weight: 700;
-            margin-bottom: 12px;
-            display: block;
-            font-size: 1.1rem;
-        }
-        .rp-invitation {
-            width: 100%;
-            margin-top: 40px;
-            background: rgba(255, 123, 0, 0.05);
-            padding: 25px;
-            border-radius: 12px;
-            border: 1px dashed #444;
-            text-align: center;
-            font-style: italic;
-            color: #aaa;
-        }
-        /* FAQ Styles */
-        .faq-item {
-            border-bottom: 1px solid #222;
-            padding: 15px 0;
-        }
-        .faq-question {
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-            color: white;
-            transition: color 0.3s;
-            padding: 10px 0;
-            user-select: none;
-        }
-        .faq-question:hover {
-            color: var(--accent-orange);
-        }
-        .faq-question span {
-            font-size: 0.8rem;
-            transition: transform 0.3s ease;
-        }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out, padding 0.3s ease;
-            color: #aaa;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-        .faq-item.active .faq-answer {
-            max-height: 200px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-        .faq-item.active .faq-question span {
-            transform: rotate(180deg);
-        }
-        .footer-btn-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 1px solid #222;
-        }
-        .btn-home-lair {
-            background: transparent;
-            color: var(--accent-orange);
-            padding: 14px 40px;
-            border: 1px solid var(--accent-orange);
-            border-radius: 8px;
-            text-transform: uppercase;
-            font-weight: 700;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s;
-        }
-        .btn-home-lair:hover {
-            background: var(--accent-orange);
-            color: black;
-            box-shadow: 0 0 20px rgba(255, 123, 0, 0.4);
-        }
-        .site-footer {
-            margin-top: 60px;
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 1px solid #222;
-            color: #666;
-            font-size: 0.9rem;
-            background: #050505;
-            position: relative;
-            z-index: 10;
-        }
-        #scrollUp {
+
+        /* Language Switcher Panel in your style */
+        .lang-wrapper {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            background-color: var(--accent-orange);
-            border-radius: 50%;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
             display: flex;
             align-items: center;
-            justify-content: center;
+            background: rgba(40, 20, 5, 0.8);
+            padding: 5px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(230, 126, 34, 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .lang-label {
+            color: #fff;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-right: 10px;
+            opacity: 0.9;
+            white-space: nowrap;
+        }
+
+        .animated-arrow {
+            color: #fff;
+            margin-right: 15px;
+            font-size: 14px;
+            animation: arrow-move 1.5s infinite;
+        }
+
+        @keyframes arrow-move {
+            0%, 100% { transform: translateX(0); opacity: 1; }
+            50% { transform: translateX(5px); opacity: 0.5; }
+        }
+
+        .lang-switch {
+            background: #e67e22;
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 4px;
             cursor: pointer;
-            border: none;
-            opacity: 0;
-            visibility: hidden;
-            z-index: 1000;
-            transition: all 0.3s;
+            font-weight: bold;
+            font-size: 13px;
+            text-decoration: none;
+            transition: 0.3s;
+            box-shadow: 0 0 5px rgba(230, 126, 34, 0.5);
+            animation: glow-pulse 2s infinite ease-in-out;
         }
-        #scrollUp.show {
-            opacity: 1;
-            visibility: visible;
+
+        @keyframes glow-pulse {
+            0% { box-shadow: 0 0 5px rgba(230, 126, 34, 0.4); background: #e67e22; }
+            50% { box-shadow: 0 0 20px rgba(230, 126, 34, 0.8); background: #ff943d; }
+            100% { box-shadow: 0 0 5px rgba(230, 126, 34, 0.4); background: #e67e22; }
         }
+
+        .lang-switch:hover {
+            transform: scale(1.05);
+            filter: brightness(1.2);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            background: #111;
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            margin-top: 40px;
+            box-sizing: border-box;
+        }
+
+        h1 { 
+            text-align: center; 
+            color: #fff; 
+            text-transform: uppercase; 
+            border-bottom: 2px solid #e67e22; 
+            padding-bottom: 10px; 
+            margin-bottom: 30px; 
+        }
+
+        h2 { 
+            color: #e67e22; 
+            text-transform: uppercase; 
+            font-size: 1.2em; 
+            margin-top: 35px; 
+            border-left: 4px solid #e67e22; 
+            padding-left: 15px; 
+        }
+
+        p { margin-bottom: 15px; text-align: justify; }
+        .highlight { color: #fff; font-weight: bold; }
+        
+        .back-btn-container {
+            text-align: center;
+            margin-top: 40px;
+            border-top: 1px solid #333;
+            padding-top: 30px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border: 2px solid #e67e22;
+            color: #e67e22;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 5px;
+            transition: 0.3s;
+            background: rgba(230, 126, 34, 0.05);
+        }
+
+        .back-btn:hover { 
+            background: #e67e22; 
+            color: #fff; 
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(230, 126, 34, 0.3);
+        }
+        
+        ul { padding-left: 20px; list-style-type: square; }
+        li { margin-bottom: 10px; }
+
+        .site-footer {
+            width: 100%;
+            max-width: 900px;
+            margin-top: 60px;
+            padding: 25px 0;
+            border-top: 1px solid #333;
+            text-align: center;
+            font-size: 13px;
+            color: #777;
+        }
+
+        .site-footer strong { color: #e67e22; }
+        .site-footer a { color: #d2b48c; text-decoration: none; border-bottom: 1px solid #444; }
+        
         @media (max-width: 768px) {
-            .nav-header { margin-top: 30px; }
-            .btn-nav-group { flex-direction: column; width: 100%; padding: 0 20px; }
-            .btn-custom { width: 100%; }
-            .main-container { padding: 25px; margin: 15px; }
-            .top-right-controls { position: relative; top: 0; right: 0; align-items: center; margin: 20px 0; }
+            .lang-wrapper { top: 10px; right: 10px; padding: 4px 10px; }
+            .lang-label { display: none; }
+            .container { padding: 20px; margin-top: 60px; }
+            h1 { font-size: 22px; }
+            .back-btn { width: 85%; }
         }
     </style>
 <script>
@@ -309,197 +220,59 @@
         </div>
     </div>
     <!-- ===== / AGE GATE ===== -->
-    <canvas id="sparkCanvas"></canvas>
-    <div class="top-right-controls">
-        <a href="biographics" class="btn-corner" style="min-width: 50px;">RU</a>
-        <button id="toggleSparks" class="btn-corner">Turn off sparks</button>
-    </div>
-    <nav class="nav-header">
-        <div class="btn-nav-group">
-            <a href="about_en" class="btn-custom">ABOUT THE PROJECT</a>
-            <a href="/RP_AND_FETISH" class="btn-custom">FETISHES AND RP PREFERENCES</a>
-        </div>
-    </nav>
-    <div class="main-container">
-        <h1>LORE AND BIOGRAPHY</h1>
-        <div class="section-title">✦ GENERAL INFORMATION</div>
-        <div class="content-text space-y-2">
-            <p><span class="highlight">Name:</span> Rometto.</p>
-            <p><span class="highlight">Race:</span> Feral lion-half-demon.</p>
-            <p><span class="highlight">Current status:</span> Wanderer finding peace in a new home.</p>
-            <p><span class="highlight">Features:</span> Height 417 cm, weight from 9.2 to 15 tons. Gigantic, powerful build (paw width 70 cm). Eye whites are clear (they blacken only during demonic form manifestation).</p>
-        </div>
-        <div class="section-title">✦ BLOOD AND MEMORY: THE MECHANICS OF IMMORTALITY</div>
-        <div class="content-text space-y-4">
-            <p>Rometto possesses a unique gift of rebirth thanks to the blood of his demon father. After each death, he returns to the world as a little lion cub in a random place. His maturation is accelerated.</p>
-            <p>In adolescence, memories begin to return to him. This process happens in flashes and is sometimes incredibly painful — like a sudden electric shock of several volts. It forces him to relive past tragedies over and over again and seek his path and those dear to him once more. At the moment, Rometto is living his <span class="highlight">19th life</span>. It is in this incarnation that his body reached its true greatness and colossal size naturally, becoming the absolute pinnacle of his physical development.</p>
-        </div>
-        <div class="section-title">✦ LIFE STORY</div>
-       
-        <div class="sub-section">
-            <span class="sub-title">1. Tragedy of Childhood and the Legacy of Shamans</span>
-            <p class="content-text">Rometto was born in harsh lands in a foreign realm ruled by hyenas. His mother was the lioness Lily, and his father was the cruel demon Agares. Discovering the spark of his power in his son, Agares tried to destroy him by throwing him off the cliffs into the gorge. Rometto survived thanks to the intervention of shamans of an ancient cult, who became his new family and taught him magic. Later, Rometto engaged his father in battle. He managed to imprison his father in stone, which later disappeared without a trace. The price of victory — a severe injury to his right paw.</p>
-        </div>
-        <div class="sub-section">
-            <span class="sub-title">2. Golden Age and the Fall of Dalor</span>
-            <p class="content-text">In the great empire of Dalor, Rometto became a legend. Being the right hand of the great kings Jax, Munol, and Augustus I, he became famous as a fearless warrior and wise shaman. Rometto had believed in the legend of the Golden Lion since childhood, but that lion had long died. In this pride, he was the first to bring a hyena — his loyal friend Charlie. However, betrayals led to the death of his friends. Due to an alien will that enslaved his demonic power, Rometto was cursed, and his eyes blackened. After the fall of the empire, in rage he burned its ruins to the ground.</p>
-        </div>
-        <div class="sub-section">
-            <span class="sub-title">3. War with the Gods and the Burden of the Past</span>
-            <p class="content-text">In his 16th rebirth, Rometto founded his own pride Reverse Time, but the gods, frightened by his power, chained him in heavenly chains. For years he watched the suffering of his children from the heavens, until rage gave him the strength to break the shackles. Rometto declared war on the heavens and crushed many deities. This tragedy left a mark: his daughter is alive. She carries his blood and acknowledges him, but constantly reproaches her father for not being there in difficult times.</p>
-        </div>
-        <div class="section-title">✦ INNER CIRCLE AND FRIENDS</div>
-        <div class="content-text space-y-4">
-            <p>Despite his past loneliness, Rometto surrounded himself with allies:</p>
-            <ul class="space-y-3 pl-2">
-                <li><span class="highlight">Krystallina:</span> The only lioness with whom he shares a strong, pure friendship. In the past, they had sexual relations, but they remained best friends. Both are firmly convinced that sex cannot ruin true friendship.</li>
-                <li><span class="highlight">Valter:</span> A lion who became almost like a blood brother to Rometto.</li>
-                <li><span class="highlight">Richard:</span> Rometto's adopted son.</li>
-                <li><span class="highlight">Phill and Bess:</span> Loyal friends, a lion and a lioness, always ready to support.</li>
-                <li><span class="highlight">Batet:</span> A lioness friend who is currently considered missing.</li>
-            </ul>
-        </div>
-        <div class="section-title">✦ BIOLOGY AND HUNTING: PHYSICS OF DESTRUCTION</div>
-        <div class="content-text space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">I. INFRASOUND RUMBLE</span>
-                    <p class="text-sm">Generates waves below 10 Hz. Resonance causes paralysis of will and terror in victims within a 50-meter radius.</p>
-                </div>
-                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">II. INERTIAL DASH</span>
-                    <p class="text-sm">At a mass of 9.2 t, it reaches 50 km/h. Any obstacle (trees, armor) simply deforms.</p>
-                </div>
-                <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">III. GRAVITATIONAL CRUSH</span>
-                    <p class="text-sm">Landing generates a force of 30–40 tons. Rometto simply transfers the weight to the front paw 70 cm wide.</p>
-                </div>
-            </div>
-            <p class="text-sm text-zinc-500 italic text-center">Bite force of 24,000 PSI is used extremely rarely due to his size.</p>
-        </div>
-        <div class="section-title">✦ NEW CHAPTER: DAILY LIFE AND THE POWER OF LOVE</div>
-        <div class="content-text space-y-4">
-            <p><span class="highlight">Guardian Birds:</span> They serve as his eyes and ears. They gained immortality by drinking his demonic blood.</p>
-            <p><span class="highlight">Living Heater:</span> All pride members sleep with him in one cave, using him as a huge living heater.</p>
-            <p><span class="highlight">Healing:</span> Meeting a lioness with a beautiful reddish coat and sincerely falling in love with her, Rometto gained healing. His old injury disappeared: he simply stood up one day and realized that nothing hurt.</p>
-        </div>
-        <div class="rp-invitation">
-            You can also become part of his big story, because I include here all the events that happened to him in RP, if they are interesting and do not contradict the canon. To do this, contact me, we will discuss the details of the RP and the plot.
-        </div>
-        <div class="section-title">❓ FREQUENTLY ASKED QUESTIONS</div>
-<div id="faq">
-    <!-- Original 3 questions (translated) -->
-    <div class="faq-item">
-        <div class="faq-question">Does Rometto have a growth limit? <span>▼</span></div>
-        <div class="faq-answer">Yes, 417 cm is his current limit and the absolute peak of his physical development in this life.</div>
-    </div>
-    <div class="faq-item">
-        <div class="faq-question">What magical abilities has he retained? <span>▼</span></div>
-        <div class="faq-answer">Most have been lost. He is gradually restoring them. One of the few remaining is mind reading, but he does not use it on principle.</div>
-    </div>
-    <div class="faq-item">
-        <div class="faq-question">Can he be defeated? <span>▼</span></div>
-        <div class="faq-answer">Yes, he can. But this is a secret known only to three living beings in all worlds.</div>
+
+    <div class="lang-wrapper">
+        <span class="lang-label"></span>
+        <span class="animated-arrow">➔</span>
+        <a href="about" class="lang-switch">RU</a>
     </div>
 
-    <!-- Updated questions according to your latest clarifications -->
-    <div class="faq-item">
-        <div class="faq-question">Who is the ginger lioness who healed Rometto? <span>▼</span></div>
-        <div class="faq-answer">It’s still a secret. Rometto met her already in his new pride. It was her sincere love that became the catalyst for his healing — the old injury to his right paw disappeared on its own.</div>
-    </div>
+    <div class="container">
+        <h1><span class="en-text">Rometto</span> Archive: About the Project</h1>
+        
+        <p>This project is an interactive digital archive created to systematize a colossal amount of data regarding <span class="highlight">Rometto</span>, a giant demon-lion weighing over 9 tons.</p>
 
-    <div class="faq-item">
-        <div class="faq-question">What happened to Agares after being sealed in stone? <span>▼</span></div>
-        <div class="faq-answer">He is either dead or alive… but he hasn’t appeared for a very long time. Most likely he vanished without a trace or has simply temporarily weakened. (his fate is one of those mysteries that may unexpectedly return to the plot 😉)</div>
-    </div>
+        <h2>🎯 Why is this needed?</h2>
+        <p>Rometto is a character with deep lore, complex history, and detailed physiology. This resource solves three key tasks:</p>
+        <ul>
+            <li><span class="highlight">External Memory:</span> Protecting data from loss and confusion. Every centimeter and every kilogram of the character is recorded here.</li>
+            <li><span class="highlight">Scientific Approach:</span> All parameters are calculated based on physics and biological scaling coefficients. This is a mathematical model of a giant.</li>
+            <li><span class="highlight">Ultimate Reference:</span> A tool for artists and role-players. Only precise, canonical data.</li>
+        </ul>
 
-    <div class="faq-item">
-        <div class="faq-question">How exactly does Rometto’s rebirth work? <span>▼</span></div>
-        <div class="faq-answer">After death he appears as a little lion cub in a random place in the world. His growth is accelerated. Memories return in sudden flashes during adolescence and often cause severe pain. He is currently living his 19th life — the most perfect in terms of physical form.</div>
-    </div>
+        <h2>🔞 Addressing Specific Questions</h2>
+        <p>During community discussions, questions often arose about the details of the reproductive system and metabolism. I approached this seriously. Instead of ignoring requests, I performed calculations based on a body mass of 9.2 tons. Now, this data is an official part of the canon.</p>
 
-    <div class="faq-item">
-        <div class="faq-question">What is the Reverse Time pride and does it still exist? <span>▼</span></div>
-        <div class="faq-answer">Reverse Time was founded by Rometto in his 16th life. After the war with the gods the pride fell apart. Some members survived both the collapse of the pride and Rometto’s rebirth. Among them are Bess and Crystallina. In his 19th life Rometto is gradually building a new home and a new family.</div>
-    </div>
-</div>
-        <div class="footer-btn-container">
-            <a href="/" class="btn-home-lair">
-                <span>🐾</span> RETURN TO THE LAIR
-            </a>
+        <h2>🚀 Future Plans</h2>
+        <ul>
+            <li>Creation of a <span class="highlight">SFW version</span> of the sheet.</li>
+            <li>Full English localization.</li>
+            <li>Support for other characters in the universe.</li>
+        </ul>
+
+        <div class="back-btn-container">
+            <a href="/" class="back-btn">🐾 Return to the Lair</a>
         </div>
     </div>
+
     <footer class="site-footer">
-        <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="text-orange-500">Rometto</span></strong>. All rights reserved.</div>
-        <div class="mt-2">Contact: <a href="https://t.me/mr_Rometto" target="_blank" class="text-orange-500 hover:underline">@mr_Rometto</a></div>
+        <div>
+            © 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">Rometto</span></strong>. All rights reserved.
+        </div>
+        
+        <div style="margin-top: 15px; max-width: 750px; margin-left: auto; margin-right: auto;">
+            Using this character or his likeness without the owner's direct consent is <strong>prohibited</strong>. 
+            Rometto is one of a kind.
+        </div>
+
+        <div style="margin-top: 12px;">
+            Contact: <a href="https://t.me/mr_Rometto" target="_blank">@mr_Rometto</a> | 
+            <a href="https://github.com/gas45has-cyber/rometto_List" target="_blank" style="opacity: 0.7;">GitHub Source</a>
+        </div>
     </footer>
-    <button id="scrollUp" title="Scroll to top">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
-    </button>
+
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
-        const scrollBtn = document.getElementById('scrollUp');
-        window.onscroll = () => {
-            if (window.scrollY > 500) scrollBtn.classList.add('show');
-            else scrollBtn.classList.remove('show');
-        };
-        scrollBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
-        // FAQ Logic
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const item = question.parentElement;
-                item.classList.toggle('active');
-            });
-        });
-        // Sparks falling DOWN
-        const canvas = document.getElementById('sparkCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let sparksEnabled = true;
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-        class Particle {
-            constructor() { this.reset(); }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * -canvas.height; // Appear from the top
-                this.size = Math.random() * 2 + 0.5;
-                this.speedY = Math.random() * 1.5 + 0.5; // Falling speed
-                this.speedX = Math.random() * 1 - 0.5;
-                this.opacity = Math.random() * 0.5 + 0.5;
-                this.color = `rgba(255, ${Math.floor(Math.random() * 150 + 100)}, 0, ${this.opacity})`;
-            }
-            update() {
-                this.y += this.speedY;
-                this.x += this.speedX;
-                this.opacity -= 0.001;
-                if (this.opacity <= 0 || this.y > canvas.height) this.reset();
-            }
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-        for (let i = 0; i < 60; i++) particles.push(new Particle());
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            if (sparksEnabled) {
-                particles.forEach(p => { p.update(); p.draw(); });
-            }
-            requestAnimationFrame(animate);
-        }
-        animate();
-        const toggleBtn = document.getElementById('toggleSparks');
-        toggleBtn.onclick = () => {
-            sparksEnabled = !sparksEnabled;
-            toggleBtn.innerText = sparksEnabled ? "Turn off sparks" : "Turn on sparks";
-        };
     </script>
 </body>
 </html>
