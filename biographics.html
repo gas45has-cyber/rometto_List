@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ROMETTO: LORE AND BIOGRAPHY</title>
+    <title>ROMETTO: ЛОР И БИОГРАФИЯ</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -33,6 +33,7 @@
             z-index: 1;
         }
 
+        /* Правый верхний угол */
         .top-right-controls {
             position: absolute;
             top: 20px;
@@ -44,6 +45,7 @@
             z-index: 110;
         }
 
+        /* Общий стиль для кнопок в углу */
         .btn-corner {
             background: transparent;
             color: var(--accent-orange);
@@ -66,6 +68,7 @@
             box-shadow: 0 0 15px rgba(255, 123, 0, 0.6);
         }
 
+        /* Центральная навигация */
         .nav-header {
             position: relative;
             z-index: 100;
@@ -106,6 +109,7 @@
             transform: translateY(-2px);
         }
 
+        /* Основной контейнер */
         .main-container {
             position: relative;
             z-index: 10;
@@ -188,6 +192,7 @@
             color: #aaa;
         }
 
+        /* FAQ Styles */
         .faq-item {
             border-bottom: 1px solid #222;
             padding: 15px 0;
@@ -307,6 +312,7 @@
         }
     </style>
     <script>
+        // ===== AGE GATE =====
         function confirmAge() {
             localStorage.setItem("ageConfirmed", "true");
             document.getElementById("age-gate").style.display = "none";
@@ -321,171 +327,183 @@
                 document.body.style.overflow = "hidden";
             }
         });
+        // ===== / AGE GATE =====
     </script>
 </head>
 <body>
+    <!-- ===== AGE GATE ===== -->
     <div id="age-gate" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;display:flex;justify-content:center;align-items:center;z-index:99999;">
         <div style="background:#151515;padding:30px;border:2px solid #e67e22;border-radius:10px;text-align:center;max-width:450px;margin:20px;box-shadow:0 0 40px rgba(230,126,34,0.3);">
-            <h2 style="color:#fff;margin-top:0;font-family:Arial,sans-serif;text-transform:uppercase;">WARNING: 18+</h2>
-            <p style="color:#d2b48c;font-family:Arial,sans-serif;">This site contains detailed biological data and NSFW images. Are you 18 years or older?</p>
-            <button onclick="confirmAge()" style="background:#e67e22;color:#fff;border:none;padding:12px 30px;border-radius:8px;font-weight:700;font-size:15px;text-transform:uppercase;cursor:pointer;width:100%;font-family:Arial,sans-serif;">YES, I AM 18+</button>
+            <h2 style="color:#fff;margin-top:0;font-family:Arial,sans-serif;text-transform:uppercase;">ВНИМАНИЕ: 18+<br><span style="font-size:0.7em;opacity:0.8;">(WARNING: 18+)</span></h2>
+            <p style="color:#d2b48c;font-family:Arial,sans-serif;">Этот сайт содержит детализированные биологические данные и изображения NSFW. Вам есть 18 лет?<br><span style="font-size:0.9em;opacity:0.8;">(This site contains detailed biological data and NSFW images. Are you 18 years or older?)</span></p>
+            <button onclick="confirmAge()" style="background:#e67e22;color:#fff;border:none;padding:12px 30px;border-radius:8px;font-weight:700;font-size:15px;text-transform:uppercase;cursor:pointer;width:100%;font-family:Arial,sans-serif;">ДА, МНЕ ЕСТЬ 18 (YES, I AM 18+)</button>
         </div>
     </div>
+    <!-- ===== / AGE GATE ===== -->
 
     <canvas id="sparkCanvas"></canvas>
 
     <div class="top-right-controls">
-        <a href="/biographics" class="btn-corner" style="min-width: 50px;">RU</a>
-        <button id="toggleSparks" class="btn-corner">Disable Sparks</button>
+        <a href="/biographics_en" class="btn-corner" style="min-width: 50px;">EN</a>
+        <button id="toggleSparks" class="btn-corner">Выключить искры</button>
     </div>
 
     <nav class="nav-header">
         <div class="btn-nav-group">
-            <a href="/about" class="btn-custom">ABOUT THE PROJECT</a>
-            <a href="/RP_AND_FETISH" class="btn-custom">FETISHES AND RP PREFERENCES</a>
+            <a href="/about" class="btn-custom">О ПРОЕКТЕ</a>
+            <a href="/RP_AND_FETISH" class="btn-custom">ФЕТИШИ И РП ПРЕДПОЧТЕНИЯ</a>
         </div>
     </nav>
 
     <div class="main-container">
-        <h1>LORE AND BIOGRAPHY</h1>
+        <h1>ЛОР И БИОГРАФИЯ</h1>
 
-        <div class="section-title">✦ GENERAL INFORMATION</div>
+        <div class="section-title">✦ ОБЩАЯ ИНФОРМАЦИЯ</div>
         <div class="content-text space-y-2">
-            <p><span class="highlight">Name:</span> Rometto.</p>
-            <p><span class="highlight">Race:</span> Feral Half-Demon Lion.</p>
-            <p><span class="highlight">Current Status:</span> Wanderer seeking a new place to settle for a long time.</p>
-            <p><span class="highlight">Physical Traits:</span> Height 417 cm, weight from 9.2 to 15 tons. Giant, powerful build (paw width 70 cm). Eye whites are clear (they turn black only during the manifestation of his demonic form).</p>
+            <p><span class="highlight">Имя:</span> Рометто.</p>
+            <p><span class="highlight">Раса:</span> Феральный лев-полудемон.</p>
+            <p><span class="highlight">Текущий статус:</span> Странник, ищущий новое место, где он мог бы остаться надолго.</p>
+            <p><span class="highlight">Особенности:</span> Рост 417 см, вес от 9.2 до 15 тонн. Исполинское, мощное телосложение (лапа шириной 70 см). Белки глаз чистые (чернеют только в моменты проявления демонической формы).</p>
         </div>
 
-        <div class="section-title">✦ LIFE STORY</div>
+        <div class="section-title">✦ КРОВЬ И ПАМЯТЬ: МЕХАНИКА БЕССМЕРТИЯ</div>
+        <div class="content-text space-y-4">
+            <p>Рометто обладает уникальным даром возрождения благодаря крови своего отца-демона. После каждой смерти он возвращается в мир маленьким львёнком в случайном месте. Его взросление ускорено.</p>
+            <p>В подростковом возрасте к нему начинает возвращаться память. Этот процесс происходит вспышками и порой невероятно мучительно — как внезапный удар током в несколько вольт. Это заставляет его раз за разом переживать прошлые трагедии и вновь искать свой путь и тех, кто ему дорог. На данный момент Рометто проживает свою <span class="highlight">19-ю жизнь</span>. Именно в этом воплощении его тело достигло своего истинного величия и колоссальных размеров естественным путем, став абсолютной вершиной его физического развития.</p>
+        </div>
+
+        <div class="section-title">✦ ИСТОРИЯ ЖИЗНИ</div>
         
         <div class="sub-section">
-            <span class="sub-title">1. Childhood Tragedy and Shamanic Heritage</span>
-            <p class="content-text">Since childhood, Rometto was curious, often seeking adventures alone and sometimes unintentionally putting himself in danger, unaware of the risks in foreign lands. His mother was an ordinary lioness named Lily who survived violence, and his father was the cruel demon Agares. When the father learned the son inherited some of his abilities, he tried to destroy him by throwing him off the cliffs into a gorge. The attempt failed, and Rometto was saved by shamans of an ancient forgotten cult, who became his new family and helped develop his demonic powers. Later, Rometto attempted revenge and fought his father. Alas, his mother died in that battle. He himself was wounded and limped on his right paw. He managed to seal his father into a stone, which later disappeared without a trace. Currently, his father's fate is unknown.</p>
+            <span class="sub-title">1. Трагедия детства и наследие шаманов</span>
+            <p class="content-text">С детства Рометто был любопытен, часто искал приключений в одиночку и порой невольно подвергал себя опасности, не осознавая все риски в чужеземье. Его матерью была обычная львица Лили, пережившая насилие, а отцом — жестокий демон Агарес. Когда отец узнал, что сын унаследовал некоторые из его способностей, он попытался уничтожить его, сбросив со скал в ущелье. Попытка провалилась, и Рометто был спасен шаманами древнего забытого культа, которые стали его новой семьёй и помогли развить его демоническик способности. Позже Рометто предпринял попытку мести и вступил со своим отцом в схватку. Увы, его мать погибла в этой битве. Сам он был ранен и  хромал на правую лапу. Ему удалось заточить отца в камень, который позже бесследно исчез. На данный момент судьба его отца неизвестна.</p>
+        </div>
+
+
+        <div class="sub-section">
+            <span class="sub-title">2. Золотой век и Падение Далора</span>
+            <p class="content-text">В подростковом возрасте Рометто заметил, что он выше и крупнее других, из-за чего его часто называли мутантом. Во взрослом возрасте его огромные размеры позволяли ему выделяться и занимать видное место в прайде. В великой империи Dalor он стал легендой. Долгое время он был мудрым шаманом и советником многих королей прайдов (Джакса, Мунола и Августа I). Рометто с детства верил в легенду о Золотом Льве, но тот лев давно умер. В этот прайд он первым привёл гиену — своего верного друга Чарли. Однако один из самых добрых королей был убит из-за обмана Рометто. Эта трагедия сделала его более осторожным, хотя он по-прежнему остается добрым. Позже пришедшие к власти львицы лишили его влияния и оставили ни с чем. Из-за чужой воли, поработившей его демоническую силу, Рометто был проклят, а его глаза почернели. После падения империи он в гневе сжёг её руины дотла.</p>
         </div>
 
         <div class="sub-section">
-            <span class="sub-title">2. Golden Age and the Fall of Dalor</span>
-            <p class="content-text">In his teenage years, Rometto noticed he was taller and larger than others, for which he was often called a mutant. As an adult, his massive size allowed him to stand out and take a prominent place in the pride. In the great empire of Dalor, he became a legend. For a long time, he was a wise shaman and advisor to many pride kings (Jax, Munol, and August I). Since childhood, Rometto believed in the legend of the Golden Lion, but that lion had died long ago. He was the first to bring a hyena—his loyal friend Charlie—into this pride. However, one of the kindest kings was killed due to Rometto's deception. This tragedy made him more cautious, although he remains kind at heart. Later, the lionesses who came to power stripped him of his influence and left him with nothing. Due to a foreign will enslaving his demonic power, Rometto was cursed, and his eyes turned black. After the empire's fall, he burned its ruins to the ground in a fit of rage.</p>
+            <span class="sub-title">3. Война с Богами и Бремя прошлого</span>
+            <p class="content-text">В 16-м перерождении Рометто основал собственный прайд Reverse Time, но боги, испугавшись его мощи, заковали его в небесные цепи. Годы он наблюдал за страданиями своих детей с небес, пока ярость не дала ему силы разорвать оковы. Рометто объявил войну небесам и сокрушил множество божеств. Эта трагедия оставила след: его дочь жива. Она носит его кровь и признает его, но постоянно упрекает отца за то, что его не было рядом в трудную минуту. Сейчас все его друзья разлучились, и Рометто остается странником, путешествующим с места на место в поисках нового дома.</p>
         </div>
 
-        <div class="sub-section">
-            <span class="sub-title">3. War with the Gods and the Burden of the Past</span>
-            <p class="content-text">In his 16th reincarnation, Rometto founded his own pride, Reverse Time, but the gods, fearing his power, shackled him in celestial chains. For years, he watched the suffering of his children from the heavens until rage gave him the strength to break the bonds. Rometto declared war on the heavens and crushed many deities. This tragedy left a mark: his daughter is alive. She carries his blood and recognizes him but constantly reproaches her father for not being there in her time of need. Now all his friends have parted ways, and Rometto remains a wanderer, traveling from place to place in search of a new home.</p>
-        </div>
-
-        <div class="section-title">✦ CHARACTER AND PERSONALITY</div>
+        <div class="section-title">✦ ХАРАКТЕР И ЛИЧНОСТЬ</div>
         <div class="content-text space-y-4">
-            <p>By nature, Rometto is a curious, adventurous, and very strong-willed lion. Despite the hardships he has endured, he remains kind, though past experiences have made him much more cautious and sometimes melancholic. However, he always strives to appear friendly.</p>
-            <p>Due to past trauma and short, unsatisfactory relationships, he has completely <span class="highlight">lost trust in lionesses</span>. Nevertheless, he maintains deep devotion, loyalty, and hope toward his true friends. He has a best friend whom he meets periodically, and this bond is very important to him.</p>
+            <p>По своей натуре Рометто любопытный, авантюрный и очень волевой лев. Несмотря на пережитые трудности, он остаётся добрым, хотя прошлый опыт сделал его куда более осторожным и порой меланхоличным.</p>
+            <p>Из-за прошлых травм и коротких, неудовлетворительных отношений, он полностью <span class="highlight">потерял доверие к львицам</span>. Тем не менее, он сохраняет глубокую преданность, верность и надежду по отношению к своим настоящим друзьям. У него есть лучший друг, с которым они периодически пересекаются, и эта связь для него очень важна.</p>
         </div>
 
-        <div class="section-title">✦ ORIENTATION AND FEELINGS</div>
+        <div class="section-title">✦ ОРИЕНТАЦИЯ И ЧУВСТВА</div>
         <div class="content-text space-y-4">
-            <p>Rometto does not trust females due to past experience; most, in his opinion (which is high), seek either sex or power. He does not want to be an object for the satisfaction of others' desires or just another "seed bank." He is attracted to males, likely due to past trauma and a lack of love from his demon father.</p>
-            <p>In relationships, he seeks not so much sexual proximity—which is difficult to realize due to his size—but deep <span class="highlight">romance and warmth</span>: sincere hugs, kisses, spending pleasant time together, quiet night walks, and true soul intimacy with a truly close being.</p>
+            <p>Рометто не испытывает сильного влечения к самкам, хотя и не настроен враждебно по отношению к ним. Больше всего его <span class="highlight">тянет к самцам</span>. Корни этого кроются в его прошлом: он подсознательно ищет ту любовь, мужскую заботу и поддержку, которых никогда не получал от своего отца-демона.</p>
+            <p>В отношениях он ищет не столько сексуальную близость, сколько глубокую <span class="highlight">романтику и тепло</span>: искренние объятия, поцелуи, приятное времяпрепровождение вдвоем, тихие ночные прогулки и настоящую душевную интимность с по-настоящему близким существом.</p>
         </div>
 
-        <div class="section-title">✦ INNER CIRCLE AND FRIENDS</div>
+        <div class="section-title">✦ БЛИЗКИЙ КРУГ И ДРУЗЬЯ</div>
         <div class="content-text space-y-4">
-            <p>Despite past loneliness, Rometto has surrounded himself with allies:</p>
+            <p>Несмотря на прошлое одиночество, Рометто окружил себя союзниками:</p>
             <ul class="space-y-3 pl-2">
-                <li><span class="highlight">Crystallina:</span> The only lioness with whom he shares a strong, pure friendship. In the past, they had sexual relations, but they remained best friends. Both are firmly convinced that true friendship cannot be ruined by sex. Although now friendly sex is possible only in controlled dreams or by other means.</li>
-                <li><span class="highlight">Walter:</span> A lion who has become almost like a blood brother to Rometto.</li>
-                <li><span class="highlight">Richard:</span> Rometto's adopted son.</li>
-                <li><span class="highlight">Fill and Bess:</span> Loyal friends, a lion and a lioness, always ready to support him.</li>
-                <li><span class="highlight">Bastet:</span> A lioness friend who is currently considered missing.</li>
+                <li><span class="highlight">Кристаллина:</span> Единственная львица, с которой его связывает именно крепкая, чистая дружба. В прошлом между ними были сексуальные отношения, но они остались лучшими друзьями. Оба твёрдо убеждены, что сексом настоящую дружбу невозможно испортить.</li>
+                <li><span class="highlight">Валтер:</span> Лев, который стал для Рометто почти как родной брат.</li>
+                <li><span class="highlight">Ричард:</span> Приёмный сын Рометто.</li>
+                <li><span class="highlight">Филл и Бесс:</span> Верные друзья, лев и львица, всегда готовые поддержать.</li>
+                <li><span class="highlight">Бастет:</span> Подруга-львица, которая на данный момент считается пропавшей.</li>
             </ul>
         </div>
 
-        <div class="section-title">✦ BIOLOGY AND HUNTING: THE PHYSICS OF EXTINCTION</div>
+        <div class="section-title">✦ БИОЛОГИЯ И ОХОТА: ФИЗИКА ИСТРЕБЛЕНИЯ</div>
         <div class="content-text space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">I. INFRASONIC RUMBLE</span>
-                    <p class="text-sm">Generates waves below 10 Hz. Resonance causes victims to experience paralysis of will and terror within a 50-meter radius.</p>
+                    <span class="text-orange-500 font-bold block mb-2">I. ИНФРАЗВУКОВОЙ РОКОТ</span>
+                    <p class="text-sm">Генерирует волны ниже 10 Гц. Резонанс вызывает у жертв паралич воли и ужас в радиусе 50 метров.</p>
                 </div>
                 <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">II. INERTIAL DASH</span>
-                    <p class="text-sm">With a mass of 9.2t, he reaches 50 km/h. Any obstacle (trees, armor) simply deforms.</p>
+                    <span class="text-orange-500 font-bold block mb-2">II. ИНЕРЦИОННЫЙ РЫВОК</span>
+                    <p class="text-sm">При массе 9.2т развивает 50 км/ч. Любое препятствие (деревья, броня) просто деформируется.</p>
                 </div>
                 <div class="bg-black/40 p-5 rounded-xl border border-zinc-800">
-                    <span class="text-orange-500 font-bold block mb-2">III. GRAVITATIONAL CRUSH</span>
-                    <p class="text-sm">Landing generates a force of 30–40 tons. Rometto simply transfers weight to a front paw 70 cm wide.</p>
+                    <span class="text-orange-500 font-bold block mb-2">III. ГРАВИТАЦИОННЫЙ КРАШ</span>
+                    <p class="text-sm">Приземление генерирует усилие 30–40 тонн. Рометто просто переносит вес на переднюю лапу шириной 70 см.</p>
                 </div>
             </div>
-            <p class="text-sm text-zinc-500 italic text-center">Bite force of 24,000 PSI is used extremely rarely due to his dimensions.</p>
+            <p class="text-sm text-zinc-500 italic text-center">Сила укуса в 24 000 PSI используется крайне редко из-за габаритов.</p>
         </div>
 
-        <div class="section-title">✦ MAGIC AND ABILITIES</div>
+        <div class="section-title">✦ МАГИЯ И СПОСОБНОСТИ</div>
         <div class="content-text space-y-4">
             <ul class="space-y-3 pl-2">
-                <li><span class="highlight">Shamanism:</span> Former shaman of an ancient cult, possessing knowledge of performing mystical rituals.</li>
-                <li><span class="highlight">Spirit Connection:</span> Retained the ability to communicate with spirits and otherworldly entities.</li>
-                <li><span class="highlight">Unstable Power:</span> Most of his demonic and magical abilities are temporarily lost. However, they can manifest randomly and very powerfully as uncontrollable energy bursts during moments of extreme stress, panic, or fear.</li>
+                <li><span class="highlight">Шаманизм:</span> Бывший шаман древнего культа, обладающий знаниями о проведении мистических ритуалов.</li>
+                <li><span class="highlight">Связь с духами:</span> Сохранил способность общаться с духами и потусторонними сущностями.</li>
+                <li><span class="highlight">Нестабильная сила:</span> Большинство его демонических и магических способностей временно утрачены. Однако они могут случайно и очень мощно проявляться в виде неконтролируемых выбросов энергии в моменты сильного стресса, паники или страха.</li>
             </ul>
         </div>
 
-        <div class="section-title">✦ NEW CHAPTER: DAILY LIFE AND THE POWER OF LOVE</div>
+        <div class="section-title">✦ НОВАЯ ГЛАВА: БЫТ И СИЛА ЛЮБВИ</div>
         <div class="content-text space-y-4">
-            <p><span class="highlight">Guardian Birds:</span> Rometto often spends time communicating with birds. They serve as his loyal eyes in the sky, helping to observe the surrounding world and warn of danger in advance. These birds gained immortality by drinking his demonic blood.</p>
-            <p><span class="highlight">Living Heater:</span> All pride members sleep together with him in the same cave, using him as a massive living space heater.</p>
-            <p><span class="highlight">Healing:</span> Upon meeting a lioness with a beautiful red coat and falling sincerely in love with her, Rometto found healing. His old injury passed: he simply woke up one day and realized nothing hurt anymore.</p>
+            <p><span class="highlight">Птицы-хранители:</span> Рометто часто проводит время, общаясь с птицами. Они служат ему верными глазами в небе, помогая наблюдать за окружающим миром и заранее предупреждать об опасности. Эти птицы обрели бессмертие, выпив его демоническую кровь.</p>
+            <p><span class="highlight">Живая грелка:</span> Все члены прайда спят вместе с ним в одной пещере, используя его как огромную живую грелку.</p>
+            <p><span class="highlight">Исцеление:</span> Встретив львицу с прекрасным рыжим окрасом и искренне полюбив её, Рометто обрёл исцеление. Его старая травма прошла: он просто однажды встал и понял, что ничего не болит.</p>
         </div>
         <div class="rp-invitation">
-            You can also become part of his grand story, as I include all events that happened in RP here if they are interesting and do not contradict the canon. To do this, contact me, and we will discuss RP details and the plot. The story already written may change due to permissions from former RP participants or at their request. Also, some points have been omitted but will be added later.
+            Вы тоже можете стать частью его большой истории, ведь я вношу сюда все события, что с ним были в РП, если они интересны и не противоречат канону. Для этого свяжитесь со мной, мы обсудим детали РП и сюжет.История, которая уже написана, может меняться в связи с разрешениями от бывших участников РП или по их просьбам. Также некоторые моменты были опущены, но будут внесены позже.
         </div>
 
-        <div class="section-title">❓ FREQUENTLY ASKED QUESTIONS</div>
+       <div class="section-title">❓ ЧАСТО ЗАДАВАЕМЫЕ ВОПРОСЫ</div>
 <div id="faq">
+    <!-- Старые вопросы без изменений -->
     <div class="faq-item">
-        <div class="faq-question">Does Rometto have a growth limit? <span>▼</span></div>
-        <div class="faq-answer">Yes, 417 cm is his current limit and absolute peak of physical development in this life.</div>
+        <div class="faq-question">Есть ли у Рометто предел роста? <span>▼</span></div>
+        <div class="faq-answer">Да, 417 см — это его текущий предел и абсолютная вершина физического развития в этой жизни.</div>
     </div>
     <div class="faq-item">
-        <div class="faq-question">What magical abilities has he retained? <span>▼</span></div>
-        <div class="faq-answer">Most are lost (they might only break through during extreme stress or fear). One of the few remaining on a permanent basis is mind reading, but he doesn't use it on principle. He can also communicate with spirits.</div>
+        <div class="faq-question">Какие магические способности он сохранил? <span>▼</span></div>
+        <div class="faq-answer">Большинство утрачено (могут случайно прорываться лишь при сильном стрессе или страхе). Одно из немногих оставшихся на постоянной основе — чтение мыслей, но он им не пользуется из принципа. Также он может общаться с духами.</div>
     </div>
     <div class="faq-item">
-        <div class="faq-question">Can he be defeated? <span>▼</span></div>
-        <div class="faq-answer">Yes, he can. But it is a secret known only to three living beings in all worlds.</div>
+        <div class="faq-question">Можно ли его победить? <span>▼</span></div>
+        <div class="faq-answer">Да, можно. Но это тайна, которую знают лишь три живых существа во всех мирах.</div>
+    </div>
+
+    <!-- Исправленный вопрос про рыжую львицу -->
+    <div class="faq-item">
+        <div class="faq-question">Кто такая рыжая львица, которая исцелила Рометто? <span>▼</span></div>
+        <div class="faq-answer">Пока это секрет. Рометто встретил её уже в своём новом прайде. Именно её искренняя любовь стала катализатором исцеления — старая травма правой лапы исчезла сама собой.</div>
     </div>
 
     <div class="faq-item">
-        <div class="faq-question">Who is the red lioness who healed Rometto? <span>▼</span></div>
-        <div class="faq-answer">It's a secret for now. Rometto met her in his new pride. Her sincere love became the catalyst for healing—the old injury to his right paw disappeared on its own.</div>
-    </div>      
-
-    <div class="faq-item">
-        <div class="faq-question">What happened to Agares after being sealed in the stone? <span>▼</span></div>
-        <div class="faq-answer">He is either dead or alive... but he hasn't appeared for a very long time. Most likely missing or simply temporarily weakened. (His fate is one of those mysteries that might unexpectedly return to the plot 😉)</div>
+        <div class="faq-question">Что произошло с Агаресом после заточения в камень? <span>▼</span></div>
+        <div class="faq-answer">Он либо мёртв, либо жив… но не появлялся очень долгое время. Скорее всего пропал без вести или просто временно ослаб. (Его судьба — одна из тех тайн, которые могут неожиданно вернуться в сюжет 😉)</div>
     </div>
 
     <div class="faq-item">
-        <div class="faq-question">How exactly does Rometto's reincarnation work? <span>▼</span></div>
-        <div class="faq-answer">After death, he appears as a small cub in a random place in the world, born to a random pregnant lioness. The demonic essence in his soul infects the blood again. Growth is accelerated. Memories return in flashes during his teenage years and often cause severe pain. He is currently living his 19th life—the most perfect in terms of physical form.</div>
+        <div class="faq-question">Как именно работает возрождение Рометто? <span>▼</span></div>
+        <div class="faq-answer">После смерти он появляется маленьким львёнком в случайном месте мира. Рост ускорен. Память возвращается вспышками в подростковом возрасте и часто причиняет сильную боль. Сейчас он проживает 19-ю жизнь — самую совершенную по физической форме.</div>
     </div>
 
     <div class="faq-item">
-        <div class="faq-question">What is the Reverse Time pride and does it exist now? <span>▼</span></div>
-        <div class="faq-answer">Reverse Time was founded by Rometto in his 16th life. After the war with the gods, the pride disbanded. Some of its members survived both the collapse of the pride and Rometto's reincarnation. Among them are Bess and Crystallina. In his 19th life, Rometto is gradually building a new home and a new family.</div>
+        <div class="faq-question">Что такое прайд Reverse Time и существует ли он сейчас? <span>▼</span></div>
+        <div class="faq-answer">Reverse Time был основан Рометто в 16-й жизни. После войны с богами прайд распался. Некоторые его члены пережили и распад прайда, и перерождение Рометто. Среди них — Бесс и Кристаллина. В 19-й жизни Рометто постепенно собирает новый дом и новую семью.</div>
     </div>
 
         </div>
 
         <div class="footer-btn-container">
             <a href="/" class="btn-home-lair">
-                <span>🐾</span> RETURN TO THE LAIR
+                <span>🐾</span> ВЕРНУТЬСЯ В ЛОГОВО
             </a>
         </div>
     </div>
 
     <footer class="site-footer">
-        <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="text-orange-500">Rometto</span></strong>. All rights reserved.</div>
-        <div class="mt-2">Contact: <a href="https://t.me/mr_Rometto" target="_blank" class="text-orange-500 hover:underline">@mr_Rometto</a></div>
+        <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="text-orange-500">Rometto</span></strong>. Все права защищены.</div>
+        <div class="mt-2">Связь: <a href="https://t.me/mr_Rometto" target="_blank" class="text-orange-500 hover:underline">@mr_Rometto</a></div>
     </footer>
 
-    <button id="scrollUp" title="Scroll Up">
+    <button id="scrollUp" title="Наверх">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
     </button>
 
@@ -498,6 +516,7 @@
         };
         scrollBtn.onclick = () => window.scrollTo({top: 0, behavior: 'smooth'});
 
+        // FAQ Logic
         document.querySelectorAll('.faq-question').forEach(question => {
             question.addEventListener('click', () => {
                 const item = question.parentElement;
@@ -505,6 +524,7 @@
             });
         });
 
+        // Искры падают ВНИЗ
         const canvas = document.getElementById('sparkCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
@@ -521,9 +541,9 @@
             constructor() { this.reset(); }
             reset() {
                 this.x = Math.random() * canvas.width;
-                this.y = Math.random() * -canvas.height;
+                this.y = Math.random() * -canvas.height; // Появляются сверху
                 this.size = Math.random() * 2 + 0.5;
-                this.speedY = Math.random() * 1.5 + 0.5;
+                this.speedY = Math.random() * 1.5 + 0.5; // Скорость падения вниз
                 this.speedX = Math.random() * 1 - 0.5;
                 this.opacity = Math.random() * 0.5 + 0.5;
                 this.color = `rgba(255, ${Math.floor(Math.random() * 150 + 100)}, 0, ${this.opacity})`;
@@ -556,7 +576,7 @@
         const toggleBtn = document.getElementById('toggleSparks');
         toggleBtn.onclick = () => {
             sparksEnabled = !sparksEnabled;
-            toggleBtn.innerText = sparksEnabled ? "Disable Sparks" : "Enable Sparks";
+            toggleBtn.innerText = sparksEnabled ? "Выключить искры" : "Включить искры";
         };
     </script>
 </body>
