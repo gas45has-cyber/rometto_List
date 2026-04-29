@@ -28,13 +28,11 @@
             flex-direction: column;
             align-items: center;
         }
+        /* Убраны глобальные transform для ссылок и кнопок во избежание дрожания */
         a, button, input {
             cursor: url('cursor_pointer.png') 12 12, pointer !important;
-            transition: transform 0.10s ease;
         }
         input { cursor: url('cursor_text.png') 12 12, text !important; }
-        a:hover, button:hover { filter: drop-shadow(0 0 5px #d2b48c); }
-        a:active, button:active { transform: scale(0.98); }
         
         .en-text {
             font-family: 'LionKing', Arial, sans-serif !important;
@@ -50,9 +48,9 @@
         .nav-container-main { display: flex; justify-content: center; gap: 10px; width: 100%; max-width: 1100px; margin-bottom: 25px; flex-wrap: wrap; }
         .nav-btn {
             display: inline-block; padding: 12px 20px; border: 2px solid #e67e22; color: #e67e22; text-decoration: none; font-weight: bold; text-transform: uppercase;
-            border-radius: 5px; transition: 0.3s; background: rgba(230, 126, 34, 0.05); text-align: center; font-size: 12px; white-space: nowrap;
+            border-radius: 5px; transition: all 0.2s ease; background: rgba(230, 126, 34, 0.05); text-align: center; font-size: 12px; white-space: nowrap;
         }
-        .nav-btn:hover { background: #e67e22; color: #fff; box-shadow: 0 0 10px rgba(230, 126, 34, 0.3); }
+        .nav-btn:hover { background: #e67e22; color: #fff; box-shadow: 0 0 10px rgba(230, 126, 34, 0.5); }
 
         /* ЗАГОЛОВОК */
         .title-top-line {
@@ -97,9 +95,9 @@
         .calc-btn-run { 
             width: 100%; padding: 18px; margin-top: 30px; background: linear-gradient(135deg, #e67e22, #c0392b); 
             border: none; color: #fff; font-size: 16px; font-weight: bold; text-transform: uppercase; 
-            border-radius: 8px; letter-spacing: 1px; transition: 0.3s; box-shadow: 0 4px 15px rgba(230,126,34,0.4); 
+            border-radius: 8px; letter-spacing: 1px; transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(230,126,34,0.4); 
         }
-        .calc-btn-run:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(230,126,34,0.6); }
+        .calc-btn-run:hover { filter: brightness(1.15); box-shadow: 0 0 25px rgba(230,126,34,0.7); }
 
         /* РЕЗУЛЬТАТЫ */
         #calc-results { margin-top: 40px; display: none; }
@@ -114,7 +112,7 @@
         .bar-row { display: flex; align-items: center; gap: 10px; }
         .bar-label { width: 80px; font-size: 12px; color: #aaa; text-transform: uppercase; flex-shrink: 0; }
         .bar-wrap { flex: 1; background: #222; border-radius: 4px; height: 20px; overflow: hidden; position: relative; }
-        .bar-fill { height: 100%; border-radius: 4px; transition: width 1s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; padding-left: 8px; font-size: 10px; font-weight: bold; color: #000; white-space: nowrap; }
+        .bar-fill { height: 100%; border-radius: 4px; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; padding-left: 8px; font-size: 10px; font-weight: bold; color: #000; white-space: nowrap; }
         
         .bar-you { background: linear-gradient(90deg, #3a86ff, #00d4ff); }
         .bar-lion { background: linear-gradient(90deg, #f1c40f, #f39c12); }
@@ -123,17 +121,30 @@
         .rometto-comment { 
             background: rgba(230,126,34,0.05); padding: 15px; border-radius: 8px; 
             font-style: italic; color: #d2b48c; position: relative; border: 1px solid rgba(230,126,34,0.2);
+            line-height: 1.5;
         }
         .rometto-comment::before { content: '💬 Рометто:'; display: block; font-weight: bold; color: #e67e22; font-style: normal; font-size: 12px; margin-bottom: 5px; text-transform: uppercase; }
+        .rometto-comment a { color: #e67e22; text-decoration: underline; font-style: normal; font-weight: bold; }
 
         .calc-verdict { margin-top: 30px; padding: 20px; background: rgba(192,57,43,0.1); border: 2px dashed #c0392b; border-radius: 10px; text-align: center; color: #e67e22; font-size: 16px; font-weight: bold; }
 
         .hidden { display: none !important; }
-        .toggle-btn { background: transparent; border: 1px solid #e67e22; color: #e67e22; padding: 4px 10px; border-radius: 4px; font-size: 10px; cursor: pointer; text-transform: uppercase; }
+        .toggle-btn { background: transparent; border: 1px solid #e67e22; color: #e67e22; padding: 4px 10px; border-radius: 4px; font-size: 10px; cursor: pointer; text-transform: uppercase; transition: 0.2s ease; }
         .toggle-btn:hover { background: #e67e22; color: #000; }
         
         @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animated-result { animation: slideIn 0.5s ease forwards; opacity: 0; }
+
+        /* КОНТАКТЫ И ФУТЕР ИЗ ОСНОВНОГО ФАЙЛА */
+        .contacts-block { display: flex; gap: 20px; margin-top: 15px; justify-content: center; flex-wrap: wrap; }
+        .contact-link { color: #d2b48c; text-decoration: none; font-weight: bold; display: flex; align-items: center; transition: 0.3s; border-bottom: 1px solid transparent; }
+        .contact-link:hover { color: #e67e22; border-bottom-color: #e67e22; filter: brightness(1.2); }
+        .contact-icon { width: 20px; height: 20px; margin-right: 8px; object-fit: contain; }
+        
+        .site-footer { width: 100%; max-width: 900px; margin-top: 60px; padding: 25px 0; border-top: 1px solid #333; text-align: center; font-size: 13px; color: #777; line-height: 1.6; }
+        .site-footer strong { color: #e67e22; }
+        .site-footer a { color: #d2b48c; text-decoration: none; border-bottom: 1px solid #444; transition: 0.3s; }
+        .site-footer a:hover { color: #e67e22; border-color: #e67e22; }
     </style>
 </head>
 <body>
@@ -149,15 +160,15 @@
 
     <div class="calc-wrapper">
         <div class="calc-box">
-            <p class="calc-desc">Заполни любые поля. Пустые будут проигнорированы.<br>Рометто уже точит когти, чтобы прокомментировать твои жалкие (или впечатляющие) показатели.</p>
+            <p class="calc-desc">Заполни любые поля. Пустые будут проигнорированы.<br>Рометто уже точит когти, чтобы прокомментировать твои показатели.</p>
 
             <!-- Группа 1: Базовые метрики -->
             <div class="calc-category-title">📏 Общая физиология</div>
             <div class="calc-inputs">
                 <div class="calc-field"><label>Твой Рост (см)</label><input type="number" id="inp-height" placeholder="Пример: 175"></div>
                 <div class="calc-field"><label>Твоя Масса (кг)</label><input type="number" id="inp-weight" placeholder="Пример: 75"></div>
-                <div class="calc-field"><label>Объём лёгких (л)</label><input type="number" id="inp-lungs" placeholder="Обычно 4-6 л у человека"></div>
-                <div class="calc-field"><label>Еда в сутки (кг)</label><input type="number" id="inp-food" placeholder="Сколько кг съедаешь? (Пример: 2)"></div>
+                <div class="calc-field"><label>Объём лёгких (л)</label><input type="number" id="inp-lungs" placeholder="Обычно 4-6 л"></div>
+                <div class="calc-field"><label>Еда в сутки (кг)</label><input type="number" id="inp-food" placeholder="Сколько кг съедаешь?"></div>
             </div>
 
             <!-- Группа 2: Сила и Бой -->
@@ -165,18 +176,36 @@
             <div class="calc-inputs">
                 <div class="calc-field"><label>Сила укуса (PSI)</label><input type="number" id="inp-bite" placeholder="У человека ~160 PSI"></div>
                 <div class="calc-field"><label>Сила удара (кг)</label><input type="number" id="inp-punch" placeholder="Спортсмен ~300 кг"></div>
-                <div class="calc-field"><label>Макс. скорость (км/ч)</label><input type="number" id="inp-speed" placeholder="Бег человека ~20-25 км/ч"></div>
                 <div class="calc-field"><label>Громкость крика (dB)</label><input type="number" id="inp-roar" placeholder="Обычный крик ~90 dB"></div>
             </div>
 
-            <!-- Группа 3: NSFW / Специфичное -->
+            <!-- Группа 3: Движение -->
+            <div class="calc-category-title">🏃‍♂️ Движение и Прыжки</div>
+            <div class="calc-inputs">
+                <div class="calc-field"><label>Макс. скорость (км/ч)</label><input type="number" id="inp-speed" placeholder="Бег человека ~25 км/ч"></div>
+                <div class="calc-field"><label>Прыжок в высоту (м)</label><input type="number" id="inp-jump_h" placeholder="С места/разбега (м)"></div>
+                <div class="calc-field"><label>Прыжок в длину (м)</label><input type="number" id="inp-jump_l" placeholder="С места/разбега (м)"></div>
+            </div>
+
+            <!-- Группа 4: Жизнедеятельность -->
+            <div class="calc-category-title">🚽 Жизнедеятельность</div>
+            <div class="calc-inputs">
+                <div class="calc-field"><label>Кал за раз (кг)</label><input type="number" id="inp-poop" placeholder="Пример: 0.5"></div>
+                <div class="calc-field"><label>Моча за раз (л)</label><input type="number" id="inp-urine" placeholder="Пример: 0.4"></div>
+                <div class="calc-field"><label>Макс. порция еды (кг)</label><input type="number" id="inp-max_food" placeholder="Пиковая еда за раз"></div>
+                <div class="calc-field"><label>Скорость чиха (м/с)</label><input type="number" id="inp-sneeze" placeholder="Человек ~45 м/с"></div>
+            </div>
+
+            <!-- Группа 5: NSFW / Специфичное -->
             <div class="calc-category-title">
                 🔞 Анатомия (Опционально)
                 <button class="toggle-btn" onclick="toggleNSFW()">Развернуть</button>
             </div>
             <div id="nsfw-section" class="calc-inputs hidden">
-                <div class="calc-field"><label>Длина пениса в эрекции (см)</label><input type="number" id="inp-penis" placeholder="В эрекции"></div>
-                <div class="calc-field"><label>Размер шаров (см)</label><input type="number" id="inp-balls" placeholder="Диаметр (по желанию)"></div>
+                <div class="calc-field"><label>Длина в покое (см)</label><input type="number" id="inp-penis_flaccid" placeholder="Без эрекции"></div>
+                <div class="calc-field"><label>Длина в эрекции (см)</label><input type="number" id="inp-penis" placeholder="В эрекции"></div>
+                <div class="calc-field"><label>Размер шаров (см)</label><input type="number" id="inp-balls" placeholder="Диаметр"></div>
+                <div class="calc-field"><label>Объём эякулята (мл)</label><input type="number" id="inp-cum_vol" placeholder="В миллилитрах"></div>
             </div>
 
             <button class="calc-btn-run" onclick="runCalculator()">Сравнить параметры</button>
@@ -190,113 +219,141 @@
         </div>
     </div>
 
+    <!-- БЛОК КОНТАКТОВ (как на главной) -->
+    <div style="text-align: center; width: 100%; max-width: 900px; margin-top: 40px;">
+        <p style="color: #e67e22; font-weight: bold; text-transform: uppercase; font-size: 14px; margin-bottom: 5px;">Каналы связи со мной:</p>
+        <div class="contacts-block">
+            <a href="https://t.me/mr_Rometto" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/icon_tg.png" class="contact-icon" alt=""> Мой ТГ</a>
+            <a href="https://www.furaffinity.net/user/romb" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/fa_logo.webp" class="contact-icon" alt=""> Мой FA</a>
+            <a href="https://vk.com/mr.rometto" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/icon_vk.png" class="contact-icon" alt=""> Мой ВК</a>
+            <a href="https://youtube.com/@rombblog" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/icon_youtube.png" class="contact-icon" alt=""> Мой YouTube</a>
+        </div>
+    </div>
+
+    <!-- ФУТЕР (как на главной) -->
+    <footer class="site-footer">
+        <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">ROMETTO</span></strong>. Все права защищены.</div>
+        <div style="margin-top: 15px; color: #d2b48c;">
+            Подарки очень приятны, я и Рометто всегда рады совместным артам! 🐾<br>
+            Но, пожалуйста, <a href="https://t.me/mr_Rometto" target="_blank" rel="noopener noreferrer">свяжитесь со мной</a> заранее.
+        </div>
+    </footer>
+
     <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
         // Базовые данные (Рометто и Обычный лев)
         const DB = {
-            height: { name: 'Рост / Длина', unit: 'см', rometto: 417, lion: 120, max: 450, invert: false },
-            weight: { name: 'Масса тела', unit: 'кг', rometto: 9200, lion: 220, max: 9500, invert: false },
-            lungs:  { name: 'Объём лёгких', unit: 'л', rometto: 500, lion: 13, max: 550, invert: false },
-            food:   { name: 'Еда в сутки', unit: 'кг', rometto: 150, lion: 7, max: 160, invert: false },
-            bite:   { name: 'Сила укуса', unit: 'PSI', rometto: 24000, lion: 650, max: 25000, invert: false },
-            punch:  { name: 'Сила удара', unit: 'кг', rometto: 20000, lion: 400, max: 22000, invert: false },
-            speed:  { name: 'Скорость', unit: 'км/ч', rometto: 50, lion: 80, max: 100, invert: false }, // Рометто медленнее льва
-            roar:   { name: 'Громкость', unit: 'dB', rometto: 160, lion: 114, max: 180, invert: false },
-            penis:  { name: 'Пенис в эрекции', unit: 'см', rometto: 70, lion: 20, max: 80, invert: false },
-            balls:  { name: 'Размер шаров', unit: 'см', rometto: 30, lion: 6, max: 35, invert: false }
+            height: { name: 'Рост / Длина', unit: 'см', rometto: 417, lion: 120, max: 450 },
+            weight: { name: 'Масса тела', unit: 'кг', rometto: 9200, lion: 220, max: 9500 },
+            lungs:  { name: 'Объём лёгких', unit: 'л', rometto: 500, lion: 13, max: 550 },
+            food:   { name: 'Еда в сутки', unit: 'кг', rometto: 150, lion: 7, max: 160 },
+            bite:   { name: 'Сила укуса', unit: 'PSI', rometto: 24000, lion: 650, max: 25000 },
+            punch:  { name: 'Сила удара', unit: 'кг', rometto: 20000, lion: 400, max: 22000 },
+            speed:  { name: 'Скорость', unit: 'км/ч', rometto: 50, lion: 80, max: 100 },
+            jump_h: { name: 'Прыжок в высоту', unit: 'м', rometto: 10, lion: 3, max: 12 },
+            jump_l: { name: 'Прыжок в длину', unit: 'м', rometto: 35, lion: 12, max: 40 },
+            roar:   { name: 'Громкость', unit: 'dB', rometto: 160, lion: 114, max: 180 },
+            poop:   { name: 'Кал (за раз)', unit: 'кг', rometto: 40, lion: 1, max: 45 },
+            urine:  { name: 'Моча (за раз)', unit: 'л', rometto: 15, lion: 0.4, max: 18 },
+            max_food: { name: 'Пиковая еда', unit: 'кг', rometto: 500, lion: 30, max: 550 },
+            sneeze: { name: 'Скорость чиха', unit: 'м/с', rometto: 100, lion: 8, max: 110 },
+            penis_flaccid: { name: 'Пенис (покой)', unit: 'см', rometto: 30, lion: 8, max: 35 },
+            penis:  { name: 'Пенис (эрекция)', unit: 'см', rometto: 70, lion: 20, max: 80 },
+            balls:  { name: 'Размер шаров', unit: 'см', rometto: 30, lion: 6, max: 35 },
+            cum_vol: { name: 'Объём эякулята', unit: 'мл', rometto: 2000, lion: 60, max: 2200 }
         };
 
         // Обширный банк комментариев Рометто
         const COMMENTS = {
             height: {
-                tiny: [
-                    "Смотри под ноги, я могу случайно раздавить тебя и даже не заметить.",
-                    "Ты мне даже до колена не достаёшь. Придётся нагнуться, чтобы тебя расслышать.",
-                    "Я думал, это пылинка, а это ты. Забавно."
-                ],
-                mid: [
-                    "Хм, ну хотя бы до живота моего достаёшь. Уже прогресс.",
-                    "Нормальный рост для твоего вида, но на моем фоне ты всё равно смотришься как игрушка."
-                ],
-                huge: [
-                    "Ого! Да ты гигант. Но 4 метра тебе всё равно не взять.",
-                    "Впечатляет. Будет с кем пободаться лбами."
-                ]
+                tiny: ["Смотри под ноги, я могу случайно раздавить тебя и даже не заметить.", "Ты мне даже до колена не достаёшь. Придётся нагнуться, чтобы тебя расслышать."],
+                mid: ["Хм, ну хотя бы до живота моего достаёшь. Уже прогресс."],
+                huge: ["Ого! Да ты гигант. А что говлрят заоны физики?."]
             },
             weight: {
-                tiny: [
-                    "Твой вес — это статистическая погрешность для моих весов.",
-                    "Я мяса за раз съедаю больше, чем ты весишь целиком.",
-                    "Если я чихну, тебя сдует в другую страну. Набери массу, скелетик."
-                ],
-                mid: [
-                    "Легковат, но на один укус сойдёшь.",
-                    "Моя левая передняя лапа весит больше, чем весь ты. Живи с этим."
-                ],
-                huge: [
-                    "Уважаю. Масса — это сила. Главное, чтобы кости выдержали моё гравитационное давление."
-                ]
+                tiny: ["Твой вес — это статистическая погрешность для моих весов.", "Я мяса за раз съедаю больше, чем ты весишь целиком."],
+                mid: ["Легковат, но на один укус сойдёшь.", "Моя левая передняя лапа весит больше, чем весь ты. Живи с этим."],
+                huge: ["Уважаю. Масса — это сила. Главное, чтобы кости выдержали."]
             },
             lungs: {
-                tiny: [
-                    "Ты дышишь или просто делаешь вид? Мой объём — 500 литров чистого урагана.",
-                    "Твоих легких едва хватит, чтобы надуть шарик. Моих — чтобы снести деревню."
-                ],
+                tiny: ["Ты дышишь или просто делаешь вид? Мой объём — 500 литров чистого урагана."],
+                mid: ["Ну для смертного пойдет. Но если я чихну — тебя сдует."],
                 huge: ["Ого, да у тебя внутри целые мехи! Смотри не лопни."]
             },
             food: {
-                tiny: [
-                    "Как ты вообще выживаешь на таких крохах? Я только на поддержание температуры трачу больше энергии.",
-                    "Ты ешь как птичка. Мне нужно 150 кг мяса в день, чтобы просто быть в настроении."
-                ],
-                huge: ["Аппетит у тебя что надо! Главное, не стань моим обедом."]
+                tiny: ["Как ты вообще выживаешь на таких крохах? Я только на поддержание температуры трачу больше энергии."],
+                mid: ["Аппетит прорезается? Мне нужно 150 кг мяса в день, так что старайся лучше."],
+                huge: ["Аппетит у тебя что надо! Главное, не сожри всё живое."]
             },
             bite: {
-                tiny: [
-                    "Твой укус даже мне шкуру не почешет. Мои 24,000 PSI крошат стальные балки как сухарики.",
-                    "Не смеши мои клыки. Я перекусываю броневики."
-                ],
+                tiny: ["Твой укус даже мне шкуру не почешет. Мои 24,000 PSI крошат стальные балки как сухарики."],
+                mid: ["Уже можешь прокусить картон? Гордись. Я же перекусываю броневики."],
                 huge: ["Неплохо клацаешь зубками! Но со мной лучше не кусаться."]
             },
             punch: {
-                tiny: [
-                    "Ты меня погладить пытаешься? Мой удар — это 20 тонн кинетической неизбежности.",
-                    "Если я ударю в ответ, от тебя останется только влажное пятно на стене."
-                ],
+                tiny: ["Ты меня погладить пытаешься? Не надо, я не боюсь щекотки."],
+                mid: ["Если я ударю в ответ, от тебя останется только влажное пятно на стене."],
                 huge: ["Хороший удар! Если повезёт, даже оставишь мне синяк. Шучу, не оставишь."]
             },
             speed: {
-                slow: [
-                    "Даже я при своих 9 тоннах бегаю быстрее тебя (50 км/ч). Тебе не убежать.",
-                    "Ты ползаешь, а не бегаешь. Идеальная, медленная добыча."
-                ],
-                fast: [
-                    "О, ты быстрее меня? Гордись. Обычный лев бегает 80 км/ч, а я тяжеловат. Но мне и не надо бегать — я просто прыгну на 30 метров.",
-                    "Беги-беги. Убегать от меня — это просто умереть уставшим."
-                ]
+                slow: ["Даже я при своих 9 тоннах бегаю быстрее тебя (50 км/ч). Тебе не убежать.", "Ты ползаешь, а не бегаешь. Идеальная, медленная добыча."],
+                fast: ["О, ты быстрее меня? Обычный лев бегает 80 км/ч, а я тяжеловат. Но убегать от меня — это просто умереть уставшим.", "Беги-беги. Я просто прыгну на 30 метров и прихлопну тебя."]
+            },
+            jump_h: {
+                tiny: ["Ты вообще от земли оторвался? Я с места взлетаю на 10 метров вверх."],
+                mid: ["Неплохо для бескрылого. Но до моей реактивной тяги задних лап тебе далеко."],
+                huge: ["Высоко летаешь! Смотри не обманись гравитацией."]
+            },
+            jump_l: {
+                tiny: ["Два шага? Я покрываю 35 метров в один прыжок, превращаясь в живой снаряд."],
+                mid: ["Разбег хороший, но я всё равно перепрыгну твой дом, а ты..порог."],
+                huge: ["Отличный прыжок. Почти как у моих блох. Шучу, у меня их нет."]
             },
             roar: {
-                tiny: [
-                    "Твой крик — это шепот. Мои 160 дБ лопают барабанные перепонки и вызывают панику на клеточном уровне.",
-                    "Слышишь этот низкий гул? Это я даже не стараюсь. А ты пищишь."
-                ],
-                huge: ["Громко! Уши заложило. Но инфразвук тебе всё равно не переплюнуть."]
+                tiny: ["Твой крик — это шепот. Мои 160 дБ лопают барабанные перепонки."],
+                mid: ["Слышишь этот низкий гул? Это я даже не стараюсь. А ты уже напрягаешь связки."],
+                huge: ["Громко! Уши заложило. Но инфразвуковый паралич тебе всё равно не вызвать."]
+            },
+            poop: {
+                tiny: ["Ты производишь какие-то крохи.", "Я даже не замечу, если случайно наступлю на твои дела."],
+                mid: ["Неплохо, но я всё ещё мало."],
+                huge: ["Ого, да ты ходячая фабрика удобрений!"]
+            },
+            urine: {
+                tiny: ["Жалкая лужица. Я за раз сливаю 15 литров — могу потушить костер или утопить тебя.", "Тебе нужно пить больше воды, смертный."],
+                mid: ["Нормальный напор, но до моего 15-литрового водопада тебе далеко."],
+                huge: ["Ты водонапорная башня или кто? Смотри не затопи тут всё."]
+            },
+            max_food: {
+                tiny: ["Твоя пиковая порция — это для меня легкий перекус между делом.", "Я за раз могу сожрать 500 кг мяса. А ты клюешь как птичка."],
+                mid: ["Желудок растягивается? Хорошо, но в меня помещается половина коровы."],
+                huge: ["Вот это аппетит! С таким брюхом мы найдем общий язык."]
+            },
+            sneeze: {
+                tiny: ["Твой чих даже пылинку не сдует. Мой летит 100 м/с — это локальная ударная волна.", "Будь здоров. А теперь отойди, если я чихну — от тебя останется мокрое место."],
+                mid: ["Хороший поток воздуха, но деревья не вырывает. Слабовато."],
+                huge: ["Ураганный чих! Главное не порви себе легкие."]
+            },
+            penis_flaccid: {
+                tiny: ["В покое у меня 30 см, и я даже не пытаюсь впечатлять. А ты?"],
+                mid: ["Скромненько. Даже когда я расслаблен, я внушаю трепет."],
+                huge: ["Внушительно. Но что ты собрался им делать? спину чесать?."]
             },
             penis: {
-                tiny: [
-                    "Ну... мило. У меня 70 см в боевой готовности. Делай выводы.",
-                    "Главное не размер, верно? ...Хотя кого я обманываю, конечно размер. И я тут абсолютный чемпион."
-                ],
-                huge: [
-                    "Моё почтение! Вот это агрегат. Но мои шипы и 70 см всё равно внушают больше трепета.",
-                    "Достойный размер. Даже я немного впечатлён."
-                ]
+                tiny: ["Ну... мило. У меня 70 см в боевой готовности. Делай выводы.", "Главное не размер? ...Хотя кого я обманываю, дамы хоть довольны?"],
+                mid: ["Уже что-то. Главное что бы всем было приятно врено?."],
+                huge: ["Моё почтение! Вот это агрегат. Но он тебе не мешает?."]
             },
             balls: {
-                tiny: [
-                    "Аккуратные. У меня же каждое яичко весит под 10 кг и размером с помело.",
-                    "Скромно. Мои генераторы семени весят 20 кг. Это чистая демоническая мощь."
-                ],
-                huge: ["Серьёзный калибр! Тебе не тяжело с ними ходить?"]
+                tiny: ["Аккуратные. У меня же каждое яичко весит под 10 кг и размером с помело."],
+                mid: ["Скромно. Мои генераторы семени весят 20 кг. Это чистая мощь."],
+                huge: ["Серьёзный калибр! Тебе не тяжело с ними ходить? Если да у меня есть вариант как это исправить 🦁 + 🥚🥚 + ✂️ = 😿"]
+            },
+            cum_vol: {
+                tiny: ["Миллилитры? Смешно. Я заливаю 2 литра высокоэнергетической демонической магмы.", "Этим даже дно стакана не покрыть."],
+                mid: ["Уже не капля, но до моих двух литров тебе как до луны."],
+                huge: ["Ого, да ты прям пожарный шланг! Наполнищь бассейн?."]
             }
         };
 
@@ -324,26 +381,30 @@
         }
 
         function getComment(key, userVal, romettoVal, lionVal) {
+            // ЭКСКЛЮЗИВНАЯ ЛОГИКА ДЛЯ "ВРУНОВ"
+            // Если юзер ввел значение больше, чем у Рометто (исключая скорость, т.к. машины/гепарды быстрее)
+            if (userVal > romettoVal && key !== 'speed') {
+                return "Ага да, так и поверил. Жду пруфы, как такое чудо появилось, или тебя феечки трахали? Пиши сюда: <a href='https://t.me/mr_Rometto' target='_blank'>@mr_Rometto</a>";
+            }
+
             const ratio = userVal / romettoVal;
             const commentsObj = COMMENTS[key];
             if (!commentsObj) return "Я даже не знаю, что сказать на этот счет.";
 
-            // Особая логика для скорости (Рометто медленнее льва)
             if (key === 'speed') {
                 if (userVal >= 50) return getRandomElement(commentsObj.fast);
                 return getRandomElement(commentsObj.slow);
             }
 
-            // Стандартная логика
-            if (ratio < 0.1) return getRandomElement(commentsObj.tiny);
-            if (ratio < 0.5) return getRandomElement(commentsObj.mid || commentsObj.tiny);
+            if (ratio < 0.15) return getRandomElement(commentsObj.tiny);
+            if (ratio < 0.6) return getRandomElement(commentsObj.mid || commentsObj.tiny);
             return getRandomElement(commentsObj.huge);
         }
 
         function createBarHTML(label, val, maxVal, unit, cssClass) {
             let percent = (val / maxVal) * 100;
-            if (percent > 100) percent = 100; // Ограничитель визуала
-            if (percent < 2) percent = 2;     // Чтобы бар было хоть немного видно
+            if (percent > 100) percent = 100; 
+            if (percent < 2) percent = 2;     
             
             return `
                 <div class="bar-row">
@@ -361,7 +422,7 @@
             const verdict = document.getElementById('final-verdict');
             container.innerHTML = '';
             
-            const inputs = ['height', 'weight', 'lungs', 'food', 'bite', 'punch', 'speed', 'roar', 'penis', 'balls'];
+            const inputs = Object.keys(DB);
             let filledCount = 0;
 
             inputs.forEach((key, index) => {
@@ -378,10 +439,8 @@
                     
                     // Расчет разницы
                     let mathText = '';
-                    if (key === 'speed' && userVal > data.rometto) {
-                        mathText = `Ты быстрее Рометто на ${(userVal - data.rometto).toFixed(1)} ${data.unit}`;
-                    } else if (key === 'roar' && userVal > data.rometto) {
-                         mathText = `Ты громче Рометто! (Невозможно, но факт)`;
+                    if (userVal > data.rometto) {
+                        mathText = `Ты превзошёл Рометто на ${(userVal - data.rometto).toFixed(1)} ${data.unit}!`;
                     } else {
                         const times = (data.rometto / userVal).toFixed(1);
                         mathText = `Рометто больше/сильнее в ${times} раз`;
@@ -413,14 +472,19 @@
 
             if (filledCount === 0) {
                 container.innerHTML = '<div style="color:#e74c3c; text-align:center; padding:20px;">Ты не заполнил ни одного поля. Боишься узнать правду?</div>';
+                verdict.classList.add('hidden');
             } else {
                 verdict.textContent = getRandomElement(GENERAL_VERDICTS);
                 verdict.classList.remove('hidden');
             }
 
             resultsSection.style.display = 'block';
-            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            
+            // Плавный скролл к результатам с небольшой задержкой для рендеринга
+            setTimeout(() => {
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         }
     </script>
 </body>
-</html> 
+</html>
