@@ -466,7 +466,7 @@
             box-shadow: 0 0 22px rgba(230,126,34,0.7);
         }
 
-        /* ГАЛЕРЕЯ, КАЛЬКУЛЯТОР, FAQ, РЕФЕРЕНС — без изменений */
+        /* ГАЛЕРЕЯ, FAQ, РЕФЕРЕНС */
         .gallery-section { width: 100%; max-width: 900px; margin-top: 35px; }
         .gallery-filters { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 20px; }
         .gallery-filter-btn { padding: 6px 16px; border: 1px solid #e67e22; background: transparent; color: #e67e22; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; cursor: url('cursor_pointer.png') 12 12, pointer; transition: 0.2s ease; }
@@ -482,30 +482,6 @@
         .gallery-card-artist { font-size: 10px; color: #aaa; }
         .gallery-tag { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.75); color: #e67e22; font-size: 9px; font-weight: bold; text-transform: uppercase; padding: 2px 6px; border-radius: 10px; border: 1px solid #e67e22; }
         .gallery-empty { text-align: center; color: #555; padding: 40px; font-style: italic; grid-column: 1/-1; }
-
-        .calc-section { width: 100%; max-width: 900px; margin-top: 35px; }
-        .calc-box { background: #111; border: 1px solid #333; border-radius: 12px; padding: 30px; box-sizing: border-box; }
-        .calc-category-title { color: #e67e22; font-weight: bold; font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; margin: 28px 0 14px; padding: 7px 14px; border-left: 3px solid #e67e22; background: rgba(230,126,34,0.06); border-radius: 0 6px 6px 0; }
-        .calc-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 4px; }
-        @media(max-width:600px){ .calc-inputs { grid-template-columns: 1fr; } }
-        .calc-field label { display: block; color: #999; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.5px; }
-        .calc-field input { width: 100%; box-sizing: border-box; background: #1a1a1a; border: 1px solid #2a2a2a; color: #d2b48c; padding: 10px 14px; border-radius: 6px; font-size: 14px; outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
-        .calc-field input:focus { border-color: #e67e22; box-shadow: 0 0 8px rgba(230,126,34,0.2); }
-        .calc-btn-run { width: 100%; padding: 15px; margin-top: 24px; background: linear-gradient(135deg, #e67e22, #c0392b); border: none; color: #fff; font-size: 15px; font-weight: bold; text-transform: uppercase; border-radius: 8px; cursor: url('cursor_pointer.png') 12 12, pointer; letter-spacing: 1px; transition: 0.2s ease; box-shadow: 0 4px 15px rgba(230,126,34,0.3); }
-        .calc-btn-run:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(230,126,34,0.55); }
-        #calc-results { margin-top: 30px; }
-        .calc-result-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
-        .calc-result-label { width: 145px; flex-shrink: 0; color: #aaa; font-size: 11px; text-transform: uppercase; letter-spacing: 0.3px; }
-        .calc-bar-wrap { flex: 1; background: #1a1a1a; border-radius: 5px; height: 24px; position: relative; overflow: hidden; }
-        .calc-bar-you { height: 100%; background: linear-gradient(90deg, #3a86ff, #5b9fff); border-radius: 5px; transition: width 0.9s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; padding-left: 8px; font-size: 10px; font-weight: bold; color: #fff; white-space: nowrap; min-width: 2px; }
-        .calc-bar-rometto-line { position: absolute; right: 0; top: 0; bottom: 0; width: 3px; background: #e67e22; box-shadow: 0 0 6px rgba(230,126,34,0.8); }
-        .calc-multiplier { width: 55px; flex-shrink: 0; text-align: right; color: #e67e22; font-weight: bold; font-size: 13px; }
-        .calc-comment { font-size: 12px; font-style: italic; margin: 2px 0 14px 155px; line-height: 1.4; padding: 5px 10px; border-radius: 4px; }
-        .calc-comment.roast   { color: #e74c3c; background: rgba(231,76,60,0.07); }
-        .calc-comment.neutral { color: #888;    background: rgba(255,255,255,0.03); }
-        .calc-comment.respect { color: #2ecc71; background: rgba(46,204,113,0.07); }
-        .calc-verdict { margin-top: 20px; padding: 18px 22px; background: rgba(230,126,34,0.08); border-left: 3px solid #e67e22; border-radius: 0 8px 8px 0; color: #d2b48c; font-style: italic; font-size: 14px; line-height: 1.7; }
-        .calc-proofs { margin-top: 18px; padding: 14px 18px; background: rgba(192,57,43,0.08); border: 1px dashed #c0392b; border-radius: 8px; color: #e74c3c; font-size: 13px; text-align: center; display: none; }
 
         .faq { width: 100%; max-width: 900px; margin: 50px auto 30px; }
         .faq-item { margin-bottom: 16px; border: 2px solid #444; border-radius: 10px; background: #181818; overflow: hidden; }
@@ -819,44 +795,6 @@
             <div class="gallery-grid" id="gallery-grid"></div>
         </div>
 
-        <!-- Калькулятор -->
-        <div class="calc-section">
-            <h2 class="selectable-text">Калькулятор сравнения с Рометто</h2>
-            <p style="text-align:center;color:#555;font-size:13px;margin-top:-10px;margin-bottom:20px;">Заполни что знаешь — остальное пропусти</p>
-            <div class="calc-box">
-                <div class="calc-category-title">📏 Физические параметры</div>
-                <div class="calc-inputs">
-                    <div class="calc-field"><label>Рост (см)</label><input type="number" id="calc-height" placeholder="например, 175" min="1" max="500"></div>
-                    <div class="calc-field"><label>Вес (кг)</label><input type="number" id="calc-weight" placeholder="например, 70" min="1" max="2000"></div>
-                    <div class="calc-field"><label>Вес одной лапы/руки (кг)</label><input type="number" id="calc-pawweight" placeholder="рука ≈ 4 кг" min="0.1" max="500" step="0.1"></div>
-                    <div class="calc-field"><label>Объём лёгких (л)</label><input type="number" id="calc-lungs" placeholder="человек ≈ 6 л" min="0.1" max="100" step="0.1"></div>
-                    <div class="calc-field"><label>Громкость крика (dB)</label><input type="number" id="calc-db" placeholder="человек ≈ 88 dB" min="1" max="300"></div>
-                </div>
-
-                <div class="calc-category-title">⚡ Боевые параметры</div>
-                <div class="calc-inputs">
-                    <div class="calc-field"><label>Сила укуса (PSI)</label><input type="number" id="calc-bite" placeholder="человек ≈ 160 PSI" min="1" max="100000"></div>
-                    <div class="calc-field"><label>Сила удара лапой/рукой (кг)</label><input type="number" id="calc-punch" placeholder="человек ≈ 50 кг" min="1" max="100000"></div>
-                    <div class="calc-field"><label>Макс. скорость (км/ч)</label><input type="number" id="calc-speed" placeholder="спринт ≈ 25" min="1" max="1000"></div>
-                    <div class="calc-field"><label>Прыжок в высоту (м)</label><input type="number" id="calc-jump-h" placeholder="человек ≈ 0.5 м" min="0.01" max="100" step="0.01"></div>
-                    <div class="calc-field"><label>Прыжок в длину (м)</label><input type="number" id="calc-jump-l" placeholder="человек ≈ 2.5 м" min="0.01" max="200" step="0.01"></div>
-                </div>
-
-                <div class="calc-category-title">🔞 Анатомия (по желанию)</div>
-                <div class="calc-inputs">
-                    <div class="calc-field"><label>Длина пениса (см)</label><input type="number" id="calc-penis" placeholder="среднее ≈ 13 см" min="0.1" max="200" step="0.1"></div>
-                    <div class="calc-field"><label>Диаметр яиц (см)</label><input type="number" id="calc-balls" placeholder="среднее ≈ 4 см" min="0.1" max="100" step="0.1"></div>
-                </div>
-
-                <button class="calc-btn-run" onclick="runCalc()">🦁 Сравнить с Рометто</button>
-                <div id="calc-results"></div>
-                <div class="calc-proofs" id="calc-proofs">
-                    🐾 Жду пруфы в лс и объяснение как такое чудо появилось →
-                    <a href="https://t.me/mr_Rometto" target="_blank" style="color:#e67e22;font-weight:bold;">@mr_Rometto</a>
-                </div>
-            </div>
-        </div>
-
         <footer class="site-footer">
             <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">ROMETTO</span></strong>. Все права защищены.</div>
             <div style="margin-top: 15px; color: #d2b48c;">
@@ -1146,7 +1084,7 @@
             bgMusic.volume = parseFloat(musicVolume.value);
         });
 
-        // Галерея, калькулятор, референс-боксы — без изменений (оставлены как в предыдущей версии)
+        // Галерея
         const GALLERY_ITEMS = [];
         function buildGallery(filter) {
             const grid = document.getElementById('gallery-grid');
@@ -1175,13 +1113,7 @@
             });
         });
 
-        // Калькулятор (полностью сохранён)
-        const ROMETTO_STATS = { /* ... весь объект без изменений ... */ };
-        const COMMENTS = { /* ... весь объект без изменений ... */ };
-        function getComment(key, mult) { /* ... без изменений ... */ }
-        function runCalc() { /* ... полностью сохранён ... */ }
-
-        // Боксы референса и lightbox boxes (полностью сохранены)
+        // Боксы референса и lightbox boxes
         const BOX_DATA = { /* ... */ };
         const BOX_DEFS = { /* ... */ };
         function positionRefBoxes() { /* ... */ }
