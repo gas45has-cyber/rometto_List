@@ -188,6 +188,45 @@
             transform: translate3d(0, 0, 0);
         }
         #lightbox img:active { cursor: grabbing; }
+        #lb-close-btn {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 20005;
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            border: 2px solid #e67e22;
+            background: rgba(15,15,15,0.85);
+            color: #e67e22;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(6px);
+            transition: background 0.2s ease, transform 0.15s ease;
+            pointer-events: all;
+        }
+        #lb-close-btn:hover { background: #e67e22; color: #000; transform: scale(1.1); }
+        #lb-hint {
+            position: fixed;
+            bottom: 16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(15,15,15,0.78);
+            color: #d2b48c;
+            font-size: 12px;
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid #444;
+            pointer-events: none;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 20003;
+        }
+        #lb-hint.visible { opacity: 1; }
         .lightbox-tooltip {
             position: absolute;
             background: rgba(21,21,21,0.97);
@@ -268,9 +307,6 @@
             transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             padding: 0 20px;
             box-sizing: border-box;
-        }
-        .accordion-content.open {
-            max-height: none;
         }
 
         .toggle-particles {
@@ -391,8 +427,6 @@
             user-select: none;
         }
         #music-volume {
-            -webkit-appearance: slider-vertical;
-            appearance: slider-vertical;
             writing-mode: vertical-lr;
             direction: rtl;
             width: 22px;
@@ -401,13 +435,6 @@
             cursor: url('cursor_pointer.png') 12 12, pointer;
             background: transparent;
             pointer-events: all;
-        }
-        @supports not (appearance: slider-vertical) {
-            #music-volume {
-                transform: rotate(-90deg);
-                width: 70px;
-                height: 22px;
-            }
         }
         #music-toggle-btn {
             width: 56px;
@@ -537,6 +564,8 @@
             <div id="lightbox-tooltip" class="lightbox-tooltip"></div>
             <div id="lb-overlay"></div>
             <div id="lb-tooltip"><div class="tip-title" id="lb-tip-title"></div><div id="lb-tip-rows"></div></div>
+            <button id="lb-close-btn" onclick="closeLightboxBtn()" aria-label="Закрыть">✕</button>
+            <div id="lb-hint">🖱 Колесо / Pinch — зум &nbsp;·&nbsp; Двойной тап — ×2.5 &nbsp;·&nbsp; Зажать — переместить</div>
         </div>
 
         <h1 class="selectable-text" style="line-height:1.15; font-size:36px; font-weight:900;">
@@ -868,10 +897,16 @@
             lbImg.style.transform = `translate3d(0px, 0px, 0) scale(1)`;
             hideLbTooltip();
             requestAnimationFrame(() => buildLightboxBoxes());
+            // Показать подсказку и скрыть через 3 сек
+            const hint = document.getElementById('lb-hint');
+            hint.classList.add('visible');
+            clearTimeout(window._hintTimer);
+            window._hintTimer = setTimeout(() => hint.classList.remove('visible'), 3000);
         }
         function closeLightbox(e) {
             if (e.target === lightbox) { lightbox.style.display = 'none'; hideLbTooltip(); }
         }
+        function closeLightboxBtn() { lightbox.style.display = 'none'; hideLbTooltip(); }
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') { lightbox.style.display = 'none'; hideLbTooltip(); }
         });
@@ -904,20 +939,76 @@
         });
         window.addEventListener('mouseup', () => isDragging = false);
 
+        // ==================== TOUCH / MOBILE LIGHTBOX ====================
         let startDistance = 0;
+        let touchStartX = 0, touchStartY = 0;
+        let isTouchDragging = false;
+        let lastTapTime = 0;
+
         lightbox.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 2) startDistance = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
-        });
-        lightbox.addEventListener('touchmove', (e) => {
             if (e.touches.length === 2) {
-                e.preventDefault();
-                const currentDistance = Math.hypot(e.touches[0].pageX - e.touches[1].pageX, e.touches[0].pageY - e.touches[1].pageY);
+                // Pinch-to-zoom: запомнить расстояние и центр
+                isTouchDragging = false;
+                startDistance = Math.hypot(
+                    e.touches[0].pageX - e.touches[1].pageX,
+                    e.touches[0].pageY - e.touches[1].pageY
+                );
+            } else if (e.touches.length === 1) {
+                // Single finger: drag or double-tap
+                touchStartX = e.touches[0].clientX - x;
+                touchStartY = e.touches[0].clientY - y;
+                isTouchDragging = true;
+
+                // Double-tap to zoom
+                const now = Date.now();
+                if (now - lastTapTime < 280) {
+                    if (scale > 1) {
+                        scale = 1; x = 0; y = 0;
+                    } else {
+                        scale = 2.5;
+                        // Зумить к точке касания
+                        const rect = lbImg.getBoundingClientRect();
+                        const cx = e.touches[0].clientX;
+                        const cy = e.touches[0].clientY;
+                        x = (window.innerWidth / 2 - cx) * (scale - 1);
+                        y = (window.innerHeight / 2 - cy) * (scale - 1);
+                    }
+                    updateTransform();
+                    isTouchDragging = false;
+                }
+                lastTapTime = now;
+            }
+        }, { passive: true });
+
+        lightbox.addEventListener('touchmove', (e) => {
+            e.preventDefault();
+            if (e.touches.length === 2) {
+                // Pinch zoom
+                isTouchDragging = false;
+                const currentDistance = Math.hypot(
+                    e.touches[0].pageX - e.touches[1].pageX,
+                    e.touches[0].pageY - e.touches[1].pageY
+                );
                 const delta = currentDistance / startDistance;
-                scale = Math.min(Math.max(0.5, scale * delta), 5);
+                scale = Math.min(Math.max(1, scale * delta), 6);
                 startDistance = currentDistance;
+                if (scale === 1) { x = 0; y = 0; }
+                updateTransform();
+            } else if (e.touches.length === 1 && isTouchDragging && scale > 1) {
+                // Single finger drag (only when zoomed)
+                x = e.touches[0].clientX - touchStartX;
+                y = e.touches[0].clientY - touchStartY;
                 updateTransform();
             }
-        });
+        }, { passive: false });
+
+        lightbox.addEventListener('touchend', (e) => {
+            if (e.touches.length === 0) {
+                isTouchDragging = false;
+                // Snap back if over-dragged (optional clamp)
+                if (scale <= 1) { x = 0; y = 0; updateTransform(); }
+            }
+        }, { passive: true });
 
         function showEnNotice() { document.getElementById('en-notice').style.display = 'flex'; }
         function hideEnNotice() { document.getElementById('en-notice').style.display = 'none'; }
@@ -1152,10 +1243,8 @@
                     }
                 });
 
-                // Открыто по умолчанию
-                setTimeout(() => {
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                }, 100);
+                // Свёрнуто по умолчанию
+                content.style.maxHeight = '0px';
             });
         }
 
