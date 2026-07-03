@@ -540,7 +540,7 @@
 <body class="no-scroll" data-lang="ru">
     
     <!-- Кнопка Назад к героям -->
-    <a href="../" class="back-btn">
+    <a href="index.html" class="back-btn">
         <span class="lang-ru">« Ко всем персонажам</span>
         <span class="lang-en">« Back to Heroes</span>
     </a>
@@ -601,18 +601,19 @@
                 <span class="lang-ru">О проекте</span>
                 <span class="lang-en">About Project</span>
             </a>
-            <a href="biographics"= class="nav-btn">
+            <a href="/biographics" class="nav-btn">
                 <span class="lang-ru">Биография и Лор</span>
                 <span class="lang-en">Biography & Lore</span>
             </a>
-            <a href="RP_AND_FETISH" class="nav-btn">
+            <a href="/RP_AND_FETISH" class="nav-btn">
                 <span class="lang-ru">Фетиши и РП предпочтения</span>
                 <span class="lang-en">Fetishes & RP Preferences</span>
             </a>
         </div>
 
         <div class="refmap-wrapper" id="refmap-wrapper">
-            <img src="/assets/rometto_ru_nsfw.png" alt="Rometto" loading="lazy" id="refmap-img" onclick="openLightbox('/assets/rometto_ru_nsfw.png')">
+            <!-- Изображение теперь не имеет жестко заданного src в HTML, он задается скриптом -->
+            <img alt="Rometto" loading="lazy" id="refmap-img">
             <div class="refmap-box" id="box-tail"></div>
             <div class="refmap-box" id="box-paws"></div>
             <div class="refmap-box" id="box-genitals"></div>
@@ -1458,15 +1459,29 @@
             localStorage.setItem('lang', lang);
             
             const particleBtn = document.getElementById('toggleParticles');
+            const refmapImg = document.getElementById('refmap-img');
 
             if (lang === 'ru') {
                 langToggleBtn.innerHTML = 'RU <span style="opacity: 0.5; font-weight: normal;">| EN</span>';
                 document.title = "Информационный лист о Рометто";
                 particleBtn.textContent = particlesEnabled ? '✦ Отключить искры' : '✦ Включить искры';
+                
+                // Установка русской картинки
+                if (refmapImg) {
+                    refmapImg.src = '/assets/rometto_ru_nsfw.png';
+                    refmapImg.onclick = () => openLightbox('/assets/rometto_ru_nsfw.png');
+                }
+
             } else {
                 langToggleBtn.innerHTML = '<span style="opacity: 0.5; font-weight: normal;">RU |</span> EN';
                 document.title = "Character Info: Rometto";
                 particleBtn.textContent = particlesEnabled ? '✦ Disable sparks' : '✦ Enable sparks';
+                
+                // Установка английской картинки
+                if (refmapImg) {
+                    refmapImg.src = '/assets/rometto_eng_nsfw.png';
+                    refmapImg.onclick = () => openLightbox('/assets/rometto_eng_nsfw.png');
+                }
             }
         };
 
