@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 — Ой, кажется тут пусто / Oops, it's empty...</title>
+    <title>404 — Ой, кажется ты потерялся! / Oops, you seem lost!</title>
     
     <link rel="icon" type="image/png" href="/favicon.png">
     
@@ -15,10 +15,50 @@
             font-style: normal;
         }
 
+        /* 
+           Базовые стили. Цвета будут переопределяться через CSS-переменные (Custom Properties) 
+           с помощью JavaScript для создания случайных тем.
+        */
+        :root {
+            --accent-color: #e67e22; /* Цвет по умолчанию (Оранжевый) */
+            --bg-color: #0f0f0f;
+            --text-main: #d2b48c;
+            --text-muted: rgba(210, 180, 140, 0.8);
+            --btn-hover-shadow: rgba(230, 126, 34, 0.3);
+            --btn-bg-hover: #e67e22;
+        }
+
+        /* Тема 1: Оранжевая (Рометто) - Устанавливается через JS */
+        body.theme-orange {
+            --accent-color: #e67e22;
+            --text-main: #d2b48c;
+            --text-muted: rgba(210, 180, 140, 0.8);
+            --btn-hover-shadow: rgba(230, 126, 34, 0.5);
+            --btn-bg-hover: #e67e22;
+        }
+
+        /* Тема 2: Зеленая (Бадд) - Устанавливается через JS */
+        body.theme-green {
+            --accent-color: #84cc16; /* Салатовый */
+            --text-main: #d9f99d;
+            --text-muted: rgba(217, 249, 157, 0.8);
+            --btn-hover-shadow: rgba(132, 204, 22, 0.5);
+            --btn-bg-hover: #84cc16;
+        }
+
+        /* Тема 3: Голубая (Аби) - Устанавливается через JS */
+        body.theme-blue {
+            --accent-color: #38bdf8; /* Голубой */
+            --text-main: #bae6fd;
+            --text-muted: rgba(186, 230, 253, 0.8);
+            --btn-hover-shadow: rgba(56, 189, 248, 0.5);
+            --btn-bg-hover: #38bdf8;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background: #0f0f0f;
-            color: #d2b48c;
+            background: var(--bg-color);
+            color: var(--text-main);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -29,159 +69,161 @@
             text-align: center;
             user-select: text;
             -webkit-user-select: text;
-             /* 1. Основной курсор для всего сайта */
-        
             cursor: url('cursor_busy.png') 12 12, auto;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #0f0f0f;
-            color: #d2b48c;
-            margin: 0;
-            padding: 20px;
             line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            user-select: text;
+            transition: color 0.5s ease; /* Плавный переход при смене темы */
         }
 
-        /* 2. Курсор для ссылок и кнопок */
+        /* Курсор для ссылок и кнопок */
         a, button, [role="button"], .nav-btn, .close-notice {
             cursor: url('cursor_pointer.png') 12 12, pointer !important;
-            transition: transform 0.10s ease; /* Плавность для эффекта клика */
+            transition: transform 0.10s ease, background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
         }
 
         /* Эффект свечения при наведении на кнопки */
         a:hover, button:hover {
-            filter: drop-shadow(0 0 5px #d2b48c);
+            filter: drop-shadow(0 0 5px var(--text-main));
         }
 
         /* Эффект "вдавливания" при клике */
         a:active, button:active {
-            transform: scale(1.0);
+            transform: scale(0.98);
         }
 
         /* LionKing только для заголовков и брендинга */
         .brand-text {
             font-family: 'LionKing', Arial, sans-serif !important;
             letter-spacing: 1px;
+            color: var(--accent-color);
+            transition: color 0.5s ease;
         }
         
         h1 { 
-            color: #e67e22; 
-            font-size: clamp(22px, 5vw, 36px); 
+            color: var(--accent-color); 
+            font-size: clamp(24px, 6vw, 42px); 
             margin-bottom: 20px; 
             padding: 0 15px;
             line-height: 1.2;
+            font-weight: 800;
+            transition: color 0.5s ease;
         }
 
         .error-container {
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .error-description {
-            font-size: 17px; 
+            font-size: 18px; 
             margin-bottom: 20px; 
             line-height: 1.6;
+            font-weight: bold;
         }
 
-       
         .error-description.en {
-            opacity: 0.6;
-            font-size: 15px;
-            border-top: 1px solid rgba(210, 180, 140, 0.15);
-            padding-top: 15px;
+            opacity: 0.7;
+            font-size: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
             margin-top: 20px;
-            font-family: Arial, sans-serif !important; /* Принудительно обычный шрифт */
+            font-family: Arial, sans-serif !important;
+            font-weight: normal;
         }
 
         .lapy-text {
             display: block;
             font-size: 14px;
-            color: #d2b48c; 
-            opacity: 0.8;
-            margin-top: 10px;
+            color: var(--text-muted); 
+            margin-top: 12px;
             font-style: italic;
+            font-weight: normal;
+            transition: color 0.5s ease;
         }
         
         .back-btn {
             display: inline-block;
-            padding: 12px 35px;
-            border: 2px solid #e67e22;
-            color: #e67e22;
+            padding: 14px 40px;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
             text-decoration: none;
             font-weight: bold;
             text-transform: uppercase;
-            border-radius: 5px;
-            transition: 0.3s;
-            background: rgba(230, 126, 34, 0.05);
-            font-size: 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            font-size: 15px;
+            letter-spacing: 1px;
         }
 
         .back-btn:hover {
-            background: #e67e22;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(230, 126, 34, 0.3);
-            transform: translateY(-2px);
+            background: var(--btn-bg-hover);
+            color: #000;
+            box-shadow: 0 0 20px var(--btn-hover-shadow);
+            transform: translateY(-3px);
         }
 
         .error-img {
-            max-width: 260px;
-            width: 65%;
-            height: auto; /* Гарантируем сохранение пропорций */
-            margin-bottom: 25px;
-            border-radius: 12px;
-            opacity: 0.9;
-            
-           filter:drop-shadow: 0 10px 10px rgba(0,0,0,0.5);.
-            object-fit: contain; /* Чтобы картинка не обрезалась внутри контейнера */
+            max-width: 300px;
+            width: 80%;
+            height: auto; 
+            margin-bottom: 30px;
+            border-radius: 16px;
+            /* Легкое свечение вокруг картинки в цвет темы */
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8), 0 0 20px var(--btn-hover-shadow);
+            object-fit: contain; 
+            transition: box-shadow 0.5s ease;
         }
 
         .site-footer {
             width: 100%;
             max-width: 900px;
             margin-top: auto; 
-            padding: 30px 20px 20px 20px;
-            border-top: 1px solid #222;
+            padding: 40px 20px 20px 20px;
             text-align: center;
-            font-size: 12px;
+            font-size: 13px;
             color: #666;
             box-sizing: border-box;
         }
 
-        .site-footer strong { color: #e67e22; }
         .site-footer a { color: #888; text-decoration: none; border-bottom: 1px solid transparent; transition: 0.3s; }
-        .site-footer a:hover { border-bottom-color: #666; }
+        .site-footer a:hover { border-bottom-color: #666; color: var(--accent-color); }
         
         @media (max-width: 480px) {
-            h1 { font-size: 22px; }
+            .error-container { padding: 20px 15px; border-radius: 12px; border: none; background: transparent; box-shadow: none; }
             .error-description { font-size: 16px; }
             .back-btn { width: 100%; box-sizing: border-box; }
         }
     </style>
 </head>
-<body>
+<body class="theme-orange"> <!-- По умолчанию ставим оранжевую, но JS почти мгновенно её изменит -->
 
     <div style="margin-top: auto;"></div>
 
-    <img src="/not.png" alt="Rometto Error" class="error-img">
+    <!-- Картинка 404 (ID нужен для смены через JS) -->
+    <img src="/assets/404.png" alt="Error 404" id="dynamic-error-img" class="error-img">
     
     <div class="error-container">
-        <h1>Ой, кажется тут пусто...<br>
-        <span style="font-size: 0.75em; color: #fff; opacity: 0.8; font-family: Arial, sans-serif;">Oops, it's empty here...</span></h1>
+        <h1>
+            <span id="text-title-ru">Ой, кажется ты потерялся...</span><br>
+            <span id="text-title-en" style="font-size: 0.65em; color: #fff; opacity: 0.9; font-family: Arial, sans-serif; display: block; margin-top: 8px;">Oops, you seem lost...</span>
+        </h1>
         
         <div class="error-description">
-            Эта территория еще не освоена Рометто.
-            <span class="lapy-text">
-                (у Рометто всё-таки лапки — страница в разработке или ты опечатался)
+            <span id="text-desc-ru">Тут абсолютно ничего нет. Даже персонажей.</span>
+            <span class="lapy-text" id="text-sub-ru">
+                (у Рометто всё-таки лапки — страница в разработке, или ты опечатался в ссылке)
             </span>
         </div>
 
         <div class="error-description en">
-            This territory hasn't been claimed by Rometto yet.
-            <span class="lapy-text">
-                (Rometto has paws after all — page is under construction or you made a typo)
+            <span id="text-desc-en">There is absolutely nothing here. Not even characters.</span>
+            <span class="lapy-text" id="text-sub-en">
+                (Rometto has paws after all — page is under construction, or you made a typo in the URL)
             </span>
         </div>
     </div>
@@ -198,8 +240,80 @@
     </footer>
 
     <script>
+        // Установка текущего года в футере
         document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
 
+        // 1. Случайная тема оформления
+        const themes = ['theme-orange', 'theme-green', 'theme-blue'];
+        const randomTheme = themes[Math.floor(Math.random() * themes.length)];
+        
+        // Удаляем старую тему (на всякий случай) и ставим новую
+        document.body.classList.remove('theme-orange'); 
+        document.body.classList.add(randomTheme);
+
+        // 2. Случайная картинка из папки assets
+        const images = [
+            '/assets/404.png',
+            '/assets/404_1.png',
+            '/assets/404_2.png',
+            '/assets/404_3.png',
+            '/assets/404_4.png',
+            '/assets/404_5.png'
+        ];
+        const randomImg = images[Math.floor(Math.random() * images.length)];
+        document.getElementById('dynamic-error-img').src = randomImg;
+
+        // 3. Случайные и смешные тексты для 404
+        const jokesRU = [
+            {
+                title: "Ой, кажется ты потерялся...",
+                desc: "Тут абсолютно ничего нет. Даже персонажей.",
+                sub: "(у Рометто всё-таки лапки — страница в разработке, или ты опечатался в ссылке)"
+            },
+            {
+                title: "Ошибка 404. Пустота.",
+                desc: "Ты зашел в неизведанные земли. Тут пока никто не живет.",
+                sub: "(попробуй зайти позже, когда мы проведем сюда интернет)"
+            },
+            {
+                title: "Тупик!",
+                desc: "Кажется, кто-то съел эту страницу на обед.",
+                sub: "(намек на гигантского льва-полудемона, который всегда голоден)"
+            }
+        ];
+
+        const jokesEN = [
+            {
+                title: "Oops, you seem lost...",
+                desc: "There is absolutely nothing here. Not even characters.",
+                sub: "(Rometto has paws after all — page is under construction, or you made a typo)"
+            },
+            {
+                title: "Error 404. Emptiness.",
+                desc: "You have wandered into uncharted lands. No one lives here yet.",
+                sub: "(try coming back later when we get internet set up here)"
+            },
+            {
+                title: "Dead End!",
+                desc: "Looks like someone ate this page for lunch.",
+                sub: "(hinting at a giant half-demon lion who is always hungry)"
+            }
+        ];
+
+        // Выбираем случайный индекс шутки (чтобы русская и английская совпадали по смыслу)
+        const randomJokeIndex = Math.floor(Math.random() * jokesRU.length);
+        const selectedJokeRU = jokesRU[randomJokeIndex];
+        const selectedJokeEN = jokesEN[randomJokeIndex];
+
+        // Применяем тексты к HTML
+        document.getElementById('text-title-ru').textContent = selectedJokeRU.title;
+        document.getElementById('text-desc-ru').textContent = selectedJokeRU.desc;
+        document.getElementById('text-sub-ru').textContent = selectedJokeRU.sub;
+
+        document.getElementById('text-title-en').textContent = selectedJokeEN.title;
+        document.getElementById('text-desc-en').textContent = selectedJokeEN.desc;
+        document.getElementById('text-sub-en').textContent = selectedJokeEN.sub;
+
+    </script>
 </body>
 </html>
