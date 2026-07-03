@@ -23,8 +23,9 @@
             width: 100vw;
             height: 100vh;
             z-index: -1;
-            transition: opacity 0.4s ease-in-out; /* Ускорили для плавности */
+            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
+            /* will-change может вредить, если используется неправильно - убрали */
         }
 
         #bg-default {
@@ -37,13 +38,14 @@
         #bg-budd { background: radial-gradient(circle at center, #a3e635 0%, #4d7c0f 50%, #14532d 100%); }
         #bg-abi { background: radial-gradient(circle at center, #38bdf8 0%, #1d4ed8 50%, #1e3a8a 100%); }
 
-        /* Эффект стекла для карточек */
+        /* Эффект стекла для карточек - ОПТИМИЗИРОВАНО */
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, background 0.4s ease;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        box-shadow 0.5s ease,
+                        background 0.5s ease;
+            transform: translateZ(0); /* GPU ускорение */
         }
 
         .glass-card:hover {
@@ -52,12 +54,13 @@
             background: rgba(255, 255, 255, 0.15);
         }
 
-        /* НЕОНОВЫЙ ТЕКСТ И ФОНЫ - Оптимизировано через CSS для устранения лагов */
+        /* НЕОНОВЫЙ ТЕКСТ И ФОНЫ - ОПТИМИЗИРОВАНО для плавности */
         #main-title, #main-desc {
-            /* Важно для плавной анимации: количество теней в базе должно совпадать с активным (5 слоев) */
-            text-shadow: 0 0 5px rgba(255,255,255,0.3), 0 0 10px rgba(255,255,255,0.2), 0 0 20px transparent, 0 0 40px transparent, 0 0 80px transparent;
             color: #ffffff;
-            transition: text-shadow 0.6s ease-in-out, color 0.6s ease-in-out;
+            /* КЛЮЧЕВО: упрощенный shadow вместо 5 слоев - огромный прирост производительности */
+            text-shadow: 0 0 10px rgba(255,255,255,0.2);
+            transition: color 0.5s ease-out, text-shadow 0.5s ease-out;
+            /* Убрали will-change - вредит производительности при text-shadow */
         }
 
         /* Управление фонами при наведении */
@@ -65,45 +68,45 @@
         body[data-active="budd"] #bg-budd { opacity: 1; }
         body[data-active="abi"] #bg-abi { opacity: 1; }
 
-        /* Свечение главного текста и легкое изменение цвета самого шрифта */
+        /* Свечение главного текста - УПРОЩЕННОЕ (2 слоя вместо 5) */
         body[data-active="rometto"] #main-title,
         body[data-active="rometto"] #main-desc {
-            color: #ffedd5; /* Легкий оранжевый оттенок */
-            text-shadow: 0 0 5px #fff, 0 0 10px #ea580c, 0 0 20px #ea580c, 0 0 40px #9a3412, 0 0 80px #451a03;
+            color: #ffedd5;
+            text-shadow: 0 0 20px rgba(234, 88, 12, 0.7);
         }
 
         body[data-active="budd"] #main-title,
         body[data-active="budd"] #main-desc {
-            color: #ecfccb; /* Легкий зеленоватый оттенок */
-            text-shadow: 0 0 5px #fff, 0 0 10px #a3e635, 0 0 20px #84cc16, 0 0 40px #4d7c0f, 0 0 80px #14532d;
+            color: #ecfccb;
+            text-shadow: 0 0 20px rgba(163, 230, 53, 0.7);
         }
 
         body[data-active="abi"] #main-title,
         body[data-active="abi"] #main-desc {
-            color: #e0f2fe; /* Легкий голубой оттенок */
-            text-shadow: 0 0 5px #fff, 0 0 10px #38bdf8, 0 0 20px #0ea5e9, 0 0 40px #1d4ed8, 0 0 80px #1e3a8a;
+            color: #e0f2fe;
+            text-shadow: 0 0 20px rgba(56, 189, 248, 0.7);
         }
 
-        /* Свечение имен на карточках */
+        /* Свечение имен на карточках - ОПТИМИЗИРОВАНО */
         .card-title {
             color: #ffffff;
-            text-shadow: 0 0 10px transparent, 0 0 20px transparent;
-            transition: text-shadow 0.5s ease-in-out, color 0.5s ease-in-out;
+            text-shadow: 0 0 8px rgba(255,255,255,0);
+            transition: text-shadow 0.4s ease-out, color 0.4s ease-out;
         }
         
         .glass-card[data-char="rometto"]:hover .card-title { 
             color: #fdba74; 
-            text-shadow: 0 0 10px #ea580c, 0 0 20px #ea580c; 
+            text-shadow: 0 0 15px rgba(234, 88, 12, 0.8);
         }
         
         .glass-card[data-char="budd"]:hover .card-title { 
             color: #bef264; 
-            text-shadow: 0 0 10px #a3e635, 0 0 20px #84cc16; 
+            text-shadow: 0 0 15px rgba(163, 230, 53, 0.8);
         }
         
         .glass-card[data-char="abi"]:hover .card-title { 
             color: #7dd3fc; 
-            text-shadow: 0 0 10px #38bdf8, 0 0 20px #0ea5e9; 
+            text-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
         }
     </style>
 </head>
@@ -129,8 +132,8 @@
         
         <!-- Карточка: Rometto -->
         <a href="rometto_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col min-h-[380px] sm:min-h-[450px]" data-target="bg-rometto" data-char="rometto">
-            <!-- Картинка теперь на весь фон карточки -->
-            <img src="Rometto_icon.png" alt="Rometto" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 z-0">
+            <!-- Картинка на весь фон карточки с оптимизированным масштабированием -->
+            <img src="Rometto_icon.png" alt="Rometto" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0" style="will-change: transform;">
             <!-- Плавный темный градиент снизу для читаемости текста -->
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
             
@@ -143,7 +146,7 @@
 
         <!-- Карточка: Budd -->
         <a href="budd_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col min-h-[380px] sm:min-h-[450px]" data-target="bg-budd" data-char="budd">
-            <img src="Budd_icon.png" alt="Budd" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 z-0">
+            <img src="Budd_icon.png" alt="Budd" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0" style="will-change: transform;">
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
             
             <div class="relative z-20 p-6 flex-grow flex flex-col justify-end">
@@ -154,7 +157,7 @@
 
         <!-- Карточка: Abi -->
         <a href="Abiyoy_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col min-h-[380px] sm:min-h-[450px]" data-target="bg-abi" data-char="abi">
-            <img src="Abi_icon.png" alt="Abi" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 z-0">
+            <img src="Abi_icon.png" alt="Abi" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0" style="will-change: transform;">
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
             
             <div class="relative z-20 p-6 flex-grow flex flex-col justify-end">
@@ -170,20 +173,37 @@
         document.addEventListener('DOMContentLoaded', () => {
             const cards = document.querySelectorAll('.glass-card');
             const body = document.body;
+            let activeChar = null;
+            let transitionTimeout = null;
 
             cards.forEach(card => {
                 const charName = card.getAttribute('data-char');
 
                 card.addEventListener('mouseenter', () => {
+                    clearTimeout(transitionTimeout);
+                    activeChar = charName;
                     body.setAttribute('data-active', charName);
                 });
 
                 card.addEventListener('mouseleave', () => {
-                    body.removeAttribute('data-active');
+                    /* Плавное возвращение вместо мгновенного drop */
+                    transitionTimeout = setTimeout(() => {
+                        activeChar = null;
+                        body.removeAttribute('data-active');
+                    }, 50);
                 });
                 
                 card.addEventListener('touchstart', () => {
+                    clearTimeout(transitionTimeout);
+                    activeChar = charName;
                     body.setAttribute('data-active', charName);
+                }, {passive: true});
+
+                card.addEventListener('touchend', () => {
+                    transitionTimeout = setTimeout(() => {
+                        activeChar = null;
+                        body.removeAttribute('data-active');
+                    }, 300); /* На мобильных чуть дольше для лучшего UX */
                 }, {passive: true});
             });
         });
