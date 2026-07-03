@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информационный лист персонажей</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Фоновые слои */
+        .bg-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            transition: opacity 0.8s ease-in-out;
+            opacity: 0;
+        }
+
+        #bg-default {
+            background: linear-gradient(135deg, #111827, #1f2937, #374151);
+            opacity: 1; 
+            z-index: -2;
+        }
+
+        #bg-rometto { background: radial-gradient(circle at center, #ea580c 0%, #9a3412 50%, #451a03 100%); }
+        #bg-budd { background: radial-gradient(circle at center, #a3e635 0%, #4d7c0f 50%, #14532d 100%); }
+        #bg-abi { background: radial-gradient(circle at center, #38bdf8 0%, #1d4ed8 50%, #1e3a8a 100%); }
+
+        /* Эффект стекла для карточек */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, background 0.4s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* НЕОНОВЫЙ (НЕЙЛОНОВЫЙ) ТЕКСТ */
+        .neon-default {
+            text-shadow: 0 0 5px rgba(255,255,255,0.3), 0 0 10px rgba(255,255,255,0.2);
+            transition: text-shadow 0.5s ease, color 0.5s ease;
+        }
+
+        /* Свечение для Рометто */
+        .neon-rometto {
+            color: #fff;
+            text-shadow: 0 0 5px #fff, 0 0 10px #ea580c, 0 0 20px #ea580c, 0 0 40px #9a3412, 0 0 80px #451a03;
+            transition: text-shadow 0.5s ease, color 0.5s ease;
+        }
+
+        /* Свечение для Бадда */
+        .neon-budd {
+            color: #fff;
+            text-shadow: 0 0 5px #fff, 0 0 10px #a3e635, 0 0 20px #84cc16, 0 0 40px #4d7c0f, 0 0 80px #14532d;
+            transition: text-shadow 0.5s ease, color 0.5s ease;
+        }
+
+        /* Свечение для Аби */
+        .neon-abi {
+            color: #fff;
+            text-shadow: 0 0 5px #fff, 0 0 10px #38bdf8, 0 0 20px #0ea5e9, 0 0 40px #1d4ed8, 0 0 80px #1e3a8a;
+            transition: text-shadow 0.5s ease, color 0.5s ease;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+
+    <div id="bg-default" class="bg-layer"></div>
+    <div id="bg-rometto" class="bg-layer"></div>
+    <div id="bg-budd" class="bg-layer"></div>
+    <div id="bg-abi" class="bg-layer"></div>
+
+    <!-- Заголовок страницы (текст меняет свечение) -->
+    <div class="text-center mb-16 z-10">
+        <h1 id="main-title" class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 neon-default">
+            Информационный лист персонажей
+        </h1>
+        <p id="main-desc" class="text-lg md:text-xl opacity-90 neon-default">
+            Наведите на карточку, чтобы почувствовать ауру персонажа, или кликните для перехода к профилю.
+        </p>
+    </div>
+
+    <!-- Сетка карточек -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 w-full max-w-6xl z-10">
+        
+        <!-- Карточка: Rometto -->
+        <a href="rometto_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group flex flex-col" data-target="bg-rometto" data-char="rometto">
+            <div class="h-64 sm:h-80 overflow-hidden relative bg-gray-800">
+                <!-- Вставьте ваше фото в атрибут src ниже -->
+                <img src="" alt="Фото Rometto (добавьте свое)" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
+            </div>
+            <div class="p-6 flex-grow flex flex-col justify-end -mt-20 z-10">
+                <h2 class="text-3xl font-bold text-white mb-2 neon-default group-hover:neon-rometto">Rometto</h2>
+                <p class="text-gray-300 text-sm line-clamp-2">Коричнево-рыжая аура. Нажмите, чтобы узнать подробности о персонаже.</p>
+            </div>
+        </a>
+
+        <!-- Карточка: Budd -->
+        <a href="budd_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group flex flex-col" data-target="bg-budd" data-char="budd">
+            <div class="h-64 sm:h-80 overflow-hidden relative bg-gray-800">
+                <!-- Вставьте ваше фото в атрибут src ниже -->
+                <img src="" alt="Фото Budd (добавьте свое)" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
+            </div>
+            <div class="p-6 flex-grow flex flex-col justify-end -mt-20 z-10">
+                <h2 class="text-3xl font-bold text-white mb-2 neon-default group-hover:neon-budd">Budd</h2>
+                <p class="text-gray-300 text-sm line-clamp-2">Зеленовато-салатовая аура. Нажмите, чтобы открыть профиль Бадда.</p>
+            </div>
+        </a>
+
+        <!-- Карточка: Abi -->
+        <a href="Abiyoy_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group flex flex-col" data-target="bg-abi" data-char="abi">
+            <div class="h-64 sm:h-80 overflow-hidden relative bg-gray-800">
+                <!-- Вставьте ваше фото в атрибут src ниже -->
+                <img src="" alt="Фото Abi (добавьте свое)" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
+            </div>
+            <div class="p-6 flex-grow flex flex-col justify-end -mt-20 z-10">
+                <h2 class="text-3xl font-bold text-white mb-2 neon-default group-hover:neon-abi">Abiyoy (Abi)</h2>
+                <p class="text-gray-300 text-sm line-clamp-2">Холодные синие и голубые оттенки. Перейдите для подробной информации.</p>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.glass-card');
+            const bgLayers = document.querySelectorAll('.bg-layer');
+            const mainTitle = document.getElementById('main-title');
+            const mainDesc = document.getElementById('main-desc');
+
+            const resetBackgrounds = () => {
+                bgLayers.forEach(layer => {
+                    if (layer.id !== 'bg-default') layer.style.opacity = '0';
+                });
+            };
+
+            const resetNeonText = () => {
+                mainTitle.className = "text-4xl md:text-5xl font-extrabold tracking-tight mb-4 neon-default";
+                mainDesc.className = "text-lg md:text-xl opacity-90 neon-default";
+            };
+
+            cards.forEach(card => {
+                const targetBgId = card.getAttribute('data-target');
+                const targetBgElement = document.getElementById(targetBgId);
+                const charName = card.getAttribute('data-char');
+
+                const handleEnter = () => {
+                    resetBackgrounds();
+                    if (targetBgElement) targetBgElement.style.opacity = '1';
+                    
+                    // Меняем свечение главного текста
+                    mainTitle.className = `text-4xl md:text-5xl font-extrabold tracking-tight mb-4 neon-${charName}`;
+                    mainDesc.className = `text-lg md:text-xl opacity-100 neon-${charName}`;
+                };
+
+                const handleLeave = () => {
+                    resetBackgrounds();
+                    resetNeonText();
+                };
+
+                card.addEventListener('mouseenter', handleEnter);
+                card.addEventListener('mouseleave', handleLeave);
+                
+                card.addEventListener('touchstart', (e) => {
+                    handleEnter();
+                }, {passive: true});
+            });
+        });
+    </script>
+</body>
+</html>
