@@ -1,4 +1,4 @@
-                                                          <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -43,6 +43,11 @@
             align-items: center;
             user-select: text;
         }
+        
+        /* Управление языками */
+        body[data-lang="ru"] .lang-en { display: none !important; }
+        body[data-lang="en"] .lang-ru { display: none !important; }
+
         .no-scroll {
             overflow: hidden;
             height: 100vh;
@@ -64,11 +69,8 @@
             letter-spacing: 2px;
             text-transform: uppercase;
         }
-        h1, h2, h3 {
-            font-family: Arial, Helvetica, sans-serif;
-            letter-spacing: normal;
-            text-transform: uppercase;
-        }
+
+        /* === КНОПКИ НАВИГАЦИИ (ВЕРХНИЕ) === */
         .lang-switch {
             position: fixed;
             top: 20px;
@@ -83,36 +85,38 @@
             font-size: 14px;
             transition: 0.3s;
             backdrop-filter: blur(5px);
+            cursor: pointer;
         }
         .lang-switch:hover { background: #e67e22; color: #fff; }
-        #en-notice {
-            display: none;
+
+        .back-btn {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 10001;
-            justify-content: center;
-            align-items: center;
-            backdrop-filter: blur(10px);
-        }
-        .en-notice-content {
-            background: #151515;
-            padding: 30px;
-            border: 2px solid #e67e22;
-            border-radius: 10px;
-            text-align: center;
-            max-width: 450px;
-            margin: 20px;
-        }
-        .en-notice-content h3 { color: #e67e22; margin-top: 0; text-transform: uppercase; }
-        .en-notice-content p { color: #d2b48c; font-size: 16px; margin-bottom: 25px; }
-        .close-notice {
-            background: #e67e22;
-            border: none;
-            color: #fff;
-            padding: 10px 25px;
-            border-radius: 5px;
+            top: 20px;
+            left: 20px;
+            z-index: 999;
+            background: rgba(230, 126, 34, 0.1);
+            border: 1px solid #e67e22;
+            color: #e67e22;
+            padding: 8px 15px;
+            border-radius: 20px;
             font-weight: bold;
+            font-size: 14px;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+        .back-btn:hover { background: #e67e22; color: #fff; }
+        
+        @media (max-width: 900px) {
+            .back-btn { left: 80px; } /* Сдвиг, чтобы не перекрывать гамбургер */
+        }
+
+        h1, h2, h3 {
+            font-family: Arial, Helvetica, sans-serif;
+            letter-spacing: normal;
             text-transform: uppercase;
         }
         h1 { text-align: center; font-size: 34px; margin: 20px 0; color: #d2b48c; }
@@ -533,31 +537,42 @@
         #lb-tooltip .tip-row span:last-child { color: #fff; font-weight: bold; }
     </style>
 </head>
-<body class="no-scroll">
+<body class="no-scroll" data-lang="ru">
+    
+    <!-- Кнопка Назад к героям -->
+    <a href="index.html" class="back-btn">
+        <span class="lang-ru">« Ко всем персонажам</span>
+        <span class="lang-en">« Back to Heroes</span>
+    </a>
+
+    <!-- Переключатель языка -->
+    <button id="langToggle" class="lang-switch en-text">
+        RU <span style="opacity: 0.5; font-weight: normal;">| EN</span>
+    </button>
+
     <!-- Age Gate -->
     <div id="age-gate">
         <div class="age-gate-content">
-            <h2 style="color:#fff; margin-top:0;">ВНИМАНИЕ: 18+ <br><span class="en-text" style="font-size: 0.7em;">(WARNING: 18+)</span></h2>
-            <p class="selectable-text">Этот сайт содержит детализированные биологические данные и изображения NSFW. Вам есть 18 лет?<br>
-            <span style="font-size: 0.9em; opacity: 0.8;">(This site contains detailed biological data and NSFW images. Are you 18 years or older?)</span></p>
-            <button id="confirm-age" class="nav-btn" style="background: #e67e22; color: #fff; width: 100%;">ДА, МНЕ ЕСТЬ 18 (YES, I AM 18+)</button>
+            <h2 style="color:#fff; margin-top:0;">
+                <span class="lang-ru">ВНИМАНИЕ: 18+ <br><span class="en-text" style="font-size: 0.7em;">(WARNING: 18+)</span></span>
+                <span class="lang-en">WARNING: 18+</span>
+            </h2>
+            <p class="selectable-text">
+                <span class="lang-ru">Этот сайт содержит детализированные биологические данные и изображения NSFW. Вам есть 18 лет?<br>
+                <span style="font-size: 0.9em; opacity: 0.8;">(This site contains detailed biological data and NSFW images. Are you 18 years or older?)</span></span>
+                <span class="lang-en">This site contains detailed biological data and NSFW images. Are you 18 years or older?</span>
+            </p>
+            <button id="confirm-age" class="nav-btn" onclick="confirmAge()" style="background: #e67e22; color: #fff; width: 100%;">
+                <span class="lang-ru">ДА, МНЕ ЕСТЬ 18 (YES, I AM 18+)</span>
+                <span class="lang-en">YES, I AM 18+</span>
+            </button>
         </div>
     </div>
 
     <!-- Основной контент -->
     <div id="page-content">
-        <div class="lang-switch en-text" onclick="showEnNotice()">EN</div>
-
         <div class="toggle-particles" id="toggleParticles">✦ Отключить искры</div>
         <canvas id="particleCanvas" class="particle-canvas"></canvas>
-
-        <div id="en-notice">
-            <div class="en-notice-content">
-                <h3 class="selectable-text">English Version Notice</h3>
-                <p class="selectable-text">I apologize that most content is currently in Russian. I am from Russia, and English is not my native language. A full translation is a big task, but I will definitely translate everything for you with my own paws. <br><br><strong>Note:</strong> At the moment, only the "About" page has been translated.</p>
-                <button class="close-notice" onclick="hideEnNotice()">Understood</button>
-            </div>
-        </div>
 
         <div id="lightbox" onclick="closeLightbox(event)">
             <img id="lightbox-img" src="" draggable="false">
@@ -565,11 +580,15 @@
             <div id="lb-overlay"></div>
             <div id="lb-tooltip"><div class="tip-title" id="lb-tip-title"></div><div id="lb-tip-rows"></div></div>
             <button id="lb-close-btn" onclick="closeLightboxBtn()" aria-label="Закрыть">✕</button>
-            <div id="lb-hint">🖱 Колесо / Pinch — зум &nbsp;·&nbsp; Двойной тап — ×2.5 &nbsp;·&nbsp; Зажать — переместить</div>
+            <div id="lb-hint">
+                <span class="lang-ru">🖱 Колесо / Pinch — зум &nbsp;·&nbsp; Двойной тап — ×2.5 &nbsp;·&nbsp; Зажать — переместить</span>
+                <span class="lang-en">🖱 Scroll / Pinch — zoom &nbsp;·&nbsp; Double tap — ×2.5 &nbsp;·&nbsp; Hold — move</span>
+            </div>
         </div>
 
         <h1 class="selectable-text" style="line-height:1.15; font-size:36px; font-weight:900;">
-            <span class="title-top-line">ИНФОРМАЦИОННЫЙ ЛИСТ О</span>
+            <span class="title-top-line lang-ru">ИНФОРМАЦИОННЫЙ ЛИСТ О</span>
+            <span class="title-top-line lang-en">CHARACTER INFO ABOUT</span>
             <span class="en-text title-rometto" id="rometto-click">ROMETTO</span>
         </h1>
 
@@ -578,9 +597,18 @@
         </div>
 
         <div class="nav-container-main">
-            <a href="about" class="nav-btn">О проекте (Section translated to EN)</a>
-            <a href="biographics" class="nav-btn">Биография и Лор</a>
-            <a href="RP_AND_FETISH" class="nav-btn">Фетиши и РП предпочтения</a>
+            <a href="about" class="nav-btn">
+                <span class="lang-ru">О проекте</span>
+                <span class="lang-en">About Project</span>
+            </a>
+            <a href="/biographics" class="nav-btn">
+                <span class="lang-ru">Биография и Лор</span>
+                <span class="lang-en">Biography & Lore</span>
+            </a>
+            <a href="/RP_AND_FETISH" class="nav-btn">
+                <span class="lang-ru">Фетиши и РП предпочтения</span>
+                <span class="lang-en">Fetishes & RP Preferences</span>
+            </a>
         </div>
 
         <div class="refmap-wrapper" id="refmap-wrapper">
@@ -593,7 +621,8 @@
         </div>
 
         <div class="artist-credit selectable-text">
-            Референс персонажа сделан прекрасными лапками художницы Ricky_Plush. Она обитает тут:
+            <span class="lang-ru">Референс персонажа сделан прекрасными лапками художницы Ricky_Plush. Она обитает тут:</span>
+            <span class="lang-en">Character reference made by the wonderful paws of Ricky_Plush. You can find her here:</span>
             <a href="https://t.me/ricky0plush" class="artist-link-container en-text" target="_blank" rel="noopener noreferrer">
                 <span class="artist-link">Telegram</span>
                 <span class="paw-icon">🐾</span>
@@ -601,234 +630,800 @@
         </div>
 
         <div style="text-align: center; width: 100%; max-width: 900px; margin-top: 30px;">
-            <p class="sub-header selectable-text">Каналы связи со мной:</p>
+            <p class="sub-header selectable-text">
+                <span class="lang-ru">Каналы связи со мной:</span>
+                <span class="lang-en">Contact me:</span>
+            </p>
             <div class="contacts-block">
-                <a href="https://t.me/mr_Rometto" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/icon_tg.png" class="contact-icon"> Мой ТГ</a>
-                <a href="https://www.furaffinity.net/user/romb" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/fa_logo.webp" class="contact-icon"> Мой FA</a>
-                <a href="https://vk.com/mr.rometto" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/icon_vk.png" class="contact-icon"> Мой ВК</a>
-                <a href="https://youtube.com/@rombblog" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/icon_youtube.png" class="contact-icon"> Мой YouTube</a>
+                <a href="https://t.me/mr_Rometto" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/icon_tg.png" class="contact-icon"> <span class="lang-ru">Мой ТГ</span><span class="lang-en">My TG</span></a>
+                <a href="https://www.furaffinity.net/user/romb" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/fa_logo.webp" class="contact-icon"> <span class="lang-ru">Мой FA</span><span class="lang-en">My FA</span></a>
+                <a href="https://vk.com/mr.rometto" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/icon_vk.png" class="contact-icon"> <span class="lang-ru">Мой ВК</span><span class="lang-en">My VK</span></a>
+                <a href="https://youtube.com/@rombblog" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/icon_youtube.png" class="contact-icon"> <span class="lang-ru">Мой YouTube</span><span class="lang-en">My YouTube</span></a>
             </div>
         </div>
 
         <div class="appearance-desc selectable-text">
-            <h3>Описание внешности и особенностей</h3>
-            <p>Появится позже, так как у <span class="en-text">ROMETTO</span> лапки... Пока вы можете увидеть всё на референсе выше.</p>
+            <h3>
+                <span class="lang-ru">Описание внешности и особенностей</span>
+                <span class="lang-en">Appearance & Features Description</span>
+            </h3>
+            <p>
+                <span class="lang-ru">Появится позже, так как у <span class="en-text">ROMETTO</span> лапки... Пока вы можете увидеть всё на референсе выше.</span>
+                <span class="lang-en">Coming soon, as <span class="en-text">ROMETTO</span> has paws... For now, you can check out the reference sheet above.</span>
+            </p>
         </div>
 
         <!-- 1. Общая биология -->
-        <h2 id="section-0" class="selectable-text accordion-header">1. Общая биология</h2>
+        <h2 id="section-0" class="selectable-text accordion-header">
+            <span class="lang-ru">1. Общая биология</span>
+            <span class="lang-en">1. General Biology</span>
+        </h2>
         <div class="accordion-content">
             <table class="selectable-text">
-                <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-                <tr><td>Тип</td><td>Феральный лев</td><td>-</td><td>Гигантский лев-полудемон</td></tr>
-                <tr><td>Рост в холке</td><td>≈1.2 м</td><td>-</td><td>≈4.17 м</td></tr>
-                <tr><td>Длина тела</td><td>≈2.5 м</td><td>\( L \times k \)</td><td>≈6 м</td></tr>
-                <tr><td>Длина хвоста</td><td>≈1 м</td><td>\( L \times k \)</td><td>≈4 м</td></tr>
-                <tr><td>Полная длина</td><td>≈3.5 м</td><td>\( L \times k \)</td><td>≈10 м</td></tr>
-                <tr><td>Масса</td><td>≈220 кг</td><td>\( M \times k^3 \)</td><td>≈9.2 т</td></tr>
-                <tr><td>Длина клыков</td><td>≈8 см</td><td>\( L \times k \)</td><td>≈24–28 см</td></tr>
-                <tr><td>Длина когтей</td><td>≈3.8 см</td><td>\( L \times k \)</td><td>≈13–15 см</td></tr>
-                <tr><td>Толщина шкуры</td><td>≈1 см</td><td>\( L \times k \)</td><td>≈3.5 см</td></tr>
-                <tr><td>Температура тела</td><td>≈38–39 °C</td><td>-</td><td>≈40–42 °C <span class="footnote-in-table">* Охлаждение через демоническую кровь и Форсированное дыхание.</span></td></tr>
+                <tr>
+                    <th><span class="lang-ru">Параметр</span><span class="lang-en">Parameter</span></th>
+                    <th><span class="lang-ru">Обычный лев</span><span class="lang-en">Normal Lion</span></th>
+                    <th><span class="lang-ru">Формула</span><span class="lang-en">Formula</span></th>
+                    <th><span class="lang-ru">Рометто</span><span class="lang-en">Rometto</span></th>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Тип</span><span class="lang-en">Type</span></td>
+                    <td><span class="lang-ru">Феральный лев</span><span class="lang-en">Feral lion</span></td>
+                    <td>-</td>
+                    <td><span class="lang-ru">Гигантский лев-полудемон</span><span class="lang-en">Giant half-demon lion</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Рост в холке</span><span class="lang-en">Shoulder height</span></td>
+                    <td><span class="lang-ru">≈1.2 м</span><span class="lang-en">≈3.9 ft</span></td>
+                    <td>-</td>
+                    <td><span class="lang-ru">≈4.17 м</span><span class="lang-en">≈13.7 ft</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Длина тела</span><span class="lang-en">Body length</span></td>
+                    <td><span class="lang-ru">≈2.5 м</span><span class="lang-en">≈8.2 ft</span></td>
+                    <td>\( L \times k \)</td>
+                    <td><span class="lang-ru">≈6 м</span><span class="lang-en">≈19.7 ft</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Длина хвоста</span><span class="lang-en">Tail length</span></td>
+                    <td><span class="lang-ru">≈1 м</span><span class="lang-en">≈3.3 ft</span></td>
+                    <td>\( L \times k \)</td>
+                    <td><span class="lang-ru">≈4 м</span><span class="lang-en">≈13.1 ft</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Полная длина</span><span class="lang-en">Total length</span></td>
+                    <td><span class="lang-ru">≈3.5 м</span><span class="lang-en">≈11.5 ft</span></td>
+                    <td>\( L \times k \)</td>
+                    <td><span class="lang-ru">≈10 м</span><span class="lang-en">≈32.8 ft</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Масса</span><span class="lang-en">Weight</span></td>
+                    <td><span class="lang-ru">≈220 кг</span><span class="lang-en">≈485 lbs</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td><span class="lang-ru">≈9.2 т</span><span class="lang-en">≈10.1 tons (20,280 lbs)</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Длина клыков</span><span class="lang-en">Canine length</span></td>
+                    <td><span class="lang-ru">≈8 см</span><span class="lang-en">≈3.1 in</span></td>
+                    <td>\( L \times k \)</td>
+                    <td><span class="lang-ru">≈24–28 см</span><span class="lang-en">≈9.4–11 in</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Длина когтей</span><span class="lang-en">Claw length</span></td>
+                    <td><span class="lang-ru">≈3.8 см</span><span class="lang-en">≈1.5 in</span></td>
+                    <td>\( L \times k \)</td>
+                    <td><span class="lang-ru">≈13–15 см</span><span class="lang-en">≈5.1–5.9 in</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Толщина шкуры</span><span class="lang-en">Skin thickness</span></td>
+                    <td><span class="lang-ru">≈1 см</span><span class="lang-en">≈0.4 in</span></td>
+                    <td>\( L \times k \)</td>
+                    <td><span class="lang-ru">≈3.5 см</span><span class="lang-en">≈1.4 in</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Температура тела</span><span class="lang-en">Body temperature</span></td>
+                    <td><span class="lang-ru">≈38–39 °C</span><span class="lang-en">≈100–102 °F</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="lang-ru">≈40–42 °C</span><span class="lang-en">≈104–107.6 °F</span>
+                        <span class="footnote-in-table">* <span class="lang-ru">Охлаждение через демоническую кровь и Форсированное дыхание.</span><span class="lang-en">Cooling via demonic blood and forced breathing.</span></span>
+                    </td>
+                </tr>
             </table>
         </div>
 
         <!-- 2. Физика и сила -->
-        <h2 id="section-1" class="selectable-text accordion-header">2. Физика и сила</h2>
+        <h2 id="section-1" class="selectable-text accordion-header">
+            <span class="lang-ru">2. Физика и сила</span>
+            <span class="lang-en">2. Physics & Strength</span>
+        </h2>
         <div class="accordion-content">
             <table class="selectable-text">
-                <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-                <tr><td>Ширина лапы</td><td>14–16 см</td><td>\( L \times k \)</td><td>60–70 см</td></tr>
-                <tr><td>Длина лапы</td><td>≈20 см</td><td>\( L \times k \)</td><td>≈90–110 см</td></tr>
-                <tr><td>Сила укуса</td><td>≈650 PSI</td><td>\( M \times k^3 \)</td><td>≈24 000 PSI</td></tr>
-                <tr><td>Давление (наступ)</td><td>≈0.2 т</td><td>импульс</td><td>≈20–30 т</td></tr>
-                <tr><td>Грузоподъёмность</td><td>≈300 кг</td><td>\( M \times k^2 \)</td><td>≈3.6 т</td></tr>
-                <tr><td>Сила удара лапой</td><td>≈400 кг</td><td>\( M \times k^3 \)</td><td>≈16–20 т <span class="footnote-in-table">* При массе лапы 250кг и скорости 35м/с.</span></td></tr>
-                <tr><td>Макс. скорость</td><td>≈80 км/ч</td><td>-</td><td>≈50 км/ч</td></tr>
-                <tr><td>Прыжок в высоту</td><td>≈3 м</td><td>-</td><td>≈10 м <span class="footnote-in-table">* Реактивная мощь задних конечностей.</span></td></tr>
-                <tr><td>Прыжок в длину</td><td>≈10–12 м</td><td>-</td><td>≈30–35 м <span class="footnote-in-table">* Фактически — полет «живого снаряда».</span></td></tr>
+                <tr>
+                    <th><span class="lang-ru">Параметр</span><span class="lang-en">Parameter</span></th>
+                    <th><span class="lang-ru">Обычный лев</span><span class="lang-en">Normal Lion</span></th>
+                    <th><span class="lang-ru">Формула</span><span class="lang-en">Formula</span></th>
+                    <th><span class="lang-ru">Рометто</span><span class="lang-en">Rometto</span></th>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Ширина лапы</span><span class="lang-en">Paw width</span></td>
+                    <td><span class="lang-ru">14–16 см</span><span class="lang-en">5.5–6.3 in</span></td>
+                    <td>\( L \times k \)</td>
+                    <td><span class="lang-ru">60–70 см</span><span class="lang-en">23.6–27.5 in</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Длина лапы</span><span class="lang-en">Paw length</span></td>
+                    <td><span class="lang-ru">≈20 см</span><span class="lang-en">≈7.9 in</span></td>
+                    <td>\( L \times k \)</td>
+                    <td><span class="lang-ru">≈90–110 см</span><span class="lang-en">≈35.4–43.3 in</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Сила укуса</span><span class="lang-en">Bite force</span></td>
+                    <td>≈650 PSI</td>
+                    <td>\( M \times k^3 \)</td>
+                    <td>≈24 000 PSI</td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Давление (наступ)</span><span class="lang-en">Step pressure</span></td>
+                    <td><span class="lang-ru">≈0.2 т</span><span class="lang-en">≈440 lbs</span></td>
+                    <td><span class="lang-ru">импульс</span><span class="lang-en">impulse</span></td>
+                    <td><span class="lang-ru">≈20–30 т</span><span class="lang-en">≈22–33 tons (44,000–66,000 lbs)</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Грузоподъёмность</span><span class="lang-en">Lifting capacity</span></td>
+                    <td><span class="lang-ru">≈300 кг</span><span class="lang-en">≈660 lbs</span></td>
+                    <td>\( M \times k^2 \)</td>
+                    <td><span class="lang-ru">≈3.6 т</span><span class="lang-en">≈3.9 tons (7,900 lbs)</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Сила удара лапой</span><span class="lang-en">Paw strike force</span></td>
+                    <td><span class="lang-ru">≈400 кг</span><span class="lang-en">≈880 lbs</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td>
+                        <span class="lang-ru">≈16–20 т</span><span class="lang-en">≈17.6–22 tons (35,000–44,000 lbs)</span>
+                        <span class="footnote-in-table">* <span class="lang-ru">При массе лапы 250кг и скорости 35м/с.</span><span class="lang-en">With a paw mass of 550 lbs and a speed of 115 ft/s.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Макс. скорость</span><span class="lang-en">Max speed</span></td>
+                    <td><span class="lang-ru">≈80 км/ч</span><span class="lang-en">≈50 mph</span></td>
+                    <td>-</td>
+                    <td><span class="lang-ru">≈50 км/ч</span><span class="lang-en">≈31 mph</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Прыжок в высоту</span><span class="lang-en">Vertical jump</span></td>
+                    <td><span class="lang-ru">≈3 м</span><span class="lang-en">≈9.8 ft</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="lang-ru">≈10 м</span><span class="lang-en">≈32.8 ft</span>
+                        <span class="footnote-in-table">* <span class="lang-ru">Реактивная мощь задних конечностей.</span><span class="lang-en">Reactive power of hind limbs.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Прыжок в длину</span><span class="lang-en">Long jump</span></td>
+                    <td><span class="lang-ru">≈10–12 м</span><span class="lang-en">≈32–39 ft</span></td>
+                    <td>-</td>
+                    <td>
+                        <span class="lang-ru">≈30–35 м</span><span class="lang-en">≈98–115 ft</span>
+                        <span class="footnote-in-table">* <span class="lang-ru">Фактически — полет «живого снаряда».</span><span class="lang-en">Effectively the flight of a "living projectile".</span></span>
+                    </td>
+                </tr>
             </table>
         </div>
 
         <!-- 3. Звук и коммуникация -->
-        <h2 id="section-2" class="selectable-text accordion-header">3. Звук и коммуникация</h2>
+        <h2 id="section-2" class="selectable-text accordion-header">
+            <span class="lang-ru">3. Звук и коммуникация</span>
+            <span class="lang-en">3. Sound & Communication</span>
+        </h2>
         <div class="accordion-content">
             <table class="selectable-text">
-                <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-                <tr><td>Громкость рёва</td><td>≈114 dB</td><td>лёгкие + демон. фактор</td><td><strong>150–160 dB</strong> <span class="footnote-in-table">* Порог болевого шока.</span></td></tr>
-                <tr><td>Дальность слышимости</td><td>≈8 км</td><td>мощность</td><td><strong>20–30 км</strong> <span class="footnote-in-table">* В зависимости от ландшафта.</span></td></tr>
-                <tr><td>Тип звука</td><td>Низкий рёв</td><td>резонатор</td><td><strong>Сейсмический рёв</strong> <span class="footnote-in-table">* Ощущается телом как вибрация.</span></td></tr>
-                <tr><td>Частотный диапазон</td><td>40–200 Гц</td><td>инфразвук</td><td><strong>5–150 Гц</strong> <span class="footnote-in-table">* Основная мощь в инфразвуке.</span></td></tr>
+                <tr>
+                    <th><span class="lang-ru">Параметр</span><span class="lang-en">Parameter</span></th>
+                    <th><span class="lang-ru">Обычный лев</span><span class="lang-en">Normal Lion</span></th>
+                    <th><span class="lang-ru">Формула</span><span class="lang-en">Formula</span></th>
+                    <th><span class="lang-ru">Рометто</span><span class="lang-en">Rometto</span></th>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Громкость рёва</span><span class="lang-en">Roar volume</span></td>
+                    <td>≈114 dB</td>
+                    <td><span class="lang-ru">лёгкие + демон. фактор</span><span class="lang-en">lungs + demonic factor</span></td>
+                    <td>
+                        <strong>150–160 dB</strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Порог болевого шока.</span><span class="lang-en">Pain shock threshold.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Дальность слышимости</span><span class="lang-en">Hearing range</span></td>
+                    <td><span class="lang-ru">≈8 км</span><span class="lang-en">≈5 miles</span></td>
+                    <td><span class="lang-ru">мощность</span><span class="lang-en">power</span></td>
+                    <td>
+                        <strong><span class="lang-ru">20–30 км</span><span class="lang-en">12–18.5 miles</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">В зависимости от ландшафта.</span><span class="lang-en">Depending on the landscape.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Тип звука</span><span class="lang-en">Sound type</span></td>
+                    <td><span class="lang-ru">Низкий рёв</span><span class="lang-en">Low roar</span></td>
+                    <td><span class="lang-ru">резонатор</span><span class="lang-en">resonator</span></td>
+                    <td>
+                        <strong><span class="lang-ru">Сейсмический рёв</span><span class="lang-en">Seismic roar</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Ощущается телом как вибрация.</span><span class="lang-en">Felt by the body as vibration.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Частотный диапазон</span><span class="lang-en">Frequency range</span></td>
+                    <td><span class="lang-ru">40–200 Гц</span><span class="lang-en">40–200 Hz</span></td>
+                    <td><span class="lang-ru">инфразвук</span><span class="lang-en">infrasound</span></td>
+                    <td>
+                        <strong><span class="lang-ru">5–150 Гц</span><span class="lang-en">5–150 Hz</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Основная мощь в инфразвуке.</span><span class="lang-en">Main power lies in infrasound.</span></span>
+                    </td>
+                </tr>
             </table>
         </div>
 
         <!-- 4. Репродуктивная система -->
-        <h2 id="section-3" class="selectable-text accordion-header">4. Репродуктивная система</h2>
+        <h2 id="section-3" class="selectable-text accordion-header">
+            <span class="lang-ru">4. Репродуктивная система</span>
+            <span class="lang-en">4. Reproductive System</span>
+        </h2>
         <div class="accordion-content">
             <table class="selectable-text">
-                <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-                <tr><td>Длина пениса (в покое)</td><td>≈6–8 см</td><td>\( L \times k \)</td><td><strong> ≈25–30 см</strong> <span class="footnote-in-table">* Скрыт в препуциальном мешке.</span></td></tr>
-                <tr><td>Длина пениса (Эрекция)</td><td>≈15–20 см</td><td>\( L \times k \) (усил.)</td><td><strong> ≈65–70 см</strong> <span class="footnote-in-table">* В состоянии полной эрекции.</span></td></tr>
-                <tr><td>Диаметр (кончик)</td><td>≈1.5–2 см</td><td>\( L \times k \) (усил.)</td><td><strong>≈5.5–7 см</strong> <span class="footnote-in-table">* Зона головки.</span></td></tr>
-                <tr><td>Диаметр (основание)</td><td>≈4–5 см</td><td>\( L \times k \) (усил.)</td><td><strong>18–22 см</strong> <span class="footnote-in-table">* Максимальное расширение.</span></td></tr>
-                <tr><td>Яички (Testicles)</td><td>≈6 см (диам)</td><td>\( L \times k \) (усил.)</td><td><strong>25–30 см</strong> <span class="footnote-in-table">* Размер крупного помело.</span></td></tr>
-                <tr><td>Вес мошонки (всего)</td><td>≈500 г</td><td>\( M \times k^3 \)</td><td><strong>≈18–20 кг</strong> <span class="footnote-in-table">* Суммарный вес двух яичек.</span></td></tr>
-                <tr><td>Объём эякулята</td><td>≈60 мл</td><td>\( M \times k^3 \) (усил.)</td><td><strong>≈1,5-2 л </strong> <span class="footnote-in-table">* Вязкая, высокоэнергетическая.</span></td></tr>
-                <tr><td>Скорость вылета</td><td>≈5 м/с</td><td>\( v \times k \)</td><td><strong>≈17–20 м/с</strong> <span class="footnote-in-table">* Скорость штормового ветра.</span></td></tr>
-                <tr><td>Давление выброса</td><td>≈1 атм</td><td>гидростатика</td><td><strong>≈12–15 атм</strong> <span class="footnote-in-table">* Усиление за счёт демонической крови.</span></td></tr>
-                <tr><td>Шипы (Spines)</td><td>≈0.5 см</td><td>\( L \times k \)</td><td><strong>1.5–2 см</strong> <span class="footnote-in-table">* Сохраняют кошачью форму, усилены демонической структурой.</span></td></tr>
+                <tr>
+                    <th><span class="lang-ru">Параметр</span><span class="lang-en">Parameter</span></th>
+                    <th><span class="lang-ru">Обычный лев</span><span class="lang-en">Normal Lion</span></th>
+                    <th><span class="lang-ru">Формула</span><span class="lang-en">Formula</span></th>
+                    <th><span class="lang-ru">Рометто</span><span class="lang-en">Rometto</span></th>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Длина пениса (в покое)</span><span class="lang-en">Penis length (flaccid)</span></td>
+                    <td><span class="lang-ru">≈6–8 см</span><span class="lang-en">≈2.4–3.1 in</span></td>
+                    <td>\( L \times k \)</td>
+                    <td>
+                        <strong><span class="lang-ru">≈25–30 см</span><span class="lang-en">≈9.8–11.8 in</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Скрыт в препуциальном мешке.</span><span class="lang-en">Hidden in the preputial sheath.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Длина пениса (Эрекция)</span><span class="lang-en">Penis length (erect)</span></td>
+                    <td><span class="lang-ru">≈15–20 см</span><span class="lang-en">≈5.9–7.9 in</span></td>
+                    <td>\( L \times k \) <span class="lang-ru">(усил.)</span><span class="lang-en">(enh.)</span></td>
+                    <td>
+                        <strong><span class="lang-ru">≈65–70 см</span><span class="lang-en">≈25.6–27.5 in</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">В состоянии полной эрекции.</span><span class="lang-en">In a state of full erection.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Диаметр (кончик)</span><span class="lang-en">Diameter (tip)</span></td>
+                    <td><span class="lang-ru">≈1.5–2 см</span><span class="lang-en">≈0.6–0.8 in</span></td>
+                    <td>\( L \times k \) <span class="lang-ru">(усил.)</span><span class="lang-en">(enh.)</span></td>
+                    <td>
+                        <strong><span class="lang-ru">≈5.5–7 см</span><span class="lang-en">≈2.2–2.7 in</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Зона головки.</span><span class="lang-en">Glans area.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Диаметр (основание)</span><span class="lang-en">Diameter (base)</span></td>
+                    <td><span class="lang-ru">≈4–5 см</span><span class="lang-en">≈1.6–2 in</span></td>
+                    <td>\( L \times k \) <span class="lang-ru">(усил.)</span><span class="lang-en">(enh.)</span></td>
+                    <td>
+                        <strong><span class="lang-ru">18–22 см</span><span class="lang-en">7–8.6 in</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Максимальное расширение.</span><span class="lang-en">Maximum expansion.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Яички</span><span class="lang-en">Testicles</span></td>
+                    <td><span class="lang-ru">≈6 см (диам)</span><span class="lang-en">≈2.4 in (dia)</span></td>
+                    <td>\( L \times k \) <span class="lang-ru">(усил.)</span><span class="lang-en">(enh.)</span></td>
+                    <td>
+                        <strong><span class="lang-ru">25–30 см</span><span class="lang-en">9.8–11.8 in</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Размер крупного помело.</span><span class="lang-en">Size of a large pomelo.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Вес мошонки (всего)</span><span class="lang-en">Scrotum weight (total)</span></td>
+                    <td><span class="lang-ru">≈500 г</span><span class="lang-en">≈1.1 lbs</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td>
+                        <strong><span class="lang-ru">≈18–20 кг</span><span class="lang-en">≈40–44 lbs</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Суммарный вес двух яичек.</span><span class="lang-en">Total weight of both testicles.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Объём эякулята</span><span class="lang-en">Ejaculate volume</span></td>
+                    <td><span class="lang-ru">≈60 мл</span><span class="lang-en">≈2 oz</span></td>
+                    <td>\( M \times k^3 \) <span class="lang-ru">(усил.)</span><span class="lang-en">(enh.)</span></td>
+                    <td>
+                        <strong><span class="lang-ru">≈1,5-2 л</span><span class="lang-en">≈0.4–0.5 gal</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Вязкая, высокоэнергетическая.</span><span class="lang-en">Viscous, high-energy.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Скорость вылета</span><span class="lang-en">Ejaculation speed</span></td>
+                    <td><span class="lang-ru">≈5 м/с</span><span class="lang-en">≈16 ft/s</span></td>
+                    <td>\( v \times k \)</td>
+                    <td>
+                        <strong><span class="lang-ru">≈17–20 м/с</span><span class="lang-en">≈55–65 ft/s</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Скорость штормового ветра.</span><span class="lang-en">Storm wind speed.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Давление выброса</span><span class="lang-en">Ejaculation pressure</span></td>
+                    <td><span class="lang-ru">≈1 атм</span><span class="lang-en">≈1 atm</span></td>
+                    <td><span class="lang-ru">гидростатика</span><span class="lang-en">hydrostatics</span></td>
+                    <td>
+                        <strong><span class="lang-ru">≈12–15 атм</span><span class="lang-en">≈12–15 atm</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Усиление за счёт демонической крови.</span><span class="lang-en">Enhanced by demonic blood.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Шипы</span><span class="lang-en">Spines</span></td>
+                    <td><span class="lang-ru">≈0.5 см</span><span class="lang-en">≈0.2 in</span></td>
+                    <td>\( L \times k \)</td>
+                    <td>
+                        <strong><span class="lang-ru">1.5–2 см</span><span class="lang-en">0.6–0.8 in</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Сохраняют кошачью форму, усилены демонической структурой.</span><span class="lang-en">Retain feline shape, enhanced by demonic structure.</span></span>
+                    </td>
+                </tr>
             </table>
         </div>
 
         <!-- 5. Анатомия и питание -->
-        <h2 id="section-4" class="accordion-header">5. Анатомия и питание</h2>
+        <h2 id="section-4" class="accordion-header">
+            <span class="lang-ru">5. Анатомия и питание</span>
+            <span class="lang-en">5. Anatomy & Diet</span>
+        </h2>
         <div class="accordion-content">
             <table>
-                <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-                <tr><td>Длина черепа</td><td>≈38 см</td><td>L × k</td><td>≈132 см</td></tr>
-                <tr><td>Ширина черепа</td><td>≈25 см</td><td>W × k</td><td>≈87 см</td></tr>
-                <tr><td>Масса головы</td><td>≈12 кг</td><td>(M × k³) × 3*</td><td>≈1500–1600 кг</td></tr>
-                <tr><td>Толщина лобной кости</td><td>≈1.5 см</td><td>T × k × 2**</td><td>≈10–12 см</td></tr>
-                <tr><td>Диаметр глаза</td><td>≈3.8 см</td><td>D × k</td><td>≈13.2 см</td></tr>
-                <tr><td>Частота моргания</td><td>1–2 раз/мин</td><td>M^-0.25</td><td>≈0.5–0.7 раз/мин</td></tr>
-                <tr><td>Размер мозга</td><td>≈240 г</td><td>\( M^{0.75} \)</td><td><strong>≈1.6–1.8 кг</strong></td></tr>
-                <tr><td>Вес лёгких</td><td>≈1.5 кг</td><td>\( M \times k^3 \)</td><td><strong>≈60 кг</strong></td></tr>
-                <tr><td>Объём лёгких</td><td>≈13 л</td><td>\( M \times k^3 \)</td><td><strong>≈500 л</strong></td></tr>
-                <tr><td>Сила чиха</td><td>~8 м/с</td><td>\( \times 38 \)</td><td><strong>≈80–100 м/с</strong> <span class="footnote-in-table">* Локальная ударная волна. Не стойте перед ним в этот момент.</span></td></tr>
-                <tr><td>Плотность костей</td><td>≈1.9 г/см³</td><td>усилено</td><td><strong>≈5.5–6.0 г/см³</strong></td></tr>
-                <tr><td>Прочность сухожилий</td><td>стандарт</td><td>\( M \times k^3 \)</td><td><strong>в ≈40 раз выше</strong></td></tr>
-                <tr><td>Миоглобин в мышцах</td><td>стандарт</td><td>\( M \times k \)</td><td><strong>экстремально высокий</strong></td></tr>
-                <tr><td>Масса сердца</td><td>≈1 кг</td><td>\( M \times k^3 \)</td><td>≈40 кг</td></tr>
-                <tr><td>Объём крови</td><td>≈15 л</td><td>\( M \times k^3 \)</td><td>≈600 л</td></tr>
-                <tr><td>Пульс (покой)</td><td>≈40 уд/мин</td><td>\( M^{-0.25} \)</td><td>≈15–20 уд/мин</td></tr>
-                <tr><td>Пульс (нагрузка)</td><td>≈160–180 уд/мин</td><td>\( M^{-0.25} \)</td><td>≈60–80 уд/мин</td></tr>
-                <tr><td>Давление (к.д.)</td><td>120/80</td><td>-</td><td>250/160</td></tr>
-                <tr><td>Рацион (сутки)</td><td>5–7 кг</td><td>метаболизм</td><td><strong>100–150 кг</strong></td></tr>
-                <tr><td>Пиковая еда (раз)</td><td>≈30 кг</td><td>\( M \times k^3 \)</td><td><strong>до 500 кг</strong></td></tr>
-                <tr><td>Время переваривания</td><td>≈24 часа</td><td>повышенная кислотность</td><td><strong>≈4–6 часов</strong></td></tr>
-                <tr><td>Эффективность ЖКТ</td><td>≈70%</td><td>усилено</td><td><strong>≈90–95%</strong></td></tr>
+                <tr>
+                    <th><span class="lang-ru">Параметр</span><span class="lang-en">Parameter</span></th>
+                    <th><span class="lang-ru">Обычный лев</span><span class="lang-en">Normal Lion</span></th>
+                    <th><span class="lang-ru">Формула</span><span class="lang-en">Formula</span></th>
+                    <th><span class="lang-ru">Рометто</span><span class="lang-en">Rometto</span></th>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Длина черепа</span><span class="lang-en">Skull length</span></td>
+                    <td><span class="lang-ru">≈38 см</span><span class="lang-en">≈15 in</span></td>
+                    <td>L × k</td>
+                    <td><span class="lang-ru">≈132 см</span><span class="lang-en">≈52 in</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Ширина черепа</span><span class="lang-en">Skull width</span></td>
+                    <td><span class="lang-ru">≈25 см</span><span class="lang-en">≈9.8 in</span></td>
+                    <td>W × k</td>
+                    <td><span class="lang-ru">≈87 см</span><span class="lang-en">≈34.2 in</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Масса головы</span><span class="lang-en">Head mass</span></td>
+                    <td><span class="lang-ru">≈12 кг</span><span class="lang-en">≈26.4 lbs</span></td>
+                    <td>(M × k³) × 3*</td>
+                    <td><span class="lang-ru">≈1500–1600 кг</span><span class="lang-en">≈3300–3500 lbs</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Толщина лобной кости</span><span class="lang-en">Frontal bone thickness</span></td>
+                    <td><span class="lang-ru">≈1.5 см</span><span class="lang-en">≈0.6 in</span></td>
+                    <td>T × k × 2**</td>
+                    <td><span class="lang-ru">≈10–12 см</span><span class="lang-en">≈3.9–4.7 in</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Диаметр глаза</span><span class="lang-en">Eye diameter</span></td>
+                    <td><span class="lang-ru">≈3.8 см</span><span class="lang-en">≈1.5 in</span></td>
+                    <td>D × k</td>
+                    <td><span class="lang-ru">≈13.2 см</span><span class="lang-en">≈5.2 in</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Частота моргания</span><span class="lang-en">Blink rate</span></td>
+                    <td><span class="lang-ru">1–2 раз/мин</span><span class="lang-en">1-2 times/min</span></td>
+                    <td>M^-0.25</td>
+                    <td><span class="lang-ru">≈0.5–0.7 раз/мин</span><span class="lang-en">≈0.5-0.7 times/min</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Размер мозга</span><span class="lang-en">Brain size</span></td>
+                    <td><span class="lang-ru">≈240 г</span><span class="lang-en">≈8.4 oz</span></td>
+                    <td>\( M^{0.75} \)</td>
+                    <td><strong><span class="lang-ru">≈1.6–1.8 кг</span><span class="lang-en">≈3.5–4 lbs</span></strong></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Вес лёгких</span><span class="lang-en">Lung weight</span></td>
+                    <td><span class="lang-ru">≈1.5 кг</span><span class="lang-en">≈3.3 lbs</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td><strong><span class="lang-ru">≈60 кг</span><span class="lang-en">≈132 lbs</span></strong></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Объём лёгких</span><span class="lang-en">Lung volume</span></td>
+                    <td><span class="lang-ru">≈13 л</span><span class="lang-en">≈3.4 gal</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td><strong><span class="lang-ru">≈500 л</span><span class="lang-en">≈132 gal</span></strong></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Сила чиха</span><span class="lang-en">Sneeze force</span></td>
+                    <td><span class="lang-ru">~8 м/с</span><span class="lang-en">~26 ft/s</span></td>
+                    <td>\( \times 38 \)</td>
+                    <td>
+                        <strong><span class="lang-ru">≈80–100 м/с</span><span class="lang-en">≈260–328 ft/s</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Локальная ударная волна. Не стойте перед ним в этот момент.</span><span class="lang-en">Local shockwave. Do not stand in front of him.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Плотность костей</span><span class="lang-en">Bone density</span></td>
+                    <td><span class="lang-ru">≈1.9 г/см³</span><span class="lang-en">≈1.1 oz/in³</span></td>
+                    <td><span class="lang-ru">усилено</span><span class="lang-en">enhanced</span></td>
+                    <td><strong><span class="lang-ru">≈5.5–6.0 г/см³</span><span class="lang-en">≈3.2-3.5 oz/in³</span></strong></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Прочность сухожилий</span><span class="lang-en">Tendon strength</span></td>
+                    <td><span class="lang-ru">стандарт</span><span class="lang-en">standard</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td><strong><span class="lang-ru">в ≈40 раз выше</span><span class="lang-en">≈40 times higher</span></strong></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Миоглобин в мышцах</span><span class="lang-en">Muscle myoglobin</span></td>
+                    <td><span class="lang-ru">стандарт</span><span class="lang-en">standard</span></td>
+                    <td>\( M \times k \)</td>
+                    <td><strong><span class="lang-ru">экстремально высокий</span><span class="lang-en">extremely high</span></strong></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Масса сердца</span><span class="lang-en">Heart mass</span></td>
+                    <td><span class="lang-ru">≈1 кг</span><span class="lang-en">≈2.2 lbs</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td><span class="lang-ru">≈40 кг</span><span class="lang-en">≈88 lbs</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Объём крови</span><span class="lang-en">Blood volume</span></td>
+                    <td><span class="lang-ru">≈15 л</span><span class="lang-en">≈4 gal</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td><span class="lang-ru">≈600 л</span><span class="lang-en">≈158 gal</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Пульс (покой)</span><span class="lang-en">Heart rate (resting)</span></td>
+                    <td><span class="lang-ru">≈40 уд/мин</span><span class="lang-en">≈40 bpm</span></td>
+                    <td>\( M^{-0.25} \)</td>
+                    <td><span class="lang-ru">≈15–20 уд/мин</span><span class="lang-en">≈15-20 bpm</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Пульс (нагрузка)</span><span class="lang-en">Heart rate (active)</span></td>
+                    <td><span class="lang-ru">≈160–180 уд/мин</span><span class="lang-en">≈160-180 bpm</span></td>
+                    <td>\( M^{-0.25} \)</td>
+                    <td><span class="lang-ru">≈60–80 уд/мин</span><span class="lang-en">≈60-80 bpm</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Давление (к.д.)</span><span class="lang-en">Blood pressure</span></td>
+                    <td>120/80</td>
+                    <td>-</td>
+                    <td>250/160</td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Рацион (сутки)</span><span class="lang-en">Diet (daily)</span></td>
+                    <td><span class="lang-ru">5–7 кг</span><span class="lang-en">11-15 lbs</span></td>
+                    <td><span class="lang-ru">метаболизм</span><span class="lang-en">metabolism</span></td>
+                    <td><strong><span class="lang-ru">100–150 кг</span><span class="lang-en">220-330 lbs</span></strong></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Пиковая еда (раз)</span><span class="lang-en">Peak meal (once)</span></td>
+                    <td><span class="lang-ru">≈30 кг</span><span class="lang-en">≈66 lbs</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td><strong><span class="lang-ru">до 500 кг</span><span class="lang-en">up to 1100 lbs</span></strong></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Время переваривания</span><span class="lang-en">Digestion time</span></td>
+                    <td><span class="lang-ru">≈24 часа</span><span class="lang-en">≈24 hours</span></td>
+                    <td><span class="lang-ru">повышенная кислотность</span><span class="lang-en">high acidity</span></td>
+                    <td><strong><span class="lang-ru">≈4–6 часов</span><span class="lang-en">≈4-6 hours</span></strong></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Эффективность ЖКТ</span><span class="lang-en">GI efficiency</span></td>
+                    <td>≈70%</td>
+                    <td><span class="lang-ru">усилено</span><span class="lang-en">enhanced</span></td>
+                    <td><strong>≈90–95%</strong></td>
+                </tr>
             </table>
 
             <div class="appearance-desc">
-                <h3>Пояснение по механизмам демонического усиления:</h3>
-                <p><strong>Костная матрица:</strong> Высокая плотность (5.5–6.0 г/см³) достигается через форсированную минерализацию под давлением демонической крови, что превращает скелет в сверхплотный монолит.</p>
-                <p><strong>Кинетическая вязкость мышц:</strong> Увеличенная скорость нервного импульса и снабжение миоцитов кислородом позволяют мгновенно мобилизовать 9 тонн массы.</p>
-                <p><strong>Метаболический форсаж:</strong> Экстремальная кислотность ЖКТ позволяет за один цикл полностью утилизовать скелет жертвы весом до 500 кг.</p>
-                <p><i>* Умножение на 3 обусловлено разницей плотности костей (6.0 г/см³ против ~1.9 г/см³ у обычного льва).</i></p>
-                <p><i>** Коэффициент 2 добавлен с учётом демонической гипертрофии костной ткани для защиты мозга.</i></p>
-                <p><strong>Гемостатический затвор:</strong> Кровь обладает неньютоновскими свойствами; при резком перепаде давления (ранении) вязкость мгновенно возрастает в 50 раз, создавая биологическую «пробку», способную удержать внутреннее давление до 15 атмосфер.</p>
+                <h3>
+                    <span class="lang-ru">Пояснение по механизмам демонического усиления:</span>
+                    <span class="lang-en">Explanation of demonic enhancement mechanisms:</span>
+                </h3>
+                <p><strong><span class="lang-ru">Костная матрица:</span><span class="lang-en">Bone Matrix:</span></strong> <span class="lang-ru">Высокая плотность (5.5–6.0 г/см³) достигается через форсированную минерализацию под давлением демонической крови, что превращает скелет в сверхплотный монолит.</span><span class="lang-en">High density (3.2-3.5 oz/in³) is achieved through forced mineralization under the pressure of demonic blood, turning the skeleton into a super-dense monolith.</span></p>
+                <p><strong><span class="lang-ru">Кинетическая вязкость мышц:</span><span class="lang-en">Kinetic muscle viscosity:</span></strong> <span class="lang-ru">Увеличенная скорость нервного импульса и снабжение миоцитов кислородом позволяют мгновенно мобилизовать 9.2 тонн массы.</span><span class="lang-en">Increased nerve impulse speed and oxygen supply to myocytes allow for the instant mobilization of 10.1 tons of mass.</span></p>
+                <p><strong><span class="lang-ru">Метаболический форсаж:</span><span class="lang-en">Metabolic Overdrive:</span></strong> <span class="lang-ru">Экстремальная кислотность ЖКТ позволяет за один цикл полностью утилизовать скелет жертвы весом до 500 кг.</span><span class="lang-en">The extreme acidity of the GI tract allows it to fully digest the skeleton of a victim weighing up to 1100 lbs in a single cycle.</span></p>
+                <p><i><span class="lang-ru">* Умножение на 3 обусловлено разницей плотности костей (6.0 г/см³ против ~1.9 г/см³ у обычного льва).</span><span class="lang-en">* The multiplier of 3 is due to the difference in bone density (3.5 oz/in³ vs ~1.1 oz/in³ in a normal lion).</span></i></p>
+                <p><i><span class="lang-ru">** Коэффициент 2 добавлен с учётом демонической гипертрофии костной ткани для защиты мозга.</span><span class="lang-en">** A coefficient of 2 is added to account for the demonic hypertrophy of bone tissue protecting the brain.</span></i></p>
+                <p><strong><span class="lang-ru">Гемостатический затвор:</span><span class="lang-en">Hemostatic plug:</span></strong> <span class="lang-ru">Кровь обладает неньютоновскими свойствами; при резком перепаде давления (ранении) вязкость мгновенно возрастает в 50 раз, создавая биологическую «пробку», способную удержать внутреннее давление до 15 атмосфер.</span><span class="lang-en">Blood has non-Newtonian properties; with a sharp pressure drop (injury), viscosity instantly increases 50 times, creating a biological "plug" capable of holding an internal pressure of up to 15 atmospheres.</span></p>
             </div>
         </div>
 
         <!-- 6. Гидродинамика крови -->
-        <h2 id="section-5" class="accordion-header">6. Гидродинамика крови</h2>
+        <h2 id="section-5" class="accordion-header">
+            <span class="lang-ru">6. Гидродинамика крови</span>
+            <span class="lang-en">6. Blood Hydrodynamics</span>
+        </h2>
         <div class="accordion-content">
             <table>
-                <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-                <tr><td>Фибриноген (Fg)</td><td>≈2–4 г/л</td><td>\( Fg_{lion} \) + демоническая днк</td><td><strong>≈20 г/л</strong><span class="footnote-in-table">* Усиленная концентрация для быстрого свертывания и демонический ДНК.</span></td></tr>
-                <tr><td>Адгезия тромбоцитов</td><td>1×</td><td>\( A_{adh} \)</td><td><strong>≈10×</strong><span class="footnote-in-table">* Повышенное сцепление с повреждёнными сосудами.</span></td></tr>
-                <tr><td>Время образования тромба</td><td>≈2–5 мин</td><td>\( t \sim \frac{1}{Fg \cdot A_{adh}} \)</td><td><strong>≈10–30 сек</strong><span class="footnote-in-table">* Мгновенный гемостаз за счёт днк демона.</span></td></tr>
-                <tr><td>Прочность тромба</td><td>Стандарт</td><td>\( \rho_{fibrin} \)</td><td><strong>Экстремально высокая</strong><span class="footnote-in-table">* Плотная фибриновая структура.</span></td></tr>
-                <tr><td>Гемостатический затвор</td><td>Отсутствует</td><td> компенсация давление 15 атмосфер</td><td><strong>до ≈15 атм</strong><span class="footnote-in-table">* Удержание давления за счёт тромба.</span></td></tr>
+                <tr>
+                    <th><span class="lang-ru">Параметр</span><span class="lang-en">Parameter</span></th>
+                    <th><span class="lang-ru">Обычный лев</span><span class="lang-en">Normal Lion</span></th>
+                    <th><span class="lang-ru">Формула</span><span class="lang-en">Formula</span></th>
+                    <th><span class="lang-ru">Рометто</span><span class="lang-en">Rometto</span></th>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Фибриноген (Fg)</span><span class="lang-en">Fibrinogen (Fg)</span></td>
+                    <td><span class="lang-ru">≈2–4 г/л</span><span class="lang-en">≈2-4 g/L</span></td>
+                    <td><span class="lang-ru">\( Fg_{lion} \) + демоническая днк</span><span class="lang-en">\( Fg_{lion} \) + demonic DNA</span></td>
+                    <td>
+                        <strong><span class="lang-ru">≈20 г/л</span><span class="lang-en">≈20 g/L</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Усиленная концентрация для быстрого свертывания и демонический ДНК.</span><span class="lang-en">Enhanced concentration for rapid clotting and demonic DNA.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Адгезия тромбоцитов</span><span class="lang-en">Platelet adhesion</span></td>
+                    <td>1×</td>
+                    <td>\( A_{adh} \)</td>
+                    <td>
+                        <strong>≈10×</strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Повышенное сцепление с повреждёнными сосудами.</span><span class="lang-en">Increased adhesion to damaged vessels.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Время образования тромба</span><span class="lang-en">Clotting time</span></td>
+                    <td><span class="lang-ru">≈2–5 мин</span><span class="lang-en">≈2-5 min</span></td>
+                    <td>\( t \sim \frac{1}{Fg \cdot A_{adh}} \)</td>
+                    <td>
+                        <strong><span class="lang-ru">≈10–30 сек</span><span class="lang-en">≈10-30 sec</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Мгновенный гемостаз за счёт днк демона.</span><span class="lang-en">Instant hemostasis due to demonic DNA.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Прочность тромба</span><span class="lang-en">Clot strength</span></td>
+                    <td><span class="lang-ru">Стандарт</span><span class="lang-en">Standard</span></td>
+                    <td>\( \rho_{fibrin} \)</td>
+                    <td>
+                        <strong><span class="lang-ru">Экстремально высокая</span><span class="lang-en">Extremely high</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Плотная фибриновая структура.</span><span class="lang-en">Dense fibrin structure.</span></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Гемостатический затвор</span><span class="lang-en">Hemostatic plug</span></td>
+                    <td><span class="lang-ru">Отсутствует</span><span class="lang-en">Absent</span></td>
+                    <td><span class="lang-ru">компенсация давление 15 атмосфер</span><span class="lang-en">compensation for 15 atm pressure</span></td>
+                    <td>
+                        <strong><span class="lang-ru">до ≈15 атм</span><span class="lang-en">up to ≈15 atm</span></strong>
+                        <span class="footnote-in-table">* <span class="lang-ru">Удержание давления за счёт тромба.</span><span class="lang-en">Pressure retention via clot.</span></span>
+                    </td>
+                </tr>
             </table>
             <div class="formula">
-                <b>Механика свертывания:</b><br><br>
+                <b><span class="lang-ru">Механика свертывания:</span><span class="lang-en">Clotting mechanics:</span></b><br><br>
                 \[ v_{clot} \propto Fg \cdot A_{adh} \]
                 \[ t \sim \frac{1}{Fg \cdot A_{adh}} \]
             </div>
         </div>
 
         <!-- 7. Система следов жизнедеятельности -->
-        <h2 id="section-6" class="accordion-header">7. Система следов жизнедеятельности</h2>
+        <h2 id="section-6" class="accordion-header">
+            <span class="lang-ru">7. Система следов жизнедеятельности</span>
+            <span class="lang-en">7. Excretory System</span>
+        </h2>
         <div class="accordion-content">
             <table>
-                <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
-                <tr><td>Моча (сутки)</td><td>≈1.5 л</td><td>\( M \times k^3 \)</td><td>≈38–57 л</td></tr>
-                <tr><td>Моча (за раз)</td><td>≈400 мл</td><td>\( M \times k^3 \)</td><td>≈10–15 л</td></tr>
-                <tr><td>Кал (сутки)</td><td>≈2 кг</td><td>\( M \times k^3 \)</td><td>≈57–76 кг</td></tr>
-                <tr><td>Кал (за раз)</td><td>≈1 кг</td><td>\( M \times k^3 \)</td><td>≈30–40 кг</td></tr>
-                <tr><td>Диаметр сегмента</td><td>≈4 см</td><td>\( L \times k \)</td><td>≈14–16 см</td></tr>
-                <tr><td>Длина сегмента</td><td>≈15 см</td><td>\( L \times k \)</td><td>≈40–50 см</td></tr>
+                <tr>
+                    <th><span class="lang-ru">Параметр</span><span class="lang-en">Parameter</span></th>
+                    <th><span class="lang-ru">Обычный лев</span><span class="lang-en">Normal Lion</span></th>
+                    <th><span class="lang-ru">Формула</span><span class="lang-en">Formula</span></th>
+                    <th><span class="lang-ru">Рометто</span><span class="lang-en">Rometto</span></th>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Моча (сутки)</span><span class="lang-en">Urine (daily)</span></td>
+                    <td><span class="lang-ru">≈1.5 л</span><span class="lang-en">≈0.4 gal</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td><span class="lang-ru">≈38–57 л</span><span class="lang-en">≈10–15 gal</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Моча (за раз)</span><span class="lang-en">Urine (per time)</span></td>
+                    <td><span class="lang-ru">≈400 мл</span><span class="lang-en">≈13.5 oz</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td><span class="lang-ru">≈10–15 л</span><span class="lang-en">≈2.6–4 gal</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Кал (сутки)</span><span class="lang-en">Feces (daily)</span></td>
+                    <td><span class="lang-ru">≈2 кг</span><span class="lang-en">≈4.4 lbs</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td><span class="lang-ru">≈57–76 кг</span><span class="lang-en">≈125–167 lbs</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Кал (за раз)</span><span class="lang-en">Feces (per time)</span></td>
+                    <td><span class="lang-ru">≈1 кг</span><span class="lang-en">≈2.2 lbs</span></td>
+                    <td>\( M \times k^3 \)</td>
+                    <td><span class="lang-ru">≈30–40 кг</span><span class="lang-en">≈66–88 lbs</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Диаметр сегмента</span><span class="lang-en">Segment diameter</span></td>
+                    <td><span class="lang-ru">≈4 см</span><span class="lang-en">≈1.6 in</span></td>
+                    <td>\( L \times k \)</td>
+                    <td><span class="lang-ru">≈14–16 см</span><span class="lang-en">≈5.5–6.3 in</span></td>
+                </tr>
+                <tr>
+                    <td><span class="lang-ru">Длина сегмента</span><span class="lang-en">Segment length</span></td>
+                    <td><span class="lang-ru">≈15 см</span><span class="lang-en">≈5.9 in</span></td>
+                    <td>\( L \times k \)</td>
+                    <td><span class="lang-ru">≈40–50 см</span><span class="lang-en">≈15.7–19.7 in</span></td>
+                </tr>
             </table>
         </div>
 
         <!-- 8. МЕХАНИКА ОХОТЫ -->
-        <h2 id="section-7" class="accordion-header">8. МЕХАНИКА ОХОТЫ: ГРАВИТАЦИОННОЕ ПОДАВЛЕНИЕ</h2>
+        <h2 id="section-7" class="accordion-header">
+            <span class="lang-ru">8. МЕХАНИКА ОХОТЫ: ГРАВИТАЦИОННОЕ ПОДАВЛЕНИЕ</span>
+            <span class="lang-en">8. HUNTING MECHANICS: GRAVITATIONAL SUPPRESSION</span>
+        </h2>
         <div class="accordion-content">
             <div class="hunting-block">
-                <p>Охота Рометто — это не погоня, а фатальное столкновение колоссальной массы с пространством. Для хищника такого масштаба физика — самое эффективное оружие.</p>
-                <h4>I. Инфразвуковой рокот: Резонанс страха</h4>
-                <p>Рометто не нужно прятаться — он подавляет волю цели на расстоянии. Благодаря огромному объему легких и специфической структуре гортани, усиленной демоническим фактором, он генерирует звуковые волны частотой ниже 10 Гц.</p>
-                <p><strong>Механизм:</strong> Это физический резонанс гипертрофированных голосовых связок и объёмной грудной клетки.<br><strong>Эффект:</strong> Инфразвук входит в резонанс с внутренними органами любой биологической цели в радиусе 50 метров. Это вызывает «системный сбой»: паралич воли, потерю ориентации и неконтролируемый ужас. Жертва замирает еще до физического контакта.</p>
-                <h4>II. Инерционный рывок: 9 тонн неизбежности</h4>
-                <p>При массе в 9.2 тонны Рометто развивает скорость до 50 км/ч. На такой скорости он превращается в живой снаряд с чудовищным импульсом. Любое препятствие на пути (деревья, камни или броня жертвы) просто деформируется, не снижая скорости хищника.</p>
-                <h4>III. Сокрушение весом (Фаза контакта)</h4>
-                <p>Для Рометто самый естественный способ убийства — это прыжок всем весом.</p>
-                <p><strong>Гравитационный краш:</strong> Приземление 9-тонного тела генерирует динамическое усилие в 30–40 тонн. В момент контакта возникает компрессионный шок, который мгновенно разрушает скелет и останавливает работу внутренних органов цели. Жертву буквально «впрессовывает» в ландшафт.</p>
-                <p><strong>Милосердный финал:</strong> Если после удара цель проявляет признаки жизни, Рометто прекращает её страдания максимально эффективно. Он просто переносит вес на одну из передних лап шириной 70 см, раздавливая голову жертвы.</p>
-                <p><strong>Смертельный «кусь»:</strong> Используется крайне редко. Рометто предпочитает работать массой.</p>
+                <p>
+                    <span class="lang-ru">Охота Рометто — это не погоня, а фатальное столкновение колоссальной массы с пространством. Для хищника такого масштаба физика — самое эффективное оружие.</span>
+                    <span class="lang-en">Rometto's hunting isn't a chase, but a fatal collision of colossal mass with space itself. For a predator of this scale, physics is the most effective weapon.</span>
+                </p>
+                <h4>
+                    <span class="lang-ru">I. Инфразвуковой рокот: Резонанс страха</span>
+                    <span class="lang-en">I. Infrasonic Roar: Resonance of Fear</span>
+                </h4>
+                <p>
+                    <span class="lang-ru">Рометто не нужно прятаться — он подавляет волю цели на расстоянии. Благодаря огромному объему легких и специфической структуре гортани, усиленной демоническим фактором, он генерирует звуковые волны частотой ниже 10 Гц.</span>
+                    <span class="lang-en">Rometto doesn't need to hide—he suppresses the target's will from a distance. Thanks to his enormous lung volume and specific larynx structure, enhanced by the demonic factor, he generates sound waves below 10 Hz.</span>
+                </p>
+                <p>
+                    <strong><span class="lang-ru">Механизм:</span><span class="lang-en">Mechanism:</span></strong> <span class="lang-ru">Это физический резонанс гипертрофированных голосовых связок и объёмной грудной клетки.</span><span class="lang-en">This is the physical resonance of hypertrophied vocal cords and a massive chest cavity.</span><br>
+                    <strong><span class="lang-ru">Эффект:</span><span class="lang-en">Effect:</span></strong> <span class="lang-ru">Инфразвук входит в резонанс с внутренними органами любой биологической цели в радиусе 50 метров. Это вызывает «системный сбой»: паралич воли, потерю ориентации и неконтролируемый ужас. Жертва замирает еще до физического контакта.</span><span class="lang-en">The infrasound resonates with the internal organs of any biological target within a 160-foot radius. This causes a "system failure": paralysis of will, disorientation, and uncontrollable terror. The victim freezes before physical contact even happens.</span>
+                </p>
+                
+                <h4>
+                    <span class="lang-ru">II. Инерционный рывок: 9 тонн неизбежности</span>
+                    <span class="lang-en">II. Inertial Dash: 10 Tons of Inevitability</span>
+                </h4>
+                <p>
+                    <span class="lang-ru">При массе в 9.2 тонны Рометто развивает скорость до 50 км/ч. На такой скорости он превращается в живой снаряд с чудовищным импульсом. Любое препятствие на пути (деревья, камни или броня жертвы) просто деформируется, не снижая скорости хищника.</span>
+                    <span class="lang-en">Weighing 10.1 tons, Rometto reaches speeds up to 31 mph. At this speed, he turns into a living projectile with monstrous momentum. Any obstacle in his path (trees, rocks, or victim's armor) simply deforms without slowing the predator down.</span>
+                </p>
+
+                <h4>
+                    <span class="lang-ru">III. Сокрушение весом (Фаза контакта)</span>
+                    <span class="lang-en">III. Weight Crushing (Contact Phase)</span>
+                </h4>
+                <p>
+                    <span class="lang-ru">Для Рометто самый естественный способ убийства — это прыжок всем весом.</span>
+                    <span class="lang-en">For Rometto, the most natural way to kill is a full-weight jump.</span>
+                </p>
+                <p>
+                    <strong><span class="lang-ru">Гравитационный краш:</span><span class="lang-en">Gravitational Crash:</span></strong> <span class="lang-ru">Приземление 9-тонного тела генерирует динамическое усилие в 30–40 тонн. В момент контакта возникает компрессионный шок, который мгновенно разрушает скелет и останавливает работу внутренних органов цели. Жертву буквально «впрессовывает» в ландшафт.</span><span class="lang-en">The landing of a 10.1-ton body generates a dynamic force of 33–44 tons. Upon contact, a compression shock instantly shatters the skeleton and stops the target's internal organs. The victim is literally "pressed" into the landscape.</span>
+                </p>
+                <p>
+                    <strong><span class="lang-ru">Милосердный финал:</span><span class="lang-en">Merciful Finale:</span></strong> <span class="lang-ru">Если после удара цель проявляет признаки жизни, Рометто прекращает её страдания максимально эффективно. Он просто переносит вес на одну из передних лап шириной 70 см, раздавливая голову жертвы.</span><span class="lang-en">If the target shows signs of life after the impact, Rometto ends its suffering as efficiently as possible. He simply shifts his weight onto one of his 27.5-inch wide front paws, crushing the victim's head.</span>
+                </p>
+                <p>
+                    <strong><span class="lang-ru">Смертельный «кусь»:</span><span class="lang-en">Fatal "Bite":</span></strong> <span class="lang-ru">Используется крайне редко. Рометто предпочитает работать массой.</span><span class="lang-en">Used extremely rarely. Rometto prefers to work with mass.</span>
+                </p>
             </div>
 
             <div class="formula">
-                <b> Формулы масштабирования и физики</b><br><br>
-                • \( k = 3.47 \) (Линейный коэффициент масштабирования)<br>
-                • \( k^3 \approx 41.8 \) (Кубический закон)<br>
-                • Динамическая сила (\( F_{dyn} \)): 30–40 тонн.<br>
-                • Громкость рёва: \( \text{dB}_{max} \approx 160 \)<br><br>
-                <b>Базальный метаболизм (BMR):</b><br>
+                <b>
+                    <span class="lang-ru">Формулы масштабирования и физики</span>
+                    <span class="lang-en">Scaling & Physics Formulas</span>
+                </b><br><br>
+                • \( k = 3.47 \) <span class="lang-ru">(Линейный коэффициент масштабирования)</span><span class="lang-en">(Linear scaling coefficient)</span><br>
+                • \( k^3 \approx 41.8 \) <span class="lang-ru">(Кубический закон)</span><span class="lang-en">(Cubic law)</span><br>
+                • <span class="lang-ru">Динамическая сила</span><span class="lang-en">Dynamic Force</span> (\( F_{dyn} \)): <span class="lang-ru">30–40 тонн.</span><span class="lang-en">33–44 tons.</span><br>
+                • <span class="lang-ru">Громкость рёва</span><span class="lang-en">Roar volume</span>: \( \text{dB}_{max} \approx 160 \)<br><br>
+                <b>
+                    <span class="lang-ru">Базальный метаболизм (BMR):</span>
+                    <span class="lang-en">Basal Metabolic Rate (BMR):</span>
+                </b><br>
                 \[ BMR_{rometto} = (c \cdot M^{0.75}) \cdot \alpha \]
-                <b>Гемостаз (усиленная модель):</b><br><br>
-                • Скорость формирования тромба:<br>
+                <b>
+                    <span class="lang-ru">Гемостаз (усиленная модель):</span>
+                    <span class="lang-en">Hemostasis (enhanced model):</span>
+                </b><br><br>
+                • <span class="lang-ru">Скорость формирования тромба:</span><span class="lang-en">Clot formation speed:</span><br>
                 \[ v_{clot} \sim Fg \cdot A_{adh} \]
-                • Время свертывания:<br>
+                • <span class="lang-ru">Время свертывания:</span><span class="lang-en">Clotting time:</span><br>
                 \[ t \sim \frac{1}{Fg \cdot A_{adh}} \]
-                • Усиление:<br>
+                • <span class="lang-ru">Усиление:</span><span class="lang-en">Enhancement:</span><br>
                 \[ Fg = Fg_{lion} \cdot \alpha,\quad A_{adh} = A_{lion} \cdot \alpha \]
             </div>
         </div>
 
         <!-- FAQ -->
         <div class="faq">
-            <h2 class="selectable-text">Часто задаваемые вопросы</h2>
+            <h2 class="selectable-text">
+                <span class="lang-ru">Часто задаваемые вопросы</span>
+                <span class="lang-en">Frequently Asked Questions</span>
+            </h2>
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">Почему максимальная скорость Рометто (≈50 км/ч) ниже, чем у обычного льва (≈80 км/ч)? <span style="font-size:18px;">▼</span></div>
-                <div class="faq-answer">Рометто слишком огромен — 9,2 тонны живой массы. На скорости около 50 км/ч он уже ведёт себя как разогнавшийся 9-тонный КАМАЗ. Дальнейший разгон требует чудовищной энергии и создаёт огромную нагрузку на скелет, сухожилия и внутренние органы. Даже с демонической помощью природа ставит свои пределы.</div>
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="lang-ru">Почему максимальная скорость Рометто (≈50 км/ч) ниже, чем у обычного льва (≈80 км/ч)?</span>
+                    <span class="lang-en">Why is Rometto's top speed (≈31 mph) lower than a normal lion's (≈50 mph)?</span>
+                    <span style="font-size:18px;">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <span class="lang-ru">Рометто слишком огромен — 9,2 тонны живой массы. На скорости около 50 км/ч он уже ведёт себя как разогнавшийся 9-тонный КАМАЗ. Дальнейший разгон требует чудовищной энергии и создаёт огромную нагрузку на скелет, сухожилия и внутренние органы. Даже с демонической помощью природа ставит свои пределы.</span>
+                    <span class="lang-en">Rometto is just too huge—10.1 tons of living mass. At a speed of about 31 mph, he behaves like a speeding 10-ton truck. Further acceleration requires monstrous energy and places a massive strain on his skeleton, tendons, and internal organs. Even with demonic assistance, nature sets its limits.</span>
+                </div>
             </div>
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">Можно ли в принципе победить Рометто в бою? <span style="font-size:18px;">▼</span></div>
-                <div class="faq-answer">Теоретически — да. Но этот секрет знают лишь трое живых существ — его самые близкие друзья.</div>
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="lang-ru">Можно ли в принципе победить Рометто в бою?</span>
+                    <span class="lang-en">Is it even possible to defeat Rometto in combat?</span>
+                    <span style="font-size:18px;">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <span class="lang-ru">Теоретически — да. Но этот секрет знают лишь трое живых существ — его самые близкие друзья.</span>
+                    <span class="lang-en">Theoretically—yes. But this secret is known to only three living beings: his closest friends.</span>
+                </div>
             </div>
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">Как Рометто справляется с перегревом при массе 9,2 тонны? <span style="font-size:18px;">▼</span></div>
-                <div class="faq-answer">Демоническая кровь радикально изменена и стабилизирует структуру белков, позволяя выдерживать температуру тела даже выше 100 °C без разрушения тканей. Кроме того, он может активно охлаждаться: погрузиться в воду или лечь и 15–30 минут глубоко дышать форсированно.</div>
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="lang-ru">Как Рометто справляется с перегревом при массе 9,2 тонны?</span>
+                    <span class="lang-en">How does Rometto handle overheating with a mass of 10.1 tons?</span>
+                    <span style="font-size:18px;">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <span class="lang-ru">Демоническая кровь радикально изменена и стабилизирует структуру белков, позволяя выдерживать температуру тела даже выше 100 °C без разрушения тканей. Кроме того, он может активно охлаждаться: погрузиться в воду или лечь и 15–30 минут глубоко дышать форсированно.</span>
+                    <span class="lang-en">His demonic blood is radically altered and stabilizes protein structures, allowing him to withstand body temperatures even above 212 °F without tissue damage. Moreover, he can actively cool down by submerging in water or lying down and deep-breathing heavily for 15–30 minutes.</span>
+                </div>
             </div>
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">Почему его рёв ощущается телом как вибрация даже на расстоянии 20–30 км? <span style="font-size:18px;">▼</span></div>
-                <div class="faq-answer">Основная мощь рёва лежит в инфразвуковом диапазоне (частоты ниже 10 Гц). Благодаря гипертрофированным голосовым связкам и огромному объёму лёгких он генерирует мощные низкочастотные волны.<br><br><b>Формула:</b><br>\[ f_{\text{основная}} \approx 5-10\ \text{Гц (инфразвук)} \]</div>
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="lang-ru">Почему его рёв ощущается телом как вибрация даже на расстоянии 20–30 км?</span>
+                    <span class="lang-en">Why is his roar felt by the body as a vibration even at a distance of 12-18 miles?</span>
+                    <span style="font-size:18px;">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <span class="lang-ru">Основная мощь рёва лежит в инфразвуковом диапазоне (частоты ниже 10 Гц). Благодаря гипертрофированным голосовым связкам и огромному объёму лёгких он генерирует мощные низкочастотные волны.</span>
+                    <span class="lang-en">The main power of his roar lies in the infrasound range (frequencies below 10 Hz). Thanks to his hypertrophied vocal cords and enormous lung capacity, he generates powerful low-frequency waves.</span>
+                    <br><br><b><span class="lang-ru">Формула:</span><span class="lang-en">Formula:</span></b><br>\[ f_{\text{основная}} \approx 5-10\ \text{Гц (инфразвук)} \]
+                </div>
             </div>
             <div class="faq-item">
-                <div class="faq-question" onclick="toggleFAQ(this)">Что произойдёт, если встать прямо перед Рометто в момент, когда он чихает? <span style="font-size:18px;">▼</span></div>
-                <div class="faq-answer">Мгновенная смерть. Локальная ударная волна летит со скоростью 80–100 м/с и действует как направленный взрыв.</div>
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span class="lang-ru">Что произойдёт, если встать прямо перед Рометто в момент, когда он чихает?</span>
+                    <span class="lang-en">What happens if you stand right in front of Rometto right as he sneezes?</span>
+                    <span style="font-size:18px;">▼</span>
+                </div>
+                <div class="faq-answer">
+                    <span class="lang-ru">Мгновенная смерть. Локальная ударная волна летит со скоростью 80–100 м/с и действует как направленный взрыв.</span>
+                    <span class="lang-en">Instant death. A local shockwave travels at 260-328 ft/s and acts like a directed explosion.</span>
+                </div>
             </div>
         </div>
 
         <!-- Галерея -->
         <div class="gallery-section">
-            <h2 class="selectable-text">Галерея артов</h2>
+            <h2 class="selectable-text">
+                <span class="lang-ru">Галерея артов</span>
+                <span class="lang-en">Art Gallery</span>
+            </h2>
             <div class="gallery-filters">
-                <button class="gallery-filter-btn active" data-filter="all">Все</button>
+                <button class="gallery-filter-btn active" data-filter="all">
+                    <span class="lang-ru">Все</span><span class="lang-en">All</span>
+                </button>
                 <button class="gallery-filter-btn" data-filter="sfw">SFW</button>
                 <button class="gallery-filter-btn" data-filter="nsfw">NSFW</button>
-                <button class="gallery-filter-btn" data-filter="sketch">Скетчи / WIP</button>
+                <button class="gallery-filter-btn" data-filter="sketch">
+                    <span class="lang-ru">Скетчи / WIP</span><span class="lang-en">Sketches / WIP</span>
+                </button>
             </div>
             <div class="gallery-grid" id="gallery-grid"></div>
         </div>
 
         <footer class="site-footer">
-            <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">ROMETTO</span></strong>. Все права защищены.</div>
+            <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">ROMETTO</span></strong>. <span class="lang-ru">Все права защищены.</span><span class="lang-en">All rights reserved.</span></div>
             <div style="margin-top: 15px; color: #d2b48c;">
-                Подарки очень приятны, я и Рометто всегда рады совместным артам! 🐾<br>
-                Но, пожалуйста, <a href="https://t.me/mr_Rometto" target="_blank" rel="noopener noreferrer">свяжитесь со мной</a> заранее.
+                <span class="lang-ru">
+                    Подарки очень приятны, я и Рометто всегда рады совместным артам! 🐾<br>
+                    Но, пожалуйста, <a href="https://t.me/mr_Rometto" target="_blank" rel="noopener noreferrer">свяжитесь со мной</a> заранее.
+                </span>
+                <span class="lang-en">
+                    Gifts are always welcome, Rometto and I love art collaborations! 🐾<br>
+                    But please, <a href="https://t.me/mr_Rometto" target="_blank" rel="noopener noreferrer">contact me</a> in advance.
+                </span>
             </div>
         </footer>
     </div>
@@ -850,6 +1445,39 @@
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Глобальная переменная
+        let particlesEnabled = true;
+
+        // ==================== Логика переключения языка ====================
+        const langToggleBtn = document.getElementById('langToggle');
+        let currentLang = localStorage.getItem('lang') || 'ru';
+
+        const setLang = (lang) => {
+            document.body.setAttribute('data-lang', lang);
+            localStorage.setItem('lang', lang);
+            
+            const particleBtn = document.getElementById('toggleParticles');
+
+            if (lang === 'ru') {
+                langToggleBtn.innerHTML = 'RU <span style="opacity: 0.5; font-weight: normal;">| EN</span>';
+                document.title = "Информационный лист о Рометто";
+                particleBtn.textContent = particlesEnabled ? '✦ Отключить искры' : '✦ Включить искры';
+            } else {
+                langToggleBtn.innerHTML = '<span style="opacity: 0.5; font-weight: normal;">RU |</span> EN';
+                document.title = "Character Info: Rometto";
+                particleBtn.textContent = particlesEnabled ? '✦ Disable sparks' : '✦ Enable sparks';
+            }
+        };
+
+        // Инициализируем язык при загрузке
+        setLang(currentLang);
+
+        langToggleBtn.addEventListener('click', () => {
+            currentLang = currentLang === 'ru' ? 'en' : 'ru';
+            setLang(currentLang);
+        });
+        // ===================================================================
 
         // ==================== AGE GATE ====================
         const ageGate = document.getElementById('age-gate');
@@ -911,7 +1539,6 @@
             if (e.key === 'Escape') { lightbox.style.display = 'none'; hideLbTooltip(); }
         });
 
-        // ИСПРАВЛЕНО: синтаксис шаблонной строки `${y}` и `${scale}`
         function updateTransform() {
             lbImg.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
             requestAnimationFrame(() => buildLightboxBoxes());
@@ -927,7 +1554,6 @@
             }
         }, { passive: false });
 
-        // ИСПРАВЛЕНО: e.preventDefault() предотвращает стандартное перетаскивание картинок (drag & drop) в браузере на ПК
         lbImg.addEventListener('mousedown', (e) => {
             if (scale > 1) {
                 e.preventDefault(); 
@@ -985,7 +1611,7 @@
         }, { passive: true });
 
         lightbox.addEventListener('touchmove', (e) => {
-            e.preventDefault(); // ИСПРАВЛЕНО: Обязательно блокируем системный скролл при перетаскивании
+            e.preventDefault(); 
             if (e.touches.length === 2) {
                 isTouchDragging = false;
                 const currentDistance = Math.hypot(
@@ -1013,19 +1639,24 @@
 
         // =========================================================================
 
-        function showEnNotice() { document.getElementById('en-notice').style.display = 'flex'; }
-        function hideEnNotice() { document.getElementById('en-notice').style.display = 'none'; }
-
-        // TOC
+        // TOC (С поддержкой переключения языка)
         function generateTOC() {
             const tocList = document.getElementById('toc-list');
-            const headers = document.querySelectorAll('#page-content h2');
+            const headers = document.querySelectorAll('#page-content h2.accordion-header');
             headers.forEach((h2, index) => {
                 const li = document.createElement('li');
                 const a = document.createElement('a');
                 a.href = `#section-${index}`;
                 a.className = 'nav-btn';
-                a.textContent = h2.textContent;
+                
+                // Копируем spans с языками, чтобы оглавление тоже переводилось
+                const spans = h2.querySelectorAll('.lang-ru, .lang-en');
+                if (spans.length > 0) {
+                    spans.forEach(span => a.appendChild(span.cloneNode(true)));
+                } else {
+                    a.textContent = h2.textContent.replace('▼','').replace('▲','').trim();
+                }
+
                 a.onclick = (e) => {
                     e.preventDefault();
                     const content = h2.nextElementSibling;
@@ -1062,7 +1693,7 @@
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        let particlesEnabled = true;
+        
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -1106,9 +1737,15 @@
             }
             requestAnimationFrame(animateParticles);
         }
+        
         document.getElementById('toggleParticles').addEventListener('click', () => {
             particlesEnabled = !particlesEnabled;
-            document.getElementById('toggleParticles').textContent = particlesEnabled ? '✦ Отключить искры' : '✦ Включить искры';
+            // Обновляем текст кнопки с учетом языка
+            if (currentLang === 'ru') {
+                document.getElementById('toggleParticles').textContent = particlesEnabled ? '✦ Отключить искры' : '✦ Включить искры';
+            } else {
+                document.getElementById('toggleParticles').textContent = particlesEnabled ? '✦ Disable sparks' : '✦ Enable sparks';
+            }
         });
 
         // Easter egg
@@ -1118,7 +1755,7 @@
             clickCount++;
             if (clickCount === 6) {
                 body.classList.add('hell-mode');
-                alert('🔥 ДОБРО ПОЖАЛОВАТЬ В АД 🔥');
+                alert(currentLang === 'ru' ? '🔥 ДОБРО ПОЖАЛОВАТЬ В АД 🔥' : '🔥 WELCOME TO HELL 🔥');
                 clickCount = 0;
             }
         });
@@ -1129,11 +1766,11 @@
             if (isOpen) {
                 answer.style.maxHeight = '0px';
                 answer.classList.remove('open');
-                el.querySelector('span').textContent = '▼';
+                el.querySelector('span:last-child').textContent = '▼';
             } else {
                 answer.style.maxHeight = answer.scrollHeight + 'px';
                 answer.classList.add('open');
-                el.querySelector('span').textContent = '▲';
+                el.querySelector('span:last-child').textContent = '▲';
             }
         }
 
@@ -1175,13 +1812,17 @@
             bgMusic.volume = parseFloat(musicVolume.value);
         });
 
-        // Галерея (ИСПРАВЛЕНО: синтаксис шаблонной строки `${item}`)
-        const GALLERY_ITEMS = []; // Сюда добавляются объекты галереи
+        // Галерея
+        const GALLERY_ITEMS = []; 
         function buildGallery(filter) {
             const grid = document.getElementById('gallery-grid');
             const items = filter === 'all' ? GALLERY_ITEMS : GALLERY_ITEMS.filter(i => i.tag === filter);
             if (items.length === 0) {
-                grid.innerHTML = '<div class="gallery-empty">Арты появятся здесь 🐾<br><span style="font-size:12px;">появится позже, не забывайте у меня лапки</span></div>';
+                grid.innerHTML = `
+                    <div class="gallery-empty">
+                        <span class="lang-ru">Арты появятся здесь 🐾<br><span style="font-size:12px;">появится позже, не забывайте у меня лапки</span></span>
+                        <span class="lang-en">Arts will appear here 🐾<br><span style="font-size:12px;">coming soon, remember I have paws</span></span>
+                    </div>`;
                 return;
             }
             grid.innerHTML = items.map((item) => `
@@ -1224,6 +1865,7 @@
                 const toggleSpan = document.createElement('span');
                 toggleSpan.className = 'accordion-toggle';
                 toggleSpan.textContent = '▼';
+                toggleSpan.style.fontSize = '18px';
                 header.appendChild(toggleSpan);
 
                 const content = header.nextElementSibling;
