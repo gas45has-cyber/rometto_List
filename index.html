@@ -105,22 +105,33 @@
             color: #7dd3fc; 
             text-shadow: 0 0 15px rgba(56, 189, 248, 0.8);
         }
+
+        /* Управление языками */
+        body[data-lang="ru"] .lang-en { display: none; }
+        body[data-lang="en"] .lang-ru { display: none; }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+<body class="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative" data-lang="ru">
 
     <div id="bg-default" class="bg-layer"></div>
     <div id="bg-rometto" class="bg-layer"></div>
     <div id="bg-budd" class="bg-layer"></div>
     <div id="bg-abi" class="bg-layer"></div>
 
+    <!-- Кнопка переключения языка -->
+    <button id="langToggle" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 glass-card px-4 py-2 rounded-xl text-white font-bold text-sm tracking-widest cursor-pointer hover:bg-white/20 transition-all border border-white/20">
+        RU <span class="opacity-50 font-normal">| EN</span>
+    </button>
+
     <!-- Заголовок страницы -->
-    <div class="text-center mb-16 z-10">
+    <div class="text-center mb-16 z-10 mt-10 sm:mt-0">
         <h1 id="main-title" class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-            Информационный лист персонажей
+            <span class="lang-ru">Информационный лист персонажей</span>
+            <span class="lang-en">Character Information Sheet</span>
         </h1>
         <p id="main-desc" class="text-lg md:text-xl opacity-90">
-            Выбери о ком хочешь узнать(Choose who you want to learn about.)
+            <span class="lang-ru">Выбери о ком хочешь узнать</span>
+            <span class="lang-en">Choose who you want to learn about</span>
         </p>
     </div>
 
@@ -137,7 +148,10 @@
             <!-- Текстовый блок (всегда прижат к низу поверх картинки) -->
             <div class="relative z-20 p-6 flex-grow flex flex-col justify-end">
                 <h2 class="card-title text-3xl font-bold text-white mb-2">Rometto</h2>
-                <p class="text-gray-200 text-sm">Рометто самый большой лев в мире, будьте осторожны он полудемон.(Rometto is the largest lion in the world; be careful—he is a half-demon.)</p>
+                <p class="text-gray-200 text-sm">
+                    <span class="lang-ru">Рометто самый большой лев в мире, будьте осторожны он полудемон.</span>
+                    <span class="lang-en">Rometto is the largest lion in the world; be careful—he is a half-demon.</span>
+                </p>
             </div>
         </a>
 
@@ -148,7 +162,10 @@
             
             <div class="relative z-20 p-6 flex-grow flex flex-col justify-end">
                 <h2 class="card-title text-3xl font-bold text-white mb-2">Budd</h2>
-                <p class="text-gray-200 text-sm">Бадд большой тигр, настоящий самец, а не вот эти ваши все (Budd is a big tiger, a real male—not like those other ones of yours.).</p>
+                <p class="text-gray-200 text-sm">
+                    <span class="lang-ru">Бадд большой тигр, настоящий самец, а не вот эти ваши все.</span>
+                    <span class="lang-en">Budd is a big tiger, a real male—not like those other ones of yours.</span>
+                </p>
             </div>
         </a>
 
@@ -159,7 +176,10 @@
             
             <div class="relative z-20 p-6 flex-grow flex flex-col justify-end">
                 <h2 class="card-title text-3xl font-bold text-white mb-2">Abiyoy (Abi)</h2>
-                <p class="text-gray-200 text-sm">Белоснежный волк Абиой, красавец и хороший мальчик.(Abioy, the snow-white wolf—a handsome fellow and a good boy.)</p>
+                <p class="text-gray-200 text-sm">
+                    <span class="lang-ru">Белоснежный волк Абиой, красавец и хороший мальчик.</span>
+                    <span class="lang-en">Abioy, the snow-white wolf—a handsome fellow and a good boy.</span>
+                </p>
             </div>
         </a>
 
@@ -202,6 +222,30 @@
                         body.removeAttribute('data-active');
                     }, 300); /* На мобильных чуть дольше для лучшего UX */
                 }, {passive: true});
+            });
+
+            // Логика переключения языка
+            const langToggle = document.getElementById('langToggle');
+            let currentLang = localStorage.getItem('lang') || 'ru';
+
+            const setLang = (lang) => {
+                document.body.setAttribute('data-lang', lang);
+                localStorage.setItem('lang', lang);
+                if (lang === 'ru') {
+                    langToggle.innerHTML = 'RU <span class="opacity-50 font-normal">| EN</span>';
+                    document.title = "Информационный лист персонажей";
+                } else {
+                    langToggle.innerHTML = '<span class="opacity-50 font-normal">RU |</span> EN';
+                    document.title = "Character Information Sheet";
+                }
+            };
+
+            // Инициализируем язык при загрузке
+            setLang(currentLang);
+
+            langToggle.addEventListener('click', () => {
+                currentLang = currentLang === 'ru' ? 'en' : 'ru';
+                setLang(currentLang);
             });
         });
     </script>
