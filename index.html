@@ -54,8 +54,10 @@
 
         /* НЕОНОВЫЙ ТЕКСТ И ФОНЫ - Оптимизировано через CSS для устранения лагов */
         #main-title, #main-desc {
-            text-shadow: 0 0 5px rgba(255,255,255,0.3), 0 0 10px rgba(255,255,255,0.2);
-            transition: text-shadow 0.4s ease, color 0.4s ease;
+            /* Важно для плавной анимации: количество теней в базе должно совпадать с активным (5 слоев) */
+            text-shadow: 0 0 5px rgba(255,255,255,0.3), 0 0 10px rgba(255,255,255,0.2), 0 0 20px transparent, 0 0 40px transparent, 0 0 80px transparent;
+            color: #ffffff;
+            transition: text-shadow 0.6s ease-in-out, color 0.6s ease-in-out;
         }
 
         /* Управление фонами при наведении */
@@ -63,29 +65,46 @@
         body[data-active="budd"] #bg-budd { opacity: 1; }
         body[data-active="abi"] #bg-abi { opacity: 1; }
 
-        /* Свечение главного текста */
+        /* Свечение главного текста и легкое изменение цвета самого шрифта */
         body[data-active="rometto"] #main-title,
         body[data-active="rometto"] #main-desc {
+            color: #ffedd5; /* Легкий оранжевый оттенок */
             text-shadow: 0 0 5px #fff, 0 0 10px #ea580c, 0 0 20px #ea580c, 0 0 40px #9a3412, 0 0 80px #451a03;
         }
 
         body[data-active="budd"] #main-title,
         body[data-active="budd"] #main-desc {
+            color: #ecfccb; /* Легкий зеленоватый оттенок */
             text-shadow: 0 0 5px #fff, 0 0 10px #a3e635, 0 0 20px #84cc16, 0 0 40px #4d7c0f, 0 0 80px #14532d;
         }
 
         body[data-active="abi"] #main-title,
         body[data-active="abi"] #main-desc {
+            color: #e0f2fe; /* Легкий голубой оттенок */
             text-shadow: 0 0 5px #fff, 0 0 10px #38bdf8, 0 0 20px #0ea5e9, 0 0 40px #1d4ed8, 0 0 80px #1e3a8a;
         }
 
         /* Свечение имен на карточках */
         .card-title {
-            transition: text-shadow 0.4s ease, color 0.4s ease;
+            color: #ffffff;
+            text-shadow: 0 0 10px transparent, 0 0 20px transparent;
+            transition: text-shadow 0.5s ease-in-out, color 0.5s ease-in-out;
         }
-        .glass-card[data-char="rometto"]:hover .card-title { text-shadow: 0 0 10px #ea580c, 0 0 20px #ea580c; }
-        .glass-card[data-char="budd"]:hover .card-title { text-shadow: 0 0 10px #a3e635, 0 0 20px #84cc16; }
-        .glass-card[data-char="abi"]:hover .card-title { text-shadow: 0 0 10px #38bdf8, 0 0 20px #0ea5e9; }
+        
+        .glass-card[data-char="rometto"]:hover .card-title { 
+            color: #fdba74; 
+            text-shadow: 0 0 10px #ea580c, 0 0 20px #ea580c; 
+        }
+        
+        .glass-card[data-char="budd"]:hover .card-title { 
+            color: #bef264; 
+            text-shadow: 0 0 10px #a3e635, 0 0 20px #84cc16; 
+        }
+        
+        .glass-card[data-char="abi"]:hover .card-title { 
+            color: #7dd3fc; 
+            text-shadow: 0 0 10px #38bdf8, 0 0 20px #0ea5e9; 
+        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
@@ -109,38 +128,38 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-10 w-full max-w-6xl z-10">
         
         <!-- Карточка: Rometto -->
-        <a href="rometto_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group flex flex-col" data-target="bg-rometto" data-char="rometto">
-            <div class="h-64 sm:h-80 overflow-hidden relative bg-gray-800">
-                <img src="Rometto_icon.png" alt="Rometto" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
-            </div>
-            <div class="p-6 flex-grow flex flex-col justify-end -mt-20 z-10">
+        <a href="rometto_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col min-h-[380px] sm:min-h-[450px]" data-target="bg-rometto" data-char="rometto">
+            <!-- Картинка теперь на весь фон карточки -->
+            <img src="Rometto_icon.png" alt="Rometto" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 z-0">
+            <!-- Плавный темный градиент снизу для читаемости текста -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+            
+            <!-- Текстовый блок (всегда прижат к низу поверх картинки) -->
+            <div class="relative z-20 p-6 flex-grow flex flex-col justify-end">
                 <h2 class="card-title text-3xl font-bold text-white mb-2">Rometto</h2>
-                <p class="text-gray-300 text-sm line-clamp-2">Рометто самый большой лев в мире, будьте осторожны он полудемон.</p>
+                <p class="text-gray-200 text-sm">Рометто самый большой лев в мире, будьте осторожны он полудемон.</p>
             </div>
         </a>
 
         <!-- Карточка: Budd -->
-        <a href="budd_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group flex flex-col" data-target="bg-budd" data-char="budd">
-            <div class="h-64 sm:h-80 overflow-hidden relative bg-gray-800">
-                <img src="Budd_icon.png" alt="Budd" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
-            </div>
-            <div class="p-6 flex-grow flex flex-col justify-end -mt-20 z-10">
+        <a href="budd_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col min-h-[380px] sm:min-h-[450px]" data-target="bg-budd" data-char="budd">
+            <img src="Budd_icon.png" alt="Budd" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 z-0">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+            
+            <div class="relative z-20 p-6 flex-grow flex flex-col justify-end">
                 <h2 class="card-title text-3xl font-bold text-white mb-2">Budd</h2>
-                <p class="text-gray-300 text-sm line-clamp-2">Бадд большой тигр, настоящий самец, а не вот эти ваши все.</p>
+                <p class="text-gray-200 text-sm">Бадд большой тигр, настоящий самец, а не вот эти ваши все.</p>
             </div>
         </a>
 
         <!-- Карточка: Abi -->
-        <a href="Abiyoy_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group flex flex-col" data-target="bg-abi" data-char="abi">
-            <div class="h-64 sm:h-80 overflow-hidden relative bg-gray-800">
-                <img src="Abi_icon.png" alt="Abi" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
-            </div>
-            <div class="p-6 flex-grow flex flex-col justify-end -mt-20 z-10">
+        <a href="Abiyoy_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col min-h-[380px] sm:min-h-[450px]" data-target="bg-abi" data-char="abi">
+            <img src="Abi_icon.png" alt="Abi" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 z-0">
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
+            
+            <div class="relative z-20 p-6 flex-grow flex flex-col justify-end">
                 <h2 class="card-title text-3xl font-bold text-white mb-2">Abiyoy (Abi)</h2>
-                <p class="text-gray-300 text-sm line-clamp-2">Белоснежный волк Абиой, красавец и хороший мальчик.</p>
+                <p class="text-gray-200 text-sm">Белоснежный волк Абиой, красавец и хороший мальчик.</p>
             </div>
         </a>
 
