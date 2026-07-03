@@ -25,7 +25,6 @@
             z-index: -1;
             transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
             opacity: 0;
-            /* will-change может вредить, если используется неправильно - убрали */
         }
 
         #bg-default {
@@ -57,10 +56,8 @@
         /* НЕОНОВЫЙ ТЕКСТ И ФОНЫ - ОПТИМИЗИРОВАНО для плавности */
         #main-title, #main-desc {
             color: #ffffff;
-            /* КЛЮЧЕВО: упрощенный shadow вместо 5 слоев - огромный прирост производительности */
             text-shadow: 0 0 10px rgba(255,255,255,0.2);
             transition: color 0.5s ease-out, text-shadow 0.5s ease-out;
-            /* Убрали will-change - вредит производительности при text-shadow */
         }
 
         /* Управление фонами при наведении */
@@ -131,7 +128,7 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-10 w-full max-w-6xl z-10">
         
         <!-- Карточка: Rometto -->
-        <a href="rometto_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col min-h-[380px] sm:min-h-[450px]" data-target="bg-rometto" data-char="rometto">
+        <a href="rometto_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col aspect-[3/4] md:aspect-square" data-target="bg-rometto" data-char="rometto">
             <!-- Картинка на весь фон карточки с оптимизированным масштабированием -->
             <img src="Rometto_icon.png" alt="Rometto" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0" style="will-change: transform;">
             <!-- Плавный темный градиент снизу для читаемости текста -->
@@ -145,7 +142,7 @@
         </a>
 
         <!-- Карточка: Budd -->
-        <a href="budd_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col min-h-[380px] sm:min-h-[450px]" data-target="bg-budd" data-char="budd">
+        <a href="budd_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col aspect-[3/4] md:aspect-square" data-target="bg-budd" data-char="budd">
             <img src="assets/Budd.png" alt="Budd" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0" style="will-change: transform;">
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
             
@@ -156,7 +153,7 @@
         </a>
 
         <!-- Карточка: Abi -->
-        <a href="Abiyoy_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col min-h-[380px] sm:min-h-[450px]" data-target="bg-abi" data-char="abi">
+        <a href="Abiyoy_list" class="glass-card rounded-2xl overflow-hidden cursor-pointer group relative flex flex-col aspect-[3/4] md:aspect-square" data-target="bg-abi" data-char="abi">
             <img src="Abi_icon.png" alt="Abi" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 z-0" style="will-change: transform;">
             <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10"></div>
             
