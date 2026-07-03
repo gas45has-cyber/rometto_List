@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                                                          <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -43,11 +43,6 @@
             align-items: center;
             user-select: text;
         }
-        
-        /* Управление языками */
-        body[data-lang="ru"] .lang-en { display: none !important; }
-        body[data-lang="en"] .lang-ru { display: none !important; }
-
         .no-scroll {
             overflow: hidden;
             height: 100vh;
@@ -88,9 +83,38 @@
             font-size: 14px;
             transition: 0.3s;
             backdrop-filter: blur(5px);
-            cursor: pointer;
         }
         .lang-switch:hover { background: #e67e22; color: #fff; }
+        #en-notice {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10001;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+        .en-notice-content {
+            background: #151515;
+            padding: 30px;
+            border: 2px solid #e67e22;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 450px;
+            margin: 20px;
+        }
+        .en-notice-content h3 { color: #e67e22; margin-top: 0; text-transform: uppercase; }
+        .en-notice-content p { color: #d2b48c; font-size: 16px; margin-bottom: 25px; }
+        .close-notice {
+            background: #e67e22;
+            border: none;
+            color: #fff;
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
         h1 { text-align: center; font-size: 34px; margin: 20px 0; color: #d2b48c; }
         h2 {
             width: 100%; max-width: 900px; margin-top: 45px;
@@ -509,35 +533,31 @@
         #lb-tooltip .tip-row span:last-child { color: #fff; font-weight: bold; }
     </style>
 </head>
-<body class="no-scroll" data-lang="ru">
-    
-    <!-- Переключатель языка -->
-    <button id="langToggle" class="lang-switch en-text">
-        RU <span style="opacity: 0.5; font-weight: normal;">| EN</span>
-    </button>
-
+<body class="no-scroll">
     <!-- Age Gate -->
     <div id="age-gate">
         <div class="age-gate-content">
-            <h2 style="color:#fff; margin-top:0;">
-                <span class="lang-ru">ВНИМАНИЕ: 18+</span>
-                <span class="lang-en">WARNING: 18+</span>
-            </h2>
-            <p class="selectable-text">
-                <span class="lang-ru">Этот сайт содержит детализированные биологические данные и изображения NSFW. Вам есть 18 лет?</span>
-                <span class="lang-en">This site contains detailed biological data and NSFW images. Are you 18 years or older?</span>
-            </p>
-            <button id="confirm-age" class="nav-btn" style="background: #e67e22; color: #fff; width: 100%;">
-                <span class="lang-ru">ДА, МНЕ ЕСТЬ 18</span>
-                <span class="lang-en">YES, I AM 18+</span>
-            </button>
+            <h2 style="color:#fff; margin-top:0;">ВНИМАНИЕ: 18+ <br><span class="en-text" style="font-size: 0.7em;">(WARNING: 18+)</span></h2>
+            <p class="selectable-text">Этот сайт содержит детализированные биологические данные и изображения NSFW. Вам есть 18 лет?<br>
+            <span style="font-size: 0.9em; opacity: 0.8;">(This site contains detailed biological data and NSFW images. Are you 18 years or older?)</span></p>
+            <button id="confirm-age" class="nav-btn" style="background: #e67e22; color: #fff; width: 100%;">ДА, МНЕ ЕСТЬ 18 (YES, I AM 18+)</button>
         </div>
     </div>
 
     <!-- Основной контент -->
     <div id="page-content">
+        <div class="lang-switch en-text" onclick="showEnNotice()">EN</div>
+
         <div class="toggle-particles" id="toggleParticles">✦ Отключить искры</div>
         <canvas id="particleCanvas" class="particle-canvas"></canvas>
+
+        <div id="en-notice">
+            <div class="en-notice-content">
+                <h3 class="selectable-text">English Version Notice</h3>
+                <p class="selectable-text">I apologize that most content is currently in Russian. I am from Russia, and English is not my native language. A full translation is a big task, but I will definitely translate everything for you with my own paws. <br><br><strong>Note:</strong> At the moment, only the "About" page has been translated.</p>
+                <button class="close-notice" onclick="hideEnNotice()">Understood</button>
+            </div>
+        </div>
 
         <div id="lightbox" onclick="closeLightbox(event)">
             <img id="lightbox-img" src="" draggable="false">
@@ -549,8 +569,7 @@
         </div>
 
         <h1 class="selectable-text" style="line-height:1.15; font-size:36px; font-weight:900;">
-            <span class="title-top-line lang-ru">ИНФОРМАЦИОННЫЙ ЛИСТ О</span>
-            <span class="title-top-line lang-en">CHARACTER INFO ABOUT</span>
+            <span class="title-top-line">ИНФОРМАЦИОННЫЙ ЛИСТ О</span>
             <span class="en-text title-rometto" id="rometto-click">ROMETTO</span>
         </h1>
 
@@ -559,18 +578,9 @@
         </div>
 
         <div class="nav-container-main">
-            <a href="about" class="nav-btn">
-                <span class="lang-ru">О проекте</span>
-                <span class="lang-en">About Project</span>
-            </a>
-            <a href="/biographics" class="nav-btn">
-                <span class="lang-ru">Биография и Лор</span>
-                <span class="lang-en">Biography & Lore</span>
-            </a>
-            <a href="/RP_AND_FETISH" class="nav-btn">
-                <span class="lang-ru">Фетиши и РП предпочтения</span>
-                <span class="lang-en">Fetishes & RP Preferences</span>
-            </a>
+            <a href="about" class="nav-btn">О проекте (Section translated to EN)</a>
+            <a href="/biographics" class="nav-btn">Биография и Лор</a>
+            <a href="/RP_AND_FETISH" class="nav-btn">Фетиши и РП предпочтения</a>
         </div>
 
         <div class="refmap-wrapper" id="refmap-wrapper">
@@ -583,8 +593,7 @@
         </div>
 
         <div class="artist-credit selectable-text">
-            <span class="lang-ru">Референс персонажа сделан прекрасными лапками художницы Ricky_Plush. Она обитает тут:</span>
-            <span class="lang-en">Character reference made by the wonderful paws of Ricky_Plush. You can find her here:</span>
+            Референс персонажа сделан прекрасными лапками художницы Ricky_Plush. Она обитает тут:
             <a href="https://t.me/ricky0plush" class="artist-link-container en-text" target="_blank" rel="noopener noreferrer">
                 <span class="artist-link">Telegram</span>
                 <span class="paw-icon">🐾</span>
@@ -592,10 +601,7 @@
         </div>
 
         <div style="text-align: center; width: 100%; max-width: 900px; margin-top: 30px;">
-            <p class="sub-header selectable-text">
-                <span class="lang-ru">Каналы связи со мной:</span>
-                <span class="lang-en">Contact me:</span>
-            </p>
+            <p class="sub-header selectable-text">Каналы связи со мной:</p>
             <div class="contacts-block">
                 <a href="https://t.me/mr_Rometto" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/icon_tg.png" class="contact-icon"> Мой ТГ</a>
                 <a href="https://www.furaffinity.net/user/romb" class="contact-link" target="_blank" rel="noopener noreferrer"><img src="/assets/fa_logo.webp" class="contact-icon"> Мой FA</a>
@@ -605,21 +611,12 @@
         </div>
 
         <div class="appearance-desc selectable-text">
-            <h3>
-                <span class="lang-ru">Описание внешности и особенностей</span>
-                <span class="lang-en">Appearance & Features Description</span>
-            </h3>
-            <p>
-                <span class="lang-ru">Появится позже, так как у <span class="en-text">ROMETTO</span> лапки... Пока вы можете увидеть всё на референсе выше.</span>
-                <span class="lang-en">Coming soon, as <span class="en-text">ROMETTO</span> has paws... For now, you can check out the reference sheet above.</span>
-            </p>
+            <h3>Описание внешности и особенностей</h3>
+            <p>Появится позже, так как у <span class="en-text">ROMETTO</span> лапки... Пока вы можете увидеть всё на референсе выше.</p>
         </div>
 
         <!-- 1. Общая биология -->
-        <h2 id="section-0" class="selectable-text accordion-header">
-            <span class="lang-ru">1. Общая биология</span>
-            <span class="lang-en">1. General Biology</span>
-        </h2>
+        <h2 id="section-0" class="selectable-text accordion-header">1. Общая биология</h2>
         <div class="accordion-content">
             <table class="selectable-text">
                 <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -637,10 +634,7 @@
         </div>
 
         <!-- 2. Физика и сила -->
-        <h2 id="section-1" class="selectable-text accordion-header">
-            <span class="lang-ru">2. Физика и сила</span>
-            <span class="lang-en">2. Physics & Strength</span>
-        </h2>
+        <h2 id="section-1" class="selectable-text accordion-header">2. Физика и сила</h2>
         <div class="accordion-content">
             <table class="selectable-text">
                 <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -657,10 +651,7 @@
         </div>
 
         <!-- 3. Звук и коммуникация -->
-        <h2 id="section-2" class="selectable-text accordion-header">
-            <span class="lang-ru">3. Звук и коммуникация</span>
-            <span class="lang-en">3. Sound & Communication</span>
-        </h2>
+        <h2 id="section-2" class="selectable-text accordion-header">3. Звук и коммуникация</h2>
         <div class="accordion-content">
             <table class="selectable-text">
                 <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -672,10 +663,7 @@
         </div>
 
         <!-- 4. Репродуктивная система -->
-        <h2 id="section-3" class="selectable-text accordion-header">
-            <span class="lang-ru">4. Репродуктивная система</span>
-            <span class="lang-en">4. Reproductive System</span>
-        </h2>
+        <h2 id="section-3" class="selectable-text accordion-header">4. Репродуктивная система</h2>
         <div class="accordion-content">
             <table class="selectable-text">
                 <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -693,10 +681,7 @@
         </div>
 
         <!-- 5. Анатомия и питание -->
-        <h2 id="section-4" class="accordion-header">
-            <span class="lang-ru">5. Анатомия и питание</span>
-            <span class="lang-en">5. Anatomy & Diet</span>
-        </h2>
+        <h2 id="section-4" class="accordion-header">5. Анатомия и питание</h2>
         <div class="accordion-content">
             <table>
                 <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -725,10 +710,7 @@
             </table>
 
             <div class="appearance-desc">
-                <h3>
-                    <span class="lang-ru">Пояснение по механизмам демонического усиления:</span>
-                    <span class="lang-en">Explanation of demonic enhancement mechanisms:</span>
-                </h3>
+                <h3>Пояснение по механизмам демонического усиления:</h3>
                 <p><strong>Костная матрица:</strong> Высокая плотность (5.5–6.0 г/см³) достигается через форсированную минерализацию под давлением демонической крови, что превращает скелет в сверхплотный монолит.</p>
                 <p><strong>Кинетическая вязкость мышц:</strong> Увеличенная скорость нервного импульса и снабжение миоцитов кислородом позволяют мгновенно мобилизовать 9 тонн массы.</p>
                 <p><strong>Метаболический форсаж:</strong> Экстремальная кислотность ЖКТ позволяет за один цикл полностью утилизовать скелет жертвы весом до 500 кг.</p>
@@ -739,10 +721,7 @@
         </div>
 
         <!-- 6. Гидродинамика крови -->
-        <h2 id="section-5" class="accordion-header">
-            <span class="lang-ru">6. Гидродинамика крови</span>
-            <span class="lang-en">6. Blood Hydrodynamics</span>
-        </h2>
+        <h2 id="section-5" class="accordion-header">6. Гидродинамика крови</h2>
         <div class="accordion-content">
             <table>
                 <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -760,10 +739,7 @@
         </div>
 
         <!-- 7. Система следов жизнедеятельности -->
-        <h2 id="section-6" class="accordion-header">
-            <span class="lang-ru">7. Система следов жизнедеятельности</span>
-            <span class="lang-en">7. Excretory System</span>
-        </h2>
+        <h2 id="section-6" class="accordion-header">7. Система следов жизнедеятельности</h2>
         <div class="accordion-content">
             <table>
                 <tr><th>Параметр</th><th>Обычный лев</th><th>Формула</th><th>Рометто</th></tr>
@@ -777,10 +753,7 @@
         </div>
 
         <!-- 8. МЕХАНИКА ОХОТЫ -->
-        <h2 id="section-7" class="accordion-header">
-            <span class="lang-ru">8. МЕХАНИКА ОХОТЫ: ГРАВИТАЦИОННОЕ ПОДАВЛЕНИЕ</span>
-            <span class="lang-en">8. HUNTING MECHANICS: GRAVITATIONAL SUPPRESSION</span>
-        </h2>
+        <h2 id="section-7" class="accordion-header">8. МЕХАНИКА ОХОТЫ: ГРАВИТАЦИОННОЕ ПОДАВЛЕНИЕ</h2>
         <div class="accordion-content">
             <div class="hunting-block">
                 <p>Охота Рометто — это не погоня, а фатальное столкновение колоссальной массы с пространством. Для хищника такого масштаба физика — самое эффективное оружие.</p>
@@ -816,10 +789,7 @@
 
         <!-- FAQ -->
         <div class="faq">
-            <h2 class="selectable-text">
-                <span class="lang-ru">Часто задаваемые вопросы</span>
-                <span class="lang-en">Frequently Asked Questions</span>
-            </h2>
+            <h2 class="selectable-text">Часто задаваемые вопросы</h2>
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">Почему максимальная скорость Рометто (≈50 км/ч) ниже, чем у обычного льва (≈80 км/ч)? <span style="font-size:18px;">▼</span></div>
                 <div class="faq-answer">Рометто слишком огромен — 9,2 тонны живой массы. На скорости около 50 км/ч он уже ведёт себя как разогнавшийся 9-тонный КАМАЗ. Дальнейший разгон требует чудовищной энергии и создаёт огромную нагрузку на скелет, сухожилия и внутренние органы. Даже с демонической помощью природа ставит свои пределы.</div>
@@ -844,19 +814,12 @@
 
         <!-- Галерея -->
         <div class="gallery-section">
-            <h2 class="selectable-text">
-                <span class="lang-ru">Галерея артов</span>
-                <span class="lang-en">Art Gallery</span>
-            </h2>
+            <h2 class="selectable-text">Галерея артов</h2>
             <div class="gallery-filters">
-                <button class="gallery-filter-btn active" data-filter="all">
-                    <span class="lang-ru">Все</span><span class="lang-en">All</span>
-                </button>
+                <button class="gallery-filter-btn active" data-filter="all">Все</button>
                 <button class="gallery-filter-btn" data-filter="sfw">SFW</button>
                 <button class="gallery-filter-btn" data-filter="nsfw">NSFW</button>
-                <button class="gallery-filter-btn" data-filter="sketch">
-                    <span class="lang-ru">Скетчи / WIP</span><span class="lang-en">Sketches / WIP</span>
-                </button>
+                <button class="gallery-filter-btn" data-filter="sketch">Скетчи / WIP</button>
             </div>
             <div class="gallery-grid" id="gallery-grid"></div>
         </div>
@@ -864,14 +827,8 @@
         <footer class="site-footer">
             <div>© 2017 — <span id="year"></span> <strong>Mr. <span class="en-text">ROMETTO</span></strong>. Все права защищены.</div>
             <div style="margin-top: 15px; color: #d2b48c;">
-                <span class="lang-ru">
-                    Подарки очень приятны, я и Рометто всегда рады совместным артам! 🐾<br>
-                    Но, пожалуйста, <a href="https://t.me/mr_Rometto" target="_blank" rel="noopener noreferrer">свяжитесь со мной</a> заранее.
-                </span>
-                <span class="lang-en">
-                    Gifts are always welcome, Rometto and I love art collaborations! 🐾<br>
-                    But please, <a href="https://t.me/mr_Rometto" target="_blank" rel="noopener noreferrer">contact me</a> in advance.
-                </span>
+                Подарки очень приятны, я и Рометто всегда рады совместным артам! 🐾<br>
+                Но, пожалуйста, <a href="https://t.me/mr_Rometto" target="_blank" rel="noopener noreferrer">свяжитесь со мной</a> заранее.
             </div>
         </footer>
     </div>
@@ -893,36 +850,6 @@
 
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
-
-        // ==================== Логика переключения языка ====================
-        const langToggleBtn = document.getElementById('langToggle');
-        let currentLang = localStorage.getItem('lang') || 'ru';
-
-        const setLang = (lang) => {
-            document.body.setAttribute('data-lang', lang);
-            localStorage.setItem('lang', lang);
-            
-            const particleBtn = document.getElementById('toggleParticles');
-
-            if (lang === 'ru') {
-                langToggleBtn.innerHTML = 'RU <span style="opacity: 0.5; font-weight: normal;">| EN</span>';
-                document.title = "Информационный лист о Рометто";
-                particleBtn.textContent = particlesEnabled ? '✦ Отключить искры' : '✦ Включить искры';
-            } else {
-                langToggleBtn.innerHTML = '<span style="opacity: 0.5; font-weight: normal;">RU |</span> EN';
-                document.title = "Character Info: Rometto";
-                particleBtn.textContent = particlesEnabled ? '✦ Disable sparks' : '✦ Enable sparks';
-            }
-        };
-
-        // Инициализируем язык при загрузке
-        setLang(currentLang);
-
-        langToggleBtn.addEventListener('click', () => {
-            currentLang = currentLang === 'ru' ? 'en' : 'ru';
-            setLang(currentLang);
-        });
-        // ===================================================================
 
         // ==================== AGE GATE ====================
         const ageGate = document.getElementById('age-gate');
@@ -984,6 +911,7 @@
             if (e.key === 'Escape') { lightbox.style.display = 'none'; hideLbTooltip(); }
         });
 
+        // ИСПРАВЛЕНО: синтаксис шаблонной строки `${y}` и `${scale}`
         function updateTransform() {
             lbImg.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`;
             requestAnimationFrame(() => buildLightboxBoxes());
@@ -999,6 +927,7 @@
             }
         }, { passive: false });
 
+        // ИСПРАВЛЕНО: e.preventDefault() предотвращает стандартное перетаскивание картинок (drag & drop) в браузере на ПК
         lbImg.addEventListener('mousedown', (e) => {
             if (scale > 1) {
                 e.preventDefault(); 
@@ -1056,7 +985,7 @@
         }, { passive: true });
 
         lightbox.addEventListener('touchmove', (e) => {
-            e.preventDefault(); 
+            e.preventDefault(); // ИСПРАВЛЕНО: Обязательно блокируем системный скролл при перетаскивании
             if (e.touches.length === 2) {
                 isTouchDragging = false;
                 const currentDistance = Math.hypot(
@@ -1084,24 +1013,19 @@
 
         // =========================================================================
 
-        // TOC (С поддержкой переключения языка)
+        function showEnNotice() { document.getElementById('en-notice').style.display = 'flex'; }
+        function hideEnNotice() { document.getElementById('en-notice').style.display = 'none'; }
+
+        // TOC
         function generateTOC() {
             const tocList = document.getElementById('toc-list');
-            const headers = document.querySelectorAll('#page-content h2.accordion-header');
+            const headers = document.querySelectorAll('#page-content h2');
             headers.forEach((h2, index) => {
                 const li = document.createElement('li');
                 const a = document.createElement('a');
                 a.href = `#section-${index}`;
                 a.className = 'nav-btn';
-                
-                // Копируем spans с языками, чтобы оглавление тоже переводилось
-                const spans = h2.querySelectorAll('.lang-ru, .lang-en');
-                if (spans.length > 0) {
-                    spans.forEach(span => a.appendChild(span.cloneNode(true)));
-                } else {
-                    a.textContent = h2.textContent.replace('▼','').replace('▲','').trim();
-                }
-
+                a.textContent = h2.textContent;
                 a.onclick = (e) => {
                     e.preventDefault();
                     const content = h2.nextElementSibling;
@@ -1182,15 +1106,9 @@
             }
             requestAnimationFrame(animateParticles);
         }
-        
         document.getElementById('toggleParticles').addEventListener('click', () => {
             particlesEnabled = !particlesEnabled;
-            // Обновляем текст кнопки с учетом языка
-            if (currentLang === 'ru') {
-                document.getElementById('toggleParticles').textContent = particlesEnabled ? '✦ Отключить искры' : '✦ Включить искры';
-            } else {
-                document.getElementById('toggleParticles').textContent = particlesEnabled ? '✦ Disable sparks' : '✦ Enable sparks';
-            }
+            document.getElementById('toggleParticles').textContent = particlesEnabled ? '✦ Отключить искры' : '✦ Включить искры';
         });
 
         // Easter egg
@@ -1257,17 +1175,13 @@
             bgMusic.volume = parseFloat(musicVolume.value);
         });
 
-        // Галерея
-        const GALLERY_ITEMS = []; 
+        // Галерея (ИСПРАВЛЕНО: синтаксис шаблонной строки `${item}`)
+        const GALLERY_ITEMS = []; // Сюда добавляются объекты галереи
         function buildGallery(filter) {
             const grid = document.getElementById('gallery-grid');
             const items = filter === 'all' ? GALLERY_ITEMS : GALLERY_ITEMS.filter(i => i.tag === filter);
             if (items.length === 0) {
-                grid.innerHTML = `
-                    <div class="gallery-empty">
-                        <span class="lang-ru">Арты появятся здесь 🐾<br><span style="font-size:12px;">появится позже, не забывайте у меня лапки</span></span>
-                        <span class="lang-en">Arts will appear here 🐾<br><span style="font-size:12px;">coming soon, remember I have paws</span></span>
-                    </div>`;
+                grid.innerHTML = '<div class="gallery-empty">Арты появятся здесь 🐾<br><span style="font-size:12px;">появится позже, не забывайте у меня лапки</span></div>';
                 return;
             }
             grid.innerHTML = items.map((item) => `
