@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Супер Гонки — исправленная версия</title>
+  <script src="https://yandex.ru/games/sdk/v2"></script>
+  <style>
+    body, html { margin:0; padding:0; width:100%; height:100%; background:#000; overflow:hidden; font-family:Segoe UI,Tahoma,Geneva,Verdana,sans-serif; touch-action:none; display:flex; justify-content:center; align-items:center; }
+    #game-container { position:relative; width:100%; height:100%; max-width:1280px; max-height:720px; background:#333; overflow:hidden; }
+    canvas { display:block; width:100%; height:100%; }
+    #ui-layer { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:10; }
+    #score-board { color:#fff; font-size:18px; font-weight:700; padding:15px; display:flex; justify-content:space-between; width:100%; box-sizing:border-box; background:linear-gradient(to bottom, rgba(0,0,0,.8), transparent); }
+    .overlay-menu { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:rgba(15,15,15,.95); padding:25px; border-radius:20px; text-align:center; color:#fff; pointer-events:auto; width:90%; max-width:560px; z-index:100; border:2px solid #444; max-height:90vh; overflow-y:auto; }
+    .overlay-menu::-webkit-scrollbar { width:6px; }
+    .overlay-menu::-webkit-scrollbar-thumb { background:#444; border-radius:10px; }
+    h1,h2 { margin:0 0 10px; color:#ff4757; }
+    .currency-info { color:#f1c40f; font-weight:700; margin-bottom:15px; }
+    button { background:#1e90ff; color:#fff; border:none; padding:12px; font-size:16px; border-radius:10px; cursor:pointer; font-weight:700; margin-top:8px; width:100%; transition:.2s; }
+    button:hover { background:#3742fa; }
+    button:disabled { background:#444; opacity:.6; }
+    .btn-secondary { background:#555; }
+    .btn-ad { background:#9b59b6; }
+    .btn-buy { background:#27ae60; padding:8px; font-size:13px; width:100%; }
+    .shop-section { margin-bottom:24px; text-align:left; }
+    .section-title { font-size:14px; color:#aaa; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; border-bottom:1px solid #333; padding-bottom:5px; }
+    .shop-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .item-card { background:#222; padding:12px; border-radius:12px; border:2px solid transparent; display:flex; flex-direction:column; align-items:center; transition:.3s; }
+    .item-card.active { border-color:#1e90ff; background:#2c3e50; }
+    .color-preview { width:100%; height:45px; border-radius:6px; margin-bottom:8px; }
+    .price-tag { font-size:14px; margin-bottom:8px; font-weight:700; }
+    .price-coins { color:#f1c40f; }
+    .price-real { color:#2ecc71; }
+    .hidden { display:none !important; }
+    #loading-screen { position:absolute; inset:0; background:#000; display:flex; flex-direction:column; justify-content:center; align-items:center; color:#fff; z-index:2000; }
+  </style>
+</head>
+<body>
+<div id="game-container">
+  <div id="loading-screen"><p>Загрузка игровых сервисов...</p></div>
+  <canvas id="gameCanvas"></canvas>
+  <div id="ui-layer"><div id="score-board"><div>Счет: <span id="score">0</span></div><div>💰 <span id="coins-ui">0</span></div><div>❤️ <span id="lives-ui">3</span></div></div></div>
+  <div id="main-menu" class="overlay-menu hidden">
+    <h1>🏎️ СУПЕР ГОНКИ</h1>
+    <p>Рекорд: <span id="best-score">0</span></p>
+    <div class="currency-info">Ваши монеты: <span class="coin-count">0</span> 💰</div>
+    <button id="start-btn">НАЧАТЬ ГОНКУ</button>
+    <button id="shop-btn" class="btn-secondary">МАГАЗИН / ГАРАЖ</button>
+    <button id="ad-btn" class="btn-ad hidden">ОЖИВИТЬ ЗА РЕКЛАМУ (+1 ❤️)</button>
+  </div>
+  <div id="shop-menu" class="overlay-menu hidden">
+    <h2>МАГАЗИН И ГАРАЖ 🛒</h2>
+    <div class="currency-info">Баланс: <span class="coin-count">0</span> 💰 | ❤️: <span id="shop-lives">3</span></div>
+    <div class="shop-section"><div class="section-title">Премиум (Янчики) 💎</div><div class="shop-grid" id="premium-list"></div></div>
+    <div class="shop-section"><div class="section-title">Автопарк</div><div class="shop-grid" id="color-list"></div></div>
+    <div class="shop-section"><div class="section-title">Расходники</div><div class="shop-grid"><div class="item-card"><span style="font-size:13px;">1 Жизнь</span><span class="price-tag price-coins">50 💰</span><button class="btn-buy" data-action="buy-life">Обменять</button></div></div></div>
+    <button id="back-btn" class="btn-secondary">ВЕРНУТЬСЯ</button>
+  </div>
+</div>
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+let ysdk = null, player = null, payments = null, sdkReady = false;
+let lives = 3, highScore = 0, coins = 0;
+let currentScore = 0, isPlaying = false;
+let gameSpeed = 5, roadOffset = 0;
+let enemies = [], collectibles = [];
+let isInvincible = false, isPurchasing = false;
+let lastTimestamp = 0, spawnTimer = 0, nextSpawnDelay = 900, animationId = 0;
+
+const SAVE_KEY = 'race_master_save_v2';
+const car = { x:0, y:0, w:50, h:90, speed:540 };
+const keys = { left:false, right:false };
+
+let currentColor = '#1dd1a1';
+let ownedColors = ['#1dd1a1'];
+
+const products = {
+  pack_coins_500: { kind:'bundle', name:'+500 Монет', apply: () => addCoins(500) },
+  pack_lives_5: { kind:'bundle', name:'+5 Жизней', apply: () => addLives(5) },
+  skin_gold_real: { kind:'skin', hex:'#f1c40f' },
+  skin_night_real: { kind:'skin', hex:'#2c3e50' }
+};
+
+const premiumCards = [
+  { id:'pack_coins_500', title:'+500 Монет' },
+  { id:'pack_lives_5', title:'+5 Жизней' }
+];
+
+const colorCatalog = [
+  { id:'skin_default', name:'Классика', hex:'#1dd1a1', price:0, type:'coins' },
+  { id:'skin_blue', name:'Синий Гром', hex:'#2e86de', price:150, type:'coins' },
+  { id:'skin_purple', name:'Фиолет', hex:'#9b59b6', price:300, type:'coins' },
+  { id:'skin_gold', name:'ЗОЛОТО', hex:'#f1c40f', price:'skin_gold_real', type:'real' },
+  { id:'skin_night', name:'НОЧЬ', hex:'#2c3e50', price:'skin_night_real', type:'real' }
+];
+
+async function init() {
+  const timeout = setTimeout(() => !sdkReady && finishLoading(), 2500);
+  try {
+    if (typeof YaGames !== 'undefined') {
+      ysdk = await YaGames.init();
+      sdkReady = true;
+      player = await ysdk.getPlayer();
+      try { payments = await ysdk.getPayments({ signed:true }); } catch {}
+      const data = await player.getData();
+      applySave(data || {});
+      await restorePremiumPurchases();
+    }
+  } catch {
+    console.log('Local Mode Active');
+  }
+  clearTimeout(timeout);
+  finishLoading();
+}
+
+function applySave(data) {
+  lives = Number.isFinite(data.lives) ? data.lives : 3;
+  highScore = Number.isFinite(data.highScore) ? data.highScore : 0;
+  coins = Number.isFinite(data.coins) ? data.coins : 0;
+  ownedColors = Array.isArray(data.ownedColors) && data.ownedColors.length ? data.ownedColors : ['#1dd1a1'];
+  currentColor = ownedColors.includes(data.currentColor) ? data.currentColor : '#1dd1a1';
+}
+
+async function restorePremiumPurchases() {
+  if (!payments) return;
+  try {
+    const purchases = await payments.getPurchases();
+    for (const p of purchases) {
+      const product = products[p.productID];
+      if (!product || product.kind !== 'skin') continue;
+      if (!ownedColors.includes(product.hex)) ownedColors.push(product.hex);
+    }
+  } catch (e) {
+    console.warn('Cannot restore purchases', e);
+  }
+}
+
+function finishLoading() {
+  document.getElementById('loading-screen').classList.add('hidden');
+  if (!sdkReady) {
+    const local = JSON.parse(localStorage.getItem(SAVE_KEY) || '{}');
+    applySave(local);
+  }
+  renderPremium();
+  updateUI();
+  showMenu();
+}
+
+function save() {
+  const data = { lives, highScore, coins, ownedColors, currentColor };
+  if (player) player.setData(data);
+  localStorage.setItem(SAVE_KEY, JSON.stringify(data));
+}
+
+function addLives(n) { lives = Math.max(0, lives + n); }
+function addCoins(n) { coins = Math.max(0, coins + n); }
+
+async function handlePurchase(type, priceOrId, onSuccess) {
+  if (isPurchasing) return;
+  isPurchasing = true;
+  try {
+    if (type === 'coins') {
+      const price = Number(priceOrId);
+      if (!Number.isFinite(price) || price < 0) throw new Error('Invalid coins price');
+      if (coins < price) return alert('Не хватает монет!');
+      coins -= price;
+      onSuccess();
+    } else {
+      if (!payments) {
+        console.log('Mock Payment:', priceOrId);
+        onSuccess();
+      } else {
+        await payments.purchase({ id: String(priceOrId) });
+        onSuccess();
+      }
+    }
+    finalizeTransaction();
+  } catch (e) {
+    console.error('Payment failed', e);
+  } finally {
+    isPurchasing = false;
+  }
+}
+
+function finalizeTransaction() { save(); renderShop(); updateUI(); }
+
+function updateUI() {
+  document.getElementById('score').textContent = Math.floor(currentScore);
+  document.getElementById('lives-ui').textContent = lives;
+  document.getElementById('best-score').textContent = highScore;
+  document.getElementById('coins-ui').textContent = coins;
+  document.querySelectorAll('.coin-count').forEach(el => el.textContent = coins);
+  document.getElementById('shop-lives').textContent = lives;
+}
+
+function showMenu() {
+  isPlaying = false;
+  cancelAnimationFrame(animationId);
+  document.getElementById('main-menu').classList.remove('hidden');
+  document.getElementById('shop-menu').classList.add('hidden');
+  document.getElementById('start-btn').disabled = lives <= 0;
+  document.getElementById('ad-btn').classList.toggle('hidden', lives > 0);
+}
+
+function renderPremium() {
+  const list = document.getElementById('premium-list');
+  list.innerHTML = '';
+  premiumCards.forEach((item) => {
+    const card = document.createElement('div');
+    card.className = 'item-card';
+    card.innerHTML = `<span style="font-size:13px;">${item.title}</span><span class="price-tag price-real">₽₽₽</span><button class="btn-buy" data-action="buy-premium" data-id="${item.id}">Купить</button>`;
+    list.appendChild(card);
+  });
+}
+
+function renderShop() {
+  const list = document.getElementById('color-list');
+  list.innerHTML = '';
+  colorCatalog.forEach(c => {
+    const isOwned = ownedColors.includes(c.hex);
+    const isActive = currentColor === c.hex;
+    const card = document.createElement('div');
+    card.className = `item-card ${isActive ? 'active' : ''}`;
+    if (isOwned) {
+      card.innerHTML = `<div class="color-preview" style="background:${c.hex}; border:1px solid #444"></div><div style="font-size:12px; margin-bottom:5px; font-weight:bold">${c.name}</div><button class="btn-secondary" data-action="pick-color" data-hex="${c.hex}" style="padding:5px; font-size:12px">${isActive ? 'ИСПОЛЬЗУЕТСЯ' : 'ВЫБРАТЬ'}</button>`;
+    } else if (c.type === 'coins') {
+      card.innerHTML = `<div class="color-preview" style="background:${c.hex}; border:1px solid #444"></div><div style="font-size:12px; margin-bottom:5px; font-weight:bold">${c.name}</div><span class="price-tag price-coins">${c.price} 💰</span><button class="btn-buy" data-action="buy-color-coins" data-price="${c.price}" data-hex="${c.hex}">КУПИТЬ</button>`;
+    } else {
+      card.innerHTML = `<div class="color-preview" style="background:${c.hex}; border:1px solid #444"></div><div style="font-size:12px; margin-bottom:5px; font-weight:bold">${c.name}</div><span class="price-tag price-real">₽ РУБЛИ</span><button class="btn-buy" data-action="buy-color-real" data-id="${c.price}" data-hex="${c.hex}">КУПИТЬ</button>`;
+    }
+    list.appendChild(card);
+  });
+  updateUI();
+}
+
+function spawn() {
+  const roadW = canvas.width * 0.7, roadX = canvas.width * 0.15, laneW = roadW / 3;
+  const lane = Math.floor(Math.random() * 3);
+  const x = roadX + lane * laneW + laneW / 2 - car.w / 2;
+  if (Math.random() > 0.4) enemies.push({ x, y:-120, w:car.w, h:car.h, speed:gameSpeed + Math.random() * 3, color:'#ff4757' });
+  else collectibles.push({ x:x + 10, y:-120, w:30, h:30 });
+}
+
+function intersects(a, b) { return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y; }
+
+function handleCollision() {
+  if (isInvincible) return;
+  lives -= 1;
+  save();
+  if (lives <= 0) return showMenu();
+  isInvincible = true;
+  enemies.length = 0;
+  setTimeout(() => isInvincible = false, 1500);
+  updateUI();
+}
+
+function drawCar(x, y, w, h, color, isEnemy) {
+  ctx.fillStyle = 'rgba(0,0,0,.3)'; ctx.fillRect(x + 5, y + 5, w, h);
+  ctx.fillStyle = color; ctx.beginPath(); ctx.roundRect(x + 5, y + 10, w - 10, h - 20, 12); ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,.2)'; const winY = isEnemy ? y + h - 35 : y + 25; ctx.fillRect(x + 12, winY, w - 24, 15);
+  ctx.fillStyle = '#111'; const wheelW = 12, wheelH = 20;
+  ctx.fillRect(x - 2, y + 18, wheelW, wheelH); ctx.fillRect(x + w - 10, y + 18, wheelW, wheelH);
+  ctx.fillRect(x - 2, y + h - 38, wheelW, wheelH); ctx.fillRect(x + w - 10, y + h - 38, wheelW, wheelH);
+  ctx.fillStyle = isEnemy ? '#ff0000' : '#ffffaa'; const lightY = isEnemy ? y + h - 15 : y + 15;
+  ctx.beginPath(); ctx.arc(x + 15, lightY, 4, 0, Math.PI * 2); ctx.arc(x + w - 15, lightY, 4, 0, Math.PI * 2); ctx.fill();
+}
+
+function frame(timestamp) {
+  if (!isPlaying) return;
+  const dt = Math.min(0.05, (timestamp - lastTimestamp) / 1000 || 0.016);
+  lastTimestamp = timestamp;
+
+  const roadX = canvas.width * 0.15, roadW = canvas.width * 0.7;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = '#1b5e20'; ctx.fillRect(0,0,canvas.width,canvas.height);
+  ctx.fillStyle = '#2c3e50'; ctx.fillRect(roadX,0,roadW,canvas.height);
+  ctx.fillStyle = '#ffffff88';
+  roadOffset = (roadOffset + gameSpeed * 60 * dt) % 100;
+  for (let y = -100; y < canvas.height; y += 100) {
+    ctx.fillRect(roadX + roadW/3 - 2, y + roadOffset, 4, 50);
+    ctx.fillRect(roadX + roadW*2/3 - 2, y + roadOffset, 4, 50);
+  }
+
+  spawnTimer += dt * 1000;
+  if (spawnTimer >= nextSpawnDelay) {
+    spawn();
+    spawnTimer = 0;
+    nextSpawnDelay = Math.max(500, 980 - gameSpeed * 40 + Math.random() * 160);
+  }
+
+  for (let i = collectibles.length - 1; i >= 0; i--) {
+    const c = collectibles[i];
+    c.y += gameSpeed * 60 * dt;
+    ctx.fillStyle = '#f1c40f'; ctx.beginPath(); ctx.arc(c.x + 15, c.y + 15, 14, 0, Math.PI*2); ctx.fill();
+    ctx.strokeStyle = '#d35400'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.fillStyle = '#fff'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center'; ctx.fillText('$', c.x + 15, c.y + 21);
+    if (intersects(car, c)) { addCoins(5); collectibles.splice(i,1); updateUI(); continue; }
+    if (c.y > canvas.height + 40) collectibles.splice(i,1);
+  }
+
+  for (let i = enemies.length - 1; i >= 0; i--) {
+    const e = enemies[i];
+    e.y += e.speed * 60 * dt;
+    drawCar(e.x, e.y, e.w, e.h, e.color, true);
+    if (intersects(car, e)) handleCollision();
+    if (e.y > canvas.height + 20) {
+      enemies.splice(i, 1);
+      currentScore += 1;
+      if (currentScore > highScore) { highScore = Math.floor(currentScore); save(); }
+      if (Math.floor(currentScore) % 35 === 0) gameSpeed = Math.min(11, gameSpeed + 0.12);
+      updateUI();
+    }
+  }
+
+  if (keys.left) car.x -= car.speed * dt;
+  if (keys.right) car.x += car.speed * dt;
+  car.x = Math.max(roadX + 5, Math.min(roadX + roadW - car.w - 5, car.x));
+
+  if (!isInvincible || Math.floor(timestamp / 120) % 2) drawCar(car.x, car.y, car.w, car.h, currentColor, false);
+  animationId = requestAnimationFrame(frame);
+}
+
+function resize() {
+  canvas.width = document.getElementById('game-container').clientWidth;
+  canvas.height = document.getElementById('game-container').clientHeight;
+  car.y = canvas.height - 130;
+  car.x = canvas.width / 2 - car.w / 2;
+}
+
+document.getElementById('start-btn').addEventListener('click', () => {
+  document.getElementById('main-menu').classList.add('hidden');
+  isPlaying = true;
+  currentScore = 0; gameSpeed = 5; roadOffset = 0; enemies = []; collectibles = []; isInvincible = false;
+  lastTimestamp = performance.now(); spawnTimer = 0; nextSpawnDelay = 900;
+  updateUI();
+  cancelAnimationFrame(animationId);
+  animationId = requestAnimationFrame(frame);
+});
+
+document.getElementById('shop-btn').addEventListener('click', () => {
+  document.getElementById('main-menu').classList.add('hidden');
+  document.getElementById('shop-menu').classList.remove('hidden');
+  renderShop();
+});
+
+document.getElementById('back-btn').addEventListener('click', () => {
+  document.getElementById('shop-menu').classList.add('hidden');
+  showMenu();
+});
+
+document.getElementById('ad-btn').addEventListener('click', () => {
+  if (!ysdk) { addLives(1); updateUI(); save(); showMenu(); return; }
+  ysdk.adv.showRewardedVideo({ callbacks: { onRewarded: () => { addLives(1); updateUI(); save(); showMenu(); }, onError: () => console.log('Ad blocked') } });
+});
+
+document.getElementById('shop-menu').addEventListener('click', async (e) => {
+  const btn = e.target.closest('button[data-action]');
+  if (!btn) return;
+  const action = btn.dataset.action;
+  if (action === 'buy-life') return handlePurchase('coins', 50, () => addLives(1));
+  if (action === 'buy-premium') {
+    const id = btn.dataset.id;
+    const product = products[id];
+    if (!product) return;
+    return handlePurchase('real', id, product.apply);
+  }
+  if (action === 'pick-color') {
+    currentColor = btn.dataset.hex;
+    save();
+    return renderShop();
+  }
+  if (action === 'buy-color-coins') {
+    const hex = btn.dataset.hex;
+    return handlePurchase('coins', Number(btn.dataset.price), () => { ownedColors.push(hex); currentColor = hex; });
+  }
+  if (action === 'buy-color-real') {
+    const id = btn.dataset.id;
+    const hex = btn.dataset.hex;
+    return handlePurchase('real', id, () => { if (!ownedColors.includes(hex)) ownedColors.push(hex); currentColor = hex; });
+  }
+});
+
+window.addEventListener('resize', resize);
+window.addEventListener('keydown', e => { if (e.key.includes('Left') || e.key.toLowerCase() === 'a') keys.left = true; if (e.key.includes('Right') || e.key.toLowerCase() === 'd') keys.right = true; });
+window.addEventListener('keyup', e => { if (e.key.includes('Left') || e.key.toLowerCase() === 'a') keys.left = false; if (e.key.includes('Right') || e.key.toLowerCase() === 'd') keys.right = false; });
+canvas.addEventListener('touchstart', e => { const x = e.touches[0].clientX; if (x < window.innerWidth / 2) keys.left = true; else keys.right = true; }, { passive:true });
+canvas.addEventListener('touchend', () => { keys.left = false; keys.right = false; }, { passive:true });
+
+resize();
+init();
+</script>
+</body>
+</html>
